@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HomePage/>
+    <router-view/>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default class App extends Vue {}
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #191919;
 }
 
 </style>

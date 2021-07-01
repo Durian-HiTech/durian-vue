@@ -1,14 +1,24 @@
 <template>
-	<h1>Home Page</h1>
+
+	<n-gradient-text
+	    gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
+	>
+	   为中华民族复兴而写代码
+	</n-gradient-text>
+	<p>为中华民族复兴而写代码</p>
+	
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
+import { NGradientText } from 'naive-ui';
 
 @Options({
 	name: 'HomePage',
 	components: {
+		NGradientText
 	},
 })
+
 export default class HomePage extends Vue {}
 </script>
