@@ -2,10 +2,10 @@
 
 	<n-gradient-text
 	    gradient="linear-gradient(90deg, red 0%, green 50%, blue 100%)"
+		style='margin-top: 20px;'
 	>
-	   为中华民族复兴而写代码
+	   <b>为中华民族复兴而写代码</b>
 	</n-gradient-text>
-	<p>为中华民族复兴而写代码</p>
 	
 </template>
 
