@@ -1,1 +1,1 @@
-# durian-frontend
+# durian-vue
