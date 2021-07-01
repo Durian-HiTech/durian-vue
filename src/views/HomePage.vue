@@ -9,7 +9,7 @@
 	
 </template>
 
-<script lang="ts">
+<script>
 import { Options, Vue } from 'vue-class-component';
 import { NGradientText } from 'naive-ui';
 
