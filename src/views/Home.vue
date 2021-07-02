@@ -1,8 +1,13 @@
 <template>
 	<div>
-		<div class="covidMap">
-		<!-- <iframe :src="ruta"></iframe> -->
+		<div class="covidMap" style="position: relative;">
+			<div id="mask1" 
+			@mouseenter="mouseEnter()" @mouseleave="mouseLeave()" >
+				<h1 style="color: white;">Covid Map</h1>
+			</div>
+			<iframe :src="ruta" style="width: 100%; height: 100%; background-color: #434343;"></iframe>
 		</div>
+		
 		<div class="news">
 			
 		</div>
@@ -28,18 +33,27 @@ export default {
 	name: 'Home',
     data: () => ({
         ruta: 'https://covid19.health/'
-    })
+    }),
+	methods: {
+		mouseEnter () {
+			this.$gsap.to("#mask1", {duration: 0.1, opacity: 0})
+			this.$gsap.to(".covidMap", {duration: 0.1, height: '750px'})
+		},
+		mouseLeave () {
+			this.$gsap.to("#mask1", {duration: 0.1, opacity: 1})
+			this.$gsap.to(".covidMap", {duration: 0.1, height: '600px'})
+		}
+	}
 }
 </script>
 
 <style>
 .covidMap {
 	/* outline: #21ff06 dotted thick; */
-	background-color: #2C3E50;
 	
 	width: 100%;
-	height: 1000px;
-	
+	height: 600px;
+
 	margin-bottom: 10px;
 }
 .news {
@@ -63,12 +77,22 @@ export default {
 	flex-wrap: wrap;
 	justify-content: space-around;
 }
-
 .section {
 	/* outline: #21ff06 dotted thick; */
 	background-color: burlywood;
 	
 	width: 49%;
 	margin-bottom: 10px;
+}
+#mask1 {
+	/* outline: #363636 dotted thick; */
+	background-color: rgba(54, 54, 54, 0.7);
+	width: 100%;
+	height: 100%;
+	
+	position: absolute;
+	display: flex; 
+	align-items: center; 
+	justify-content: center;
 }
 </style>
