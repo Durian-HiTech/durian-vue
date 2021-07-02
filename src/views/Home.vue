@@ -5,7 +5,7 @@
 			@mouseenter="mouseEnter()" @mouseleave="mouseLeave()" >
 				<h1 style="color: white;">Covid Map</h1>
 			</div>
-			<iframe :src="ruta" style="width: 100%; height: 100%; background-color: #434343;"></iframe>
+			<iframe id='map' :src="ruta"></iframe>
 		</div>
 		
 		<div class="news">
@@ -55,6 +55,7 @@ export default {
 	height: 600px;
 
 	margin-bottom: 10px;
+	overflow: hidden;
 }
 .news {
 	/* outline: #21ff06 dotted thick; */
@@ -94,5 +95,10 @@ export default {
 	display: flex; 
 	align-items: center; 
 	justify-content: center;
+}
+#map {
+	width: 100%; 
+	height: 750px; 
+	background-color: #565659;
 }
 </style>
