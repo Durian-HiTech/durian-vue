@@ -1,8 +1,8 @@
 <template>
 	<div>
-		<div class="covidMap" style="position: relative;">
-			<div id="mask1" 
-			@mouseenter="mouseEnter()" @mouseleave="mouseLeave()" >
+		<div class="covidMap" style="position: relative;"
+		@mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+			<div id="mask1">
 				<h1 style="color: white;">Covid Map</h1>
 			</div>
 			<iframe id='map' :src="ruta"></iframe>
@@ -36,12 +36,14 @@ export default {
     }),
 	methods: {
 		mouseEnter () {
-			this.$gsap.to("#mask1", {duration: 0.1, opacity: 0})
-			this.$gsap.to(".covidMap", {duration: 0.1, height: '750px'})
+			this.$gsap.to("#mask1", {duration: 0.2, opacity: 0})
+			this.$gsap.to("#mask1", {duration: 0.3, opacity: 0, bottom: '750px', ease: 'power2.out'})
+			this.$gsap.to(".covidMap", {duration: 0.2, height: '750px', ease: 'power2.out'})
 		},
 		mouseLeave () {
-			this.$gsap.to("#mask1", {duration: 0.1, opacity: 1})
-			this.$gsap.to(".covidMap", {duration: 0.1, height: '600px'})
+			this.$gsap.to("#mask1", {duration: 0.2, opacity: 1})
+			this.$gsap.to("#mask1", {duration: 0.3, opacity: 1, bottom: '0px', ease: 'power2.out'})
+			this.$gsap.to(".covidMap", {duration: 0.2, height: '600px', ease: 'power2.out'})
 		}
 	}
 }
@@ -87,7 +89,7 @@ export default {
 }
 #mask1 {
 	/* outline: #363636 dotted thick; */
-	background-color: rgba(54, 54, 54, 0.7);
+	background-color: rgba(54, 54, 54, 0.85);
 	width: 100%;
 	height: 100%;
 	
