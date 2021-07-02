@@ -9,23 +9,18 @@
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^3.0.4",
-    "vue-class-component": "^8.0.0-0",
-    "vue-router": "^4.0.3"
+    "vue": "^2.6.11",
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.15.1",
-    "@typescript-eslint/parser": "^4.15.1",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0-beta.2",
     "@vue/cli-plugin-eslint": "~5.0.0-beta.2",
     "@vue/cli-plugin-router": "~5.0.0-beta.2",
-    "@vue/cli-plugin-typescript": "~5.0.0-beta.2",
     "@vue/cli-service": "~5.0.0-beta.2",
-    "@vue/compiler-sfc": "^3.0.4",
-    "@vue/eslint-config-typescript": "^7.0.0",
     "eslint": "^7.20.0",
-    "eslint-plugin-vue": "^7.2.0",
-    "naive-ui": "^2.15.1",
-    "typescript": "~4.1.5"
+    "eslint-plugin-vue": "^7.6.0",
+    "vue-template-compiler": "^2.6.11"
   }
 }
