@@ -1,6 +1,6 @@
 <template>
     <div id="root">
-      <div id = "LoginCard">
+      <div id = "RegisterCard">
 
         <div id="title">
             <span style="font-weight: bold;">Durian</span>  <span>Covid</span>
@@ -8,14 +8,14 @@
 
 
         <div>
-            <span style="font-size: 45px; font-weight: bold;"> Login </span>
+            <span style="font-size: 45px; font-weight: bold;"> Register </span>
         </div>
 
 
         <!-- 用户名 -->
         <div class="inputSection">
             <div style="font-size: 14px; padding: 5px;">用户名</div>
-            <el-input v-model="loginForm.username" placeholder="Username">
+            <el-input v-model="RegisterForm.username" placeholder="Username">
                 <i slot="prefix" class="el-input__icon el-icon-user" style="font-size: 17px;"></i>
             </el-input >
         </div>
@@ -24,13 +24,21 @@
         <!-- 密码 -->
         <div class="inputSection">
             <div style="font-size: 14px; padding: 5px;">密码</div>
-            <el-input v-model="loginForm.password" placeholder="Password" show-password>
+            <el-input v-model="RegisterForm.password" placeholder="Password" show-password>
                 <i slot="prefix" class="el-input__icon el-icon-lock" style="font-size: 17px;"></i>
             </el-input >
         </div>
 
-        <!-- 登陆按钮 -->
-        <div id="LoginButton" @click="login()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+		<!-- 确认 -->
+		<div class="inputSection">
+			<div style="font-size: 14px; padding: 5px;">确认密码</div>
+			<el-input v-model="RegisterForm.confirmation" placeholder="Password" show-password>
+				<i slot="prefix" class="el-input__icon el-icon-lock" style="font-size: 17px;"></i>
+			</el-input >
+		</div>
+
+        <!-- 注册按钮 -->
+        <div id="RegisterButton" @click="register()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
           <i class="el-icon-arrow-right"></i>
         </div>
 
@@ -45,21 +53,22 @@ export default {
 	name: 'LoginPage',
 	data() {
 		return {
-			loginForm:{
+			RegisterForm:{
 				username:'',
 				password:'',
+				confirmation : '',
 			},
 		}
 	},
 	methods: {
-		login () {
-			console.log('login!')
+		register () {
+			console.log('register!')
 		},
 		mouseEnter () {
-			this.$gsap.to("#LoginButton", {duration: 0.1, height: '85px', width: '85px', top: '52px',  boxShadow:'0px 0px 10px 10px rgba(128, 128, 128, 0.3)'})
+			this.$gsap.to("#RegisterButton", {duration: 0.1, height: '85px', width: '85px', top: '52px',  boxShadow:'0px 0px 10px 10px rgba(128, 128, 128, 0.3)'})
 		},
 		mouseLeave () {
-			this.$gsap.to("#LoginButton", {duration: 0.1, height: '70px', width: '70px', top: '60px',  boxShadow:'0px 0px 10px 0px #b3b3b3'})
+			this.$gsap.to("#RegisterButton", {duration: 0.1, height: '70px', width: '70px', top: '60px',  boxShadow:'0px 0px 10px 0px #b3b3b3'})
 		},
 	},
 	
@@ -73,7 +82,7 @@ export default {
     align-items: center;
     flex-direction: column;
 
-    background-image: url(../assets/backgroundImage/login.jpg);
+    background-image: url(../assets/backgroundImage/register.jpg);
     background-repeat: no-repeat;
     background-size: cover;
 	background-position: center;
@@ -83,7 +92,7 @@ export default {
   }
 
 
-  #LoginCard {
+  #RegisterCard {
     /* outline: #808080 dotted thick;*/
     border: #cccccc solid thin;
     border-radius: 30px;
@@ -96,7 +105,7 @@ export default {
     align-items: center;
 
     width: 350px;
-    height: 500px;
+    height: 580px;
   }
 
 
@@ -122,7 +131,7 @@ export default {
 	margin-top: 10px
   }
 
-  #LoginButton {
+  #RegisterButton {
     /* outline: #00ff00 dotted thick; */
     border-radius: 70px;
     background-color: #e6e6e6;
@@ -140,7 +149,7 @@ export default {
     top: 60px;
   }
 
-  #LoginButton i {
+  #RegisterButton i {
     /* outline: #00ff00 dotted thick; */
     font-size: 35px;
     color: black;
