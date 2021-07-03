@@ -50,6 +50,9 @@ export default {
       },
       clickevent(param){
           this.mapName = param.name.toLowerCase();
+      },
+      backtoworld(){
+          this.mapName = 'world'
       }
   }
 }

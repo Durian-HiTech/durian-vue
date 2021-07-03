@@ -25,12 +25,17 @@
 			<div class="section">
 			</div>
 		</div>
+		<covid-map></covid-map>
 	</div>
 </template>
 
 <script>
+import CovidMap from '../components/CovidMap.vue'
 export default {
 	name: 'Home',
+	components:{
+		CovidMap
+	},
     data: () => ({
         ruta: 'https://covid19.health/'
     }),
