@@ -10,8 +10,8 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.8.3",
-    "gsap": "^3.7.0",
     "echarts": "^5.1.2",
+    "gsap": "^3.7.0",
     "vue": "^2.6.11",
     "vue-router": "^3.5.1"
   },
