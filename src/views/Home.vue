@@ -37,8 +37,8 @@ export default {
 	methods: {
 		mouseEnter () {
 			this.$gsap.to("#mask1", {duration: 0.2, opacity: 0})
-			this.$gsap.to("#mask1", {duration: 0.3, opacity: 0, bottom: '750px', ease: 'power2.out'})
-			this.$gsap.to(".covidMap", {duration: 0.2, height: '750px', ease: 'power2.out'})
+			this.$gsap.to("#mask1", {duration: 0.3, opacity: 0, bottom: '800px', ease: 'power2.out'})
+			this.$gsap.to(".covidMap", {duration: 0.2, height: '800px', ease: 'power2.out'})
 		},
 		mouseLeave () {
 			this.$gsap.to("#mask1", {duration: 0.2, opacity: 1})
@@ -84,8 +84,8 @@ export default {
 	/* outline: #21ff06 dotted thick; */
 	background-color: burlywood;
 	
-	width: 49%;
-	margin-bottom: 10px;
+	width: 49.5%;
+	height: 49%;
 }
 #mask1 {
 	/* outline: #363636 dotted thick; */
@@ -100,7 +100,7 @@ export default {
 }
 #map {
 	width: 100%; 
-	height: 750px; 
+	height: 800px; 
 	background-color: #565659;
 }
 </style>
