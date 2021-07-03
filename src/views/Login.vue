@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import api from '../commonApi.js'
 export default {
 	name: 'LoginPage',
 	data() {
@@ -53,7 +54,21 @@ export default {
 	},
 	methods: {
 		login () {
-			console.log('login!')
+			let formData = new FormData();
+			formData.append('username', this.loginForm.username);
+			formData.append('password', this.loginForm.password);
+			
+			// - TODO: test response
+			this.$axios
+			.post(api.baseApi+'/user/login',formData)
+			.then(function (response)  {
+				if (response.data.success) {
+					this.$message.success('login succeeded!')
+					console.log(response.data.detail)
+				}else {
+					this.$message.error(response.data.message)
+				}
+			})
 		},
 		mouseEnter () {
 			this.$gsap.to("#LoginButton", {duration: 0.1, height: '85px', width: '85px', top: '52px',  boxShadow:'0px 0px 10px 10px rgba(128, 128, 128, 0.3)'})
