@@ -63,10 +63,12 @@ export default {
 			.post(api.baseApi+'/user/login',formData)
 			.then(function (response)  {
 				if (response.data.success) {
-					this.$message.success('login succeeded!')
+					this.$message({message: 'login succeeded!',
+									type: 'success'})
 					console.log(response.data.detail)
 				}else {
-					this.$message.error(response.data.message)
+					this.$message({message: response.data.message,
+									type: 'error'})
 				}
 			})
 		},

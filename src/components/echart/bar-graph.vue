@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="proCharts" ref='charts'></div>
-    <div id="main"> </div>
   </div>
 </template>
 
@@ -131,7 +130,7 @@ export default{
     };
   },
   mounted() {
-    this.getChinaVaccine();
+    // this.getChinaVaccine();
     this.mycharts();
   },
   methods: {

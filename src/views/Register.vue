@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import api from '../commonApi.js'
 export default {
 	name: 'LoginPage',
 	data() {
@@ -62,7 +63,26 @@ export default {
 	},
 	methods: {
 		register () {
-			console.log('register!')
+			if (this.RegisterForm.password != this.RegisterForm.confirmation) {
+				this.$message({message: 'password confirmation wrong!',
+								type: 'error'})
+			} else {
+				let formData = new FormData();
+				formData.append('username', this.RegisterForm.username);
+				formData.append('password', this.RegisterForm.password);
+				// - TODO: test response
+				this.$axios
+				.post(api.baseApi+'/user/register',formData)
+				.then(function (response)  {
+					if (response.data.success) {
+						this.$message({message: 'register succeeded!',
+										type: 'success'})
+					}else {
+						this.$message({message: response.data.message,
+										type: 'error'})
+					}
+				})
+			}
 		},
 		mouseEnter () {
 			this.$gsap.to("#RegisterButton", {duration: 0.1, height: '85px', width: '85px', top: '52px',  boxShadow:'0px 0px 10px 10px rgba(128, 128, 128, 0.3)'})
