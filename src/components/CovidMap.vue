@@ -1,21 +1,49 @@
 <template>
-    <div>
-        <el-button @click="reset">世界地图</el-button>
-        <main-map ref="MainMap"></main-map>
-    </div>
+  <div>
+    <el-button @click="reset">世界地图</el-button>
+    <el-select v-model="country" placeholder="请选择">
+      <el-option
+        v-for="item in countries"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value"
+      >
+        <span style="float: left">{{ item.label }}</span>
+        <span style="float: right; color: #8492a6; font-size: 13px">{{item.value}}</span>
+      </el-option>
+    </el-select>
+    <main-map ref="MainMap"></main-map>
+  </div>
 </template>
 <script>
-import MainMap from './charts/MainMap.vue'
+import MainMap from "./charts/MainMap.vue";
 
-export default{
-    name:"CovidMap",
-    components:{
-        MainMap
-    },
-    methods:{
-        reset(){
-            this.$refs.MainMap.backtoworld();
-        }
+export default {
+  name: "CovidMap",
+  components: {
+    MainMap,
+  },
+  data(){
+    return {
+      countries:[
+          {
+              value:'China',
+              label:'中国'
+          }
+      ],
+      country:'',
     }
-}
+  },
+  watch:{
+      country(newvalue){
+          if(newvalue == '')return ;
+          this.$refs.MainMap.changemap(newvalue)
+      }
+  },
+  methods: {
+    reset() {
+      this.$refs.MainMap.backtoworld();
+    },
+  },
+};
 </script>

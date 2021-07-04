@@ -49,10 +49,13 @@ export default {
           this.myChart.hideLoading();
       },
       clickevent(param){
-          this.mapName = param.name.toLowerCase();
+          this.changemap(param.name)
       },
       backtoworld(){
           this.mapName = 'world'
+      },
+      changemap(name){
+          this.mapName = name.toLowerCase();
       }
   }
 }
