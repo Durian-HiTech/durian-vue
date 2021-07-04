@@ -1,0 +1,22 @@
+{
+    "7/4/21":[
+        {
+            "name":"China",
+            "values":{
+                "cases":"123",
+                "deaths":"123",
+                "recovered":"123"
+            },
+            "children":[
+                {
+                    "name":"Beijing",
+                    "values":{
+                        "cases":"",
+                        "deaths":"",
+                        "recovered":""
+                    }
+                }
+            ]
+        }
+    ]
+}
