@@ -5,7 +5,7 @@
             v-for="post in posts"
             v-bind:key="post.news_id"
             v-bind:title="post.news_title"
-        ><router-link :to="'news/'+post.id">{{post.news_title|ellipsis}}</router-link> <el-divider></el-divider></div>
+        ><router-link :to="'news/'+post.news_id">{{post.news_title|ellipsis}}</router-link> <el-divider></el-divider></div>
     </div>
     
     
