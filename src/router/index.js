@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Vaccine from '../views/Vaccine.vue'
-import News from '../views/News.vue'
+//import News from '../views/News.vue'
 Vue.use(VueRouter)
 
 const routes = [
