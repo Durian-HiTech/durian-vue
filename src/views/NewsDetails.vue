@@ -9,9 +9,9 @@
         <div >
           <el-card class="box-card test" shadow="hover">
             <div slot="header" class="clearfix">
-              <span style ="font-size:18px;font-weight: 700;">title</span>
+              <span style ="font-size:18px;font-weight: 700;">{{title}}</span>
             </div>
-            <div class="text item"  >content</div>
+            <div class="text item"  >{{content}}</div>
           </el-card>
         </div>
       </el-col>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-
+import api from '../commonApi.js'
 export default {
   name: "NewsDetails",
   components: {
@@ -30,9 +30,32 @@ export default {
   },
   data() {
     return {
-         activeName: '1'
+        title:null,
+        content:null,
+        createtime:null
     };
   },
+
+  mounted : function(){
+        var _this = this;
+        let formData = new FormData();
+        formData.append('news_id', this.$route.params.id);
+        this.$axios
+			.post(api.baseApi+'/news/detail',formData)
+                .then(function(response) {
+                    console.log(response.data)
+                    if (response.data.success) {  
+                          _this.title=response.data.data.news_title
+                          _this.content=response.data.data.news_content
+                          _this.createtime=response.data.data.news_created_time
+                        console.log(_this.posts)
+				}else {
+					this.$message({message: response.data.message,
+									type: 'error'})
+				}
+                })
+    }
+
 }
 </script>
 <style>
