@@ -30,7 +30,12 @@ const routes = [
     path: '/news',
     name: 'News',
     component: () => import('../views/News.vue')
-  },
+   },
+   {
+	path: '/test',
+	name: 'Test',
+	component: () => import('../views/Test.vue')
+	},
 ]
 
 const router = new VueRouter({
