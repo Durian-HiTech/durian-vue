@@ -49,7 +49,7 @@
 		<!-- 认证机构 -->
 		<div class="inputSection" v-if='this.RegisterForm.userType=="认证机构用户"'>
 			<div style="font-size: 14px; padding: 5px;">认证机构名</div>
-			<el-input v-model="RegisterForm.username" placeholder="Username">
+			<el-input v-model="RegisterForm.affiliation" placeholder="Affiliation">
 				<i slot="prefix" class="el-input__icon el-icon-office-building" style="font-size: 17px;"></i>
 			</el-input >
 		</div>
@@ -76,6 +76,7 @@ export default {
 				password:'',
 				confirmation : '',
 				userType: '普通用户',
+				affiliation: '',
 			},
 		}
 	},
@@ -88,15 +89,19 @@ export default {
 				let formData = new FormData();
 				formData.append('username', this.RegisterForm.username);
 				formData.append('password', this.RegisterForm.password);
+				formData.append('user_type', this.RegisterForm.userType == '普通用户' ? '0' : '1')
+				formData.append('affiliation', this.RegisterForm.affiliation)
+				
 				// - TODO: test response
+				let _this = this
 				this.$axios
 				.post(api.baseApi+'/user/register',formData)
 				.then(function (response)  {
 					if (response.data.success) {
-						this.$message({message: 'register succeeded!',
+						_this.$message({message: response.data.message,
 										type: 'success'})
 					}else {
-						this.$message({message: response.data.message,
+						_this.$message({message: response.data.message,
 										type: 'error'})
 					}
 				})
