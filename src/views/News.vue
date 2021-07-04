@@ -56,8 +56,8 @@
 </template>
 <script>
 import NewsList from '@/components/NewsList.vue';
-// import bargraph from "@/components/echart/bar-graph.vue"
-//import linechart from "@/components/echart/line_chart.vue"
+// import bargraph from "@/components/echart/BarGraph.vue"
+//import linechart from "@/components/echart/LineChart.vue"
 export default {
   name: "NewsAndNotice",
   components: {
