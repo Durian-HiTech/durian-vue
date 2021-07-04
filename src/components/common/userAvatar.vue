@@ -3,7 +3,7 @@
 		<div class='avatar' @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
 			<img v-if="isLogined" src="../../assets/avatar/cat.jpg">
 			<img v-if="!isLogined" src="../../assets/avatar/cat_grey.jpg">
-			<span v-if="isLogined" class="name">{{ userState.userName }}</span>
+			<span v-if="isLogined" class="name">{{ userState.name }}</span>
 		</div>
 	</center>
 </template>
