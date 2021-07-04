@@ -36,6 +36,23 @@
 				<i slot="prefix" class="el-input__icon el-icon-lock" style="font-size: 17px;"></i>
 			</el-input >
 		</div>
+		
+		<!-- 用户类型 -->
+		<div class="inputSection">
+			<div style="font-size: 14px; padding: 5px;">用户类型</div>
+			<div style="width: 270px; white-space: nowrap; display: flex; justify-content: space-between;">
+				<el-radio :change="change()" v-model="RegisterForm.userType" label="普通用户" border style="background-color: white; margin: 0px;"></el-radio>
+				<el-radio v-model="RegisterForm.userType" label="认证机构用户" border style="background-color: white; margin: 0px;"></el-radio>
+			</div>
+		</div>
+		
+		<!-- 认证机构 -->
+		<div class="inputSection" v-if='this.RegisterForm.userType=="认证机构用户"'>
+			<div style="font-size: 14px; padding: 5px;">认证机构名</div>
+			<el-input v-model="RegisterForm.username" placeholder="Username">
+				<i slot="prefix" class="el-input__icon el-icon-office-building" style="font-size: 17px;"></i>
+			</el-input >
+		</div>
 
         <!-- 注册按钮 -->
         <div id="RegisterButton" @click="register()" @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
@@ -58,6 +75,7 @@ export default {
 				username:'',
 				password:'',
 				confirmation : '',
+				userType: '普通用户',
 			},
 		}
 	},
@@ -89,6 +107,13 @@ export default {
 		},
 		mouseLeave () {
 			this.$gsap.to("#RegisterButton", {duration: 0.1, height: '70px', width: '70px', top: '60px',  boxShadow:'0px 0px 10px 0px #b3b3b3'})
+		},
+		change () {
+			if (this.RegisterForm.userType == '普通用户') {
+				this.$gsap.set('#RegisterCard', {height: "660px"})
+			} else if (this.RegisterForm.userType == '认证机构用户') {
+				this.$gsap.set('#RegisterCard', {height: "730px"})
+			}
 		},
 	},
 	
@@ -125,7 +150,7 @@ export default {
     align-items: center;
 
     width: 350px;
-    height: 580px;
+    height: 660px;
   }
 
 
