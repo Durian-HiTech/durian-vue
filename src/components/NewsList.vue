@@ -5,7 +5,7 @@
             v-for="post in posts"
             v-bind:key="post.id"
             v-bind:title="post.title"
-        ><router-link :to="'news/'+post.id">{{post.title}}</router-link> <el-divider></el-divider></div>
+        ><router-link :to="'news/'+post.id">{{post.title|ellipsis}}</router-link> <el-divider></el-divider></div>
     </div>
     
     
@@ -24,7 +24,15 @@ export default {
             ]
         }
     },
-    
+    filters: {//限制文本显示字数,超出部分用...代替
+    ellipsis (value) {
+      if (!value) return ''
+      if (value.length > 25) {
+        return value.slice(0,25) + '...'//0:下标,从第一个字开始显示,50:显示字数,多余用...代替
+      }
+      return value
+    }
+  }
     // GoUrl(){
     //     window.open(this.UrlAddr,"_blank"); //在新窗口打开外链接
     //     window.location.href = this.UrlAddr; //在本页面打开外部链接
