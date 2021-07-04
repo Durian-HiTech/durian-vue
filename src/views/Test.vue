@@ -1,11 +1,10 @@
 <template>
 	<div class="root">
 		<h1>This is Test Page</h1>
-		<h2 style="margin-top: 20px;">vuex storage example</h2>
-		<el-button @click="increment()"> increment </el-button>
-		<el-button @click="reset()"> reset </el-button>
 		<br>
-		<div> {{count}} </div>
+		<h2 style="margin-top: 20px;">Test button</h2>
+		<el-button @click="login()"> login </el-button>
+		<el-button @click="unlogin()"> unlogin </el-button>
 	</div>
 </template>
 
@@ -13,11 +12,11 @@
 export default {
 	name: 'Test',
 	methods: {
-		increment () {
-			this.$store.commit('increment')
+		login () {
+			this.$store.commit('login')
 		},
-		reset () {
-			this.$store.commit('reset')
+		unlogin () {
+			this.$store.commit('unlogin')
 		}
 	},
 	computed: {
