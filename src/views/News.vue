@@ -9,7 +9,7 @@
     <div >
       <el-card class="box-card test" shadow="hover">
         <div slot="header" class="clearfix">
-          <span>中国病例最新变化情况</span>
+          <span style ="font-size:18px;font-weight: 700;">中国病例最新变化情况</span>
          </div>
           <div class="text item"  >这是新闻1</div>
              <div class="text item"  >这是新闻2</div>
@@ -23,7 +23,7 @@
     <div >
       <el-card class="box-card test2" shadow="hover">
         <div slot="header" class="clearfix">
-          <span>中国疫情防控措施</span>
+          <span style ="font-size:18px;font-weight: 700;">中国疫情防控措施</span>
          </div>
           <div class="text item"  >这是新闻1</div>
              <div class="text item"  >这是新闻2</div>
@@ -37,7 +37,7 @@
     <div >
       <el-card class="box-card test3" shadow="hover">
         <div slot="header" class="clearfix">
-          <span>国际疫情防控措施</span>
+          <span style ="font-size:18px;font-weight: 700;">国际疫情防控措施</span>
          </div>
           <div class="text item"  >这是新闻1</div>
              <div class="text item"  >这是新闻2</div>
@@ -142,10 +142,11 @@ export default {
   .el-col {
     border-radius: 4px;
   }
-    .clearfix:before,
+  .clearfix:before,
   .clearfix:after {
     display: table;
     content: "";
+    
   }
   .clearfix:after {
     clear: both
