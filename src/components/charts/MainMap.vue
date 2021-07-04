@@ -24,6 +24,44 @@ export default {
           subtext: "数据来源于官方",
           left: "center",
         },
+        tooltip: {
+            trigger: 'item',
+            showDelay: 0,
+            transitionDuration: 0.2,
+            formatter: function (params) {
+
+                return params.seriesName + '<br/>' + params.name + ': ' + params.value;
+            }
+        },
+        visualMap: {
+            left: 'right',
+            pieces: [
+                {min: 0,max:999,label:'小于1000',color:'#ffffff'},
+                {min: 1000, max: 10000,label:'1000-10000',color:'#fee090'},
+                {min: 10000, max: 100000,label:'10000-100000',color:'#f46d43'},
+                {min: 100000,label:'大于100000',color:'#a50026'},
+            ],
+        },
+        series:[
+            {
+                name:"",
+                type:"map",
+                roam:true,
+                map:"",
+                emphasis: {
+                    label: {
+                        show: true
+                    }
+                },
+                data:[
+                    {
+                        name:'China',
+                        value:100232
+                    }
+                ]
+            }
+
+        ]
       },
     };
   },
@@ -36,21 +74,8 @@ export default {
     loadMap() {
       const mapData = require("../../data/map/json/" + this.mapName);
       echarts.registerMap(this.mapName, mapData);
-      this.option = {
-        series: [
-          {
-            name: this.mapName,
-            type: "map",
-            roam: "true",
-            map: this.mapName,
-            emphasis: {
-              label: {
-                show: true,
-              },
-            },
-          },
-        ],
-      };
+      this.option["series"][0]["name"] = this.mapName;
+      this.option["series"][0]["map"] = this.mapName;
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
     },
