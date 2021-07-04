@@ -36,6 +36,11 @@ const routes = [
 	name: 'Test',
 	component: () => import('../views/Test.vue')
 	},
+  {
+    path: '/news/:id',
+    name: 'NewsDetails',
+    component: () => import('../views/NewsDetails.vue')
+    },
 ]
 
 const router = new VueRouter({
