@@ -8,10 +8,10 @@
 <script>
 import axios from "axios";
 import * as echarts from 'echarts';
-import data_table from '@/static/test.json'
+// import data_table from '@/static/test.json'
 
 var option;
-var json_data = [];
+var json_data = [["Data", "Doses", "Country"]];
 var load = false;
 export default{
   data() {
@@ -37,52 +37,92 @@ export default{
           "https://disease.sh/v3/covid-19/vaccine/coverage/countries/China?lastdays=30&fullData=false",
           formData,
           config
-      )
-          .then(function (response) {
-
-            if (response.status == 200) {
-              console.log(response.data.timeline)
-              var tmpt_list = ["Data", "Doses"];
-              json_data.push(tmpt_list);
-              for (var key in response.data.timeline) {
+      ).then(function (response1) {
+            if (response1.status == 200) {
+              for (var key in response1.data.timeline) {
                 var tmpt = []
                 tmpt[0] = key
-                tmpt[1] = response.data.timeline[key]
+                tmpt[1] = response1.data.timeline[key]
+                tmpt[2] = "China"
                 json_data.push(tmpt);
               }
-              load = true
-              console.log(json_data)
-              _this.mycharts();
+              // console.log(json_data)
+              _this.getUSAVaccine();
+
               // _this.relatedloaded = true;
             } else {
               // console.log("请求失败");
-              // console.log(response.data);
               // _this.fail()
             }
           });
     },
+    getUSAVaccine() {
+      let formData = new FormData();
+      // formData.append("author_id", this.authorId);
+      let config = {
+        headers: {"Content-Type": "multipart/form-data",},
+      };
+      var _this = this;
+      axios.get(
+          "https://disease.sh/v3/covid-19/vaccine/coverage/countries/USA?lastdays=30&fullData=false",
+          formData,
+          config
+      ).then(function (response2) {
+        if (response2.status == 200) {
+          console.log(response2)
+          for (var key in response2.data.timeline) {
+            var tmpt = []
+            tmpt[0] = key
+            tmpt[1] = response2.data.timeline[key]
+            tmpt[2] = "USA"
+            json_data.push(tmpt);
+          }
+          load = true
+          _this.mycharts();
+          console.log(json_data)
+          // _this.relatedloaded = true;
+        } else {
+          console.log("请求失败");
+          // console.log(response.data);
+          // _this.fail()
+        }
+      });
+    },
     mycharts(){
       if(load == true) {
-        console.log(load)
-        console.log(json_data)
+        // console.log(load)
+        // console.log(json_data)
         option = {
           dataset: [{
             id: 'dataset_raw',
             source: json_data
           }, {
-            id: 'dataset_since_1950_of_germany',
+            id: 'dataset_last_30days_of_China',
             fromDatasetId: 'dataset_raw',
             transform: {
               type: 'filter',
               config: {
                 and: [
-                  { dimension: 'Doses', gte: 10000 }
+                  { dimension: 'Doses', gte: 10000 },
+                  { dimension: 'Country', '=': 'China' }
+                ]
+              }
+            }
+          },{
+            id: 'dataset_last_30days_of_USA',
+            fromDatasetId: 'dataset_raw',
+            transform: {
+              type: 'filter',
+              config: {
+                and: [
+                  { dimension: 'Doses', gte: 10000 },
+                  { dimension: 'Country', '=': 'USA' }
                 ]
               }
             }
           }],
           title: {
-            text: 'Income of Germany and France since 1950'
+            text: 'Doese of Vaccination of USA and China last 30 days'
           },
           tooltip: {
             trigger: 'axis'
@@ -92,15 +132,39 @@ export default{
             nameLocation: 'middle'
           },
           yAxis: {
-            name: 'Income'
+            name: 'Doses'
           },
           series: [{
             type: 'line',
-            datasetId: 'dataset_since_1950_of_germany',
+            datasetId: 'dataset_last_30days_of_China',
             showSymbol: false,
+            endLabel: {
+              show: true,
+              formatter: function (params) {
+                return params.value[2] + ': ' + params.value[1];
+              }
+            },
             encode: {
               x: 'Data',
               y: 'Doses',
+              label: ['Country', 'Doses'],
+              itemName: 'Data',
+              tooltip: ['Doses'],
+            }
+          }, {
+            type: 'line',
+            datasetId: 'dataset_last_30days_of_USA',
+            showSymbol: false,
+            endLabel: {
+              show: true,
+              formatter: function (params) {
+                return params.value[2] + ': ' + params.value[1];
+              }
+            },
+            encode: {
+              x: 'Data',
+              y: 'Doses',
+              label: ['Country', 'Doses'],
               itemName: 'Data',
               tooltip: ['Doses'],
             }
@@ -108,7 +172,7 @@ export default{
         };
       }
 
-      console.log(data_table)
+      // console.log(data_table)
       // 使用 macarons 主题
       let myChart = echarts.init(document.getElementById("main"), 'light');
       myChart.setOption(option)
