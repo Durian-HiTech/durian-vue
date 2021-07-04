@@ -4,7 +4,7 @@
 <el-container>
   <el-header>导航栏</el-header>
   <el-main >
-<el-row :gutter="20">
+<el-row :gutter="10">
   <el-col :span="8">
     <div >
       <el-card class="box-card test" shadow="hover">
@@ -25,9 +25,8 @@
         <div slot="header" class="clearfix">
           <span style ="font-size:18px;font-weight: 700;">中国疫情防控措施</span>
          </div>
-          <div class="text item"  >这是新闻1</div>
-             <div class="text item"  >这是新闻2</div>
-             <div class="text item"  >新闻3</div>
+          <news-list></news-list>
+
           
             
       </el-card>
@@ -56,11 +55,13 @@
   </div>
 </template>
 <script>
+import NewsList from '@/components/NewsList.vue';
 // import bargraph from "@/components/echart/bar-graph.vue"
 //import linechart from "@/components/echart/line_chart.vue"
 export default {
   name: "NewsAndNotice",
   components: {
+    NewsList
     // bargraph,
     //linechart
   },

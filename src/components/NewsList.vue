@@ -1,11 +1,11 @@
 <template>
     <div>
             <div
-
+            style="font-size:12px"
             v-for="post in posts"
             v-bind:key="post.id"
             v-bind:title="post.title"
-        ><router-link :to="'news/'+post.id">{{post.title}}</router-link></div>
+        ><router-link :to="'news/'+post.id">{{post.title}}</router-link> <el-divider></el-divider></div>
     </div>
     
     
