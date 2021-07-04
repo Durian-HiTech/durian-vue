@@ -70,5 +70,12 @@ export default {
 </script>
 
 <style>
-    a{text-decoration:none}
+    .router-link-active {
+        text-decoration: none;
+        color: yellow;
+    }
+    a{
+        text-decoration: none;
+        color: rgb(219, 21, 21);
+    }
 </style>
