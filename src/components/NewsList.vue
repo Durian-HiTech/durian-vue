@@ -69,13 +69,13 @@ export default {
 
 </script>
 
-<style>
+<style scope>
     .router-link-active {
         text-decoration: none;
-        color: yellow;
+        color: rgb(32, 32, 3);
     }
     a{
         text-decoration: none;
-        color: rgb(219, 21, 21);
+        color: rgb(15, 9, 9);
     }
 </style>
