@@ -59,6 +59,7 @@ export default {
 	boxShadow: 0px 0px 10px 2px rgba(128, 128, 128, 0.1);
 	
 	overflow: hidden;
+	white-space: nowrap; 
 }
 .avatar img {
 	height: 40px;
