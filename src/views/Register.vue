@@ -1,5 +1,5 @@
 <template>
-    <div id="root">
+    <div class="root">
       <div id = "RegisterCard">
 
         <div id="title">
@@ -96,7 +96,7 @@ export default {
 </script>
 
 <style scoped>
- #root {
+ .root {
     display: flex;
     justify-content: center;
     align-items: center;

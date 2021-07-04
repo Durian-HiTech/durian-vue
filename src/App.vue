@@ -1,8 +1,19 @@
 <template>
   <div id="app">
+	<user-avatar id='user-avatar'/>
     <router-view/>
   </div>
 </template>
+
+<script>
+import UserAvatar from './components/common/userAvatar.vue'
+export default{
+	name: 'App',
+	components: {
+		UserAvatar
+	}
+}
+</script>
 
 <style>
 *{		/* CSS Reset */
@@ -17,16 +28,10 @@
   color: #191919;
 }
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+#user-avatar {
+	position: fixed;
+	right: 20px;
+	top: 20px;
+	z-index: 10;
 }
 </style>
