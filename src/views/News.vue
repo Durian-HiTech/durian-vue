@@ -1,15 +1,15 @@
 <template>
-  <div >
+  <div style="margin:0; padding:0;background:linear-gradient(to right, #bb313e25, #bb313e25, #d7222925, #dd4a1625, #e4761525, #f5c50025, #f0e92725, #b1ce2425, #48a93525, #03944525, #157c4f25, #176a5825, #1b556325, #1d386f25, #1d386f25, #20277825, #52266325, #8a244b25);">
 <!--    <bargraph/>-->
 <el-container>
   <el-header>导航栏</el-header>
   <el-main >
-<el-row :gutter="20">
+<el-row :gutter="10">
   <el-col :span="8">
     <div >
       <el-card class="box-card test" shadow="hover">
         <div slot="header" class="clearfix">
-          <span>中国病例最新变化情况</span>
+          <span style ="font-size:18px;font-weight: 700;">中国病例最新变化情况</span>
          </div>
           <div class="text item"  >这是新闻1</div>
              <div class="text item"  >这是新闻2</div>
@@ -23,11 +23,10 @@
     <div >
       <el-card class="box-card test2" shadow="hover">
         <div slot="header" class="clearfix">
-          <span>中国疫情防控措施</span>
+          <span style ="font-size:18px;font-weight: 700;">中国疫情防控措施</span>
          </div>
-          <div class="text item"  >这是新闻1</div>
-             <div class="text item"  >这是新闻2</div>
-             <div class="text item"  >新闻3</div>
+          <news-list></news-list>
+
           
             
       </el-card>
@@ -37,7 +36,7 @@
     <div >
       <el-card class="box-card test3" shadow="hover">
         <div slot="header" class="clearfix">
-          <span>国际疫情防控措施</span>
+          <span style ="font-size:18px;font-weight: 700;">国际疫情防控措施</span>
          </div>
           <div class="text item"  >这是新闻1</div>
              <div class="text item"  >这是新闻2</div>
@@ -56,11 +55,13 @@
   </div>
 </template>
 <script>
+import NewsList from '@/components/NewsList.vue';
 // import bargraph from "@/components/echart/bar-graph.vue"
 //import linechart from "@/components/echart/line_chart.vue"
 export default {
   name: "NewsAndNotice",
   components: {
+    NewsList
     // bargraph,
     //linechart
   },
@@ -83,14 +84,14 @@ export default {
   }
 
   .box-card {
-    border-color: grey;
+    
     border-radius: 4px;
     width: 480px;
   }
   .test{
     width: 400px;
     height: 700px;
-    background: orange;
+    background: rgb(250, 222, 213);
     transition: all 0.4s;
     -moz-transition:all .4s;
     -webkit-transition:all .4s;
@@ -142,10 +143,11 @@ export default {
   .el-col {
     border-radius: 4px;
   }
-    .clearfix:before,
+  .clearfix:before,
   .clearfix:after {
     display: table;
     content: "";
+    
   }
   .clearfix:after {
     clear: both

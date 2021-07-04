@@ -6,23 +6,35 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    },
-	reset (state) {
-		state.count = 0
+	userState: {
+		isLogined: false,
+		name: 'John Keats',
+		type: '0',
+		affiliation: 'Oxford',
 	}
   },
+  mutations: {
+	login (state, userInfo) {
+		state.userState.isLogined = true
+		state.userState.name = userInfo.name
+		state.userState.type = userInfo.type
+		state.userState.affiliation = userInfo.affiliation 
+	},
+	reset (state) {
+		state.userState.isLogined = false
+		state.userState.name = 'John Keats'
+		state.userState.type = '0'
+		state.userState.affiliation = 'Oxford'
+	},
+  },
   getters: {
-	count: state => {
-		return 'The count is:'+state.count
+	userState: state => {
+		return state.userState
 	}
   },
   plugins: [createPersistedState()]
 })
+
 export default {
 	store,
 }

@@ -59,15 +59,22 @@ export default {
 			formData.append('password', this.loginForm.password);
 			
 			// - TODO: test response
+			let _this = this
 			this.$axios
 			.post(api.baseApi+'/user/login',formData)
-			.then(function (response)  {
+			.then(function (response) {
 				if (response.data.success) {
-					this.$message({message: 'login succeeded!',
+					_this.$message({message: response.data.message,
 									type: 'success'})
-					console.log(response.data.detail)
+					
+					_this.$store.commit('login', {
+						name: response.data.detail.username,
+						type: response.data.detail.user_type,
+						affiliation: response.data.detail.affiliation
+					})
+					
 				}else {
-					this.$message({message: response.data.message,
+					_this.$message({message: response.data.message,
 									type: 'error'})
 				}
 			})
