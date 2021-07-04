@@ -5,7 +5,7 @@
             v-for="post in posts"
             v-bind:key="post.news_id"
             v-bind:title="post.news_title"
-        ><router-link :to="'news/'+post.id">{{post.news_title|ellipsis}}</router-link> <el-divider></el-divider></div>
+        ><router-link :to="'news/'+post.news_id">{{post.news_title|ellipsis}}</router-link> <el-divider></el-divider></div>
     </div>
     
     
@@ -69,6 +69,13 @@ export default {
 
 </script>
 
-<style>
-    a{text-decoration:none}
+<style scope>
+    .router-link-active {
+        text-decoration: none;
+        color: rgb(32, 32, 3);
+    }
+    a{
+        text-decoration: none;
+        color: rgb(15, 9, 9);
+    }
 </style>

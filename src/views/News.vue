@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div style="margin:0; padding:0;background:linear-gradient(to right, #bb313e25, #bb313e25, #d7222925, #dd4a1625, #e4761525, #f5c50025, #f0e92725, #b1ce2425, #48a93525, #03944525, #157c4f25, #176a5825, #1b556325, #1d386f25, #1d386f25, #20277825, #52266325, #8a244b25);">
 <!--    <bargraph/>-->
 <el-container>
   <el-header>导航栏</el-header>
@@ -84,14 +84,14 @@ export default {
   }
 
   .box-card {
-    border-color: grey;
+    
     border-radius: 4px;
     width: 480px;
   }
   .test{
     width: 400px;
     height: 700px;
-    background: orange;
+    background: rgb(250, 222, 213);
     transition: all 0.4s;
     -moz-transition:all .4s;
     -webkit-transition:all .4s;
