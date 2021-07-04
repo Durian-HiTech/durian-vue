@@ -26,6 +26,7 @@ const store = new Vuex.Store({
   },
   plugins: [createPersistedState()]
 })
+
 export default {
 	store,
 }
