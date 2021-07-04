@@ -61,7 +61,8 @@ export default {
 			// - TODO: test response
 			this.$axios
 			.post(api.baseApi+'/user/login',formData)
-			.then(function (response)  {
+			.then(function (response) {
+				console.log(response)
 				if (response.data.success) {
 					this.$message({message: 'login succeeded!',
 									type: 'success'})

@@ -1,7 +1,7 @@
 <template>
   <div>
     牛逼
-    <div id="main"> </div>
+    <div id="main2"> </div>
   </div>
 </template>
 
@@ -174,7 +174,7 @@ export default{
 
       // console.log(data_table)
       // 使用 macarons 主题
-      let myChart = echarts.init(document.getElementById("main"), 'light');
+      let myChart = echarts.init(document.getElementById("main2"), 'light');
       myChart.setOption(option)
       //图表自适应
       window.addEventListener("resize",function(){
@@ -188,7 +188,7 @@ export default{
 };
 </script>
 <style scoped>
-#main{
+#main2{
   width: 1000px;
   height: 800px;
 }

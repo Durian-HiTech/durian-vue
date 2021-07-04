@@ -1,8 +1,9 @@
 <template>
 	<center>
 		<div class='avatar' @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
-			<img src="../../assets/avatar/cat.jpg">
-			<span class="name">{{ userName }}</span>
+			<img v-if="isLogined" src="../../assets/avatar/cat.jpg">
+			<img v-if="!isLogined" src="../../assets/avatar/cat_grey.jpg">
+			<span v-if="isLogined" class="name">{{ userState.userName }}</span>
 		</div>
 	</center>
 </template>
@@ -10,9 +11,12 @@
 <script>
 export default {
 	name: 'UserAvatar',
-	data() {
-		return {
-			userName: 'John Keats',
+	computed: {
+		userState () {
+			return this.$store.getters.userState
+		},
+		isLogined () {
+			return this.userState.isLogined
 		}
 	},
 	methods: {

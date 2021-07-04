@@ -6,19 +6,22 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    count: 0
-  },
-  mutations: {
-    increment (state) {
-      state.count++
-    },
-	reset (state) {
-		state.count = 0
+	userState: {
+		isLogined: false,
+		userName: 'John Keats'
 	}
   },
+  mutations: {
+	login (state) {
+		state.userState.isLogined = true
+	},
+	unlogin (state) {
+		state.userState.isLogined = false
+	},
+  },
   getters: {
-	count: state => {
-		return 'The count is:'+state.count
+	userState: state => {
+		return state.userState
 	}
   },
   plugins: [createPersistedState()]
