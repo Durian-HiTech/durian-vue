@@ -6,8 +6,8 @@
   <el-main >
 <el-row :gutter="10">
   <el-col >
-    <div >
-      <el-card class="box-card test" shadow="hover">
+    <div style="align-items: center;">
+      <el-card class="box-card test" shadow="hover" >
         <div slot="header" class="clearfix">
           <span style ="font-size:18px;font-weight: 700;">中国病例最新变化情况</span>
          </div>
