@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="CovidMap">
     <el-select v-model="country" placeholder="请选择">
       <el-option
         v-for="item in countries"
@@ -127,3 +127,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.CovidMap {
+  background-color: #575551
+}
+</style>
