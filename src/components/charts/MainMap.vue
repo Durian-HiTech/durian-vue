@@ -30,7 +30,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          formatter: function (params) {
+          formatter: function (params) {// 光标浮动显示内容控制
             var mapping = {
               cases: "确诊人数",
               deaths: "死亡人数",
@@ -38,17 +38,8 @@ export default {
               vaccine: "疫苗接种人数",
             };
             var res = params.name + '<br/>';
-            var type = params.seriesName;
-            console.log(params);
-            if(type == 'all'){
-                for (var key in params.values){
-                    res += mapping[key] + ":" + params.values[key];
-                }
-                return res;
-            }
-            else {
-                return res + mapping[type] + ":" + params.values[type];
-            }
+            res += mapping[params.seriesName] + ":" + params.value;
+            return res;
           },
         },
         visualMap: {
@@ -67,7 +58,7 @@ export default {
         },
         series: [
           {
-            name: "all",
+            name: "cases",
             type: "map",
             roam: true,
             map: "",
@@ -78,12 +69,8 @@ export default {
             },
             data: [
               {
-                name: "China",
-                value: {
-                  cases: "123",
-                  deaths: "123",
-                  recovered: "123",
-                },
+                name: "cases",
+                value:123
               },
             ],
           },
