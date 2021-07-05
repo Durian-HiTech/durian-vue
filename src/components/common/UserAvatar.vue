@@ -28,19 +28,61 @@
 				
 			</div>
 			<el-divider></el-divider>
-			<el-button type="danger" round plain
-			v-if="isLogined"
-			size="medium"
-			@click='unlogin()'
-			>Unlogin</el-button>
-			
+			<div v-if="isLogined">
+				<el-button type="danger" round plain
+				size="medium"
+				@click='unlogin()'
+				>Unlogin</el-button>
+				
+				<el-button type="primary" round plain
+				size="medium"
+				@click='dialogVisible = true'
+				>Modify</el-button>
+				
+				<el-dialog center
+					title="Modify your personal information"
+					:visible.sync="dialogVisible"
+					width="40%"
+					:modal-append-to-body=false
+					>
+					
+					<el-form :model="userForm">
+						<el-form-item label="新用户名">
+							<el-input v-model="userForm.name" autocomplete="off"></el-input>
+						</el-form-item>
+						<el-form-item label="旧密码">
+							<el-input v-model="userForm.password" autocomplete="off" show-password></el-input>
+						</el-form-item>
+						<el-form-item label="新密码">
+							<el-input v-model="userForm.newPassword" autocomplete="off" show-password></el-input>
+						</el-form-item>
+					</el-form>
+					
+					<span slot="footer" class="dialog-footer">
+						<el-button @click="dialogVisible = false">Cancel</el-button>
+						<el-button type="primary" @click="modify()">Confirm</el-button>
+					</span>
+				</el-dialog>
+				
+			</div>
 		</div>
 	</center>
 </template>
 
 <script>
+import api from '../../commonApi.js'
 export default {
 	name: 'UserAvatar',
+	data() {
+		return {
+			dialogVisible: false,
+			userForm: {
+				name: '',
+				password: '',
+				newPassword: ''
+			}
+		}
+	},
 	computed: {
 		userState () {
 			return this.$store.getters.userState
@@ -53,8 +95,7 @@ export default {
 		}
 	},
 	methods: {
-			unlogin () {
-
+		unlogin () {
 			this.$confirm('This will unlogin your account. Continue?', 'Warning', {
 				confirmButtonText: 'OK',
 				cancelButtonText: 'Cancel',
@@ -63,7 +104,37 @@ export default {
 				this.$store.commit('reset')
 				this.$router.push({path: '/'})
 			}).catch(()=>{})
+		},
+		modify () {
+			this.dialogVisible = false
 			
+			let formData = new FormData();
+			formData.append('user_id', this.$store.getters.userState.id);
+			formData.append('username', this.userForm.name);
+			formData.append('password_old', this.userForm.password);
+			formData.append('password_new', this.userForm.newPassword);
+			
+			// - TODO: test response
+			let _this = this
+			this.$axios
+			.post(api.baseApi+'/user/modify',formData)
+			.then(function (response) {
+				if (response.data.success) {
+					_this.$message({message: response.data.message,
+									type: 'success'})
+					
+					_this.$store.commit('login', {
+						name: response.data.data.username,
+						type: response.data.data.user_type,
+						affiliation: response.data.data.affiliation,
+						id: response.data.data.user_id,
+					})
+					
+				}else {
+					_this.$message({message: response.data.message,
+									type: 'error'})
+				}
+			})
 		},
 		mouseEnter () {
 			if (this.userState.isLogined) {
