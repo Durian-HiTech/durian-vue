@@ -29,7 +29,6 @@
     ></main-map>
     <div>
       <el-slider v-model="timevalue" 
-        :step="1"
         :max ="maxTimeNum"
         :format-tooltip="formatTime"></el-slider>
     </div>
@@ -58,7 +57,8 @@ export default {
       country: "World",
       typeName: "确诊",
       timevalue:0,
-      data: [
+      data: {
+        cases:[
         {
            date:"20/01/01",
            value:[
@@ -86,6 +86,91 @@ export default {
           ]
         }
       ],
+      deaths:[
+        {
+           date:"20/01/01",
+           value:[
+             {
+               name:"China",
+               value:1233
+             },
+             {
+               name:"United States",
+               value:10011
+             }
+           ]
+        },
+        {
+          date:"20/01/02",
+          value:[
+            {
+               name:"China",
+               value:10011
+             },
+             {
+               name:"United States",
+               value:1233
+             }
+          ]
+        }
+      ],
+      recovered:[
+        {
+           date:"20/01/01",
+           value:[
+             {
+               name:"China",
+               value:1233
+             },
+             {
+               name:"United States",
+               value:10011
+             }
+           ]
+        },
+        {
+          date:"20/01/02",
+          value:[
+            {
+               name:"China",
+               value:10011
+             },
+             {
+               name:"United States",
+               value:1233
+             }
+          ]
+        }
+      ],
+      vaccine:[
+        {
+           date:"20/01/01",
+           value:[
+             {
+               name:"China",
+               value:1233
+             },
+             {
+               name:"United States",
+               value:10011
+             }
+           ]
+        },
+        {
+          date:"20/01/02",
+          value:[
+            {
+               name:"China",
+               value:10011
+             },
+             {
+               name:"United States",
+               value:1233
+             }
+          ]
+        }
+      ]
+      },
     };
   },
   watch: {
@@ -105,25 +190,28 @@ export default {
       return mapping[this.typeName];
     },
     maxTimeNum(){
-      return this.data.length-1;
+      return this.data[this.type].length-1;
     },
     mapData(){
-      return this.data[this.timevalue]["value"];
+      return this.data[this.type][this.timevalue]["value"];
     }
   },
   methods: {
     countryChange(name) {
       //全局地图改变触发的方法
       this.$refs.MainMap.changemap(name);
+      this.changeData(name);
     },
     changeCountry(name) {
       //被其他组件修改当前地图的方法
       this.country = name;
     },
-    formatTime(value){
-      console.log(this.data[value]);
-      return this.data[value]["date"];
+    formatTime(){
+      return this.data[this.type][this.timevalue]["date"];
     },
+    changeData(name){//改变地图数据，需要重新请求
+      console.log(name);
+    }
   },
 };
 </script>

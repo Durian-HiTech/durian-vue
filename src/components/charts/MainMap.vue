@@ -27,8 +27,9 @@ export default {
     this.myChart.on("click", function (param) {
       _this.clickevent(param);
     });
-    this.loadData();
     this.loadMap();
+    this.loadData();
+    this.loadType();
     var _this = this;
 
   },
@@ -85,23 +86,19 @@ export default {
   },
   watch: {
     country() {
-      this.loadData();
       this.loadMap();
     },
     type(){
-      this.loadData();
-      this.loadMap();
+      this.loadType();
     },
     data(){
       this.loadData();
-      this.loadMap();
     }
   },
   methods: {
     loadMap() {
       const mapData = require("../../data/map/json/" + this.$props.country);
       echarts.registerMap(this.$props.country, mapData);
-      this.option["series"][0]["name"] = this.$props.type;
       this.option["series"][0]["map"] = this.$props.country;
       this.option["series"][0]["center"] = ['50%, 50%'];
       this.option["series"][0]["zoom"] = 1
@@ -117,7 +114,13 @@ export default {
     },
     loadData(){
       this.option["series"][0]["data"] = this.$props.data;
+      this.myChart.setOption(this.option);
+    },
+    loadType(){
+      this.option["series"][0]["name"] = this.$props.type;
+      this.myChart.setOption(this.option);
     }
+
   },
 };
 </script>
