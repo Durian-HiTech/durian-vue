@@ -8,23 +8,26 @@ const store = new Vuex.Store({
   state: {
 	userState: {
 		isLogined: false,
-		name: 'John Keats',
-		type: '0',
-		affiliation: 'Oxford',
+		id: '',
+		name: '',
+		type: '',
+		affiliation: '',
 	}
   },
   mutations: {
 	login (state, userInfo) {
 		state.userState.isLogined = true
 		state.userState.name = userInfo.name
+		state.userState.id = userInfo.id
 		state.userState.type = userInfo.type
 		state.userState.affiliation = userInfo.affiliation 
 	},
 	reset (state) {
 		state.userState.isLogined = false
-		state.userState.name = 'John Keats'
-		state.userState.type = '0'
-		state.userState.affiliation = 'Oxford'
+		state.userState.name = ''
+		state.userState.id = ''
+		state.userState.type = ''
+		state.userState.affiliation = ''
 	},
   },
   getters: {
