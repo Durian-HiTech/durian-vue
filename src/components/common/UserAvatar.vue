@@ -1,4 +1,31 @@
 <template>
+	<div>
+
+	<el-dialog center
+			title="Modify your personal information"
+			:visible.sync="dialogVisible"
+			width="40%"
+			:modal-append-to-body=false
+			>
+			
+			<el-form :model="userForm">
+				<el-form-item label="新用户名">
+					<el-input v-model="userForm.name" autocomplete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="旧密码">
+					<el-input v-model="userForm.password" autocomplete="off" show-password></el-input>
+				</el-form-item>
+				<el-form-item label="新密码">
+					<el-input v-model="userForm.newPassword" autocomplete="off" show-password></el-input>
+				</el-form-item>
+			</el-form>
+			
+			<span slot="footer" class="dialog-footer">
+				<el-button @click="dialogVisible = false">Cancel</el-button>
+				<el-button type="primary" @click="modify()">Confirm</el-button>
+			</span>
+		</el-dialog>
+
 	<div class='avatar' @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
 		<div style="white-space: nowrap; ">
 			<img v-if="isLogined" src="../../assets/avatar/cat.jpg">
@@ -44,32 +71,9 @@
 			@click='dialogVisible = true'
 			>Modify</el-button>
 			
-			<el-dialog center
-				title="Modify your personal information"
-				:visible.sync="dialogVisible"
-				width="40%"
-				:modal-append-to-body=false
-				>
-				
-				<el-form :model="userForm">
-					<el-form-item label="新用户名">
-						<el-input v-model="userForm.name" autocomplete="off"></el-input>
-					</el-form-item>
-					<el-form-item label="旧密码">
-						<el-input v-model="userForm.password" autocomplete="off" show-password></el-input>
-					</el-form-item>
-					<el-form-item label="新密码">
-						<el-input v-model="userForm.newPassword" autocomplete="off" show-password></el-input>
-					</el-form-item>
-				</el-form>
-				
-				<span slot="footer" class="dialog-footer">
-					<el-button @click="dialogVisible = false">Cancel</el-button>
-					<el-button type="primary" @click="modify()">Confirm</el-button>
-				</span>
-			</el-dialog>
 			
 		</div>
+	</div>
 	</div>
 </template>
 

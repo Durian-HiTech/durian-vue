@@ -93,7 +93,7 @@ export default {
 	width: 200px;
 	height: 40px;
 
-	color: rgb(85, 85, 85);
+	color: rgb(65, 65, 65);
 
 	position: relative;
 	backdrop-filter: blur(20px);
