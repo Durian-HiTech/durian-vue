@@ -7,12 +7,12 @@
     <el-row :gutter="10" >
       <el-col :span="24">
         <div >
-          <el-card class="card4 box-card " shadow="hover">
+          <div class="card4 " shadow="hover">
             <div slot="header" class="clearfix">
               <span style ="font-size:28px;font-weight: 700;">{{title}}</span>
             </div>
             <div class="text item"  >{{content}}</div>
-          </el-card>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -68,7 +68,7 @@ export default {
   .card4{
     align-content: center;
     align-items: center;
-    width: 1360px;
+    width: 1220px;
     height: 700px;
     background: rgb(250, 238, 238);
    

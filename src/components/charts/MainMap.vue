@@ -91,6 +91,10 @@ export default {
     type(){
       this.loadData();
       this.loadMap();
+    },
+    data(){
+      this.loadData();
+      this.loadMap();
     }
   },
   methods: {

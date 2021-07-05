@@ -14,17 +14,25 @@
       </el-option>
     </el-select>
     <div>
-    <el-radio-group v-model="typeName">
-      <el-radio-button label="确诊"></el-radio-button>
-      <el-radio-button label="死亡"></el-radio-button>
-      <el-radio-button label="治愈"></el-radio-button>
-      <el-radio-button label="接种"></el-radio-button>
-    </el-radio-group>
-  </div>
-    <main-map ref="MainMap" 
+      <el-radio-group v-model="typeName">
+        <el-radio-button label="确诊"></el-radio-button>
+        <el-radio-button label="死亡"></el-radio-button>
+        <el-radio-button label="治愈"></el-radio-button>
+        <el-radio-button label="接种"></el-radio-button>
+      </el-radio-group>
+    </div>
+    <main-map
+      ref="MainMap"
       :country="this.country"
       :type="type"
-      :data="this.data"></main-map>
+      :data="mapData"
+    ></main-map>
+    <div>
+      <el-slider v-model="timevalue" 
+        :step="1"
+        :max ="maxTimeNum"
+        :format-tooltip="formatTime"></el-slider>
+    </div>
   </div>
 </template>
 <script>
@@ -48,13 +56,36 @@ export default {
         },
       ],
       country: "World",
-      typeName:'确诊',
-      data:[
+      typeName: "确诊",
+      timevalue:0,
+      data: [
         {
-          name:"China",
-          value:123
+           date:"20/01/01",
+           value:[
+             {
+               name:"China",
+               value:123
+             },
+             {
+               name:"United States",
+               value:100203
+             }
+           ]
+        },
+        {
+          date:"20/01/02",
+          value:[
+            {
+               name:"China",
+               value:100203
+             },
+             {
+               name:"United States",
+               value:123
+             }
+          ]
         }
-      ]
+      ],
     };
   },
   watch: {
@@ -63,24 +94,36 @@ export default {
       this.countryChange(newvalue);
     },
   },
-  computed:{
-    type(){
+  computed: {
+    type() {
       var mapping = {
-        "确诊":"cases",
-        "死亡":"deaths",
-        "治愈":"recovered",
-        "接种":"vaccine"
-      }
+        确诊: "cases",
+        死亡: "deaths",
+        治愈: "recovered",
+        接种: "vaccine",
+      };
       return mapping[this.typeName];
+    },
+    maxTimeNum(){
+      return this.data.length-1;
+    },
+    mapData(){
+      return this.data[this.timevalue]["value"];
     }
   },
   methods: {
-    countryChange(name) { //全局地图改变触发的方法
+    countryChange(name) {
+      //全局地图改变触发的方法
       this.$refs.MainMap.changemap(name);
     },
-    changeCountry(name){  //被其他组件修改当前地图的方法
+    changeCountry(name) {
+      //被其他组件修改当前地图的方法
       this.country = name;
-    }
+    },
+    formatTime(value){
+      console.log(this.data[value]);
+      return this.data[value]["date"];
+    },
   },
 };
 </script>
