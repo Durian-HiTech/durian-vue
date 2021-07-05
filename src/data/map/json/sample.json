@@ -1,22 +1,28 @@
+case\deaths\recovered\vaccine 三个表
 {
     "7/4/21":[
         {
             "name":"China",
-            "values":{
-                "cases":"123",
-                "deaths":"123",
-                "recovered":"123"
-            },
-            "children":[
-                {
-                    "name":"Beijing",
-                    "values":{
-                        "cases":"",
-                        "deaths":"",
-                        "recovered":""
-                    }
-                }
-            ]
+            "value":123
+        },
+        {
+            "name":"United State",
+            "value":222
         }
+    ],
+    "7/5/21":[
+
     ]
+}
+
+国家为主键，三个表：
+{
+    "China":{
+        "7/4/21":[
+            {
+                "name":"Beijing",
+                "value":123
+            }
+        ]
+    }
 }
