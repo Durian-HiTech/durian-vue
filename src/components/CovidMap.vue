@@ -1,41 +1,52 @@
 <template>
-  <div class="CovidMap">
-    <main-map
-      ref="MainMap"
-      :country="this.country"
-      :type="type"
-      :data="mapData"
-    ></main-map>
+  <div class="root">
+    <div class="CovidMap">
+      <main-map
+        ref="MainMap"
+        :country="this.country"
+        :type="type"
+        :data="mapData"
+      ></main-map>
 
-    <div style="width: 500px; display: flex; justify-content: space-between; margin-top: 15px">
+      <div style="width: 500px; display: flex; justify-content: space-between; margin-top: 15px">
 
-      <el-radio-group v-model="typeName" size='small'>
-        <el-radio-button label="确诊"></el-radio-button>
-        <el-radio-button label="死亡"></el-radio-button>
-        <el-radio-button label="治愈"></el-radio-button>
-        <el-radio-button label="接种"></el-radio-button>
-      </el-radio-group>
+        <el-radio-group v-model="typeName" size='small'>
+          <el-radio-button label="确诊"></el-radio-button>
+          <el-radio-button label="死亡"></el-radio-button>
+          <el-radio-button label="治愈"></el-radio-button>
+          <el-radio-button label="接种"></el-radio-button>
+        </el-radio-group>
 
-      <el-select v-model="country" placeholder="请选择" size='small'>
-        <el-option
-          v-for="item in countries"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-          <span style="float: left">{{ item.label }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{
-            item.value
-          }}</span>
-        </el-option>
-      </el-select>
+        <el-select v-model="country" placeholder="请选择" size='small'>
+          <el-option
+            v-for="item in countries"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          >
+            <span style="float: left">{{ item.label }}</span>
+            <span style="float: right; color: #8492a6; font-size: 13px">{{
+              item.value
+            }}</span>
+          </el-option>
+        </el-select>
 
+      </div>
+
+      <div style="margin-top: 15px">
+        <el-slider v-model="timevalue" 
+          :max ="maxTimeNum"
+          :format-tooltip="formatTime"></el-slider>
+      </div>
     </div>
 
-    <div style="margin-top: 15px">
-      <el-slider v-model="timevalue" 
-        :max ="maxTimeNum"
-        :format-tooltip="formatTime"></el-slider>
+    <div class='tables'>
+      <div>
+        <h1>Section1</h1>
+      </div>
+      <div>
+        <h1>Section2</h1>
+      </div>
     </div>
   </div>
 </template>
@@ -222,14 +233,24 @@ export default {
 </script>
 
 <style>
-.CovidMap {
+.root {
   background-color: #575551;
-
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.CovidMap {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+}
+.tables {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>
