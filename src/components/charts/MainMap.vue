@@ -39,7 +39,13 @@ export default {
       option: {
         title: {
           text: "新型冠状病毒肺炎疫情图",
+          textStyle: {
+            color: "#fff", 
+          },
           subtext: "数据来源于官方",
+          subtextStyle: {
+            color: "#fff", 
+          },
           left: "center",
         },
         tooltip: {
@@ -60,8 +66,11 @@ export default {
         },
         visualMap: {
           left: "right",
+          textStyle: {
+            color: "#fff", 
+          },
           pieces: [
-            { min: 0, max: 999, label: "小于1000", color: "#ffffff" },
+            { min: 0, max: 999, label: "小于1000", color: "#FFFACD" },
             { min: 1000, max: 10000, label: "1000-10000", color: "#fee090" },
             { min: 10000, max: 100000, label: "10000-100000", color: "#f46d43"},
             { min: 100000, label: "大于100000", color: "#a50026" },

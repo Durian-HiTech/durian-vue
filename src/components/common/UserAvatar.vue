@@ -1,72 +1,80 @@
 <template>
-	<center>
-		<div class='avatar' @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
-			<div style="white-space: nowrap; ">
-				<img v-if="isLogined" src="../../assets/avatar/cat.jpg">
-				<img v-if="!isLogined" src="../../assets/avatar/cat_grey.jpg">
-				<span v-if="isLogined" class="name">{{ userState.name }}</span>
-				<router-link to='/login'>
-					<el-button type="success" round plain
-					v-if="!isLogined"
-					style="margin-left: 20px;"
-					>Login</el-button>
-				</router-link>
-			</div>
-			<div style="height: 30px;"></div>
-			<div class='info'>
-				
-				<div v-if="userState.isLogined" style="display: flex; flex-wrap: wrap; justify-content: center;">
-					<b class='userTag'>
-						<i class='el-icon-s-custom'></i>
-						{{userType}}
-					</b>
-					<span v-if="userState.type==1" class='userTag' style="background-color: #dace0a;">
-						<i class='el-icon-school'></i>
-						{{userState.affiliation}}
-					</span>
-				</div>
-				
-			</div>
-			<el-divider></el-divider>
-			<div v-if="isLogined">
-				<el-button type="danger" round plain
-				size="medium"
-				@click='unlogin()'
-				>Unlogin</el-button>
-				
+	<div>
+
+	<el-dialog center
+			title="Modify your personal information"
+			:visible.sync="dialogVisible"
+			width="40%"
+			:modal-append-to-body=false
+			>
+			
+			<el-form :model="userForm">
+				<el-form-item label="新用户名">
+					<el-input v-model="userForm.name" autocomplete="off"></el-input>
+				</el-form-item>
+				<el-form-item label="旧密码">
+					<el-input v-model="userForm.password" autocomplete="off" show-password></el-input>
+				</el-form-item>
+				<el-form-item label="新密码">
+					<el-input v-model="userForm.newPassword" autocomplete="off" show-password></el-input>
+				</el-form-item>
+			</el-form>
+			
+			<span slot="footer" class="dialog-footer">
+				<el-button @click="dialogVisible = false">Cancel</el-button>
+				<el-button type="primary" @click="modify()">Confirm</el-button>
+			</span>
+		</el-dialog>
+
+	<div class='avatar' @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
+		<div style="white-space: nowrap; ">
+			<img v-if="isLogined" src="../../assets/avatar/cat.jpg">
+			<img v-if="!isLogined" src="../../assets/avatar/cat_grey.jpg">
+			<span v-if="isLogined" class="name">{{ userState.name }}</span>
+			<router-link to='/login'>
+				<el-button type="success" round plain
+				v-if="!isLogined"
+				style="margin-left: 20px;"
+				>Login</el-button>
+			</router-link>
+			<router-link to='/register'>
 				<el-button type="primary" round plain
-				size="medium"
-				@click='dialogVisible = true'
-				>Modify</el-button>
-				
-				<el-dialog center
-					title="Modify your personal information"
-					:visible.sync="dialogVisible"
-					width="40%"
-					:modal-append-to-body=false
-					>
-					
-					<el-form :model="userForm">
-						<el-form-item label="新用户名">
-							<el-input v-model="userForm.name" autocomplete="off"></el-input>
-						</el-form-item>
-						<el-form-item label="旧密码">
-							<el-input v-model="userForm.password" autocomplete="off" show-password></el-input>
-						</el-form-item>
-						<el-form-item label="新密码">
-							<el-input v-model="userForm.newPassword" autocomplete="off" show-password></el-input>
-						</el-form-item>
-					</el-form>
-					
-					<span slot="footer" class="dialog-footer">
-						<el-button @click="dialogVisible = false">Cancel</el-button>
-						<el-button type="primary" @click="modify()">Confirm</el-button>
-					</span>
-				</el-dialog>
-				
-			</div>
+				v-if="!isLogined"
+				style="margin-left: 20px;"
+				>Register</el-button>
+			</router-link>
 		</div>
-	</center>
+		<div style="height: 30px;"></div>
+		<div class='info'>
+			
+			<div v-if="userState.isLogined" style="display: flex; flex-wrap: wrap; justify-content: center;">
+				<b class='userTag'>
+					<i class='el-icon-s-custom'></i>
+					{{userType}}
+				</b>
+				<span v-if="userState.type==1" class='userTag' style="background-color: #dace0a;">
+					<i class='el-icon-school'></i>
+					{{userState.affiliation}}
+				</span>
+			</div>
+			
+		</div>
+		<el-divider></el-divider>
+		<div v-if="isLogined">
+			<el-button type="danger" round plain
+			size="medium"
+			@click='unlogin()'
+			>Unlogin</el-button>
+			
+			<el-button type="primary" round plain
+			size="medium"
+			@click='dialogVisible = true'
+			>Modify</el-button>
+			
+			
+		</div>
+	</div>
+	</div>
 </template>
 
 <script>
@@ -140,14 +148,14 @@ export default {
 			if (this.userState.isLogined) {
 				this.$gsap.to(".avatar", {
 							duration: 0.5, ease: 'power4.out',
-							height: '300px', width: '250px', 
+							height: '220px', width: '250px', 
 							boxShadow:'0px 0px 30px 5px rgba(128, 128, 128, 0.25)',
 							borderRadius: '30px',
 							})
 			} else {
 				this.$gsap.to(".avatar", {
 							duration: 0.5, ease: 'power4.out',
-							height: '72px', width: '250px', 
+							height: '72px', width: '350px', 
 							boxShadow:'0px 0px 30px 5px rgba(128, 128, 128, 0.25)',
 							borderRadius: "20px",
 							})
@@ -185,7 +193,7 @@ export default {
 	border-radius: 50%;
 	border: #bfbec0 solid thin;
 	
-	boxShadow: 0px 0px 10px 2px rgba(128, 128, 128, 0.1);
+	box-shadow: 0px 0px 10px 2px rgba(128, 128, 128, 0.1);
 	
 	overflow: hidden;
 }
