@@ -13,15 +13,18 @@
       </el-option>
     </el-select>
     <main-map ref="MainMap"></main-map>
+    <china-map ref="ChinaMap"></china-map>
   </div>
 </template>
 <script>
 import MainMap from "./charts/MainMap.vue";
+import ChinaMap from "./charts/ChinaMap";
 
 export default {
   name: "CovidMap",
   components: {
     MainMap,
+    ChinaMap,
   },
   data(){
     return {
@@ -43,6 +46,7 @@ export default {
   methods: {
     reset() {
       this.$refs.MainMap.backtoworld();
+      this.$refs.ChinaMap.backtochina();
     },
   },
 };
