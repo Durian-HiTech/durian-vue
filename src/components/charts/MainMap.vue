@@ -89,6 +89,9 @@ export default {
       echarts.registerMap(this.mapName, mapData);
       this.option["series"][0]["name"] = this.type;
       this.option["series"][0]["map"] = this.mapName;
+      this.option["series"][0]["center"] = ['50%, 50%'];
+      this.option["series"][0]["zoom"] = 1
+      this.option["series"][0]["center"] = undefined;
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
     },

@@ -68,10 +68,7 @@ export default {
   },
   watch: {
     mapName() {
-      console.log("change");
       this.loadMap();
-      this.option["series"][0]["center"] = undefined;
-      this.myChart.setOption(this.option);
     },
   },
   methods: {
@@ -80,6 +77,9 @@ export default {
       echarts.registerMap(this.mapName, mapData);
       this.option["series"][0]["name"] = this.mapName;
       this.option["series"][0]["map"] = this.mapName;
+      this.option["series"][0]["center"] = ['50%, 50%'];
+      this.option["series"][0]["zoom"] = 1
+      this.option["series"][0]["center"] = undefined;
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
     },
@@ -89,16 +89,9 @@ export default {
     },
     backtochina() {
       this.mapName = "china";
-      console.log(this.option["series"][0]["center"]);
-      this.option["series"][0]["center"] = ['50%, 50%'];
-      this.option["series"][0]["zoom"] = 1
     },
     changemap(name) {
-      console.log(name);
       this.mapName = name;
-      console.log(this.option["series"][0]["center"]);
-      this.option["series"][0]["center"] = ['50%, 50%'];
-      this.option["series"][0]["zoom"] = 1
     },
   },
 };
