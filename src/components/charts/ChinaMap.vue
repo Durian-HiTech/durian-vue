@@ -3,6 +3,7 @@
 </template>
 <script>
 import * as echarts from "echarts";
+var data = [];
 export default {
   name: "ChinaMap",
   mounted() {
@@ -29,8 +30,15 @@ export default {
             showDelay: 0,
             transitionDuration: 0.2,
             formatter: function (params) {
-              console.log(params)
+              console.log(params);
+              var res = data.filter(function (item) {
+                return item.adcode === params.name;
+              });
+                      // + '<br/>';
+              // res += params.seriesName;
+              return res[0].name;
             }
+
         },
         visualMap: {
             left: 'right',
@@ -41,27 +49,20 @@ export default {
                 {min: 100000,label:'大于100000',color:'#a50026'},
             ],
         },
-        series:[
-            {
-                name:"",
-                nameProperty:"adcode",
-                type:"map",
-                roam:true,
-                map:"",
-                emphasis: {
-                    label: {
-                        show: true
-                    }
-                },
-              data: [
-                {
-                  name:"",
-                  value:123324
-                }
-              ]
+        series: [
+          {
+            name: "",
+            nameProperty: "adcode",
+            type: "map",
+            roam: true,
+            map: "",
+            emphasis: {
+              label: {
+                show: true
+              }
             },
-
-
+            data: []
+          },
         ]
       },
     };
@@ -78,11 +79,19 @@ export default {
       this.option["series"][0]["name"] = this.mapName;
       this.option["series"][0]["map"] = this.mapName;
       this.option["series"][0]["center"] = ['50%, 50%'];
-      this.option["series"][0]["zoom"] = 1
+      this.option["series"][0]["zoom"] = 1;
       this.option["series"][0]["center"] = undefined;
+      console.log(mapData.features);
+      var features = mapData.features;
+      features.forEach((item)=>{
+        // console.log(item.properties);
+        data.push(item.properties);
+      });
+      console.log(data);
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
     },
+
     clickevent(param) {
       console.log(param.name);
       this.changemap(param.name);
@@ -96,3 +105,4 @@ export default {
   },
 };
 </script>
+
