@@ -84,8 +84,8 @@ export default {
   }
 
   .box-card {
-    
-    border-radius: 4px;
+    border-radius:30px 30px 30px 30px;
+    /* border-radius: 4px; */
     width: 480px;
   }
   .test{
