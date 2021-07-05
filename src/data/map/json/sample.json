@@ -1,4 +1,4 @@
-case\deaths\recovered\vaccine 三个表
+
 {
     "7/4/21":[
         {
@@ -13,16 +13,4 @@ case\deaths\recovered\vaccine 三个表
     "7/5/21":[
 
     ]
-}
-
-国家为主键，三个表：
-{
-    "China":{
-        "7/4/21":[
-            {
-                "name":"Beijing",
-                "value":123
-            }
-        ]
-    }
 }
