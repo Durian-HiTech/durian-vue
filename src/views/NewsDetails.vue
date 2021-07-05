@@ -4,7 +4,7 @@
 <el-container>
   <el-header>导航栏</el-header>
   <el-main >
-    <el-row :gutter="10">
+    <el-row :gutter="10" >
       <el-col :span="24">
         <div >
           <el-card class="card4 box-card " shadow="hover">
@@ -68,7 +68,7 @@ export default {
   .card4{
     align-content: center;
     align-items: center;
-    width: 1400px;
+    width: 1360px;
     height: 700px;
     background: rgb(250, 238, 238);
    
