@@ -3,8 +3,8 @@
 </template>
 <script>
 import * as echarts from "echarts";
-import api from "../../commonApi.js";
-import $ from "jquery";
+// import api from "../../commonApi.js";
+// import $ from "jquery";
 export default {
   name: "MainMap",
   props: {
@@ -86,6 +86,7 @@ export default {
         series: [
           {
             name: "",
+            nameProperty: "NAME_1",
             type: "map",
             roam: true,
             map: "",
@@ -113,22 +114,22 @@ export default {
   },
   methods: {
     loadMap() {
-      let formData = new FormData();
-      formData.append("name", this.$props.country);
-      var mapData;
-      $.ajax({
-        url:api.baseApi + "/data/query_data",
-        type:'POST',
-        async:false,
-        data:{
-          name:this.$props.country
-        },
-        dataType:'json',
-        success:function(response){
-          console.log(response);
-          mapData = response.data;
-        }
-      })
+      // let formData = new FormData();
+      // formData.append("name", this.$props.country);
+      // var mapData;
+      // $.ajax({
+      //   url:api.baseApi + "/data/query_data",
+      //   type:'POST',
+      //   async:false,
+      //   data:{
+      //     name:this.$props.country
+      //   },
+      //   dataType:'json',
+      //   success:function(response){
+      //     mapData = response.data;
+      //   }
+      // })
+      const mapData = require("../../data/map/json/" + this.$props.country);
       echarts.registerMap(this.$props.country, mapData);
       this.option["series"][0]["map"] = this.$props.country;
       this.option["series"][0]["center"] = ["50%, 50%"];
