@@ -5,21 +5,36 @@
 import * as echarts from "echarts";
 export default {
   name: "MainMap",
+  props:{
+    country:{
+      type:String,
+      required:true,
+      default:'world'
+    },
+    type:{
+      type:String,
+      required:true,
+      default:'cases'
+    },
+    data:{
+      type:Array,
+      required:true
+    }
+  },
   mounted() {
     this.myChart = echarts.init(document.getElementById("main-map"));
     this.myChart.showLoading();
-    this.loadMap();
-    var _this = this;
     this.myChart.on("click", function (param) {
       _this.clickevent(param);
     });
+    this.loadData();
+    this.loadMap();
+    var _this = this;
+
   },
   data() {
     return {
       myChart: "",
-      mapName: "world",
-      type: "deaths",
-
       option: {
         title: {
           text: "新型冠状病毒肺炎疫情图",
@@ -62,28 +77,28 @@ export default {
                 show: true,
               },
             },
-            data: [
-              {
-                name: "China",
-                value:123
-              },
-            ],
+            data:[],
           },
         ],
       },
     };
   },
   watch: {
-    mapName() {
+    country() {
+      this.loadData();
       this.loadMap();
     },
+    type(){
+      this.loadData();
+      this.loadMap();
+    }
   },
   methods: {
     loadMap() {
-      const mapData = require("../../data/map/json/" + this.mapName);
-      echarts.registerMap(this.mapName, mapData);
-      this.option["series"][0]["name"] = this.type;
-      this.option["series"][0]["map"] = this.mapName;
+      const mapData = require("../../data/map/json/" + this.$props.country);
+      echarts.registerMap(this.$props.country, mapData);
+      this.option["series"][0]["name"] = this.$props.type;
+      this.option["series"][0]["map"] = this.$props.country;
       this.option["series"][0]["center"] = ['50%, 50%'];
       this.option["series"][0]["zoom"] = 1
       this.option["series"][0]["center"] = undefined;
@@ -94,9 +109,11 @@ export default {
       this.changemap(param.name);
     },
     changemap(name) {//地图改变事件函数
-      this.mapName = name.toLowerCase();
       this.$parent.changeCountry(name);
     },
+    loadData(){
+      this.option["series"][0]["data"] = this.$props.data;
+    }
   },
 };
 </script>

@@ -13,7 +13,18 @@
         }}</span>
       </el-option>
     </el-select>
-    <main-map ref="MainMap"></main-map>
+    <div>
+    <el-radio-group v-model="typeName">
+      <el-radio-button label="确诊"></el-radio-button>
+      <el-radio-button label="死亡"></el-radio-button>
+      <el-radio-button label="治愈"></el-radio-button>
+      <el-radio-button label="接种"></el-radio-button>
+    </el-radio-group>
+  </div>
+    <main-map ref="MainMap" 
+      :country="this.country"
+      :type="type"
+      :data="this.data"></main-map>
   </div>
 </template>
 <script>
@@ -37,6 +48,13 @@ export default {
         },
       ],
       country: "World",
+      typeName:'确诊',
+      data:[
+        {
+          name:"China",
+          value:123
+        }
+      ]
     };
   },
   watch: {
@@ -44,6 +62,17 @@ export default {
       if (newvalue == oldvalue || newvalue == "") return;
       this.countryChange(newvalue);
     },
+  },
+  computed:{
+    type(){
+      var mapping = {
+        "确诊":"cases",
+        "死亡":"deaths",
+        "治愈":"recovered",
+        "接种":"vaccine"
+      }
+      return mapping[this.typeName];
+    }
   },
   methods: {
     countryChange(name) { //全局地图改变触发的方法
