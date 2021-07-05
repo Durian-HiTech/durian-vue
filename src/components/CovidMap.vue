@@ -197,7 +197,6 @@ export default {
   },
   mounted(){
     this.countries = countrymapping;
-    console.log(this.countries);
   },
   computed: {
     type() {
