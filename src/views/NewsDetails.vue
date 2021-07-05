@@ -4,12 +4,12 @@
 <el-container>
   <el-header>导航栏</el-header>
   <el-main >
-    <el-row :gutter="10">
-      <el-col :span="20">
+    <el-row :gutter="10" >
+      <el-col :span="24">
         <div >
-          <el-card class="box-card test" shadow="hover">
+          <el-card class="card4 box-card " shadow="hover">
             <div slot="header" class="clearfix">
-              <span style ="font-size:18px;font-weight: 700;">{{title}}</span>
+              <span style ="font-size:28px;font-weight: 700;">{{title}}</span>
             </div>
             <div class="text item"  >{{content}}</div>
           </el-card>
@@ -32,12 +32,18 @@ export default {
     return {
         title:null,
         content:null,
-        createtime:null
+        createtime:null,
+        load:0
     };
   },
 
   mounted : function(){
         var _this = this;
+        // if(this.load==0) {
+         
+        //     window.location.reload()
+        // }
+        //this.$router.replace('/refresh')
         let formData = new FormData();
         formData.append('news_id', this.$route.params.id);
         this.$axios
@@ -58,6 +64,15 @@ export default {
 
 }
 </script>
-<style>
-
+<style scope>
+  .card4{
+    align-content: center;
+    align-items: center;
+    width: 1360px;
+    height: 700px;
+    background: rgb(250, 238, 238);
+   
+    
+  }
+ 
 </style>
