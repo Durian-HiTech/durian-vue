@@ -5,7 +5,7 @@
   <el-header>导航栏</el-header>
   <el-main >
     <el-row :gutter="10">
-      <el-col >
+      <el-col :span="20">
         <div >
           <el-card class="box-card test" shadow="hover">
             <div slot="header" class="clearfix">
