@@ -1,16 +1,19 @@
 <template>
   <div id="app">
 	<user-avatar id='user-avatar'/>
+	<NavButton id='NavButton'/>
     <router-view/>
   </div>
 </template>
 
 <script>
 import UserAvatar from './components/common/UserAvatar.vue'
+import NavButton from './components/common/NavButton.vue'
 export default{
 	name: 'App',
 	components: {
-		UserAvatar
+		UserAvatar,
+		NavButton
 	}
 }
 </script>
@@ -31,6 +34,13 @@ export default{
 #user-avatar {
 	position: fixed;
 	right: 20px;
+	top: 20px;
+	z-index: 10;
+}
+
+#NavButton {
+	position: fixed;
+	left: 20px;
 	top: 20px;
 	z-index: 10;
 }
