@@ -21,7 +21,7 @@ export default {
       mapName: "china",
       option: {
         title: {
-          text: "新型冠状病毒肺炎疫情图",
+          text: "国内疫情中高风险地区",
           subtext: "数据来源于官方",
           left: "center",
         },
@@ -56,23 +56,33 @@ export default {
             type: "map",
             roam: true,
             map: "",
-            emphasis: {
+            // emphasis: {
+            //   label: {
+            //     show: true
+            //   }
+            // },
+            normal: {
               label: {
-                show: true
+                show: false
               }
             },
-            itemStyle: {
-              normal: {
-                label: {
-                  show: false,
-                },
-              },
-              emphasis: {
+            emphasis: {
                 label: {
                   show: false,
                 }
-              }
-            }
+              },
+            // itemStyle: {
+            //   normal: {
+            //     label: {
+            //       show: false,
+            //     },
+            //   },
+            //   emphasis: {
+            //     label: {
+            //       show: false,
+            //     }
+            //   }
+            // }
             // nameMap: {
             //   '110000' : '北京市'
             // }
@@ -95,6 +105,8 @@ export default {
       this.option["series"][0]["center"] = ['50%, 50%'];
       this.option["series"][0]["zoom"] = 1;
       this.option["series"][0]["center"] = undefined;
+      this.option["series"][0].normal.label.show = false;
+      this.option["series"][0].emphasis.label.show = false;
       console.log(mapData.features);
       var features = mapData.features;
       features.forEach((item)=>{
