@@ -29,8 +29,7 @@ export default {
             showDelay: 0,
             transitionDuration: 0.2,
             formatter: function (params) {
-
-                return params.seriesName + '<br/>' + params.name + ': ' + params.values[0];
+              console.log(params)
             }
         },
         visualMap: {
@@ -56,10 +55,8 @@ export default {
                 },
               data: [
                 {
-                  value: {
-                    name: "adcode",
-                    name_0: "name",
-                  }
+                  name:"",
+                  value:123324
                 }
               ]
             },
@@ -71,6 +68,7 @@ export default {
   },
   watch: {
     mapName() {
+      console.log("change");
       this.loadMap();
       this.option["series"][0]["center"] = undefined;
       this.myChart.setOption(this.option);

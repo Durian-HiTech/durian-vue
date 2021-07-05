@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import UserAvatar from './components/common/UserAvatar.vue'
+import UserAvatar from './components/common/userAvatar.vue'
 export default{
 	name: 'App',
 	components: {
