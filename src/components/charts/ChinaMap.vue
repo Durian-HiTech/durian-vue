@@ -61,7 +61,21 @@ export default {
                 show: true
               }
             },
-            data: []
+            itemStyle: {
+              normal: {
+                label: {
+                  show: false,
+                },
+              },
+              emphasis: {
+                label: {
+                  show: false,
+                }
+              }
+            }
+            // nameMap: {
+            //   '110000' : '北京市'
+            // }
           },
         ]
       },
