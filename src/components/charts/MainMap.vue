@@ -18,7 +18,7 @@ export default {
     return {
       myChart: "",
       mapName: "world",
-      type: "all",
+      type: "deaths",
 
       option: {
         title: {
@@ -47,18 +47,13 @@ export default {
           pieces: [
             { min: 0, max: 999, label: "小于1000", color: "#ffffff" },
             { min: 1000, max: 10000, label: "1000-10000", color: "#fee090" },
-            {
-              min: 10000,
-              max: 100000,
-              label: "10000-100000",
-              color: "#f46d43",
-            },
+            { min: 10000, max: 100000, label: "10000-100000", color: "#f46d43"},
             { min: 100000, label: "大于100000", color: "#a50026" },
           ],
         },
         series: [
           {
-            name: "cases",
+            name: "",
             type: "map",
             roam: true,
             map: "",
@@ -69,7 +64,7 @@ export default {
             },
             data: [
               {
-                name: "cases",
+                name: "China",
                 value:123
               },
             ],
@@ -95,14 +90,12 @@ export default {
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
     },
-    clickevent(param) {
+    clickevent(param) {//地图点击事件函数
       this.changemap(param.name);
     },
-    backtoworld() {
-      this.mapName = "world";
-    },
-    changemap(name) {
+    changemap(name) {//地图改变事件函数
       this.mapName = name.toLowerCase();
+      this.$parent.changeCountry(name);
     },
   },
 };
