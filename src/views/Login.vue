@@ -70,9 +70,11 @@ export default {
 					_this.$store.commit('login', {
 						name: response.data.detail.username,
 						type: response.data.detail.user_type,
-						affiliation: response.data.detail.affiliation
+						affiliation: response.data.detail.affiliation,
+						id: response.data.detail.user_id,
 					})
 					
+					_this.$router.push({path: '/'})
 				}else {
 					_this.$message({message: response.data.message,
 									type: 'error'})
