@@ -24,6 +24,8 @@
             label="评论内容">
         </el-table-column>
       </el-table>
+      <el-input v-model="input" placeholder="请输入评论" ></el-input>
+      <el-button type="primary" @click="commit_comment">提交评论</el-button>
     </div>
   </div>
 </template>
@@ -37,6 +39,7 @@ export default {
     return {
       name: "问题界面",
       comment_list: [],
+      input: '',
     }
   },
   mounted() {
@@ -44,7 +47,6 @@ export default {
   },
   methods: {
     getComment(id) {
-      console.log(id)
       let formData = new FormData();
       formData.append("question_id", id);
       let config = {
@@ -73,7 +75,36 @@ export default {
               // _this.fail()
             }
           });
-    }
+    },
+    commit_comment() {
+      console.log(this.input)
+      let formData = new FormData();
+      formData.append("user_id", this.$store.getters.userState.id);
+      formData.append("user_type", this.$store.getters.userState.type);
+      formData.append("question_id", this.$route.params.id);
+      formData.append("comment_content", this.input);
+      let config = {
+        headers: {"Content-Type": "multipart/form-data",},
+      };
+      var _this = this;
+      axios.post(
+          "https://durian-go-318509.df.r.appspot.com/api/v1/notice/create_comment",
+          formData,
+          config
+      )
+          .then(function (response) {
+            console.log(response)
+            console.log(response.status)
+            if (response.status == 200) {
+              //console.log((response))
+              _this.getComment(_this.$route.params.id);
+            } else {
+              console.log("请求失败");
+              // console.log(response.data);
+              // _this.fail()
+            }
+          });
+    },
   },
 
 
