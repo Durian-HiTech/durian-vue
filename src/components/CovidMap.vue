@@ -1,33 +1,38 @@
 <template>
   <div class="CovidMap">
-    <el-select v-model="country" placeholder="请选择">
-      <el-option
-        v-for="item in countries"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-      >
-        <span style="float: left">{{ item.label }}</span>
-        <span style="float: right; color: #8492a6; font-size: 13px">{{
-          item.value
-        }}</span>
-      </el-option>
-    </el-select>
-    <div>
-      <el-radio-group v-model="typeName">
-        <el-radio-button label="确诊"></el-radio-button>
-        <el-radio-button label="死亡"></el-radio-button>
-        <el-radio-button label="治愈"></el-radio-button>
-        <el-radio-button label="接种"></el-radio-button>
-      </el-radio-group>
-    </div>
     <main-map
       ref="MainMap"
       :country="this.country"
       :type="type"
       :data="mapData"
     ></main-map>
-    <div>
+
+    <div style="width: 500px; display: flex; justify-content: space-between; margin-top: 15px">
+
+      <el-radio-group v-model="typeName" size='small'>
+        <el-radio-button label="确诊"></el-radio-button>
+        <el-radio-button label="死亡"></el-radio-button>
+        <el-radio-button label="治愈"></el-radio-button>
+        <el-radio-button label="接种"></el-radio-button>
+      </el-radio-group>
+
+      <el-select v-model="country" placeholder="请选择" size='small'>
+        <el-option
+          v-for="item in countries"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value"
+        >
+          <span style="float: left">{{ item.label }}</span>
+          <span style="float: right; color: #8492a6; font-size: 13px">{{
+            item.value
+          }}</span>
+        </el-option>
+      </el-select>
+
+    </div>
+
+    <div style="margin-top: 15px">
       <el-slider v-model="timevalue" 
         :max ="maxTimeNum"
         :format-tooltip="formatTime"></el-slider>
@@ -218,6 +223,13 @@ export default {
 
 <style>
 .CovidMap {
-  background-color: #575551
+  background-color: #575551;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
+
 </style>
