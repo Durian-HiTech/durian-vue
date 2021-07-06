@@ -1,5 +1,5 @@
 <template>
-  <div id="china-map" style="width: 1000px; height: 600px; border: 1px #191919;"></div>
+  <div id="china-map" style="width: 1000px; height: 800px; border: 1px #191919;"></div>
 </template>
 <script>
 import * as echarts from "echarts";
@@ -35,7 +35,13 @@ export default {
       option: {
         title: {
           text: "国内疫情中高风险地区",
+          textStyle: {
+            color: "#fff",
+          },
           subtext: "数据来源于官方",
+          subtextStyle: {
+            color: "#fff",
+          },
           left: "center",
         },
         tooltip: {
@@ -59,8 +65,11 @@ export default {
         },
         visualMap: {
             left: 'right',
+            textStyle: {
+              color: "#fff",
+            },
             pieces: [
-                {min: 0, max: 0,label:'低风险',color:'#fee090'},
+                {min: 0, max: 0,label:'低风险',color:'#EAE0D7'},
                 {min: 1, max: 1,label:'中风险',color:'#f46d43'},
                 {min: 2, max: 2,label:'高风险',color:'#a50026'},
             ],
@@ -80,7 +89,7 @@ export default {
             normal: {
               label: {
                 show: true,
-              }
+              },
             },
             emphasis: {
                 label: {
@@ -92,6 +101,9 @@ export default {
               normal: {
                 label: {
                   show: true,
+                  textStyle: {
+                    color: "rgb(144 144 144)",
+                  },
                 },
               },
               emphasis: {
