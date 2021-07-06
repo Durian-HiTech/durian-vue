@@ -1,10 +1,10 @@
 <template>
 	<div @mouseleave="mouseLeave()">
-	<div class='NavButton' @mouseenter="mouseEnter()">
+	<div class='NavButton' @mouseenter="mouseEnter()" @click="toHome()" style="cursor:pointer">
 		<i class='el-icon-s-home'></i>
 	</div>
 	
-	<div class='NavItem'>
+	<div class='NavItem' @click="toNews()" style="cursor:pointer">
 		<i class='el-icon-document-copy' style='margin-right: 5px'></i>
 		新闻页面
 	</div>
@@ -60,6 +60,12 @@ export default {
 						ease: 'power4.out',
 						opacity: 0
 						})
+		},
+		toHome () {
+			this.$router.push('/')
+		},
+		toNews () {
+			this.$router.push('/news')
 		}
 	}
 }
