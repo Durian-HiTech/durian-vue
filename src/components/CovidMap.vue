@@ -6,6 +6,7 @@
         :country="this.country"
         :type="type"
         :data="mapData"
+        v-if="dataloaded"
       ></main-map>
 
       <div
@@ -44,6 +45,7 @@
           :max="maxTimeNum"
           :format-tooltip="formatTime"
           style="width = 100px;"
+          v-if="dataloaded"
         ></el-slider>
       </div>
       <el-radio-group size="medium">
@@ -70,10 +72,10 @@
 
     <div class="tables">
       <div>
-        <map-top-show :data="maptopshowData"></map-top-show>
+        <map-top-show :data="maptopshowData" v-if="dataloaded"></map-top-show>
       </div>
       <div>
-        <map-table :data="tableData"></map-table>
+        <map-table :data="tableData" v-if="dataloaded"></map-table>
       </div>
     </div>
   </div>
@@ -81,9 +83,10 @@
 <script>
 import MainMap from "./charts/MainMap.vue";
 import MapTable from "./charts/MapTable.vue";
-import MapTopShow from "./common/MapTopShow.vue"
+import MapTopShow from "./common/MapTopShow.vue";
 var countrymapping = require("../data/utils/countryen2zh.json");
-var sampledata = require("../data/samples/sample.json");
+import api from '../commonApi.js';
+// var sampledata = require("../data/samples/sample.json");
 export default {
   name: "CovidMap",
   components: {
@@ -95,9 +98,10 @@ export default {
     return {
       countries: [],
       country: "World",
-      type: "cases",
+      type: "vaccine",
       timevalue: 0,
       data: {},
+      dataloaded:false, //数据是否加载完成，控制所有组件的加载
     };
   },
   watch: {
@@ -108,8 +112,17 @@ export default {
   },
   mounted() {
     this.countries = countrymapping;
-    this.data = sampledata;
-    this.timevalue = this.maxTimeNum;
+    var _this = this;
+    this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
+      if(response.data.success){
+        console.log(response.data);
+        _this.data = response.data.data;
+        _this.timevalue = _this.maxTimeNum;
+        _this.dataloaded = true;
+      }
+    })
+    // this.data = sampledata;
+    // this.timevalue = this.maxTimeNum;
   },
   computed: {
     typeName: { //控制显示数据类别get set function
