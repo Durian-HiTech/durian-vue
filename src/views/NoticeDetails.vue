@@ -64,7 +64,7 @@ export default {
 
 }
 </script>
-<style scope>
+<style scope>d
 .root {
   margin-top: 100px;
   display:flex;

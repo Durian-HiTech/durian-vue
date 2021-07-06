@@ -5,10 +5,10 @@
 			<div id="mask1">
 				<h1 style="color: white;">Covid Map</h1>
 			</div>
-			<iframe id='map' :src="ruta"></iframe>
+			<covid-map></covid-map>
 		</div>
 		
-		<div class="news">
+		<div class="secondMap">
 			
 		</div>
 		
@@ -25,7 +25,7 @@
 			<div class="section">
 			</div>
 		</div>
-		<covid-map></covid-map>
+		
 		<risk-map></risk-map>
 	</div>
 </template>
@@ -45,13 +45,13 @@ export default {
 	methods: {
 		mouseEnter () {
 			this.$gsap.to("#mask1", {duration: 0.2, opacity: 0})
-			this.$gsap.to("#mask1", {duration: 0.3, opacity: 0, bottom: '800px', ease: 'power2.out'})
-			this.$gsap.to(".covidMap", {duration: 0.2, height: '800px', ease: 'power2.out'})
+			this.$gsap.to("#mask1", {duration: 0.3, opacity: 0, bottom: '680px', ease: 'power2.out'})
+			this.$gsap.to(".covidMap", {duration: 0.2, height: '680px', ease: 'power2.out'})
 		},
 		mouseLeave () {
 			this.$gsap.to("#mask1", {duration: 0.2, opacity: 1})
 			this.$gsap.to("#mask1", {duration: 0.3, opacity: 1, bottom: '0px', ease: 'power2.out'})
-			this.$gsap.to(".covidMap", {duration: 0.2, height: '600px', ease: 'power2.out'})
+			this.$gsap.to(".covidMap", {duration: 0.2, height: '400px', ease: 'power2.out'})
 		}
 	}
 }
@@ -62,25 +62,24 @@ export default {
 	/* outline: #21ff06 dotted thick; */
 	
 	width: 100%;
-	height: 600px;
+	height: 400px;
 
 	margin-bottom: 10px;
 	overflow: hidden;
 }
-.news {
+.secondMap {
 	/* outline: #21ff06 dotted thick; */
 	background-color: antiquewhite;
 	
 	width: 100%;
-	height: 600px;
+	height: 400px;
 	
 	margin-bottom: 10px;
-
 }
 
 .wraper {
 	width: 100%;
-	height: 900px;
+	height: 800px;
 	
 	margin-bottom: 10px;
 	
@@ -105,6 +104,8 @@ export default {
 	display: flex; 
 	align-items: center; 
 	justify-content: center;
+
+	z-index: 2;
 }
 #map {
 	width: 100%; 
