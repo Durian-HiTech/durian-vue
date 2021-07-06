@@ -124,9 +124,6 @@ export default {
     mapName() {
       this.loadMap();
     },
-    data() {
-
-    }
   },
   methods: {
     loadMap() {
@@ -186,7 +183,7 @@ export default {
     },
 
     clickevent(param) {
-      // console.log(param.name);
+      // console.log(param);
       this.changemap(param.name);
     },
     backtochina() {
@@ -196,7 +193,11 @@ export default {
       this.mapName = data.find(function (item) {
         return item.name === name;
       }).adcode;
+      // this.$refs.RiskMap.updatePath(name);
     },
+    getMapName() {
+      return this.mapName;
+    }
   },
 };
 </script>

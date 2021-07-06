@@ -18,8 +18,11 @@
                ></china-map>
     <div class="RiskMapSide">
 
-      <div class="backButton" @click="reset" >返回</div>
-
+      <div class="backButton" @click="reset" >中国</div>
+      <div v-for="item in path"
+           :key="item.mapName">
+        <div class="backButton" @click="changeMap(item.mapName)">>>{{item.mapName}}</div>
+      </div>
       <el-divider/>
 
       <h2 style="margin: 20px">中风险地区</h2>
@@ -48,7 +51,10 @@
 
 <script>
 import ChinaMap from "./charts/ChinaMap";
-import risk_areas from "../data/map/json/list_all_high_risk_areas.json";
+// import risk_areas from "../data/map/json/list_all_high_risk_areas.json";
+import api from "../commonApi.js";
+import $ from "jquery";
+import * as echarts from "echarts";
 
 export default {
   name: "RiskMap",
@@ -56,7 +62,20 @@ export default {
     ChinaMap,
   },
   created(){
-    this.risk_data = risk_areas.data;
+    var risk_data;
+    $.ajax({
+      url: api.baseApi + "/data/list_all_high_risk_areas",
+      type: 'GET',
+      async: false,
+      dataType: 'json',
+      success: function (response) {
+        risk_data = response.data;
+        // console.log(risk_data);
+      }
+
+    });
+    this.risk_data = risk_data;
+    // console.log(this.risk_data);
     this.risk_data.forEach((item)=> {
       if(item.type === "中风险") {
         this.medium_risk.push({
@@ -75,6 +94,17 @@ export default {
     // console.log(this.medium_risk);
     // console.log(this.high_risk);
   },
+  mounted() {
+    var _curr;
+    var _this = this;
+    this.myChart = echarts.init(document.getElementById("china-map"));
+    this.myChart.on("click", function (param) {
+      _curr = param.name;
+      // console.log(_curr);
+      _this.setCurr(_curr);
+    });
+
+  },
   data(){
     return {
       // countries:[
@@ -83,23 +113,58 @@ export default {
       //         label:'中国'
       //     }
       // ],
-      curr: 'china',
+      myChart: "",
+      curr: 'China',
       risk_data: [],
       medium_risk: [],
       high_risk: [],
+      path: [],
     }
   },
   watch:{
-      country(newvalue){
-          if(newvalue == '')return ;
-          this.$refs.ChinaMap.changemap(newvalue);
-        // console.log(risk_areas);
-      }
+      // country(newvalue){
+      //   console.log("aaa");
+      //     if(newvalue == '')return ;
+      //     this.$refs.ChinaMap.changemap(newvalue);
+      //   // console.log(risk_areas);
+      // }
+    curr() {
+      // console.log(this.curr);
+      this.updatePath(this.curr);
+      console.log(this.path)
+    },
+    immediate: true
   },
   methods: {
     reset() {
       this.$refs.ChinaMap.backtochina();
+      this.curr = "China";
     },
+    updatePath(name) {
+      if (name === 'China') {
+        this.path = [];
+        return;
+      }
+      var index = this.path.findIndex(function (item) {
+        return item.mapName === name;
+      });
+      console.log(index);
+      if(index === -1)
+        this.path.push({
+          mapName: name,
+        });
+      else {
+        console.log("aaa");
+        this.path = this.path.slice(index + 1, this.path.length - index);
+      }
+    },
+    setCurr(value) {
+      this.curr = value;
+    },
+    changeMap(name) {
+      this.$refs.ChinaMap.changemap(name);
+      this.setCurr(name);
+    }
   },
 };
 </script>
