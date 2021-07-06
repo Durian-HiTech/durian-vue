@@ -31,7 +31,7 @@
 
     <v-card-actions>
       <v-btn
-        color="orange lighten-2"
+        :color="this.color"
         text
         @click="goToNewsPage()"
       >
@@ -66,7 +66,8 @@ export default {
     name:'NewsCard',
     data () {
         return {
-            show: false
+            show: false,
+            color: "orange lighten-2",
         }
     },
     computed: {
