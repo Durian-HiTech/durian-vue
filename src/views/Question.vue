@@ -1,11 +1,16 @@
 <template>
-  <div id="main">
-    <div>
-      这是一首简单的小情歌
-      {{this.name}}
-      {{this.$route.params.id}}
+  <div class="main" style="width: 100%; background-color: #F2F6FC; position: relative">
+    <div class="main-content" >
+      <el-container class="el-container" >
+        <el-header height="25px" class="el-header">{{question.question_title}} </el-header>
+        <el-main class="el-main-2" height="20px">{{question.user_id}}</el-main>
+        <div>
+          <p class="el-main">{{question.question_content}}</p>
+        </div>
+        <el-divider>{{question.question_time}}</el-divider>
+      </el-container>
     </div>
-    <div>
+    <div class="comment" style="width: 70%">
       <el-table
           :data="comment_list"
           style="width: 100%">
@@ -40,12 +45,45 @@ export default {
       name: "问题界面",
       comment_list: [],
       input: '',
+      question: {}
     }
   },
   mounted() {
+    this.getQuestions(this.$route.params.id)
     this.getComment(this.$route.params.id)
   },
   methods: {
+    getQuestions(id) {
+      let formData = new FormData();
+      let config = {
+        headers: {"Content-Type": "multipart/form-data",},
+      };
+      var _this = this;
+      axios.get(
+          "http://durian-go-318509.df.r.appspot.com/api/v1/notice/list_all_questions",
+          formData,
+          config
+      )
+          .then(function (response) {
+            console.log(response)
+            console.log(response.status)
+            if (response.status == 200) {
+              console.log((response))
+              for (var i = 0; i < response.data.data.length; i++) {
+                if(response.data.data[i].question_id == id) {
+                  _this.question = response.data.data[i]
+                  _this.question.question_time = moment(_this.question.question_time).startOf('day').fromNow();
+                  console.log(_this.question)
+                }
+                else continue;
+              }
+            } else {
+              console.log("请求失败");
+              // console.log(response.data);
+              // _this.fail()
+            }
+          });
+    },
     getComment(id) {
       let formData = new FormData();
       formData.append("question_id", id);
@@ -109,3 +147,48 @@ export default {
 
 }
 </script>
+<style scope>
+.comment{
+  background-color: #FFFFFF;
+  width: 75%;
+  height: 800px;
+  margin: 25px 50px 25px 100px;
+}
+.main_content{
+  background-color: #FFFFFF;
+  width: 75%;
+  height: 800px;
+  margin: 25px 50px 25px 100px;
+}
+.el-container{
+  height: 250px;
+}
+.el-header{
+  /*background-color: #C0C4CC;*/
+  font-weight: bold;
+  /*height: 40px;*/
+  text-align: left;
+  font-size: 24px;
+  margin: 5px 5px 0px;
+}
+.el-main{
+  text-align: left;
+  /*height: 30px;*/
+  margin-left: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.el-main::-webkit-scrollbar {
+  display: none;
+}
+.author{
+  /*background-color: antiquewhite;*/
+  text-align: left;
+  font-size: 14px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+p{
+  word-break: keep-all;
+}
+</style>

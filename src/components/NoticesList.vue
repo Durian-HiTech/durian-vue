@@ -1,14 +1,14 @@
 <template>
 <v-app >
     <h1>{{title}}</h1>
-    <p style="color:grey;">共{{total}}条新闻</p>
+    <p style="color:grey;">共{{total}}条通告</p>
     <div
         style="margin: 30px"
         v-for="post in posts.slice((this.currentPage - 1) * this.eachPage,
             this.currentPage * this.eachPage)"
-        v-bind:key="post.news_id"
+        v-bind:key="post.notice_id"
     >
-        <NewsCard v-bind:title="post.news_title" :link="'news/'+post.news_id" :content="post.news_content"/>
+        <NewsCard v-bind:title="post.notice_title" :link="'notice/'+post.notice_id" :content="post.notice_content"/>
     </div>
     <v-pagination
         style="margin-top: 30px;"
@@ -27,7 +27,7 @@ import api from '../commonApi.js'
 import NewsCard from './common/NewsCard.vue'
 
 export default {
-    name:"NewsList",
+    name:"NoticesList",
     data(){
         return {
             posts: [
@@ -47,7 +47,7 @@ export default {
         fetchData () {
         let _this = this
         this.$axios
-            .get(api.baseApi+'/news/list_all_news')
+            .get(api.baseApi+'/notice/list_all_notice')
             .then(function(response) {
                 // console.log(response.data)
                 if (response.data.success) {  

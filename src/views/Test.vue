@@ -6,17 +6,14 @@
 		<el-button @click="login()"> login </el-button>
 		<el-button @click="reset()"> reset </el-button>
 
-		<h2 style="margin-top: 20px;"> news</h2>
-		<NewsList style="width: 50%; height: 2000px; overflow: hidden"/>
 	</div>
 </template>
 
 <script>
-import NewsList from '@/components/NewsList.vue';
+
 export default {
 	name: 'Test',
 	components: {
-		NewsList
 	},
 	methods: {
 		reset () {

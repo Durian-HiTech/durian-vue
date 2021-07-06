@@ -25,7 +25,7 @@
 <script>
 import api from '../commonApi.js'
 export default {
-  name: "NewsDetails",
+  name: "NoticesDetails",
   components: {
 
   },
@@ -45,15 +45,15 @@ export default {
   mounted : function(){
         var _this = this;
         let formData = new FormData();
-        formData.append('news_id', this.$route.params.id);
+        formData.append('notice_id', this.$route.params.id);
         this.$axios
-        .post(api.baseApi+'/news/detail',formData)
+        .post(api.baseApi+'/notice/detail',formData)
         .then(function(response) {
             console.log(response.data)
             if (response.data.success) {  
-                  _this.title=response.data.data.news_title
-                  _this.content=response.data.data.news_content
-                  _this.createtime=response.data.data.news_created_time
+                  _this.title=response.data.data.notice_title
+                  _this.content=response.data.data.notice_content
+                  _this.createtime=response.data.data.notice_created_time
                 console.log(_this.posts)
           }else {
             this.$message({message: response.data.message,

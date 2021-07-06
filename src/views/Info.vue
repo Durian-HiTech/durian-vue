@@ -1,24 +1,22 @@
 <template>
   <div class="root">
     <span class="title">
-      <b>Covid</b> News
+      <b>Covid</b> <span>Info</span>
     </span>
     <el-divider/>
-    <div class="newsSection">
-      <NoticesList title="中国病例最新变化情况" style="width: 400px"/>
-      <NewsList title="中国疫情防控措施" style="width: 400px"/>
-      <NewsList title="国际疫情防控措施" style="width: 400px"/>
+    <div class="QASection">
+      <NewsList title="公告" style="width: 400px"/>
+      <NewsList title="辟谣" style="width: 400px"/>
+      <NewsList title="问答" style="width: 400px"/>
     </div>
   </div>
 </template>
 <script>
 import NewsList from '@/components/NewsList.vue';
-import NoticesList from '@/components/NoticesList.vue';
 export default {
-  name: "News",
+  name: "Info",
   components: {
-    NewsList,
-    NoticesList
+    NewsList
   },
   data() {
     
@@ -41,7 +39,7 @@ export default {
     left: 250px;
   }
 
-  .newsSection {
+  .QASection {
     margin-top: 20px;
     width: 85%;
     display: flex;

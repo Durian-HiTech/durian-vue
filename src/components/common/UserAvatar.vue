@@ -24,30 +24,31 @@
 				<el-button @click="dialogVisible = false">Cancel</el-button>
 				<el-button type="primary" @click="modify()">Confirm</el-button>
 			</span>
-		</el-dialog>
+	</el-dialog>
 
 	<div class='avatar' @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
 		<div style="white-space: nowrap; ">
 			<img v-if="isLogined" src="../../assets/avatar/cat.jpg">
 			<img v-if="!isLogined" src="../../assets/avatar/cat_grey.jpg">
+
 			<span v-if="isLogined" class="name">{{ userState.name }}</span>
-			<router-link to='/login'>
+
+			<router-link to='/login' v-if="!isLogined">
 				<el-button type="success" round plain
-				v-if="!isLogined"
 				style="margin-left: 20px;"
 				>Login</el-button>
 			</router-link>
-			<router-link to='/register'>
+			<router-link to='/register' v-if="!isLogined">
 				<el-button type="primary" round plain
-				v-if="!isLogined"
 				style="margin-left: 20px;"
 				>Register</el-button>
 			</router-link>
+
 		</div>
-		<div style="height: 30px;"></div>
-		<div class='info'>
+		<div v-if="isLogined" style="height: 30px;"></div>
+		<div v-if="isLogined" class='info'>
 			
-			<div v-if="userState.isLogined" style="display: flex; flex-wrap: wrap; justify-content: center;">
+			<div style="display: flex; flex-wrap: wrap; justify-content: center;">
 				<b class='userTag'>
 					<i class='el-icon-s-custom'></i>
 					{{userType}}
@@ -59,19 +60,19 @@
 			</div>
 			
 		</div>
-		<el-divider></el-divider>
 		<div v-if="isLogined">
-			<el-button type="danger" round plain
-			size="medium"
-			@click='unlogin()'
-			>Unlogin</el-button>
-			
-			<el-button type="primary" round plain
-			size="medium"
-			@click='dialogVisible = true'
-			>Modify</el-button>
-			
-			
+			<el-divider></el-divider>
+			<div>
+				<el-button type="danger" round plain
+				size="medium"
+				@click='unlogin()'
+				>Unlogin</el-button>
+				
+				<el-button type="primary" round plain
+				size="medium"
+				@click='dialogVisible = true'
+				>Modify</el-button>
+			</div>
 		</div>
 	</div>
 	</div>

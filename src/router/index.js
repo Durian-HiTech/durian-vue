@@ -41,6 +41,11 @@ const routes = [
     name: 'NewsDetails',
     component: () => import('../views/NewsDetails.vue')
     },
+    {
+      path: '/notice/:id',
+      name: 'NoticeDetails',
+      component: () => import('../views/NoticeDetails.vue')
+      },
   {
     path: '/question/all',
     name: 'Question_All',
@@ -51,6 +56,11 @@ const routes = [
     name: 'Question',
     component: () => import('../views/Question.vue')
   },
+  {
+    path: '/Info',
+    name: 'Info',
+    component: () => import('../views/Info.vue')
+  }
 
 ]
 

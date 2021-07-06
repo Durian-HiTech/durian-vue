@@ -1,27 +1,23 @@
 <template>
-  <div>
-    <el-table
-        :data="question_list"
-        style="width: 100%">
-      <el-table-column
-          prop="question_time"
-          label="提问时间"
-          width="180">
-      </el-table-column>
-      <el-table-column
-          prop="user_id"
-          label="用户ID"
-          width="180">
-      </el-table-column>
-      <el-table-column
-          prop="question_title"
-          label="问题标题">
-      </el-table-column>
-      <el-table-column
-          prop="question_content"
-          label="问题内容">
-      </el-table-column>
-    </el-table>
+  <div style="width: 100%; background-color: #F2F6FC; position: relative">
+    <div class="main_content">
+      <el-container class="el-container" v-for="question in question_list"
+                    :key="question.question_id" >
+        <el-header height="25px" class="el-header">{{question.question_title}} </el-header>
+        <el-main class="el-main-2" height="20px">{{question.user_id}}</el-main>
+        <div>
+          <p class="el-main">{{question.question_content}}</p>
+<!--          <p @click="jumpTo(question.question_id)"> ...继续阅读 </p>-->
+          <router-link :to="{name:'Question', params: {id:question.question_id}}"> 继续阅读 </router-link>
+        </div>
+<!--        <el-row align="left">-->
+<!--          <el-button icon="el-icon-search" circle></el-button>-->
+<!--        </el-row>-->
+
+        <el-divider>{{question.question_time}}</el-divider>
+
+      </el-container>
+    </div>
   </div>
 </template>
 <script>
@@ -36,10 +32,10 @@ export default {
 
   },
   mounted() {
-    this.getAllComments()
+    this.getAllQuestions()
   },
   methods: {
-    getAllComments() {
+    getAllQuestions() {
       let formData = new FormData();
       let config = {
         headers: {"Content-Type": "multipart/form-data",},
@@ -66,7 +62,49 @@ export default {
             }
           });
     },
-
+    jumpTo(id) {
+      console.log(id);
+    }
   }
 }
 </script>
+
+<style scope>
+.main_content{
+  background-color: #FFFFFF;
+  width: 75%;
+  height: 800px;
+  margin: 25px 50px 25px 100px;
+}
+.el-container{
+  height: 250px;
+}
+.el-header{
+  /*background-color: #C0C4CC;*/
+  font-weight: bold;
+  text-align: left;
+  font-size: 24px;
+  margin: 5px 5px 0px;
+}
+.el-main{
+  text-align: left;
+  /*height: 30px;*/
+  margin-left: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.el-main::-webkit-scrollbar {
+  display: none;
+}
+.author{
+  /*background-color: antiquewhite;*/
+  text-align: left;
+  font-size: 14px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+p{
+  word-break: keep-all;
+}
+</style>
+
