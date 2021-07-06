@@ -119,7 +119,6 @@ export default {
     // var _this = this;
     // this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
     //   if(response.data.success){
-    //     console.log(response.data);
     //     _this.data = response.data.data;
     //     _this.timevalue = _this.maxTimeNum;
     //     _this.dataloaded = true;
@@ -127,6 +126,7 @@ export default {
     // })
     this.data = sampledata;
     this.timevalue = this.maxTimeNum;
+    this.dataloaded = true;
   },
   computed: {
     typeName: { //控制显示数据类别get set function
@@ -158,6 +158,7 @@ export default {
       return this.data[this.type][this.timevalue]["value"];
     },
     tableData(){ //给表格的数据
+      console.log(this.data);
       if (this.isempty(this.data)) return [];
       var res = [];
       var len = this.data[this.type][this.timevalue]["value"].length
@@ -173,6 +174,7 @@ export default {
       return res;
     },
     maptopshowData(){ //给topshow的数据，包括累积和新增的当前总数
+      console.log(this.data);
       var res = {};
       for(var key in this.data){
         var reslist = [];
@@ -180,6 +182,7 @@ export default {
         if(this.timevalue !=0)reslist.push(this.data[key][this.timevalue-1]["value"]);
         res[key]=reslist;
       }
+      console.log(res);
       return res;
     }
   },
