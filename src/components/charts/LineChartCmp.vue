@@ -1,6 +1,5 @@
 <template>
   <div>
-    牛逼
     <div id="main"  > </div>
   </div>
 </template>
