@@ -2,7 +2,7 @@
   <!-- <div style="margin:0; padding:0;background:linear-gradient(to right, #bb313e25, #bb313e25, #d7222925, #dd4a1625, #e4761525, #f5c50025, #f0e92725, #b1ce2425, #48a93525, #03944525, #157c4f25, #176a5825, #1b556325, #1d386f25, #1d386f25, #20277825, #52266325, #8a244b25);"> -->
   <div class="root">
     <div class="newsSection">
-      <el-card class="box-card test" shadow="hover">        
+      <!-- <el-card class="box-card test" shadow="hover">        
 
           <div slot="header" class="clearfix">
             <span style ="font-size:18px;font-weight: 700;">中国病例最新变化情况</span>
@@ -13,13 +13,10 @@
       </el-card>
 
       <el-card class="box-card test2" shadow="hover">
-        
-        
         <div slot="header" class="clearfix">
           <span style ="font-size:18px;font-weight: 700;">中国疫情防控措施</span>
         </div>
         <news-list></news-list>
-
       </el-card>
 
       <el-card class="box-card test3" shadow="hover">
@@ -29,7 +26,8 @@
           <div class="text item"  >这是新闻1</div>
              <div class="text item"  >这是新闻2</div>
              <div class="text item"  >新闻3</div>
-      </el-card>
+      </el-card> -->
+      <NewsList style="width: 30%"/>
     </div>
   </div>
 </template>

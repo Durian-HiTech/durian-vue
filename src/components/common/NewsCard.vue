@@ -1,5 +1,4 @@
 <template>
-<v-app>
   <v-card
     class="mx-auto"
     width="344"
@@ -10,17 +9,18 @@
     ></v-img> -->
 
     <v-card-title>
-      Top western road trips
+      {{title | cutLongTitle}}
     </v-card-title>
 
     <v-card-subtitle style="display: flex">
-      1,000 miles of wonder
+      Latest Covid News
     </v-card-subtitle>
 
     <v-card-actions>
       <v-btn
         color="orange lighten-2"
         text
+        @click="goToNewsPage()"
       >
         Explore
       </v-btn>
@@ -40,12 +40,11 @@
         <v-divider></v-divider>
 
         <v-card-text>
-          I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
+          {{content | cutLongText}}
         </v-card-text>
       </div>
     </v-expand-transition>
   </v-card>
-</v-app>
 </template>
 
 
@@ -56,6 +55,28 @@ export default {
         return {
             show: false
         }
-    }
+    },
+    props: ['title', 'link', 'content'],
+    methods: {
+      goToNewsPage() {
+        this.$router.push(this.link)
+      }
+    },
+    filters: {
+      cutLongText: function (value) {
+        let maxLenth = 200
+        if (value.length > maxLenth) {
+          return value.slice(0, maxLenth) + '...'
+        }
+        return value
+      },
+      cutLongTitle: function (value) {
+        let maxLenth = 50
+        if (value.length > maxLenth) {
+          return value.slice(0, maxLenth) + '...'
+        }
+        return value
+      }
+    },
 }
 </script>
