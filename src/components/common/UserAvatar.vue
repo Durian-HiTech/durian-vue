@@ -24,7 +24,7 @@
 				<el-button @click="dialogVisible = false">Cancel</el-button>
 				<el-button type="primary" @click="modify()">Confirm</el-button>
 			</span>
-		</el-dialog>
+	</el-dialog>
 
 	<div class='avatar' @mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
 		<div style="white-space: nowrap; ">
