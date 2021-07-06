@@ -42,10 +42,16 @@ const routes = [
     component: () => import('../views/NewsDetails.vue')
     },
   {
+    path: '/question/all',
+    name: 'Question_All',
+    component: () => import('../views/QuestionAll.vue')
+  },
+  {
     path: '/question/:id',
     name: 'Question',
     component: () => import('../views/Question.vue')
   },
+
 ]
 
 const router = new VueRouter({

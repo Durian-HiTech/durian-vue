@@ -57,8 +57,7 @@ export default {
           "https://durian-go-318509.df.r.appspot.com/api/v1/notice/list_all_comments",
           formData,
           config
-      )
-          .then(function (response) {
+      ).then(function (response) {
             console.log(response)
             console.log(response.status)
             if (response.status == 200) {
