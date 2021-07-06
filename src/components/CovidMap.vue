@@ -48,25 +48,29 @@
           v-if="dataloaded"
         ></el-slider>
       </div>
+
       <el-radio-group size="medium">
-      <el-button
-        type="text"
-        icon="el-icon-caret-left"
-        size="medium"
-        @click="timeMinus"
-      ></el-button>
-      <el-button
-        type="text"
-        icon="el-icon-video-play"
-        size="medium"
-        @click="timePlayStart"
-      ></el-button>
-      <el-button
-        type="text"
-        icon="el-icon-caret-right"
-        size="medium"
-        @click="timeAdd"
-      ></el-button>
+        <el-button
+          class="timeButton"
+          type="text"
+          icon="el-icon-caret-left"
+          @click="timeMinus"
+        ></el-button>
+        <el-button
+          class="timeButton"
+          type="text"
+          icon="el-icon-video-play"
+          size="medium"
+          style="color: rgb(212 108 75)"
+          @click="timePlayStart"
+        ></el-button>
+        <el-button
+          class="timeButton"
+          type="text"
+          icon="el-icon-caret-right"
+          size="medium"
+          @click="timeAdd"
+        ></el-button>
       </el-radio-group>
     </div>
 
@@ -258,5 +262,15 @@ export default {
 }
 .CovidMapRoot .el-slider__button {
   border: 2px solid #a1a1a1;
+}
+.CovidMapRoot .el-slider__runway {
+    width: 300px;
+}
+.CovidMapRoot .el-slider__bar {
+  background-color: #cacaca;
+}
+.CovidMapRoot .timeButton {
+  font-size: 30px;
+  color: #cacaca;
 }
 </style>
