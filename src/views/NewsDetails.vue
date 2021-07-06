@@ -14,9 +14,10 @@
         <span style="color:grey;">字，预计需要</span>
         <b style="color:#FFB74D;">{{minutes}}</b>
         <span style="color:grey;">分钟阅读</span>
-        <div class="text_item">{{content}}</div>
       </div>
-
+        
+      <div class="text_item">{{content}}</div>
+    
     </div>
   </div>
 </template>
@@ -92,11 +93,12 @@ export default {
   
   width: 1500px;
   font-size: 20px;
+  line-height: 1.8;
+  letter-spacing: 1.5px;
 
   padding: 20px;
 
   border-radius: 20px;
-	/* border: #ebebeb solid thin; */
 	
 	box-shadow: 0px 0px 20px 4px rgba(128, 128, 128, 0.1);
 }

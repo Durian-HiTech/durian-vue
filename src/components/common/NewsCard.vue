@@ -73,9 +73,9 @@ export default {
     computed: {
       showImage () {
         return {
-          a: (this.title.length % 8) == 0,
-          b: (this.title.length % 8) == 1,
-          c: (this.title.length % 8) == 2
+          a: (this.title.length % 5) == 0,
+          b: (this.title.length % 5) == 1,
+          c: (this.title.length % 5) == 2
         }
       },
     },
