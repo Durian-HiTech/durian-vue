@@ -50,6 +50,15 @@
         </template>
       </el-table-column>
     </el-table>
+    <el-select v-model="value" placeholder="请选择" >
+      <el-option
+          v-for="item in options"
+          :key="item.value"
+          :label="item.label"
+          :value="item.value">
+      </el-option>
+    </el-select>
+    <el-button type="primary" icon="el-icon-search" @click="subCity">订阅</el-button>
   </el-dialog>
 
 	</div>
@@ -154,12 +163,56 @@ export default {
             }
           });
     },
+    subCity() {
+      console.log(this.value)
+      let formData = new FormData();
+      formData.append("city_name", this.value);
+      formData.append("user_id", this.$store.getters.userState.id);
+      let config = {
+        headers: {"Content-Type": "multipart/form-data",},
+      };
+      var _this = this;
+      axios.post(
+          "https://durian-go-318509.df.r.appspot.com/api/v1/sub/subscribe",
+          formData,
+          config
+      )
+          .then(function (response) {
+            console.log(response)
+            console.log(response.status)
+            if (response.status == 200) {
+              // console.log((response.data.data))
+              _this.updateSub();
+            } else {
+              console.log("请求失败");
+              // console.log(response.data);
+              // _this.fail()
+            }
+          });
+    },
 	},
   data(){
     return {
       dialogTableVisible: false,
       tableData: [],
       search: '1',
+      options: [{
+        value: '北京',
+        label: '北京'
+      }, {
+        value: '上海',
+        label: '上海'
+      }, {
+        value: '广州',
+        label: '广州'
+      }, {
+        value: '深圳',
+        label: '深圳'
+      }, {
+        value: '兰州',
+        label: '兰州'
+      }],
+      value: ''
     }
   },
 }
