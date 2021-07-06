@@ -1,20 +1,23 @@
 <template>
-  <div class="main_content">
-    <el-container class="el-container" v-for="question in question_list"
-                  :key="question.question_id" >
-      <el-header height="25px" class="el-header">{{question.question_title}} </el-header>
-      <el-main class="el-main-2" height="20px">{{question.user_id}}</el-main>
-      <div>
-        <p class="el-main">{{question.question_content}}</p>
-        <p> ...继续阅读 </p>
-      </div>
-      <el-row align="left">
-        <el-button icon="el-icon-search" circle></el-button>
-      </el-row>
+  <div style="width: 100%; background-color: #F2F6FC; position: relative">
+    <div class="main_content">
+      <el-container class="el-container" v-for="question in question_list"
+                    :key="question.question_id" >
+        <el-header height="25px" class="el-header">{{question.question_title}} </el-header>
+        <el-main class="el-main-2" height="20px">{{question.user_id}}</el-main>
+        <div>
+          <p class="el-main">{{question.question_content}}</p>
+<!--          <p @click="jumpTo(question.question_id)"> ...继续阅读 </p>-->
+          <router-link :to="{name:'Question', params: {id:question.question_id}}"> 继续阅读 </router-link>
+        </div>
+<!--        <el-row align="left">-->
+<!--          <el-button icon="el-icon-search" circle></el-button>-->
+<!--        </el-row>-->
 
-      <el-divider>{{question.question_time}}</el-divider>
+        <el-divider>{{question.question_time}}</el-divider>
 
-    </el-container>
+      </el-container>
+    </div>
   </div>
 </template>
 <script>
@@ -68,22 +71,20 @@ export default {
 
 <style scope>
 .main_content{
-  /*background-color: #26BEB8;*/
-  width: 85%;
+  background-color: #FFFFFF;
+  width: 75%;
   height: 800px;
   margin: 25px 50px 25px 100px;
 }
 .el-container{
-  height: 200px;
+  height: 250px;
 }
 .el-header{
-  /*background-color: #dace0a;*/
+  /*background-color: #C0C4CC;*/
+  font-weight: bold;
   text-align: left;
   font-size: 24px;
-  margin-left: 5px;
-  margin-right: 5px;
-  margin-top: 5px;
-  margin-bottom: 0px;
+  margin: 5px 5px 0px;
 }
 .el-main{
   text-align: left;

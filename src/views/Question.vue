@@ -1,11 +1,6 @@
 <template>
   <div id="main">
     <div>
-      这是一首简单的小情歌
-      {{this.name}}
-      {{this.$route.params.id}}
-    </div>
-    <div>
       <el-table
           :data="comment_list"
           style="width: 100%">
