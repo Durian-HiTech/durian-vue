@@ -20,23 +20,27 @@
 
       <div class="backButton" @click="reset" >返回</div>
 
-      <h3 style="margin: 20px">中风险地区</h3>
+      <el-divider/>
 
-        <div v-for="item in medium_risk"
-            :key="item.city">
-          {{item.detail}}
+      <h2 style="margin: 20px">中风险地区</h2>
+
+        <div class="riskPlaces">
+          <div v-for="item in medium_risk"
+              :key="item.city">
+            {{item.detail}}
+          </div>
+          <div v-if="medium_risk.length==0">无</div>
+        </div>        
+
+      <h2 style="margin: 20px">高风险地区</h2>
+
+        <div class="riskPlaces">
+          <div v-for="item in high_risk"
+              :key="item.city">
+            {{item.detail}}
+          </div>
+          <div v-if="high_risk.length==0">无</div>
         </div>
-
-        <div v-if="medium_risk.length==0">无</div>
-
-      <h3 style="margin: 20px">高风险地区</h3>
-
-        <div v-for="item in high_risk"
-            :key="item.city">
-          {{item.detail}}
-        </div>
-
-        <div v-if="high_risk.length==0">无</div>
 
     </div>
   </div>
@@ -132,5 +136,11 @@ export default {
   padding: 5px 15px 5px 15px;
   margin: 3px;
   margin-bottom: 50px;
+}
+.riskPlaces {
+
+  border-radius: 30px;
+  padding: 18px;
+  background-color:rgba(20, 20, 20, 0.2);
 }
 </style>
