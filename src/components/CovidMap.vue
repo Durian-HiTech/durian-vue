@@ -76,6 +76,7 @@
 
     <div class="CovidMapTables">
       <div>
+        <time-show v-if="dataloaded" :time="timeData"></time-show>
         <map-top-show :data="maptopshowData" v-if="dataloaded"></map-top-show>
       </div>
       <div>
@@ -88,6 +89,7 @@
 import MainMap from "./charts/MainMap.vue";
 import MapTable from "./charts/MapTable.vue";
 import MapTopShow from "./common/MapTopShow.vue";
+import TimeShow from "./common/TimeShow.vue"
 var countrymapping = require("../data/utils/countryen2zh.json");
 // import api from '../commonApi.js';
 var sampledata = require("../data/samples/sample.json");
@@ -96,7 +98,8 @@ export default {
   components: {
     MainMap,
     MapTable,
-    MapTopShow
+    MapTopShow,
+    TimeShow
   },
   data() {
     return {
@@ -105,7 +108,7 @@ export default {
       type: "vaccine",
       timevalue: 0,
       data: {},
-      dataloaded:true, //数据是否加载完成，控制所有组件的加载
+      dataloaded:false, //数据是否加载完成，控制所有组件的加载
     };
   },
   watch: {
@@ -150,16 +153,13 @@ export default {
       },
     },
     maxTimeNum() { //滑块的最大值
-      if (this.isempty(this.data)) return 1;
       return this.data[this.type].length - 1;
     },
     mapData() { // 给地图返回的当前类别当前区域的数据
-      if (this.isempty(this.data)) return [];
       return this.data[this.type][this.timevalue]["value"];
     },
     tableData(){ //给表格的数据
       console.log(this.data);
-      if (this.isempty(this.data)) return [];
       var res = [];
       var len = this.data[this.type][this.timevalue]["value"].length
       for(var i = 0;i<len;i++ ){
@@ -184,6 +184,9 @@ export default {
       }
       console.log(res);
       return res;
+    },
+    timeData(){
+      return this.data[this.type][this.timevalue]["date"];
     }
   },
   methods: {
@@ -197,7 +200,6 @@ export default {
       this.country = name;
     },
     formatTime() { // 滑块的时间显示控制
-      if (this.isempty(this.data)) return "0";
       return this.data[this.type][this.timevalue]["date"];
     },
     changeData(name) {
