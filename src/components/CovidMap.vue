@@ -39,12 +39,12 @@
         </el-select>
       </div>
 
-      <div style="margin-top: 15px;width = 100px;">
+      <div style="margin-top: 15px; width: 100px">
         <el-slider
           v-model="timevalue"
           :max="maxTimeNum"
           :format-tooltip="formatTime"
-          style="width = 100px;"
+          style="width :100px"
           v-if="dataloaded"
         ></el-slider>
       </div>
@@ -97,6 +97,7 @@
         <time-show :time="timeData"></time-show>
         <map-top-show :data="maptopshowData" ></map-top-show>
       </div>
+<!--      <>-->
       <div>
         <map-table :data="tableData" ></map-table>
       </div>
@@ -109,6 +110,7 @@ import MapTable from "./charts/MapTable.vue";
 import MapTopShow from "./common/MapTopShow.vue";
 import TimeShow from "./common/TimeShow.vue";
 var countrymapping = require("../data/utils/countryen2zh.json");
+
 // import api from '../commonApi.js';
 var sampledata = require("../data/samples/sample.json");
 export default {
