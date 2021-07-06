@@ -38,18 +38,33 @@
         </el-select>
       </div>
 
-      <div style="margin-top: 15px">
+      <div style="margin-top: 15px" width = "100%">
         <el-slider
           v-model="timevalue"
           :max="maxTimeNum"
           :format-tooltip="formatTime"
+          width = "100%"
         ></el-slider>
       </div>
+      <el-radio-group size="medium">
+      <el-button
+        type="text"
+        icon="el-icon-caret-left"
+        size="medium"
+        @click="timeMinus"
+      ></el-button>
       <el-button
         type="text"
         icon="el-icon-video-play"
         size="medium"
       ></el-button>
+      <el-button
+        type="text"
+        icon="el-icon-caret-right"
+        size="medium"
+        @click="timeAdd"
+      ></el-button>
+      </el-radio-group>
     </div>
 
     <div class="tables">
@@ -162,6 +177,14 @@ export default {
       }
       return true;
     },
+    timeAdd(){
+      if(this.timevalue+1>this.maxTimeNum)return;
+      this.timevalue++;
+    },
+    timeMinus(){
+      if(this.timevalue == 0)return ;
+      this.timevalue--;
+    }
   },
 };
 </script>

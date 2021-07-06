@@ -12,6 +12,32 @@
                     "value": 100203
                 }
             ]
+        },
+        {
+            "date": "20/01/02",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
+                }
+            ]
+        },
+        {
+            "date": "20/01/03",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
+                }
+            ]
         }
     ],
     "deaths": [
@@ -25,6 +51,32 @@
                 {
                     "name": "United States of America",
                     "value": 10011
+                }
+            ]
+        },
+        {
+            "date": "20/01/02",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
+                }
+            ]
+        },
+        {
+            "date": "20/01/03",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
                 }
             ]
         }
@@ -42,6 +94,32 @@
                     "value": 10011
                 }
             ]
+        },
+        {
+            "date": "20/01/02",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
+                }
+            ]
+        },
+        {
+            "date": "20/01/03",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
+                }
+            ]
         }
     ],
     "vaccine": [
@@ -55,6 +133,32 @@
                 {
                     "name": "United States of America",
                     "value": 10011
+                }
+            ]
+        },
+        {
+            "date": "20/01/02",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
+                }
+            ]
+        },
+        {
+            "date": "20/01/03",
+            "value": [
+                {
+                    "name": "China",
+                    "value": 123
+                },
+                {
+                    "name": "United States of America",
+                    "value": 100203
                 }
             ]
         }

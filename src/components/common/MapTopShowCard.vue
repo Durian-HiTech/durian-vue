@@ -1,0 +1,26 @@
+<template>
+    <div>
+        <span>{{nownum}}</span>
+        <span>{{type}}</span>
+        <span>新增：{{newnum}}</span>
+    </div>
+</template>
+<script>
+export default({
+    name:"MapTopShowCard",
+    props:{
+        nownum:{
+            type:String,
+            required:true
+        },
+        type:{
+            type:String,
+            required:true
+        },
+        newnum:{
+            type:String,
+            required:true
+        }
+    }
+})
+</script>
