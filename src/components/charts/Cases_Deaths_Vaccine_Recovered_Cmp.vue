@@ -1,6 +1,5 @@
 <template>
   <div>
-    牛逼
     <div id="Four_Type_Cmp"> </div>
   </div>
 </template>
@@ -8,11 +7,16 @@
 <script>
 // import axios from "axios";
 import * as echarts from 'echarts';
-import data_table from '@/data/samples/sample.json'
 
 var option;
 var json_data = [["Date", "Number", "Type"]];
 export default{
+  props:{
+    data_table:{
+      type:Object,
+      required:true
+    }
+  },
   data() {
     return {
       name: "复兴组",
@@ -26,15 +30,14 @@ export default{
   },
   methods: {
     getData() {
-      console.log(data_table)
-      for(let key in data_table) {
-        for(let i = 0; i < data_table[key].length; i++) {
+      for(let key in this.$props.data_table) {
+        for(let i = 0; i < this.$props.data_table[key].length; i++) {
           var tmp = [];
-          tmp[0] = data_table[key][i].date;
+          tmp[0] = this.$props.data_table[key][i].date;
           tmp[2] = key;
           let sum_value = 0;
-          for (let j = 0; j < data_table[key][i].value.length; j++) {
-            sum_value += data_table[key][i].value[j].value;
+          for (let j = 0; j < this.$props.data_table[key][i].value.length; j++) {
+            sum_value += this.$props.data_table[key][i].value[j].value;
           }
           tmp[1] = sum_value;
           json_data.push(tmp);
@@ -43,7 +46,6 @@ export default{
       this.mycharts()
     },
     mycharts(){
-      console.log(json_data)
       option = {
         dataset: [{
           id: 'dataset_raw',

@@ -44,7 +44,7 @@
           v-model="timevalue"
           :max="maxTimeNum"
           :format-tooltip="formatTime"
-          style="width :100px"
+          style="width: 100px"
           v-if="dataloaded"
         ></el-slider>
       </div>
@@ -76,7 +76,7 @@
 
     <div class="CovidMapTables" v-if="dataloaded">
       <div>
-        <el-row>{{countryData}}</el-row>
+        <el-row>{{ countryData }}</el-row>
         <el-row class="demo-autocomplete">
           <el-autocomplete
             class="inline-input"
@@ -86,20 +86,26 @@
             @select="handleSelect"
           >
             <template slot-scope="{ item }">
-               <span style="float: left">{{ item.label }}</span>
-            <span style="float: right; color: #8492a6; font-size: 13px">{{
-              item.value
-            }}</span>
+              <span style="float: left">{{ item.label }}</span>
+              <span style="float: right; color: #8492a6; font-size: 13px">{{
+                item.value
+              }}</span>
             </template></el-autocomplete
           >
           <el-button slot="append" icon="el-icon-search"></el-button>
         </el-row>
         <time-show :time="timeData"></time-show>
-        <map-top-show :data="maptopshowData" ></map-top-show>
-      </div>
-<!--      <>-->
-      <div>
-        <map-table :data="tableData" ></map-table>
+        <map-top-show :data="maptopshowData"></map-top-show>
+        <el-tabs type="border-card">
+          <el-tab-pane label="Charts">
+            <cases-deaths-vaccine-recovered-cmp
+              :data_table="data"
+            ></cases-deaths-vaccine-recovered-cmp>
+          </el-tab-pane>
+          <el-tab-pane label="Table"
+            ><map-table :data="tableData"></map-table
+          ></el-tab-pane>
+        </el-tabs>
       </div>
     </div>
   </div>
@@ -109,6 +115,7 @@ import MainMap from "./charts/MainMap.vue";
 import MapTable from "./charts/MapTable.vue";
 import MapTopShow from "./common/MapTopShow.vue";
 import TimeShow from "./common/TimeShow.vue";
+import CasesDeathsVaccineRecoveredCmp from "./charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
 var countrymapping = require("../data/utils/countryen2zh.json");
 
 // import api from '../commonApi.js';
@@ -120,6 +127,7 @@ export default {
     MapTable,
     MapTopShow,
     TimeShow,
+    CasesDeathsVaccineRecoveredCmp,
   },
   data() {
     return {
@@ -217,12 +225,13 @@ export default {
       // 给时间显示器的数据
       return this.formatTime();
     },
-    countryData(){
-      for(var i in this.countries){
-        if(this.countries[i]["value"] == this.country)return this.countries[i]["label"];
+    countryData() {
+      for (var i in this.countries) {
+        if (this.countries[i]["value"] == this.country)
+          return this.countries[i]["label"];
       }
       return "";
-    }
+    },
   },
   methods: {
     countryChange(name) {
@@ -247,8 +256,8 @@ export default {
       var results = queryString
         ? countries.filter(function (val) {
             return (
-              val.value.toLowerCase().indexOf(queryString.toLowerCase()) != -1
-                 || val.value.indexOf(queryString) != -1
+              val.value.toLowerCase().indexOf(queryString.toLowerCase()) !=
+                -1 || val.value.indexOf(queryString) != -1
             );
           })
         : countries;
