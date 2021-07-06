@@ -11,7 +11,7 @@ import axios from "axios";
 // import data_table from '@/static/test.json'
 
 // var json_data = [["Data", "Doses", "Country"]];
-// var load = false;
+// var load = false;x
 var timeData = []
 var vaccine_list = []
 var new_cases_list = []
@@ -66,11 +66,11 @@ export default{
           config
       ).then(function (response1) {
         if (response1.status == 200) {
-          console.log(response1.data.timeline.cases)
+          // console.log(response1.data.timeline.cases)
           for(var key in response1.data.timeline.cases) {
             new_cases_list.push(response1.data.timeline.cases[key])
           }
-          console.log(new_cases_list);
+          // console.log(new_cases_list);
           // console.log(json_data)
           _this.mycharts();
         } else {

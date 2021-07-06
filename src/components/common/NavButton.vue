@@ -150,12 +150,12 @@ export default {
           config
       )
           .then(function (response) {
-            console.log(response)
-            console.log(response.status)
+            // console.log(response)
+            // console.log(response.status)
             if (response.status == 200) {
               // console.log((response.data.data))
               _this.tableData = response.data.data
-              console.log(_this.tableData)
+              // console.log(_this.tableData)
             } else {
               console.log("请求失败");
               // console.log(response.data);
@@ -178,8 +178,8 @@ export default {
           config
       )
           .then(function (response) {
-            console.log(response)
-            console.log(response.status)
+            // console.log(response)
+            // console.log(response.status)
             if (response.status == 200) {
               // console.log((response.data.data))
               _this.updateSub();
