@@ -7,14 +7,16 @@
 		<el-button @click="reset()"> reset </el-button>
 
 		<h2 style="margin-top: 20px;"> user state</h2>
-		
+		<NewsCard/>
 	</div>
 </template>
 
 <script>
+import NewsCard from "../components/common/NewsCard.vue"
 export default {
 	name: 'Test',
 	components: {
+		NewsCard
 	},
 	methods: {
 		reset () {

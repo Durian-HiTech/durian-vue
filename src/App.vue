@@ -1,7 +1,14 @@
 <template>
+  <!-- <v-app>
+    <v-main>
+      <router-view/>
+      <user-avatar id='user-avatar'/>
+      <NavButton id='NavButton'/>
+    </v-main>
+  </v-app> -->
   <div id="app">
-	<user-avatar id='user-avatar'/>
-	<NavButton id='NavButton'/>
+    <user-avatar id='user-avatar'/>
+    <NavButton id='NavButton'/>
     <router-view/>
   </div>
 </template>

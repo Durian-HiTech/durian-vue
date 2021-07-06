@@ -1,5 +1,5 @@
 <template>
-	<div>
+  <div>
 		<div class="covidMap" style="position: relative;"
 		@mouseenter="mouseEnter()" @mouseleave="mouseLeave()">
 			<div id="mask1">
