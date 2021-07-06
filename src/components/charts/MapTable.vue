@@ -1,29 +1,29 @@
 <template>
   <div id="map-table">
-    <el-table :data="data" height="250" border style="width: 100%">
+    <el-table class="table" :data="data" height="250" max-height="400px">
       <el-table-column label="区域" width="80"> 
           <template slot-scope = "scope">
-              <span style="margin-left:10px" @click="clickevent(scope.row)">{{regionName(scope.row.region)}}</span>
+              <span @click="clickevent(scope.row)">{{regionName(scope.row.region)}}</span>
           </template>
       </el-table-column>
       <el-table-column label="确诊" width="80"> 
           <template slot-scope = "scope">
-              <span style="margin-left:10px" @click="clickevent(scope.row)">{{scope.row.cases}}</span>
+              <span @click="clickevent(scope.row)">{{scope.row.cases}}</span>
           </template>
       </el-table-column>
       <el-table-column label="死亡" width="80"> 
           <template slot-scope = "scope">
-              <span style="margin-left:10px" @click="clickevent(scope.row)">{{scope.row.deaths}}</span>
+              <span  @click="clickevent(scope.row)">{{scope.row.deaths}}</span>
           </template>
       </el-table-column>
       <el-table-column label="治愈" width="80"> 
           <template slot-scope = "scope">
-              <span style="margin-left:10px" @click="clickevent(scope.row)">{{scope.row.recovered}}</span>
+              <span @click="clickevent(scope.row)">{{scope.row.recovered}}</span>
           </template>
       </el-table-column>
       <el-table-column label="接种" width="80"> 
           <template slot-scope = "scope">
-              <span style="margin-left:10px" @click="clickevent(scope.row)">{{scope.row.vaccine}}</span>
+              <span @click="clickevent(scope.row)">{{scope.row.vaccine}}</span>
           </template>
       </el-table-column>
     </el-table>
@@ -61,3 +61,23 @@ export default {
   }
 };
 </script>
+
+<style>
+.table {
+  width: 100%; 
+  border-radius: 30px; 
+  border: #afafaf solid 2px !important;
+}
+.el-table th, .el-table tr {
+    background-color: rgba(255, 0, 0, 0) !important;
+}
+.el-table, .el-table__expanded-cell {
+    background-color: #686561 !important;
+    color: #d2d2d2 !important;
+}
+.el-table thead {
+  color: #ffffff !important;
+  font-weight: 1000 !important;
+  font-size: 16px !important;
+}
+</style>

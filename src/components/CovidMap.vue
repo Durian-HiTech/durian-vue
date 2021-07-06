@@ -85,8 +85,8 @@ import MainMap from "./charts/MainMap.vue";
 import MapTable from "./charts/MapTable.vue";
 import MapTopShow from "./common/MapTopShow.vue";
 var countrymapping = require("../data/utils/countryen2zh.json");
-import api from '../commonApi.js';
-// var sampledata = require("../data/samples/sample.json");
+// import api from '../commonApi.js';
+var sampledata = require("../data/samples/sample.json");
 export default {
   name: "CovidMap",
   components: {
@@ -101,7 +101,7 @@ export default {
       type: "vaccine",
       timevalue: 0,
       data: {},
-      dataloaded:false, //数据是否加载完成，控制所有组件的加载
+      dataloaded:true, //数据是否加载完成，控制所有组件的加载
     };
   },
   watch: {
@@ -112,17 +112,17 @@ export default {
   },
   mounted() {
     this.countries = countrymapping;
-    var _this = this;
-    this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
-      if(response.data.success){
-        console.log(response.data);
-        _this.data = response.data.data;
-        _this.timevalue = _this.maxTimeNum;
-        _this.dataloaded = true;
-      }
-    })
-    // this.data = sampledata;
-    // this.timevalue = this.maxTimeNum;
+    // var _this = this;
+    // this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
+    //   if(response.data.success){
+    //     console.log(response.data);
+    //     _this.data = response.data.data;
+    //     _this.timevalue = _this.maxTimeNum;
+    //     _this.dataloaded = true;
+    //   }
+    // })
+    this.data = sampledata;
+    this.timevalue = this.maxTimeNum;
   },
   computed: {
     typeName: { //控制显示数据类别get set function
@@ -240,5 +240,6 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 80px;
 }
 </style>

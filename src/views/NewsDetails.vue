@@ -54,7 +54,7 @@ export default {
                   _this.title=response.data.data.news_title
                   _this.content=response.data.data.news_content
                   _this.createtime=response.data.data.news_created_time
-                console.log(_this.posts)
+                // console.log(_this.posts) 
           }else {
             this.$message({message: response.data.message,
                     type: 'error'})

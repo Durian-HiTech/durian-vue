@@ -1,7 +1,7 @@
 <template>
 <div class="root">
     <div v-for="item in types" :key="item.id">
-        <map-top-show-card :type="typeName(item)" :nownum="calnownum(item)" :newnum="calnewnum(item)"></map-top-show-card>
+        <map-top-show-card :type="typeName(item)" :nownum="calnownum(item)" :newnum="calnewnum(item)" ></map-top-show-card>
     </div>
 </div>
 </template>
@@ -59,6 +59,8 @@ export default ({
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    /* width: 350px; */
+
+    width: 400px;
+    margin-bottom: 40px;
 }
 </style>

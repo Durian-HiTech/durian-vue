@@ -18,9 +18,6 @@ export default {
   components: {
     NewsList
   },
-  data() {
-    
-  },
 }
 </script>
 <style scoped>

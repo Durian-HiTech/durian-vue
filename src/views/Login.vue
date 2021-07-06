@@ -102,7 +102,7 @@ export default {
     background-image: url(../assets/backgroundImage/login.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-	background-position: center;
+    background-position: center;
 
     width: 100vw;
     height: 100vh;

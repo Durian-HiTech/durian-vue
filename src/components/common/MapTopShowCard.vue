@@ -28,6 +28,8 @@ export default({
 <style scoped>
 .showcardroot {
     margin: 10px;
+    margin-left:50px; 
+    margin-right:50px;
 }
 .nownum {
     color: white;
