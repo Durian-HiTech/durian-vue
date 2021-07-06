@@ -1,6 +1,6 @@
 <template>
   <div id="map-table">
-    <el-table :data="tableData" height="250" border style="width: 100%">
+    <el-table :data="data" height="250" border style="width: 100%">
       <el-table-column label="区域" width="80"> 
           <template slot-scope = "scope">
               <span style="margin-left:10px" @click="clickevent(scope.row)">{{scope.row.region}}</span>
@@ -39,46 +39,10 @@ export default {
           required:true
       }
   },
-  data() {
-    return {
-      tableData: [
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-08",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-06",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-        {
-          date: "2016-05-07",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
-        },
-      ],
-    };
-  },
+  methods:{
+    clickevent(obj){
+      console.log(obj);
+    }
+  }
 };
 </script>

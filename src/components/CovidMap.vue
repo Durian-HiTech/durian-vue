@@ -52,7 +52,7 @@
         <h1>Section1</h1>
       </div>
       <div>
-        <map-table></map-table>
+        <map-table :data="tableData"></map-table>
       </div>
     </div>
   </div>
@@ -116,6 +116,22 @@ export default {
       if (this.isempty(this.data)) return [];
       return this.data[this.type][this.timevalue]["value"];
     },
+    tableData(){ //给表格的数据
+      if (this.isempty(this.data)) return [];
+      var res = [];
+      var len = this.data[this.type][this.timevalue]["value"].length
+      for(var i = 0;i<len;i++ ){
+        res.push({
+          region:this.data["cases"][this.timevalue]["value"][i]["name"],
+          cases:this.data["cases"][this.timevalue]["value"][i]["value"],
+          deaths:this.data["deaths"][this.timevalue]["value"][i]["value"],
+          recovered:this.data["recovered"][this.timevalue]["value"][i]["value"],
+          vaccine:this.data["vaccine"][this.timevalue]["value"][i]["value"]
+        })
+      }
+      console.log(res);
+      return res;
+    }
   },
   methods: {
     countryChange(name) {
