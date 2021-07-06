@@ -10,7 +10,7 @@ export default({
     name:"MapTopShowCard",
     props:{
         nownum:{
-            type:String,
+            type:Number,
             required:true
         },
         type:{
@@ -18,7 +18,7 @@ export default({
             required:true
         },
         newnum:{
-            type:String,
+            type:Number,
             required:true
         }
     }

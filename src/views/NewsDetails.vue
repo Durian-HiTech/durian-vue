@@ -7,8 +7,17 @@
     <el-divider/>
     <div style="display: flex; flex-direction:column; justify-content: center; align-items: center;">
       <div class="text_title">{{title}}</div>
-      <p style="color:grey;">共{{content.length}}字，预计需要{{minutes}}分钟阅读</p>
+
+      <div>
+        <span style="color:grey;">共</span>
+        <b style="color:#FFB74D;">{{content.length}}</b>
+        <span style="color:grey;">字，预计需要</span>
+        <b style="color:#FFB74D;">{{minutes}}</b>
+        <span style="color:grey;">分钟阅读</span>
+      </div>
+        
       <div class="text_item">{{content}}</div>
+    
     </div>
   </div>
 </template>
@@ -83,8 +92,14 @@ export default {
   margin-bottom: 20px;
   
   width: 1500px;
-
   font-size: 20px;
+  line-height: 1.8;
+  letter-spacing: 1.5px;
 
+  padding: 20px;
+
+  border-radius: 20px;
+	
+	box-shadow: 0px 0px 20px 4px rgba(128, 128, 128, 0.1);
 }
 </style>
