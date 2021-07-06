@@ -1,27 +1,20 @@
 <template>
-  <div>
-    <el-table
-        :data="question_list"
-        style="width: 100%">
-      <el-table-column
-          prop="question_time"
-          label="提问时间"
-          width="180">
-      </el-table-column>
-      <el-table-column
-          prop="user_id"
-          label="用户ID"
-          width="180">
-      </el-table-column>
-      <el-table-column
-          prop="question_title"
-          label="问题标题">
-      </el-table-column>
-      <el-table-column
-          prop="question_content"
-          label="问题内容">
-      </el-table-column>
-    </el-table>
+  <div class="main_content">
+    <el-container class="el-container" v-for="question in question_list"
+                  :key="question.question_id" >
+      <el-header height="25px" class="el-header">{{question.question_title}} </el-header>
+      <el-main class="el-main-2" height="20px">{{question.user_id}}</el-main>
+      <div>
+        <p class="el-main">{{question.question_content}}</p>
+        <p> ...继续阅读 </p>
+      </div>
+      <el-row align="left">
+        <el-button icon="el-icon-search" circle></el-button>
+      </el-row>
+
+      <el-divider>{{question.question_time}}</el-divider>
+
+    </el-container>
   </div>
 </template>
 <script>
@@ -66,7 +59,51 @@ export default {
             }
           });
     },
-
+    jumpTo(id) {
+      console.log(id);
+    }
   }
 }
 </script>
+
+<style scope>
+.main_content{
+  /*background-color: #26BEB8;*/
+  width: 85%;
+  height: 800px;
+  margin: 25px 50px 25px 100px;
+}
+.el-container{
+  height: 200px;
+}
+.el-header{
+  /*background-color: #dace0a;*/
+  text-align: left;
+  font-size: 24px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
+.el-main{
+  text-align: left;
+  /*height: 30px;*/
+  margin-left: 5px;
+  margin-top: 5px;
+  font-size: 14px;
+}
+.el-main::-webkit-scrollbar {
+  display: none;
+}
+.author{
+  /*background-color: antiquewhite;*/
+  text-align: left;
+  font-size: 14px;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+p{
+  word-break: keep-all;
+}
+</style>
+
