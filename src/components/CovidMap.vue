@@ -57,6 +57,7 @@
         type="text"
         icon="el-icon-video-play"
         size="medium"
+        @click="timePlayStart"
       ></el-button>
       <el-button
         type="text"
@@ -184,6 +185,12 @@ export default {
     timeMinus(){
       if(this.timevalue == 0)return ;
       this.timevalue--;
+    },
+    timePlayStart(){
+      let _this=this
+      if(this.timevalue+1>this.maxTimeNum)return;
+      this.timevalue++;
+      setTimeout(function(){_this.timePlayStart()},2000);
     }
   },
 };
