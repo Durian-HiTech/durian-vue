@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="CovidMapRoot">
     <div class="CovidMap">
       <main-map
         ref="MainMap"
@@ -70,7 +70,7 @@
       </el-radio-group>
     </div>
 
-    <div class="tables">
+    <div class="CovidMapTables">
       <div>
         <map-top-show :data="maptopshowData" v-if="dataloaded"></map-top-show>
       </div>
@@ -221,8 +221,8 @@ export default {
 };
 </script>
 
-<style scoped>
-.root {
+<style>
+.CovidMapRoot {
   background-color: #575551;
 
   display: flex;
@@ -235,11 +235,28 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.tables {
+.CovidMapTables {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-left: 80px;
+}
+.CovidMapRoot .el-radio-button__orig-radio:checked+.el-radio-button__inner {
+  background-color: #686562 !important;
+  border-color: #c7c7c7 !important;
+  box-shadow: -1px 0 0 0 #bfbfbf !important;
+}
+.CovidMapRoot .el-radio-button:last-child .el-radio-button__inner {
+  border-radius: 0 20px 20px 0 !important;
+}
+.CovidMapRoot .el-radio-button:first-child .el-radio-button__inner{
+  border-radius: 20px 0 0 20px !important;
+}
+.CovidMapRoot .el-input__inner {
+  border-radius: 20px !important;
+}
+.CovidMapRoot .el-slider__button {
+  border: 2px solid #a1a1a1;
 }
 </style>

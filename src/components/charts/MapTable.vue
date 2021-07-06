@@ -1,6 +1,6 @@
 <template>
   <div id="map-table">
-    <el-table class="table" :data="data" height="250" max-height="400px">
+    <el-table class="Mtable" :data="data" height="250" max-height="400px">
       <el-table-column label="区域" width="80"> 
           <template slot-scope = "scope">
               <span @click="clickevent(scope.row)">{{regionName(scope.row.region)}}</span>
@@ -63,19 +63,19 @@ export default {
 </script>
 
 <style>
-.table {
+.Mtable {
   width: 100%; 
   border-radius: 30px; 
   border: #afafaf solid 2px !important;
 }
-.el-table th, .el-table tr {
+#map-table .el-table th, .el-table tr {
     background-color: rgba(255, 0, 0, 0) !important;
 }
-.el-table, .el-table__expanded-cell {
+#map-table .el-table, .el-table__expanded-cell {
     background-color: #686561 !important;
     color: #d2d2d2 !important;
 }
-.el-table thead {
+#map-table .el-table thead {
   color: #ffffff !important;
   font-weight: 1000 !important;
   font-size: 16px !important;
