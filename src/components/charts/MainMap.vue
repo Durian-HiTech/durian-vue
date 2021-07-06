@@ -3,6 +3,7 @@
 </template>
 <script>
 import * as echarts from "echarts";
+
 // import api from "../../commonApi.js";
 // import $ from "jquery";
 export default {

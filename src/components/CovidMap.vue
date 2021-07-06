@@ -38,12 +38,12 @@
         </el-select>
       </div>
 
-      <div style="margin-top: 15px" width = "100%">
+      <div style="margin-top: 15px;width = 100px;">
         <el-slider
           v-model="timevalue"
           :max="maxTimeNum"
           :format-tooltip="formatTime"
-          width = "100%"
+          style="width = 100px;"
         ></el-slider>
       </div>
       <el-radio-group size="medium">
@@ -69,7 +69,7 @@
 
     <div class="tables">
       <div>
-        <h1>Section1</h1>
+        <map-top-show :data="maptopshowData"></map-top-show>
       </div>
       <div>
         <map-table :data="tableData"></map-table>
@@ -80,6 +80,7 @@
 <script>
 import MainMap from "./charts/MainMap.vue";
 import MapTable from "./charts/MapTable.vue";
+import MapTopShow from "./common/MapTopShow.vue"
 var countrymapping = require("../data/utils/countryen2zh.json");
 var sampledata = require("../data/samples/sample.json");
 export default {
@@ -87,6 +88,7 @@ export default {
   components: {
     MainMap,
     MapTable,
+    MapTopShow
   },
   data() {
     return {
@@ -106,6 +108,7 @@ export default {
   mounted() {
     this.countries = countrymapping;
     this.data = sampledata;
+    this.timevalue = this.maxTimeNum;
   },
   computed: {
     typeName: { //控制显示数据类别get set function
@@ -149,7 +152,16 @@ export default {
           vaccine:this.data["vaccine"][this.timevalue]["value"][i]["value"]
         })
       }
-      console.log(res);
+      return res;
+    },
+    maptopshowData(){ //给topshow的数据，包括累积和新增的当前总数
+      var res = {};
+      for(var key in this.data){
+        var reslist = [];
+        reslist.push(this.data[key][this.timevalue]["value"]);
+        if(this.timevalue !=0)reslist.push(this.data[key][this.timevalue-1]["value"]);
+        res[key]=reslist;
+      }
       return res;
     }
   },
