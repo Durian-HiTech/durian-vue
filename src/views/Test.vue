@@ -6,6 +6,8 @@
 		<el-button @click="login()"> login </el-button>
 		<el-button @click="reset()"> reset </el-button>
 
+		<h2 style="margin-top: 20px;"> user state</h2>
+		
 	</div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
     <div>
-            <div
+        <div
             style="font-size:14px"
             v-for="post in posts"
             v-bind:key="post.news_id"
@@ -47,11 +47,11 @@ export default {
                     if (response.data.success) {  
                         for ( var m in response.data.data){
                             _this.posts.push(response.data.data[m])
-                            console.log(response.data.data)
+                            // console.log(response.data.data)
                         }
 
                         
-                        console.log(_this.posts)
+                        // console.log(_this.posts)
 				}else {
 					this.$message({message: response.data.message,
 									type: 'error'})
