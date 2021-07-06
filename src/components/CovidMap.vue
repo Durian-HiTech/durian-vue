@@ -45,11 +45,18 @@
           :format-tooltip="formatTime"
         ></el-slider>
       </div>
+      <el-radio-group v-model="typeName" size="medium">
       <el-button
         type="text"
-        icon="el-icon-video-play"
+        icon="el-icon-caret-left"
         size="medium"
       ></el-button>
+      <el-button
+        type="text"
+        icon="el-icon-caret-right"
+        size="medium"
+      ></el-button>
+      </el-radio-group>
     </div>
 
     <div class="tables">
