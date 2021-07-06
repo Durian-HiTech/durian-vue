@@ -13,7 +13,7 @@ export default({
         }
     },
     computed:{
-        timeString(){
+        timeString(){// 转化时间格式
             return this.$props.time;
         }
     }
