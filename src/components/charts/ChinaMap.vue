@@ -107,19 +107,16 @@ export default {
       this.option["series"][0]["center"] = undefined;
       this.option["series"][0].normal.label.show = false;
       this.option["series"][0].emphasis.label.show = false;
-      console.log(mapData.features);
       var features = mapData.features;
       features.forEach((item)=>{
         // console.log(item.properties);
         data.push(item.properties);
       });
-      console.log(data);
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
     },
 
     clickevent(param) {
-      console.log(param.name);
       this.changemap(param.name);
     },
     backtochina() {

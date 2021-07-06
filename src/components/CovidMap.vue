@@ -59,134 +59,22 @@
 </template>
 <script>
 import MainMap from "./charts/MainMap.vue";
-import MapTable from "./charts/MapTable.vue"
-var countrymapping = require("../data/utils/countryen2zh.json")
+import MapTable from "./charts/MapTable.vue";
+var countrymapping = require("../data/utils/countryen2zh.json");
+var sampledata = require("../data/samples/sample.json");
 export default {
   name: "CovidMap",
   components: {
     MainMap,
-    MapTable
+    MapTable,
   },
   data() {
     return {
       countries: [],
       country: "World",
-      typeName: "确诊",
+      type: "cases",
       timevalue: 0,
-      data: {
-        cases: [
-          {
-            date: "20/01/01",
-            value: [
-              {
-                name: "China",
-                value: 123,
-              },
-              {
-                name: "United States",
-                value: 100203,
-              },
-            ],
-          },
-          {
-            date: "20/01/02",
-            value: [
-              {
-                name: "China",
-                value: 100203,
-              },
-              {
-                name: "United States",
-                value: 123,
-              },
-            ],
-          },
-        ],
-        deaths: [
-          {
-            date: "20/01/01",
-            value: [
-              {
-                name: "China",
-                value: 1233,
-              },
-              {
-                name: "United States",
-                value: 10011,
-              },
-            ],
-          },
-          {
-            date: "20/01/02",
-            value: [
-              {
-                name: "China",
-                value: 10011,
-              },
-              {
-                name: "United States",
-                value: 1233,
-              },
-            ],
-          },
-        ],
-        recovered: [
-          {
-            date: "20/01/01",
-            value: [
-              {
-                name: "China",
-                value: 1233,
-              },
-              {
-                name: "United States",
-                value: 10011,
-              },
-            ],
-          },
-          {
-            date: "20/01/02",
-            value: [
-              {
-                name: "China",
-                value: 10011,
-              },
-              {
-                name: "United States",
-                value: 1233,
-              },
-            ],
-          },
-        ],
-        vaccine: [
-          {
-            date: "20/01/01",
-            value: [
-              {
-                name: "China",
-                value: 1233,
-              },
-              {
-                name: "United States",
-                value: 10011,
-              },
-            ],
-          },
-          {
-            date: "20/01/02",
-            value: [
-              {
-                name: "China",
-                value: 10011,
-              },
-              {
-                name: "United States",
-                value: 1233,
-              },
-            ],
-          },
-        ],
-      },
+      data: {},
     };
   },
   watch: {
@@ -195,23 +83,37 @@ export default {
       this.countryChange(newvalue);
     },
   },
-  mounted(){
+  mounted() {
     this.countries = countrymapping;
+    this.data = sampledata;
   },
   computed: {
-    type() {
-      var mapping = {
-        确诊: "cases",
-        死亡: "deaths",
-        治愈: "recovered",
-        接种: "vaccine",
-      };
-      return mapping[this.typeName];
+    typeName: { //控制显示数据类别get set function
+      get: function () {
+        var mapping = {
+          cases: "确诊",
+          deaths: "死亡",
+          recovered: "治愈",
+          vaccine: "接种",
+        };
+        return mapping[this.type];
+      },
+      set: function (value) {
+        var mapping = {
+          确诊: "cases",
+          死亡: "deaths",
+          治愈: "recovered",
+          接种: "vaccine",
+        };
+        this.type = mapping[value];
+      },
     },
-    maxTimeNum() {
+    maxTimeNum() { //滑块的最大值
+      if (this.isempty(this.data)) return 1;
       return this.data[this.type].length - 1;
     },
-    mapData() {
+    mapData() { // 给地图返回的当前类别当前区域的数据
+      if (this.isempty(this.data)) return [];
       return this.data[this.type][this.timevalue]["value"];
     },
   },
@@ -225,12 +127,19 @@ export default {
       //被其他组件修改当前地图的方法
       this.country = name;
     },
-    formatTime() {
+    formatTime() { // 滑块的时间显示控制
+      if (this.isempty(this.data)) return "0";
       return this.data[this.type][this.timevalue]["date"];
     },
     changeData(name) {
       //改变地图数据，需要重新请求
       console.log(name);
+    },
+    isempty(obj) {// 判断字典是否为空
+      for (var _ in obj) {
+        return false;
+      }
+      return true;
     },
   },
 };

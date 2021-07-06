@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import CovidMap from '../components/CovidMap.vue'
+import CovidMap from '../components/CovidMap'
 import RiskMap from "../components/RiskMap";
 export default {
 	name: 'Home',
