@@ -1,23 +1,15 @@
 <template>
-  <div style="margin:0; padding:0;background:linear-gradient(to right, #bb313e25, #bb313e25, #d7222925, #dd4a1625, #e4761525, #f5c50025, #f0e92725, #b1ce2425, #48a93525, #03944525, #157c4f25, #176a5825, #1b556325, #1d386f25, #1d386f25, #20277825, #52266325, #8a244b25);">
-<!--    <bargraph/>-->
-<el-container>
-  <el-header>导航栏</el-header>
-  <el-main >
-    <el-row :gutter="10" >
-      <el-col :span="24">
-        <div >
-          <div class="card4 " shadow="hover">
-            <div slot="header" class="clearfix">
-              <span style ="font-size:28px;font-weight: 700;">{{title}}</span>
-            </div>
-            <div class="text item"  >{{content}}</div>
-          </div>
-        </div>
-      </el-col>
-    </el-row>
-  </el-main>
-</el-container>
+  <div class="root">
+  <!-- <div style="margin:0; padding:0;background:linear-gradient(to right, #bb313e25, #bb313e25, #d7222925, #dd4a1625, #e4761525, #f5c50025, #f0e92725, #b1ce2425, #48a93525, #03944525, #157c4f25, #176a5825, #1b556325, #1d386f25, #1d386f25, #20277825, #52266325, #8a244b25);"> -->
+    <span class="title">
+      <b>Covid</b> News
+    </span>
+    <el-divider/>
+    <div style="display: flex; flex-direction:column; justify-content: center; align-items: center;">
+      <div class="text_title">{{title}}</div>
+      <p style="color:grey;">共{{content.length}}字，预计需要{{minutes}}分钟阅读</p>
+      <div class="text_item">{{content}}</div>
+    </div>
   </div>
 </template>
 
@@ -36,43 +28,63 @@ export default {
         load:0
     };
   },
-
+  computed: {
+    minutes () {
+      return Math.floor(this.content.length / 200)
+    }
+  },
   mounted : function(){
         var _this = this;
-        // if(this.load==0) {
-         
-        //     window.location.reload()
-        // }
-        //this.$router.replace('/refresh')
         let formData = new FormData();
         formData.append('news_id', this.$route.params.id);
         this.$axios
-			.post(api.baseApi+'/news/detail',formData)
-                .then(function(response) {
-                    console.log(response.data)
-                    if (response.data.success) {  
-                          _this.title=response.data.data.news_title
-                          _this.content=response.data.data.news_content
-                          _this.createtime=response.data.data.news_created_time
-                        console.log(_this.posts)
-				}else {
-					this.$message({message: response.data.message,
-									type: 'error'})
-				}
-                })
+        .post(api.baseApi+'/news/detail',formData)
+        .then(function(response) {
+            console.log(response.data)
+            if (response.data.success) {  
+                  _this.title=response.data.data.news_title
+                  _this.content=response.data.data.news_content
+                  _this.createtime=response.data.data.news_created_time
+                console.log(_this.posts)
+          }else {
+            this.$message({message: response.data.message,
+                    type: 'error'})
+          }
+        })
     }
 
 }
 </script>
 <style scope>
-  .card4{
-    align-content: center;
-    align-items: center;
-    width: 1220px;
-    height: 700px;
-    background: rgb(250, 238, 238);
-   
-    
+.root {
+  margin-top: 100px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction: column;
+}
+.title {
+    font-size:80px; 
+    align-self: flex-start; 
+    position: relative;
+    left: 250px;
   }
- 
+.text_title {
+  /* outline: #00ff00 dotted thick;  */
+  font-size:37px;
+  font-weight:700;
+  width: 1000px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.text_item {
+  /* outline: #00ff00 dotted thick;  */
+  margin-top: 50px;
+  margin-bottom: 20px;
+  
+  width: 1500px;
+
+  font-size: 20px;
+
+}
 </style>

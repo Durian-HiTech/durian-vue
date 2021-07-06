@@ -1,6 +1,7 @@
 <template>
 <v-app >
     <h1>{{title}}</h1>
+    <p style="color:grey;">共{{total}}条新闻</p>
     <div
         style="margin: 30px"
         v-for="post in posts.slice((this.currentPage - 1) * this.eachPage,
@@ -12,7 +13,7 @@
     <v-pagination
         style="margin-top: 30px;"
         v-model="currentPage"
-        :length="total"
+        :length="Math.ceil(total / eachPage)"
         circle
         color="orange lighten-2"
     ></v-pagination>
@@ -55,7 +56,7 @@ export default {
                         // console.log(response.data.data)
                     }
                     // console.log(_this.posts)
-                    _this.total = Math.ceil(_this.posts.length / _this.eachPage)
+                    _this.total = _this.posts.length 
                 }else {
                     this.$message({message: response.data.message,
                                     type: 'error'})
