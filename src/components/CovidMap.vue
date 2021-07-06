@@ -45,6 +45,11 @@
           :format-tooltip="formatTime"
         ></el-slider>
       </div>
+      <el-button
+        type="text"
+        icon="el-icon-video-play"
+        size="medium"
+      ></el-button>
     </div>
 
     <div class="tables">
