@@ -43,7 +43,7 @@ export default {
             showDelay: 0,
             transitionDuration: 0.2,
             formatter: function (params) {
-              console.log(params);
+              // console.log(params);
               // var res = data.filter(function (item) {
                 // return item.adcode === params.name;
               // });
