@@ -5,7 +5,7 @@
     </span>
     <el-divider/>
     <div class="newsSection">
-      <NewsList title="中国病例最新变化情况" style="width: 400px"/>
+      <NoticesList title="中国病例最新变化情况" style="width: 400px"/>
       <NewsList title="中国疫情防控措施" style="width: 400px"/>
       <NewsList title="国际疫情防控措施" style="width: 400px"/>
     </div>
@@ -13,10 +13,12 @@
 </template>
 <script>
 import NewsList from '@/components/NewsList.vue';
+import NoticesList from '@/components/NoticesList.vue';
 export default {
   name: "News",
   components: {
-    NewsList
+    NewsList,
+    NoticesList
   },
   data() {
     
