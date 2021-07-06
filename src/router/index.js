@@ -52,9 +52,9 @@ const routes = [
     component: () => import('../views/Question.vue')
   },
   {
-    path: '/QA',
-    name: 'QA',
-    component: () => import('../views/Q&A.vue')
+    path: '/Info',
+    name: 'Info',
+    component: () => import('../views/Info.vue')
   }
 
 ]
