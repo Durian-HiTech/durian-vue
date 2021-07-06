@@ -32,10 +32,10 @@ export default {
 
   },
   mounted() {
-    this.getAllComments()
+    this.getAllQuestions()
   },
   methods: {
-    getAllComments() {
+    getAllQuestions() {
       let formData = new FormData();
       let config = {
         headers: {"Content-Type": "multipart/form-data",},
