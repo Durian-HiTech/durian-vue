@@ -43,7 +43,7 @@ export default {
   components: {
     ChinaMap,
   },
-  mounted(){
+  created(){
     this.risk_data = risk_areas.data;
     this.risk_data.forEach((item)=> {
       if(item.type === "中风险") {
@@ -60,8 +60,8 @@ export default {
         })
       }
     });
-    console.log(this.medium_risk);
-    console.log(this.high_risk);
+    // console.log(this.medium_risk);
+    // console.log(this.high_risk);
   },
   data(){
     return {
