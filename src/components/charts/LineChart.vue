@@ -1,6 +1,5 @@
 <template>
   <div>
-    牛逼
     <div id="main2"> </div>
   </div>
 </template>
@@ -69,7 +68,7 @@ export default{
           config
       ).then(function (response2) {
         if (response2.status == 200) {
-          console.log(response2)
+          // console.log(response2)
           for (var key in response2.data.timeline) {
             var tmpt = []
             tmpt[0] = key
@@ -79,7 +78,7 @@ export default{
           }
           load = true
           _this.mycharts();
-          console.log(json_data)
+          // console.log(json_data)
           // _this.relatedloaded = true;
         } else {
           console.log("请求失败");
@@ -141,7 +140,7 @@ export default{
             endLabel: {
               show: true,
               formatter: function (params) {
-                return params.value[2] + ': ' + params.value[1];
+                return params.value[2] + ': ' + params.value[1] / 1000 + "k";
               }
             },
             encode: {

@@ -17,10 +17,12 @@
 		</div>
 		
 		<div class="wraper">
-			<div class="section">
+			<div class="section" @click="toNews ()" style="cursor: pointer">
+				<h1 style="color: white;">News</h1>
 			</div>
 			
-			<div class="section">
+			<div class="section" @click="toVaccine ()" style="cursor: pointer">
+				<h1 style="color: white;">Vaccine</h1>
 			</div>
 			
 			<div class="section">
@@ -63,7 +65,13 @@ export default {
 			this.$gsap.to("#mask2", {duration: 0.2, opacity: 1})
 			this.$gsap.to("#mask2", {duration: 0.3, opacity: 1, bottom: '0px', ease: 'power2.out'})
 			this.$gsap.to(".riskMap", {duration: 0.2, height: '400px', ease: 'power2.out'})
-		}
+		},
+		toNews () {
+			this.$router.push('/news')
+		},
+		toVaccine () {
+			this.$router.push('/vaccine')
+		},
 	}
 }
 </script>
@@ -102,6 +110,10 @@ export default {
 	/* outline: #21ff06 dotted thick; */
 	background-color: burlywood;
 	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
 	width: 49.5%;
 	height: 49%;
 }
@@ -121,7 +133,7 @@ export default {
 
 #mask2 {
 	/* outline: #363636 dotted thick; */
-	background-color: rgba(104, 131, 91, 0.85);
+	background-color: rgba(78,110,98, 0.85);
 	width: 100%;
 	height: 100%;
 	

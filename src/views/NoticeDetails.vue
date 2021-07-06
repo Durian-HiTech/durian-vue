@@ -46,16 +46,19 @@ export default {
         var _this = this;
         let formData = new FormData();
         formData.append('notice_id', this.$route.params.id);
+        //console.log(api.baseApi+'/notice/detail'+formData)
         this.$axios
-        .post(api.baseApi+'/notice/detail',formData)
+        .post(api.baseApi+'/notice/notice_detail',formData)
         .then(function(response) {
             console.log(response.data)
+            
             if (response.data.success) {  
                   _this.title=response.data.data.notice_title
                   _this.content=response.data.data.notice_content
                   _this.createtime=response.data.data.notice_created_time
                 console.log(_this.posts)
           }else {
+            console.log("sdsdsdsdsds")
             this.$message({message: response.data.message,
                     type: 'error'})
           }
