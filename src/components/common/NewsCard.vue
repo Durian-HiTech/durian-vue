@@ -3,10 +3,23 @@
     class="mx-auto"
     width="344"
   >
-    <!-- <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
+    <v-img
+      src='../../assets/backgroundImage/news0.png'
       height="200px"
-    ></v-img> -->
+      v-if="showImage.a"
+    ></v-img>
+
+    <v-img
+      src='../../assets/backgroundImage/news1.png'
+      height="200px"
+      v-if="showImage.b"
+    ></v-img>
+
+    <v-img
+      src='../../assets/backgroundImage/news2.png'
+      height="200px"
+      v-if="showImage.c"
+    ></v-img>
 
     <v-card-title>
       {{title | cutLongTitle}}
@@ -56,11 +69,20 @@ export default {
             show: false
         }
     },
+    computed: {
+      showImage () {
+        return {
+          a: (this.title.length % 8) == 0,
+          b: (this.title.length % 8) == 1,
+          c: (this.title.length % 8) == 2
+        }
+      },
+    },
     props: ['title', 'link', 'content'],
     methods: {
       goToNewsPage() {
         this.$router.push(this.link)
-      }
+      },
     },
     filters: {
       cutLongText: function (value) {

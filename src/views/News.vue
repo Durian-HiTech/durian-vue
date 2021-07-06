@@ -97,7 +97,7 @@ export default {
     -moz-transition:all .4s;
     -webkit-transition:all .4s;
     -o-transition:all .4s;
-    background: url(../assets/backgroundImage/news0.jpg);
+    /* background: url(../assets/backgroundImage/news0.jpg); */
     background-repeat:no-repeat;   /* 不会重复 */
     background-position: center;   /* 是为了让图片放大的时候从中部放大，不会偏移 */
     background-size: 100% 100%;
@@ -113,7 +113,7 @@ export default {
     -moz-transition:all .4s;
     -webkit-transition:all .4s;
     -o-transition:all .4s;
-    background: url(../assets/backgroundImage/news1.jpg);
+    /* background: url(../assets/backgroundImage/news1.jpg); */
     background-repeat:no-repeat;   /* 不会重复 */
     background-position: center;   /* 是为了让图片放大的时候从中部放大，不会偏移 */
     background-size: 100% 100%;
@@ -129,7 +129,7 @@ export default {
     -moz-transition:all .4s;
     -webkit-transition:all .4s;
     -o-transition:all .4s;
-    background: url(../assets/backgroundImage/news2.jpg);
+    /* background: url(../assets/backgroundImage/news2.jpg); */
     background-repeat:no-repeat;   /* 不会重复 */
     background-position: center;   /* 是为了让图片放大的时候从中部放大，不会偏移 */
     background-size: 100% 100%;

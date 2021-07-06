@@ -10,17 +10,20 @@
     <user-avatar id='user-avatar'/>
     <NavButton id='NavButton'/>
     <router-view/>
+    <Footer/>
   </div>
 </template>
 
 <script>
 import UserAvatar from './components/common/UserAvatar.vue'
 import NavButton from './components/common/NavButton.vue'
+import Footer from './components/common/Footer.vue'
 export default{
 	name: 'App',
 	components: {
 		UserAvatar,
-		NavButton
+		NavButton,
+    Footer
 	}
 }
 </script>
