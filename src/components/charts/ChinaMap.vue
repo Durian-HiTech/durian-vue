@@ -1,5 +1,5 @@
 <template>
-  <div id="china-map" style="width: 600px; height: 500px"></div>
+  <div id="china-map" style="width: 1000px; height: 600px; border: 1px #191919;"></div>
 </template>
 <script>
 import * as echarts from "echarts";
@@ -44,18 +44,23 @@ export default {
             transitionDuration: 0.2,
             formatter: function (params) {
               // console.log(params);
-              var res = data.filter(function (item) {
-                return item.adcode === params.name;
-              });
+              // var res = data.filter(function (item) {
+                // return item.adcode === params.name;
+              // });
                       // + '<br/>';
               // res += params.seriesName;
-              return res[0].name + '<br/>' + params.value;
+              if (params.value === 0)
+                return params.name + '<br/>低风险';
+              if (params.value === 1)
+                return params.name + '<br/>中风险';
+              if (params.value === 2)
+                return params.name + '<br/>高风险';
             }
         },
         visualMap: {
             left: 'right',
             pieces: [
-                {min: 0, max: 0,label:'低风险',color:'#ffffff'},
+                {min: 0, max: 0,label:'低风险',color:'#fee090'},
                 {min: 1, max: 1,label:'中风险',color:'#f46d43'},
                 {min: 2, max: 2,label:'高风险',color:'#a50026'},
             ],
@@ -63,7 +68,7 @@ export default {
         series: [
           {
             name: "",
-            nameProperty: "adcode",
+            nameProperty: "name",
             type: "map",
             roam: true,
             map: "",
@@ -74,27 +79,27 @@ export default {
             // },
             normal: {
               label: {
-                show: false
+                show: true,
               }
             },
             emphasis: {
                 label: {
-                  show: false,
+                  show: true
                 }
               },
             data: [],
-            // itemStyle: {
-            //   normal: {
-            //     label: {
-            //       show: false,
-            //     },
-            //   },
-            //   emphasis: {
-            //     label: {
-            //       show: false,
-            //     }
-            //   }
-            // }
+            itemStyle: {
+              normal: {
+                label: {
+                  show: true,
+                },
+              },
+              emphasis: {
+                label: {
+                  show: true,
+                }
+              }
+            }
             // nameMap: {
             //   '110000' : '北京市'
             // }
@@ -117,9 +122,15 @@ export default {
       echarts.registerMap(this.mapName, mapData);
       this.option["series"][0]["name"] = this.mapName;
       this.option["series"][0]["map"] = this.mapName;
-      this.option["series"][0]["center"] = ['50%, 50%'];
-      this.option["series"][0]["zoom"] = 1;
-      this.option["series"][0]["center"] = undefined;
+      if(this.mapName === 'China') {
+        this.option["series"][0]["center"] = undefined;
+        this.option["series"][0]["zoom"] = 1.5;
+      }
+      else {
+        this.option["series"][0]["center"] = undefined;
+        this.option["series"][0]["zoom"] = 1.3;
+      }
+
       this.option["series"][0].normal.label.show = false;
       this.option["series"][0].emphasis.label.show = false;
       // console.log(mapData.features);
@@ -129,10 +140,10 @@ export default {
       features.forEach((item)=>{
         // console.log(item.properties);
         var properties = item.properties;
-        properties.adcode = properties.adcode.toString();
+        // properties.adcode = properties.adcode.toString();
         data.push(properties);
         // var adcode = properties.adcode.toString();
-        var newdata = {name: properties.adcode, value: 0};
+        var newdata = {name: properties.name, value: 0};
         // console.log(medium_risk);
         // console.log(typeof medium_risk);
         medium_risk.forEach((item1)=>{
@@ -170,7 +181,9 @@ export default {
       this.mapName = "China";
     },
     changemap(name) {
-      this.mapName = name;
+      this.mapName = data.find(function (item) {
+        return item.name === name;
+      }).adcode;
     },
   },
 };
