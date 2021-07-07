@@ -36,9 +36,7 @@ export default{
         'deaths': this.$props.data_table['deaths'],
         'recovered': this.$props.data_table['recovered'],
       }
-      console.log(data_Table)
       for(var key in data_Table) {
-        console.log(data_Table[key])
         for(let i = 0; i < data_Table[key].length; i++) {
           var tmp = [];
           tmp[0] = data_Table[key][i].date;
@@ -52,12 +50,10 @@ export default{
         }
       }
       var num_data = (json_data.length - 1)/ 3;
-      console.log(num_data)
       for (var i = 1; i <= num_data; i++) {
         json_data.push([json_data[i][0], parseFloat(json_data[i+num_data][1]) / parseFloat(json_data[i][1]), "death_rate"])
         json_data.push([json_data[i][0], parseFloat(json_data[i+2*num_data][1]) / parseFloat(json_data[i][1]), "heal_rate"])
       }
-      console.log(json_data)
       this.mycharts();
     },
     getRegionData() {
@@ -150,7 +146,6 @@ export default{
         },]
       };
 
-      // console.log(data_table)
       // 使用 macarons 主题
       let myChart = echarts.init(document.getElementById('Death_rate'));
       myChart.setOption(option)

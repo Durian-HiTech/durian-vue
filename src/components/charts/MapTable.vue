@@ -53,7 +53,6 @@ export default {
     }
   },
   created(){
-    console.log(this.$props.data)
     this.mapping = countrymapping;
     this.$props.data.sort(function(a,b){// cases排序，二次迭代添加指定字段排序
       return b.cases-a.cases;
@@ -67,7 +66,7 @@ export default {
       for(var i in this.mapping){
         if(this.mapping[i]["value"] == region)return this.mapping[i]["label"];
       }
-      return "";
+      return region;
     }
   }
 };

@@ -196,7 +196,6 @@ export default {
     },
     tableData() {
       //给表格的数据
-      console.log(this.data);
       var res = [];
       var len = this.data[this.type][this.timevalue]["value"].length;
       for (var i = 0; i < len; i++) {
@@ -213,7 +212,6 @@ export default {
     },
     maptopshowData() {
       //给topshow的数据，包括累积和新增的当前总数
-      console.log(this.data);
       var res = {};
       for (var key in this.data) {
         var reslist = [];
@@ -222,7 +220,6 @@ export default {
           reslist.push(this.data[key][this.timevalue - 1]["value"]);
         res[key] = reslist;
       }
-      console.log(res);
       return res;
     },
     timeData() {
@@ -267,7 +264,6 @@ export default {
         .then(function (response) {
           if (response.data.success) {
             _this.data = response.data.data;
-            console.log(_this.data);
             _this.timevalue = _this.maxTimeNum;
             _this.dataloaded = true;
           }
@@ -275,16 +271,47 @@ export default {
     },
     loadCountryData(){
       var _this = this;
+      let formData = new FormData();
+      console.log(this.country);
+      formData.append("province",this.country);
       this.$axios
-        .get(api.baseApi + "/data/list_all_covid_cdrv_response")
+        .post(api.baseApi + "/data/list_all_covid_cdrv_response_province",formData)
         .then(function (response) {
           if (response.data.success) {
             _this.data = response.data.data;
-            console.log(_this.data);
+            _this.dataprocessing();
             _this.timevalue = _this.maxTimeNum;
             _this.dataloaded = true;
           }
         });
+    },
+    dataprocessing(){//第一次迭代的数据问题处理
+      var key = ["cases","deaths","recovered","vaccine"];
+      var res = {}
+      for(var i in key){
+        var type = key[i];
+        var list = [];
+        for(var item in this.data[type]){
+          
+          var outres = {
+            date:this.data[type][item]["date"]
+          };
+          var value = JSON.parse(this.data[type][item]["value"]);
+          var outvalue = [];
+          for(var j in value){
+            var temp = {}
+            temp["name"] = j;
+            temp["value"] = value[j];
+            outvalue.push(temp);
+            //console.log(outvalue);
+          }
+          outres["value"] = outvalue;
+          list.push(outres);
+        }
+        res[type] = list;
+      }
+      this.data = res;
+      return ;
     },
     querySearch(queryString, cb) {
       var countries = this.countries;
