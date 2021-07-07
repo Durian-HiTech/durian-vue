@@ -10,20 +10,23 @@
 		<!-- <SelectBarForCovidMap :buttons="buttons"/> -->
 		<!-- </center> -->
 
-		<CovidMap/>
+		<!-- <CovidMap/> -->
+		<QuestionList/>
 	</div>
 </template>
 
 <script>
 // import SelectBar from '../components/common/SelectBar.vue'
 // import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap'
-import CovidMap from '../components/CovidMap'
+// import CovidMap from '../components/CovidMap'
+import QuestionList from '../components/QuestionList'
 export default {
 	name: 'Test',
 	components: {
 		// SelectBar,
-		CovidMap,
-		// SelectBarForCovidMap
+		// CovidMap,
+		// SelectBarForCovidMap,
+		QuestionList
 	},
 	data() {
 		return {

@@ -25,7 +25,8 @@
 				<h1 style="color: white;">Vaccine</h1>
 			</div>
 			
-			<div class="section">
+			<div class="section" @click="toQuestion ()" style="cursor: pointer">
+				<h1 style="color: white;">Question&Answer</h1>
 			</div>
 			
 			<div class="section">
@@ -72,6 +73,9 @@ export default {
 		toVaccine () {
 			this.$router.push('/vaccine')
 		},
+		toQuestion () {
+			this.$router.push('/question/all')
+		}
 	}
 }
 </script>

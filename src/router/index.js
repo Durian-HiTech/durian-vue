@@ -37,17 +37,17 @@ const routes = [
 	component: () => import('../views/Test.vue')
 	},
   {
-    path: '/news/:id',
-    name: 'NewsDetails',
-    component: () => import('../views/NewsDetails.vue')
-    },
-    {
-      path: '/notice/:id',
-      name: 'NoticeDetails',
-      component: () => import('../views/NoticeDetails.vue')
-      },
+  path: '/news/:id',
+  name: 'NewsDetails',
+  component: () => import('../views/NewsDetails.vue')
+  },
   {
-    path: '/question/all',
+  path: '/notice/:id',
+  name: 'NoticeDetails',
+  component: () => import('../views/NoticeDetails.vue')
+  },
+  {
+    path: '/question',
     name: 'Question_All',
     component: () => import('../views/QuestionAll.vue')
   },
