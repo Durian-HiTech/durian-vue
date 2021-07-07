@@ -82,6 +82,7 @@ export default {
     props: ['title', 'link', 'content'],
     methods: {
       goToNewsPage() {
+        console.log(this.link)
         this.$router.push(this.link)
       },
     },

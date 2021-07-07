@@ -117,7 +117,7 @@ export default {
 			this.$router.push('/news')
 		},
     toQuestion () {
-			this.$router.push('/question/all')
+			this.$router.push('/question')
 		},
     handleDelete(index, row) {
       let formData = new FormData();
