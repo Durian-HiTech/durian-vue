@@ -107,9 +107,6 @@ export default{
         },
         tooltip: {
           trigger: 'axis',
-          textStyle: {
-              color: "#fff",
-          },
         },
         xAxis: {
           type: 'category',

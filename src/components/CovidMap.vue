@@ -20,12 +20,8 @@
           margin-top: 15px;
         "
       >
-        <el-radio-group v-model="typeName" size="small">
-          <el-radio-button label="确诊"></el-radio-button>
-          <el-radio-button label="死亡"></el-radio-button>
-          <el-radio-button label="治愈"></el-radio-button>
-          <el-radio-button label="接种"></el-radio-button>
-        </el-radio-group>
+        
+        <SelectBarForCovidMap :buttons='TypeButtons' style="margin-left: 120px"/>
 
         <el-select v-model="country" placeholder="请选择" size="small">
           <el-option
@@ -109,7 +105,7 @@
         <map-table :data="tableData" v-show="showTable"></map-table>
         <cases-deaths-vaccine-recovered-cmp
         :data_table="data" v-show="!showTable"></cases-deaths-vaccine-recovered-cmp>
-        
+
       </div>
     </div>
   </div>
@@ -139,11 +135,12 @@ export default {
     return {
       countries: [],
       country: "World",
-      type: "vaccine",
+      type: "cases",
       timevalue: 0,
       searchinput: "",
       data: {},
       dataloaded: false, //数据是否加载完成，控制所有组件的加载
+      TypeButtons: ['确诊','死亡','治愈','接种'],
       buttons: ['table', 'chart'],
       showTable: true,
     };
@@ -301,7 +298,23 @@ export default {
 						this.showTable = false;
 						break
 				}
-			}
+			} else if (differkey == '确诊') {
+        switch(index)
+				{
+					case 0:
+						this.type = 'cases'
+						break
+					case 1:
+						this.type = 'deaths'
+						break
+          case 2:
+            this.type = 'recovered'
+            break
+          case 3:
+            this.type = 'vaccine'
+            break
+				}
+      }
 		},
     search() {
       console.log("search")
