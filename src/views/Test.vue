@@ -5,16 +5,34 @@
 		<h2 style="margin-top: 20px;"> user state</h2>
 		<el-button @click="login()"> login </el-button>
 		<el-button @click="reset()"> reset </el-button>
-		<CovidMap/>
+		<center style="display: flex; justify-content: center; align-items: center; background-color: #575551; padding:100px;">
+		<!-- <SelectBar :buttons="buttons"/> -->
+		<SelectBarForCovidMap :buttons="buttons"/>
+		</center>
+
+		<!-- <CovidMap/> -->
 	</div>
 </template>
 
 <script>
-import CovidMap from "../components/CovidMap";
+// import SelectBar from '../components/common/SelectBar.vue'
+import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap'
+// import CovidMap from '../components/CovidMap'
 export default {
 	name: 'Test',
 	components: {
-		CovidMap
+		// SelectBar,
+		// CovidMap,
+		SelectBarForCovidMap
+	},
+	data() {
+		return {
+			buttons: [
+				"table",
+				"map",
+				"index",
+			]
+		}
 	},
 	methods: {
 		reset () {
@@ -28,7 +46,26 @@ export default {
 				affiliation: 'Oxford'
 			})
 		},
-
+		/**
+		 * @param {Object} index
+		 * @param {Object} differkey : differkey是对应的SelectBar的第一个选项的名字，用于区分不同的SelectBar
+		 */
+		selected (index, differkey) {
+			if (differkey == 'table') {
+				switch(index)
+				{
+					case 0:
+						console.log(0)
+						break
+					case 1:
+						console.log(1)
+						break
+					case 2:
+						console.log(2)
+						break
+				}
+			}
+		}
 	},
 }
 </script>

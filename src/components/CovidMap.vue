@@ -61,7 +61,7 @@
           type="text"
           icon="el-icon-video-play"
           size="medium"
-          style="color: rgb(212 108 75)"
+          style="color: rgb(171 136 119)"
           @click="timePlayStart"
         ></el-button>
         <el-button
@@ -96,16 +96,12 @@
         </el-row>
         <time-show :time="timeData"></time-show>
         <map-top-show :data="maptopshowData"></map-top-show>
-        <el-tabs type="border-card">
-          <el-tab-pane label="Charts">
-            <cases-deaths-vaccine-recovered-cmp
-              :data_table="data"
-            ></cases-deaths-vaccine-recovered-cmp>
-          </el-tab-pane>
-          <el-tab-pane label="Table"
-            ><map-table :data="tableData"></map-table
-          ></el-tab-pane>
-        </el-tabs>
+
+          <SelectBarForCovidMap :buttons='buttons'/>
+          <map-table :data="tableData" v-show="showTable"></map-table>
+          <cases-deaths-vaccine-recovered-cmp
+          :data_table="data" v-show="!showTable"></cases-deaths-vaccine-recovered-cmp>
+        
       </div>
     </div>
   </div>
@@ -116,6 +112,7 @@ import MapTable from "./charts/MapTable.vue";
 import MapTopShow from "./common/MapTopShow.vue";
 import TimeShow from "./common/TimeShow.vue";
 import CasesDeathsVaccineRecoveredCmp from "./charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
+import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap.vue';
 var countrymapping = require("../data/utils/countryen2zh.json");
 
 // import api from '../commonApi.js';
@@ -128,6 +125,7 @@ export default {
     MapTopShow,
     TimeShow,
     CasesDeathsVaccineRecoveredCmp,
+    SelectBarForCovidMap
   },
   data() {
     return {
@@ -138,6 +136,8 @@ export default {
       searchinput: "",
       data: {},
       dataloaded: false, //数据是否加载完成，控制所有组件的加载
+      buttons: ['table', 'chart'],
+      showTable: true,
     };
   },
   watch: {
@@ -282,6 +282,19 @@ export default {
         _this.timePlayStart();
       }, 2000);
     },
+    selected (index, differkey) {
+			if (differkey == 'table') {
+				switch(index)
+				{
+					case 0:
+						this.showTable = true;
+						break
+					case 1:
+						this.showTable = false;
+						break
+				}
+			}
+		},
   },
 };
 </script>
