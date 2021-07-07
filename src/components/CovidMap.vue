@@ -108,8 +108,8 @@
         <SelectBarForCovidMap :buttons='buttons' style="margin-bottom: 20px;"/>
         <map-table :data="tableData" v-show="showTable"></map-table>
         <cases-deaths-vaccine-recovered-cmp
-        :data_table="data" v-show="!showTable"></cases-deaths-vaccine-recovered-cmp>
-        
+        :data_table="data" v-show="showChart"></cases-deaths-vaccine-recovered-cmp>
+        <death-rate :data_table="data" v-show="showRate"></death-rate>
       </div>
     </div>
   </div>
@@ -121,6 +121,7 @@ import MapTopShow from "./common/MapTopShow.vue";
 import TimeShow from "./common/TimeShow.vue";
 import CasesDeathsVaccineRecoveredCmp from "./charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
 import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap.vue';
+import DeathRate from "../components/charts/Death_Rate.vue"
 var countrymapping = require("../data/utils/countries.json");
 
 import api from '../commonApi.js';
@@ -133,7 +134,8 @@ export default {
     MapTopShow,
     TimeShow,
     CasesDeathsVaccineRecoveredCmp,
-    SelectBarForCovidMap
+    SelectBarForCovidMap,
+    DeathRate
   },
   data() {
     return {
@@ -144,8 +146,10 @@ export default {
       searchinput: "",
       data: {},
       dataloaded: false, //数据是否加载完成，控制所有组件的加载
-      buttons: ['table', 'chart'],
+      buttons: ['table', 'chart','rate'],
       showTable: true,
+      showRate:false,
+      showChart:false
     };
   },
   watch: {
@@ -296,10 +300,18 @@ export default {
 				{
 					case 0:
 						this.showTable = true;
+            this.showRate = false;
+            this.showChart = false
 						break
 					case 1:
 						this.showTable = false;
+            this.showChart = true;
+            this.showRate = false;
 						break
+          case 2:
+            this.showTable = false;
+            this.showChart = false;
+            this.showRate = true;
 				}
 			}
 		},

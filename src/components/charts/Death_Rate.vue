@@ -1,22 +1,22 @@
 <template>
   <div>
-    <div id="Death_rate"> </div>
+    <div id="Death_rate" style="width: 450px; height: 300px;"> </div>
   </div>
 </template>
 
 <script>
 // import axios from "axios";
 import * as echarts from 'echarts';
-import dataTable from "@/data/samples/sample.json"
+//import dataTable from "@/data/samples/sample.json"
 var option;
 var json_data = [["Date", "Number", "Type"]];
 export default{
-  // props:{
-  //   data_table:{
-  //     type:Object,
-  //     required:true
-  //   }
-  // },
+  props:{
+    data_table:{
+      type:Object,
+      required:true
+    }
+  },
   data() {
     return {
       name: "复兴组",
@@ -32,8 +32,8 @@ export default{
     getGlobalData() {
 
       var data_Table = {
-        'cases': dataTable['cases'],
-        'deaths': dataTable['deaths']
+        'cases': this.$props.data_table['cases'],
+        'deaths': this.$props.data_table['deaths']
       }
       console.log(data_Table)
       for(var key in data_Table) {
