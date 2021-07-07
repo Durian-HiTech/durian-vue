@@ -33,7 +33,8 @@ export default{
 
       var data_Table = {
         'cases': this.$props.data_table['cases'],
-        'deaths': this.$props.data_table['deaths']
+        'deaths': this.$props.data_table['deaths'],
+        'recovered': this.$props.data_table['recovered'],
       }
       console.log(data_Table)
       for(var key in data_Table) {
@@ -50,10 +51,11 @@ export default{
           json_data.push(tmp);
         }
       }
-      var num_data = (json_data.length - 1)/ 2;
+      var num_data = (json_data.length - 1)/ 3;
       console.log(num_data)
       for (var i = 1; i <= num_data; i++) {
         json_data.push([json_data[i][0], parseFloat(json_data[i+num_data][1]) / parseFloat(json_data[i][1]), "death_rate"])
+        json_data.push([json_data[i][0], parseFloat(json_data[i+2*num_data][1]) / parseFloat(json_data[i][1]), "heal_rate"])
       }
       console.log(json_data)
       this.mycharts();
@@ -78,9 +80,21 @@ export default{
               ]
             }
           }
+        },{
+          id: 'heal_rate',
+          fromDatasetId: 'dataset_raw',
+          transform: {
+            type: 'filter',
+            config: {
+              and: [
+                { dimension: 'Number', gte: 0.0},
+                { dimension: 'Type', '=': 'heal_rate' },
+              ]
+            }
+          }
         }],
         title: {
-          text: '死亡率'
+          text: '死亡率/治愈率'
         },
         grid: {
           right: 140
@@ -113,7 +127,24 @@ export default{
             itemName: 'Date',
             tooltip: ['Number'],
           }
-        }]
+        }, {
+          type: 'line',
+          datasetId: 'heal_rate',
+          showSymbol: false,
+          endLabel: {
+            show: true,
+            formatter: function (params) {
+              return params.value[2];
+            }
+          },
+          encode: {
+            x: 'Date',
+            y: 'Number',
+            label: ['Type', 'Number'],
+            itemName: 'Date',
+            tooltip: ['Number'],
+          }
+        },]
       };
 
       // console.log(data_table)
