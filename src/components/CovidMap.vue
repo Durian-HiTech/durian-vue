@@ -122,8 +122,8 @@ import CasesDeathsVaccineRecoveredCmp from "./charts/Cases_Deaths_Vaccine_Recove
 import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap.vue';
 var countrymapping = require("../data/utils/countryen2zh.json");
 
-// import api from '../commonApi.js';
-var sampledata = require("../data/samples/sample.json");
+import api from '../commonApi.js';
+//var sampledata = require("../data/samples/sample.json");
 export default {
   name: "CovidMap",
   components: {
@@ -155,18 +155,18 @@ export default {
   },
   mounted() {
     this.countries = countrymapping;
-    // var _this = this;
-    // this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
-    //   if(response.data.success){
-    //     _this.data = response.data.data;
-    //     console.log(_this.data);
-    //     _this.timevalue = _this.maxTimeNum;
-    //     _this.dataloaded = true;
-    //   }
-    // })
-    this.data = sampledata;
-    this.timevalue = this.maxTimeNum;
-    this.dataloaded = true;
+    var _this = this;
+    this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
+      if(response.data.success){
+        _this.data = response.data.data;
+        console.log(_this.data);
+        _this.timevalue = _this.maxTimeNum;
+        _this.dataloaded = true;
+      }
+    })
+    // this.data = sampledata;
+    // this.timevalue = this.maxTimeNum;
+    // this.dataloaded = true;
   },
   computed: {
     typeName: {
@@ -192,7 +192,7 @@ export default {
     },
     maxTimeNum() {
       //滑块的最大值
-      return this.data[this.type].length - 1;
+      return this.data["cases"].length - 1;
     },
     mapData() {
       // 给地图返回的当前类别当前区域的数据
@@ -208,8 +208,7 @@ export default {
           region: this.data["cases"][this.timevalue]["value"][i]["name"],
           cases: this.data["cases"][this.timevalue]["value"][i]["value"],
           deaths: this.data["deaths"][this.timevalue]["value"][i]["value"],
-          recovered:
-            this.data["recovered"][this.timevalue]["value"][i]["value"],
+          recovered:this.data["recovered"][this.timevalue]["value"][i]["value"],
           vaccine: this.data["vaccine"][this.timevalue]["value"][i]["value"],
         });
       }
@@ -233,7 +232,7 @@ export default {
       // 给时间显示器的数据
       return this.formatTime();
     },
-    countryData() {
+    countryData() {//显示当前地图名称
       for (var i in this.countries) {
         if (this.countries[i]["value"] == this.country)
           return this.countries[i]["label"];
@@ -253,7 +252,7 @@ export default {
     },
     formatTime() {
       // 滑块的时间显示控制
-      return this.data[this.type][this.timevalue]["date"];
+      return this.data["cases"][this.timevalue]["date"];
     },
     changeData(name) {
       //改变地图数据，需要重新请求
