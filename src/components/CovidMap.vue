@@ -76,8 +76,8 @@
 
     <div class="CovidMapTables" v-if="dataloaded">
       <div>
-        <el-row>{{ countryData }}</el-row>
-        <el-row class="demo-autocomplete">
+        <el-row class="countryshow">{{ countryData }}</el-row>
+        <el-row>
           <el-autocomplete
             class="inline-input"
             v-model="searchinput"
@@ -335,5 +335,20 @@ export default {
 .CovidMapRoot .timeButton {
   font-size: 30px;
   color: #cacaca;
+}
+.countryshow {
+  white-space: nowrap;
+  text-align: center;
+
+  font-size: 15px;
+  font-weight: 100;
+
+  background-color:rgba(20, 20, 20, 0.2);
+  color: white;
+
+  border-radius: 30px;
+
+  padding: 5px 15px 5px 15px;
+  margin: 3px;
 }
 </style>

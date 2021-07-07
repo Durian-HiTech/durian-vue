@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span>{{timeString}}</span>
+        <span class="timeshow">{{timeString}}</span>
     </div>
 </template>
 <script>
@@ -19,3 +19,11 @@ export default({
     }
 })
 </script>
+<style>
+.timeshow {
+    color: rgb(184, 184, 184);
+    font-family: "Gill Sans", sans-serif;
+    font-size: 13px;
+    font-weight: 100;
+}
+</style>
