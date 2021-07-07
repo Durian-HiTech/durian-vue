@@ -21,7 +21,7 @@
       <div class="backButton" @click="reset" >中国</div>
       <div v-for="item in path"
            :key="item.mapName">
-        <div class="backButton1" @click="changeMap(item.mapName)">>>{{item.mapName}}</div>
+        <div class="backButton" @click="changeMap(item.mapName)">>>{{item.mapName}}</div>
       </div>
       <el-divider/>
 
@@ -192,7 +192,6 @@ export default {
 
   font-size: 17px;
   font-weight: 100;
-  width: 80px;
 
   background-color:rgba(20, 20, 20, 0.2);
   color: white;
@@ -203,24 +202,7 @@ export default {
   margin: 3px;
   margin-bottom: 50px;
 }
-.backButton1 {
-  white-space: nowrap;
-  text-align: center;
-  cursor: pointer;
 
-  font-size: 17px;
-  font-weight: 100;
-  width: 120px;
-
-  background-color:rgba(20, 20, 20, 0.2);
-  color: white;
-
-  border-radius: 30px;
-
-  padding: 5px 15px 5px 15px;
-  margin: 3px;
-  margin-bottom: 50px;
-}
 .riskPlaces {
 
   border-radius: 30px;
