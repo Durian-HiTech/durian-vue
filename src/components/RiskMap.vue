@@ -131,7 +131,7 @@ export default {
     curr() {
       // console.log(this.curr);
       this.updatePath(this.curr);
-      console.log(this.path)
+      // console.log(this.path)
     },
     immediate: true
   },
@@ -148,14 +148,14 @@ export default {
       var index = this.path.findIndex(function (item) {
         return item.mapName === name;
       });
-      console.log(index);
+      // console.log(index);
       if(index === -1)
         this.path.push({
           mapName: name,
         });
       else {
-        console.log("aaa");
-        this.path = this.path.slice(index + 1, this.path.length - index);
+        // console.log(index);
+        this.path = this.path.slice(0, index + 1);
       }
     },
     setCurr(value) {
