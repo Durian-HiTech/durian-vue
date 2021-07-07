@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div id="Four_Type_Cmp"> </div>
+  <div >
+    <div id="Four_Type_Cmp" style="width: 450px; height: 300px;"> </div>
   </div>
 </template>
 
@@ -199,8 +199,5 @@ export default{
 };
 </script>
 <style scoped>
-#Four_Type_Cmp{
-  width: 1000px;
-  height: 800px;
-}
+
 </style>

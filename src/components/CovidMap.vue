@@ -1,5 +1,8 @@
 <template>
   <div class="CovidMapRoot">
+
+    <!-- left side -->
+
     <div class="CovidMap">
       <main-map
         ref="MainMap"
@@ -39,15 +42,14 @@
         </el-select>
       </div>
 
-      <div style="margin-top: 15px; width: 100px">
-        <el-slider
-          v-model="timevalue"
-          :max="maxTimeNum"
-          :format-tooltip="formatTime"
-          style="width: 100px"
-          v-if="dataloaded"
-        ></el-slider>
-      </div>
+      <el-slider
+        v-model="timevalue"
+        :max="maxTimeNum"
+        :format-tooltip="formatTime"
+        style="margin-top: 20px"
+        v-if="dataloaded"
+      ></el-slider>
+
 
       <el-radio-group size="medium">
         <el-button
@@ -61,7 +63,6 @@
           type="text"
           icon="el-icon-video-play"
           size="medium"
-          style="color: rgb(171 136 119)"
           @click="timePlayStart"
         ></el-button>
         <el-button
@@ -74,34 +75,40 @@
       </el-radio-group>
     </div>
 
-    <div class="CovidMapTables" v-if="dataloaded">
-      <div>
-        <el-row class="countryshow">{{ countryData }}</el-row>
-        <el-row>
-          <el-autocomplete
-            class="inline-input"
-            v-model="searchinput"
-            :fetch-suggestions="querySearch"
-            placeholder="请输入国家"
-            @select="handleSelect"
-          >
-            <template slot-scope="{ item }">
-              <span style="float: left">{{ item.label }}</span>
-              <span style="float: right; color: #8492a6; font-size: 13px">{{
-                item.value
-              }}</span>
-            </template></el-autocomplete
-          >
-          <el-button slot="append" icon="el-icon-search"></el-button>
-        </el-row>
-        <time-show :time="timeData"></time-show>
-        <map-top-show :data="maptopshowData"></map-top-show>
+    <!-- right side -->
 
-          <SelectBarForCovidMap :buttons='buttons'/>
-          <map-table :data="tableData" v-show="showTable"></map-table>
-          <cases-deaths-vaccine-recovered-cmp
-          :data_table="data" v-show="!showTable"></cases-deaths-vaccine-recovered-cmp>
-        
+    <div class="CovidMapTables" v-if="dataloaded">
+      <div class="countryshow">{{ countryData }}</div>
+      <div style="display: flex; justify-content: center; align-items: center;">
+
+        <el-autocomplete
+          class="inline-input"
+          v-model="searchinput"
+          :fetch-suggestions="querySearch"
+          placeholder="请输入国家"
+          @select="handleSelect"
+          size="small"
+        >
+          <template slot-scope="{ item }">
+            <span style="float: left">{{ item.label }}</span>
+            <span style="float: right; color: #8492a6; font-size: 13px">{{
+              item.value
+            }}</span>
+          </template></el-autocomplete
+        >
+
+        <i class="el-icon-search" @click="search()"></i>
+
+      </div>
+
+      <time-show :time="timeData" style="margin-top: 5px"></time-show>
+      <map-top-show :data="maptopshowData" style="margin-bottom: 10px"></map-top-show>
+
+      <div class="mapDown">
+        <SelectBarForCovidMap :buttons='buttons' style="margin-bottom: 20px;"/>
+        <map-table :data="tableData" v-show="showTable"></map-table>
+        <cases-deaths-vaccine-recovered-cmp
+        :data_table="data" v-show="!showTable"></cases-deaths-vaccine-recovered-cmp>
       </div>
     </div>
   </div>
@@ -296,6 +303,9 @@ export default {
 				}
 			}
 		},
+    search() {
+      console.log("search")
+    }
   },
 };
 </script>
@@ -321,6 +331,7 @@ export default {
   justify-content: center;
   align-items: center;
   margin-left: 80px;
+  margin-top: 10px;
 }
 .CovidMapRoot .el-radio-button__orig-radio:checked + .el-radio-button__inner {
   background-color: #686562 !important;
@@ -350,11 +361,12 @@ export default {
   color: #cacaca;
 }
 .countryshow {
+  /* outline:#00ff00 dotted thick; */
   white-space: nowrap;
   text-align: center;
 
   font-size: 15px;
-  font-weight: 100;
+  font-weight: bold;
 
   background-color:rgba(20, 20, 20, 0.2);
   color: white;
@@ -362,6 +374,20 @@ export default {
   border-radius: 30px;
 
   padding: 5px 15px 5px 15px;
-  margin: 3px;
+  margin-bottom: 8px;
+
+}
+.mapDown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.el-icon-search {
+  color: white;
+  font-size: 23px;
+  font-weight: bold;
+  margin-left: 10px;
+  cursor: pointer;
 }
 </style>

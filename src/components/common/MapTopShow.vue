@@ -61,6 +61,5 @@ export default ({
     flex-wrap: wrap;
 
     width: 400px;
-    margin-bottom: 40px;
 }
 </style>

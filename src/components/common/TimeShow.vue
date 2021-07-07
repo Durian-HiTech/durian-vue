@@ -24,6 +24,6 @@ export default({
     color: rgb(184, 184, 184);
     font-family: "Gill Sans", sans-serif;
     font-size: 13px;
-    font-weight: 100;
+    font-weight: 500;
 }
 </style>
