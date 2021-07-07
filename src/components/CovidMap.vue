@@ -1,14 +1,14 @@
 <template>
   <div class="CovidMapRoot">
-    <!-- left side -->
 
-    <div class="CovidMap">
+    <i class="el-icon-loading" v-if="!dataloaded"> </i>
+    <!-- left side -->
+    <div class="CovidMap" v-if='dataloaded'>
       <main-map
         ref="MainMap"
         :country="this.country"
         :type="type"
         :data="mapData"
-        v-if="dataloaded"
       ></main-map>
 
       <div
@@ -44,7 +44,6 @@
         :max="maxTimeNum"
         :format-tooltip="formatTime"
         style="margin-top: 20px"
-        v-if="dataloaded"
       ></el-slider>
 
       <el-radio-group size="medium">
@@ -73,7 +72,7 @@
 
     <!-- right side -->
 
-    <div class="CovidMapTables" v-if="dataloaded">
+    <div class="CovidMapTables" v-if='dataloaded'>
       <div class="countryshow">{{ countryData }}</div>
       <div style="display: flex; justify-content: center; align-items: center">
         <el-autocomplete
@@ -145,7 +144,8 @@ export default {
       searchinput: "",
       data: {},
       dataloaded: false, //数据是否加载完成，控制所有组件的加载
-      buttons: ["table", "chart", "rate"],
+      TypeButtons: ['确诊','死亡','治愈','接种'],
+      buttons: ['table', 'chart','rate'],
       showTable: true,
       showRate: false,
       showChart: false,
@@ -366,6 +366,8 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  height: 680px;
 }
 .CovidMap {
   display: flex;
@@ -437,5 +439,10 @@ export default {
   font-weight: bold;
   margin-left: 10px;
   cursor: pointer;
+}
+.el-icon-loading {
+  color: white;
+  font-size: 40px;
+  font-weight: 1000;
 }
 </style>
