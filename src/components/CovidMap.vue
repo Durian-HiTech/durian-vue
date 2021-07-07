@@ -109,6 +109,7 @@
         <map-table :data="tableData" v-show="showTable"></map-table>
         <cases-deaths-vaccine-recovered-cmp
         :data_table="data" v-show="!showTable"></cases-deaths-vaccine-recovered-cmp>
+        
       </div>
     </div>
   </div>

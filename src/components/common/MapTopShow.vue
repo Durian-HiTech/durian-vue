@@ -56,7 +56,7 @@ export default ({
     /* outline: #00ff00 dotted thick; */
 
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 
