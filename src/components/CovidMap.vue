@@ -117,7 +117,7 @@ import MapTopShow from "./common/MapTopShow.vue";
 import TimeShow from "./common/TimeShow.vue";
 import CasesDeathsVaccineRecoveredCmp from "./charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
 import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap.vue';
-var countrymapping = require("../data/utils/countryen2zh.json");
+var countrymapping = require("../data/utils/countries.json");
 
 import api from '../commonApi.js';
 //var sampledata = require("../data/samples/sample.json");
