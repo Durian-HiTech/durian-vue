@@ -94,7 +94,10 @@ export default{
           }
         }],
         title: {
-          text: '死亡率/治愈率'
+          text: '死亡率/治愈率',
+          textStyle: {
+            color: "#fff",
+          },
         },
         grid: {
           right: 140
@@ -163,8 +166,5 @@ export default{
 };
 </script>
 <style scoped>
-#Death_rate{
-  width: 1000px;
-  height: 800px;
-}
+
 </style>
