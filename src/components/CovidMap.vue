@@ -152,6 +152,7 @@ export default {
     // this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
     //   if(response.data.success){
     //     _this.data = response.data.data;
+    //     console.log(_this.data);
     //     _this.timevalue = _this.maxTimeNum;
     //     _this.dataloaded = true;
     //   }
