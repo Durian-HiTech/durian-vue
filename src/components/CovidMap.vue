@@ -1,6 +1,5 @@
 <template>
   <div class="CovidMapRoot">
-
     <!-- left side -->
 
     <div class="CovidMap">
@@ -20,8 +19,10 @@
           margin-top: 15px;
         "
       >
-        
-        <SelectBarForCovidMap :buttons='TypeButtons' style="margin-left: 120px"/>
+        <SelectBarForCovidMap
+          :buttons="TypeButtons"
+          style="margin-left: 120px"
+        />
 
         <el-select v-model="country" placeholder="请选择" size="small">
           <el-option
@@ -45,7 +46,6 @@
         style="margin-top: 20px"
         v-if="dataloaded"
       ></el-slider>
-
 
       <el-radio-group size="medium">
         <el-button
@@ -75,8 +75,7 @@
 
     <div class="CovidMapTables" v-if="dataloaded">
       <div class="countryshow">{{ countryData }}</div>
-      <div style="display: flex; justify-content: center; align-items: center;">
-
+      <div style="display: flex; justify-content: center; align-items: center">
         <el-autocomplete
           class="inline-input"
           v-model="searchinput"
@@ -94,17 +93,21 @@
         >
 
         <i class="el-icon-search" @click="search()"></i>
-
       </div>
 
       <time-show :time="timeData" style="margin-top: 5px"></time-show>
-      <map-top-show :data="maptopshowData" style="margin-bottom: 10px"></map-top-show>
+      <map-top-show
+        :data="maptopshowData"
+        style="margin-bottom: 10px"
+      ></map-top-show>
 
       <div class="mapDown">
-        <SelectBarForCovidMap :buttons='buttons' style="margin-bottom: 20px;"/>
+        <SelectBarForCovidMap :buttons="buttons" style="margin-bottom: 20px" />
         <map-table :data="tableData" v-show="showTable"></map-table>
         <cases-deaths-vaccine-recovered-cmp
-        :data_table="data" v-show="showChart"></cases-deaths-vaccine-recovered-cmp>
+          :data_table="data"
+          v-show="showChart"
+        ></cases-deaths-vaccine-recovered-cmp>
         <death-rate :data_table="data" v-show="showRate"></death-rate>
       </div>
     </div>
@@ -116,11 +119,11 @@ import MapTable from "./charts/MapTable.vue";
 import MapTopShow from "./common/MapTopShow.vue";
 import TimeShow from "./common/TimeShow.vue";
 import CasesDeathsVaccineRecoveredCmp from "./charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
-import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap.vue';
-import DeathRate from "../components/charts/Death_Rate.vue"
+import SelectBarForCovidMap from "../components/common/SelectBarForCovidMap.vue";
+import DeathRate from "../components/charts/Death_Rate.vue";
 var countrymapping = require("../data/utils/countries.json");
 
-import api from '../commonApi.js';
+import api from "../commonApi.js";
 //var sampledata = require("../data/samples/sample.json");
 export default {
   name: "CovidMap",
@@ -131,7 +134,7 @@ export default {
     TimeShow,
     CasesDeathsVaccineRecoveredCmp,
     SelectBarForCovidMap,
-    DeathRate
+    DeathRate,
   },
   data() {
     return {
@@ -142,10 +145,10 @@ export default {
       searchinput: "",
       data: {},
       dataloaded: false, //数据是否加载完成，控制所有组件的加载
-      buttons: ['table', 'chart','rate'],
+      buttons: ["table", "chart", "rate"],
       showTable: true,
-      showRate:false,
-      showChart:false
+      showRate: false,
+      showChart: false,
     };
   },
   watch: {
@@ -156,15 +159,7 @@ export default {
   },
   mounted() {
     this.countries = countrymapping;
-    var _this = this;
-    this.$axios.get(api.baseApi+'/data/list_all_covid_cdrv_response').then(function(response){
-      if(response.data.success){
-        _this.data = response.data.data;
-        console.log(_this.data);
-        _this.timevalue = _this.maxTimeNum;
-        _this.dataloaded = true;
-      }
-    })
+    this.loadWorldData();
     // this.data = sampledata;
     // this.timevalue = this.maxTimeNum;
     // this.dataloaded = true;
@@ -209,7 +204,8 @@ export default {
           region: this.data["cases"][this.timevalue]["value"][i]["name"],
           cases: this.data["cases"][this.timevalue]["value"][i]["value"],
           deaths: this.data["deaths"][this.timevalue]["value"][i]["value"],
-          recovered:this.data["recovered"][this.timevalue]["value"][i]["value"],
+          recovered:
+            this.data["recovered"][this.timevalue]["value"][i]["value"],
           vaccine: this.data["vaccine"][this.timevalue]["value"][i]["value"],
         });
       }
@@ -233,7 +229,8 @@ export default {
       // 给时间显示器的数据
       return this.formatTime();
     },
-    countryData() {//显示当前地图名称
+    countryData() {
+      //显示当前地图名称
       for (var i in this.countries) {
         if (this.countries[i]["value"] == this.country)
           return this.countries[i]["label"];
@@ -257,7 +254,37 @@ export default {
     },
     changeData(name) {
       //改变地图数据，需要重新请求
-      console.log(name);
+      if (name == "World") {
+        this.loadWorldData();
+      } else {
+        this.loadCountryData();
+      }
+    },
+    loadWorldData() {
+      var _this = this;
+      this.$axios
+        .get(api.baseApi + "/data/list_all_covid_cdrv_response")
+        .then(function (response) {
+          if (response.data.success) {
+            _this.data = response.data.data;
+            console.log(_this.data);
+            _this.timevalue = _this.maxTimeNum;
+            _this.dataloaded = true;
+          }
+        });
+    },
+    loadCountryData(){
+      var _this = this;
+      this.$axios
+        .get(api.baseApi + "/data/list_all_covid_cdrv_response")
+        .then(function (response) {
+          if (response.data.success) {
+            _this.data = response.data.data;
+            console.log(_this.data);
+            _this.timevalue = _this.maxTimeNum;
+            _this.dataloaded = true;
+          }
+        });
     },
     querySearch(queryString, cb) {
       var countries = this.countries;
@@ -290,46 +317,44 @@ export default {
         _this.timePlayStart();
       }, 2000);
     },
-    selected (index, differkey) {
-			if (differkey == 'table') {
-				switch(index)
-				{
-					case 0:
-						this.showTable = true;
+    selected(index, differkey) {
+      if (differkey == "table") {
+        switch (index) {
+          case 0:
+            this.showTable = true;
             this.showRate = false;
-            this.showChart = false
-						break
-					case 1:
-						this.showTable = false;
+            this.showChart = false;
+            break;
+          case 1:
+            this.showTable = false;
             this.showChart = true;
             this.showRate = false;
-						break
+            break;
           case 2:
             this.showTable = false;
             this.showChart = false;
             this.showRate = true;
-				}
-			} else if (differkey == '确诊') {
-        switch(index)
-				{
-					case 0:
-						this.type = 'cases'
-						break
-					case 1:
-						this.type = 'deaths'
-						break
+        }
+      } else if (differkey == "确诊") {
+        switch (index) {
+          case 0:
+            this.type = "cases";
+            break;
+          case 1:
+            this.type = "deaths";
+            break;
           case 2:
-            this.type = 'recovered'
-            break
+            this.type = "recovered";
+            break;
           case 3:
-            this.type = 'vaccine'
-            break
-				}
+            this.type = "vaccine";
+            break;
+        }
       }
-		},
+    },
     search() {
-      console.log("search")
-    }
+      console.log("search");
+    },
   },
 };
 </script>
@@ -392,14 +417,13 @@ export default {
   font-size: 15px;
   font-weight: bold;
 
-  background-color:rgba(20, 20, 20, 0.2);
+  background-color: rgba(20, 20, 20, 0.2);
   color: white;
 
   border-radius: 30px;
 
   padding: 5px 15px 5px 15px;
   margin-bottom: 8px;
-
 }
 .mapDown {
   display: flex;
