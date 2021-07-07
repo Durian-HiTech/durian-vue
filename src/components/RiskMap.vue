@@ -183,6 +183,7 @@ export default {
   flex-direction: column;
   align-items: center;
   color: white;
+  margin-left: 30px;
 }
 .backButton {
   white-space: nowrap;
@@ -191,7 +192,6 @@ export default {
 
   font-size: 17px;
   font-weight: 100;
-  width: 80px;
 
   background-color:rgba(20, 20, 20, 0.2);
   color: white;
@@ -202,6 +202,7 @@ export default {
   margin: 3px;
   margin-bottom: 50px;
 }
+
 .riskPlaces {
 
   border-radius: 30px;
