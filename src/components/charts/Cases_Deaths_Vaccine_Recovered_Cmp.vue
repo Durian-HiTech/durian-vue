@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div id="Four_Type_Cmp"> </div>
+  <div >
+    <div id="Four_Type_Cmp" style="width: 450px; height: 300px;"> </div>
   </div>
 </template>
 
@@ -100,14 +100,20 @@ export default{
           }
         }],
         title: {
-          text: 'Doese of Vaccination of USA and China last 30 days'
+          text: 'Doese of Vaccination of USA and China last 30 days',
+          textStyle: {
+              color: "#fff",
+            },
         },
         tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          textStyle: {
+              color: "#fff",
+          },
         },
         xAxis: {
           type: 'category',
-          nameLocation: 'middle'
+          nameLocation: 'middle',
         },
         yAxis: {
           name: 'Number'
@@ -199,8 +205,5 @@ export default{
 };
 </script>
 <style scoped>
-#Four_Type_Cmp{
-  width: 1000px;
-  height: 800px;
-}
+
 </style>

@@ -54,7 +54,8 @@
 #root {
   /* outline:#00ff00 dotted thick; */
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
   height: 36px;
 
 }

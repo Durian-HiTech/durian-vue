@@ -8,21 +8,24 @@
     <linechart/>
     <el-divider/>
     <linechart2/>
-    <Cases_Deaths_Vaccine_Recovered_Cmp/>
+<!--    <Cases_Deaths_Vaccine_Recovered_Cmp/>-->
+    <Death_Rate/>
   </div>
 </template>
 <script>
 // import bargraph from "@/components/charts/BarGraph.vue"
-import Cases_Deaths_Vaccine_Recovered_Cmp from "@/components/charts/Cases_Deaths_Vaccine_Recovered_Cmp";
+// import Cases_Deaths_Vaccine_Recovered_Cmp from "@/components/charts/Cases_Deaths_Vaccine_Recovered_Cmp";
 import linechart from "@/components/charts/LineChart.vue"
 import linechart2 from "@/components/charts/LineChartCmp.vue"
+import Death_Rate from "@/components/charts/Death_Rate";
 export default {
   name: "VaccineBarGraph",
   components: {
     // bargraph,
     linechart,
     linechart2,
-    Cases_Deaths_Vaccine_Recovered_Cmp,
+    // Cases_Deaths_Vaccine_Recovered_Cmp,
+    Death_Rate,
   },
 }
 </script>
