@@ -8,7 +8,7 @@
 		<i class='el-icon-document-copy' style='margin-right: 5px'></i>
 		新闻页面
 	</div>
-
+<!-- 
   <div class='NavItem' @click="toQuestion()" style="cursor:pointer">
     <i class='el-icon-question' style='margin-right: 5px'></i>
       网友问答
@@ -17,7 +17,7 @@
 	<div class='NavItem' @click="dialogTableVisible = true">
 		<i class='el-icon-office-building' style='margin-right: 5px'></i>
 		我的城市
-	</div>
+	</div> -->
 
 
   <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
