@@ -1,10 +1,12 @@
 <template>
   <div id="nav_bar">
+	<user-avatar id='user-avatar'/>
     <div class="nav_bar_frame">
-      <div class="nav_bar_icon">
-        <div class="nav_bar_icon_title_bold" @click="backtostartpage">Xpertise</div>
-        <div class="nav_bar_icon_title">Scholar</div>
+      <div class="nav_bar_icon" @click="backtostartpage">
+        <div class="nav_bar_icon_title_bold">Durian</div>
+        <div class="nav_bar_icon_title"> Covid</div>
       </div>
+
       <div class="nav_bar_item_outer_frame">
         <router-link
           :to="item.url"
@@ -15,113 +17,73 @@
           :key="item.name"
         >
           {{ item.title }}
-         </router-link>
-      </div>
-      <div class="nav_bar_action_frame">
-        <div v-if="logged_in === false">
-          <router-link tag="div" class="nav_bar_action_link" to="/register">
-            注册
-          </router-link>
-          <router-link tag="div" class="nav_bar_action_link" to="/login">
-            登录
-          </router-link>
-        </div>
-        <div v-else>
-
-          <div class="nav_bar_action_link" v-if="isnotsettled">
-          <router-link  tag="div"   class="nav_bar_action_link" :to="'/settle'">
-            入驻平台
-          </router-link>
-          </div>
-          <div class="nav_bar_action_link" v-else-if="issettled">
-          <router-link  tag="div"   class="nav_bar_action_link" :to="'/portal/'+author()">
-            我的门户
-          </router-link>
-          </div>
-          <router-link
-            tag="div"
-            class="nav_bar_action_link"
-            :to="'/userinfo'"
-          >
-            个人中心
-          </router-link>
-          <div class="nav_bar_action_link" v-if="isadmin">
-          <router-link
-            tag="div"
-            class="nav_bar_action_link"
-            :to="'/admin'"
-          >
-            管理员
-          </router-link>
-          </div>
-
-         <el-button type="text" @click="logout">登出 </el-button>
-        </div>
+        </router-link>
       </div>
     </div>
-    <div class="nav_bar_underline"></div>
   </div>
 </template>
 
 <script>
+import UserAvatar from './UserAvatar.vue'
 export default {
   name: "NavBar",
+  components: {
+	UserAvatar
+  },
+  data() {
+    return {
+      pages: [
+        {
+          title:"新闻",
+          url: "/news",
+        },
+		{
+			title:"问答",
+			url: "/question",
+		}
+      ],
+    };
+  },
   methods: {
-    author(){ return localStorage.getItem("authorId")},
-    backtostartpage(){
-      this.$router.push('/home')
-      window.location.reload();
-    },
-    onIndexChange(i) {
-      console.log("change");
-      this.active_index = i;
-      console.log(i);
-      this.$forceUpdate();
-      this.$router.push(pages[this.active_index].url);
-
-    },
-    logout() {
-      localStorage.clear()
-      this.user_info.user_type = null;
-      this.logged_in = false;
-      this.$router.push('/login')
-      window.location.reload();
-    }
+	backtostartpage(){
+		this.$router.push('/')
+		window.location.reload();
+	},
   }
 };
 </script>
 
 <style scoped>
+#user-avatar {
+	position: fixed;
+	right: 20px;
+	top: 3px;
+	z-index: 10;
+}
+	
 #nav_bar {
   position: fixed;
-  z-index: 1000;
+  z-index: 10;
   top: 0px;
   height: 46px;
   width: 100vw;
   vertical-align: middle;
+  
+  border: #cecfd2 solid thin;
+  
+  backdrop-filter: blur(20px);
+  background-color: rgba(255,255,255,0.5);
 }
 .nav_bar_frame {
   vertical-align: middle;
   height: 45px;
-  background-color: white;
-  opacity: 0.8;
-  backdrop-filter: blur(50px);
   width: 100%;
-}
-.nav_bar_underline {
-  /* position: relative; */
-  bottom: 0px;
-  height: 0.5px;
-  opacity: 1;
-  background-color: grey;
-  width: 100vw;
 }
 
 .nav_bar_icon {
   margin-left: 25px;
   float: left;
   line-height: 45px;
-  font-family: "MavenPro";
   vertical-align: middle;
   height: 45px;
 }
