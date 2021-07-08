@@ -131,7 +131,7 @@ export default {
     curr() {
       // console.log(this.curr);
       this.updatePath(this.curr);
-      // console.log(this.path)
+      console.log(this.path)
     },
     immediate: true
   },

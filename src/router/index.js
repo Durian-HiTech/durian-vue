@@ -17,6 +17,11 @@ const routes = [
     component: Vaccine
   },
   {
+    path: '/travel',
+    name: 'travel',
+    component: () => import('../views/Travel.vue')
+  },
+  {
 	path: '/login',
 	name: 'Login',
 	component: () => import('../views/Login.vue')
