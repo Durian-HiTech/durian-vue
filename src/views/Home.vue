@@ -5,7 +5,7 @@
 			<div id="mask1">
 				<h1 style="color: white;">Covid Map</h1>
 			</div>
-			<covid-map></covid-map>
+			<!-- <covid-map></covid-map> -->
 		</div>
 		
 		<div class="riskMap" style="position: relative;"
@@ -38,13 +38,13 @@
 </template>
 
 <script>
-import CovidMap from '../components/CovidMap'
+// import CovidMap from '../components/CovidMap'
 import RiskMap from "../components/RiskMap";
 export default {
 	name: 'Home',
 	components:{
 		RiskMap,
-		CovidMap
+		// CovidMap
 	},
 	methods: {
 		mouseEnter1 () {

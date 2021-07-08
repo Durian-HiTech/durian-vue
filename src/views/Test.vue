@@ -10,17 +10,28 @@
 		<!-- </center> -->
 		<LittleDataCard nownum="1123124" type="死亡" newnum="312" color="#00ACA5"/>
 
+		<!-- <CovidMap/> -->
+		<!-- <QuestionList/> -->
+		<global-map></global-map>
 	</div>
 </template>
 
 <script>
 // import SelectBar from '../components/common/SelectBar.vue'
 import LittleDataCard from '../components/common/LittleDataCard'
+// import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap'
+// import CovidMap from '../components/CovidMap'
+// import QuestionList from '../components/QuestionList'
+import GlobalMap from '../components/charts/GlobalMap.vue'
 export default {
 	name: 'Test',
 	components: {
 		// SelectBar,
 		LittleDataCard,
+		// CovidMap,
+		// SelectBarForCovidMap,
+		// QuestionList,
+		GlobalMap
 	},
 	data() {
 		return {
