@@ -7,8 +7,9 @@
 		<el-button @click="reset()"> reset </el-button>
 		<!-- <center style="display: flex; justify-content: center; align-items: center; background-color: #575551; padding:100px;"> -->
 		<!-- <SelectBar :buttons="buttons"/> -->
-		<!-- <SelectBarForCovidMap :buttons="buttons"/> -->
 		<!-- </center> -->
+		<NavBar/>
+
 
 		<!-- <CovidMap/> -->
 		<!-- <QuestionList/> -->

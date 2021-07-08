@@ -1,22 +1,22 @@
 <template>
   <div id="app">
-    <user-avatar id='user-avatar'/>
-    <NavButton id='NavButton'/>
+
+    <!-- <NavButton id='NavButton'/> -->
     <router-view/>
     <Footer/>
+	<NavBar/>
   </div>
 </template>
 
 <script>
-import UserAvatar from './components/common/UserAvatar.vue'
-import NavButton from './components/common/NavButton.vue'
+// import NavButton from './components/common/NavButton.vue'
 import Footer from './components/common/Footer.vue'
+import NavBar from './components/common/NavBar.vue'
 export default{
 	name: 'App',
 	components: {
-		UserAvatar,
-		NavButton,
-    Footer
+		Footer,
+		NavBar,
 	}
 }
 </script>
@@ -34,17 +34,4 @@ export default{
   color: #191919;
 }
 
-#user-avatar {
-	position: fixed;
-	right: 20px;
-	top: 20px;
-	z-index: 10;
-}
-
-#NavButton {
-	position: fixed;
-	left: 20px;
-	top: 20px;
-	z-index: 9;
-}
 </style>

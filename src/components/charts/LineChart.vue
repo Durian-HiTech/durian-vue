@@ -121,7 +121,7 @@ export default{
             }
           }],
           title: {
-            text: 'Doese of Vaccination of USA and China last 30 days'
+            text: '中美过去30天内疫苗接种剂数对比'
           },
           tooltip: {
             trigger: 'axis'
