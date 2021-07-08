@@ -28,7 +28,7 @@
 					</div>
 				</div>
 
-				<div class="homeTable">
+				<div class="homeTable" style="margin-top: 20px; width: 860px;">
 					<StatisticTable/>
 				</div>
 
@@ -144,15 +144,6 @@ export default {
 
 	padding: 5px 15px 5px 15px;
 	margin: 3px;
-}
-.homeTable {
-
-	/* outline: #00ff00 dotted thick; */
-	margin-top: 20px;
-	height: 670px;
-	width: 860px;
-	padding: 10px;
-	overflow: hidden;
 }
 
 </style>

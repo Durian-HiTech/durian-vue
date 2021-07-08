@@ -1,4 +1,5 @@
 <template>
+    <div class="s_table_root">
     <v-app>
         <v-card class="s_table">
             <v-card-title>
@@ -34,6 +35,7 @@
             </v-data-table>
         </v-card>
     </v-app>
+    </div>
 </template>
 
 <script>
@@ -152,6 +154,11 @@ export default {
 </script>
 
 <style>
+.s_table_root {
+    padding: 10px;
+    height: 670px;
+	overflow: hidden;
+}
 .s_table th {
     font-size: 18px !important;
     white-space: nowrap !important;
