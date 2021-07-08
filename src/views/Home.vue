@@ -10,7 +10,7 @@
 		
 
 		<!-- china -->
-		<div class="homeChine" v-if="showChina">
+		<div class="homeChina" v-if="showChina">
 
 			<div class="homeMain">
 
