@@ -150,7 +150,7 @@ export default {
 	/* outline: #00ff00 dotted thick; */
 	margin-top: 20px;
 	height: 670px;
-	width: 800px;
+	width: 860px;
 	padding: 10px;
 	overflow: hidden;
 }
