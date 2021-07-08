@@ -6,9 +6,7 @@
 		<el-button @click="login()"> login </el-button>
 		<el-button @click="reset()"> reset </el-button>
 
-		<center>
-		<StatisticTable style="height: 500px; width: 500px;"/>
-		</center>
+
 
 		<global-map></global-map>
 	</div>
@@ -16,13 +14,11 @@
 
 <script>
 
-import StatisticTable from '../components/charts/StatisticTable.vue'
 import GlobalMap from '../components/charts/GlobalMap.vue'
 export default {
 	name: 'Test',
 	components: {
 		GlobalMap,
-		StatisticTable,
 	},
 	methods: {
 		reset () {
