@@ -4,8 +4,8 @@
     <user-avatar id='user-avatar'/>
     <div class="nav_bar_frame">
       <div class="nav_bar_icon" @click="backtostartpage">
-      <div class="nav_bar_icon_title_bold">Durian</div>
-      <div class="nav_bar_icon_title"> Covid</div>
+        <div class="nav_bar_icon_title_bold">Durian</div>
+        <div class="nav_bar_icon_title"> Covid</div>
       </div>
 
       <div class="nav_bar_item_outer_frame">
@@ -90,6 +90,7 @@ export default {
   line-height: 45px;
   vertical-align: middle;
   height: 45px;
+  cursor: pointer;
 }
 .nav_bar_icon_title_bold {
   display: inline;
@@ -107,6 +108,7 @@ export default {
   color: black;
   margin: 0px 10px 10px 0px;
   line-height: 45px;
+  cursor: pointer;
 }
 .nav_bar_item_active {
   display: inline;
