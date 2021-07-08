@@ -11,7 +11,8 @@
 		<!-- </center> -->
 
 		<!-- <CovidMap/> -->
-		<QuestionList/>
+		<!-- <QuestionList/> -->
+		<global-map></global-map>
 	</div>
 </template>
 
@@ -19,14 +20,16 @@
 // import SelectBar from '../components/common/SelectBar.vue'
 // import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap'
 // import CovidMap from '../components/CovidMap'
-import QuestionList from '../components/QuestionList'
+// import QuestionList from '../components/QuestionList'
+import GlobalMap from '../components/charts/GlobalMap.vue'
 export default {
 	name: 'Test',
 	components: {
 		// SelectBar,
 		// CovidMap,
 		// SelectBarForCovidMap,
-		QuestionList
+		// QuestionList,
+		GlobalMap
 	},
 	data() {
 		return {
