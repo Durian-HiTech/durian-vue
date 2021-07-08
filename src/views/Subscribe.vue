@@ -5,31 +5,46 @@
 		<div class="homeChina">
 
 			<div class="homeMain">
+                <div class="cityList">
 
-				<div class="homeLeftSection">
-					<!-- <h1>这里是地图！！</h1> -->
-				</div>
+                    <div class="homeSection">
+                        <div class="homeHeader">
+                            <div class="region">
+                                全国
+                            </div>
+                            <div style="display: flex; align-items: center; ">
+                                <svg width="35px" height="35px" style="transform:rotate(90deg);" viewBox="0 0 1000 1000"><path fill="#666666" d="M796.014 412.647l-257.492-257.492c-20.11-20.11-52.709-20.11-72.819 0l-257.492 257.492c-20.11 20.11-20.11 52.709 0 72.819s52.709 20.11 72.819 0l169.585-169.585v493.664c0 28.453 23.046 51.499 51.499 51.499s51.499-23.046 51.499-51.499v-493.664l169.585 169.585c10.042 10.043 23.226 15.089 36.41 15.089s26.367-5.021 36.41-15.089c20.11-20.11 20.11-52.709 0-72.819z" /></svg>
+                                <div style="font-size: 20px; font-weight: 700; color: #666666; margin-left:5px;">Learn more...</div>
+                            </div>
+                        </div>
 
-				<div class="homeRightSection">
-					<div class="homeHeader">
-						<div class="region">
-							全国
-						</div>
-						<div style="display: flex; align-items: center; ">
-							<span style="font-size: 30px; margin-left:10px;margin-right:5px;">🇨🇳</span>
-							<svg width="35px" height="35px" style="transform:rotate(90deg);" viewBox="0 0 1000 1000"><path fill="#666666" d="M796.014 412.647l-257.492-257.492c-20.11-20.11-52.709-20.11-72.819 0l-257.492 257.492c-20.11 20.11-20.11 52.709 0 72.819s52.709 20.11 72.819 0l169.585-169.585v493.664c0 28.453 23.046 51.499 51.499 51.499s51.499-23.046 51.499-51.499v-493.664l169.585 169.585c10.042 10.043 23.226 15.089 36.41 15.089s26.367-5.021 36.41-15.089c20.11-20.11 20.11-52.709 0-72.819z" /></svg>
-							<div style="font-size: 20px; font-weight: 700; color: #666666; margin-left:5px;">Learn more...</div>
-						</div>
-					</div>
+                        <div class="homeOverview">
+                            <div v-for="(data, index) in overviewData" :key="index">
+                                <LittleDataCard :nownum="data.nownum" :type="data.type" :newnum="data.newnum" :color="data.color" />
+                            </div>
+                        </div>    
+                    </div>
 
-					<div class="homeOverview">
-						<div v-for="(data, index) in overviewData" :key="index">
-							<LittleDataCard :nownum="data.nownum" :type="data.type" :newnum="data.newnum" :color="data.color" />
-						</div>
-					</div>
 
-				</div>
+                    <div class="homeSection">
+                        <div class="homeHeader">
+                            <div class="region">
+                                全国
+                            </div>
+                            <div style="display: flex; align-items: center; ">
+                                <svg width="35px" height="35px" style="transform:rotate(90deg);" viewBox="0 0 1000 1000"><path fill="#666666" d="M796.014 412.647l-257.492-257.492c-20.11-20.11-52.709-20.11-72.819 0l-257.492 257.492c-20.11 20.11-20.11 52.709 0 72.819s52.709 20.11 72.819 0l169.585-169.585v493.664c0 28.453 23.046 51.499 51.499 51.499s51.499-23.046 51.499-51.499v-493.664l169.585 169.585c10.042 10.043 23.226 15.089 36.41 15.089s26.367-5.021 36.41-15.089c20.11-20.11 20.11-52.709 0-72.819z" /></svg>
+                                <div style="font-size: 20px; font-weight: 700; color: #666666; margin-left:5px;">Learn more...</div>
+                            </div>
+                        </div>
 
+                        <div class="homeOverview">
+                            <div v-for="(data, index) in overviewData" :key="index">
+                                <LittleDataCard :nownum="data.nownum" :type="data.type" :newnum="data.newnum" :color="data.color" />
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
 			</div>
 
 		</div>
@@ -118,13 +133,15 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-content: center;
+    margin: 20px;
 }
 
-.homeRightSection {
+.homeSection {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center
+	align-items: center;
+    margin: 20px;
 }
 
 .homeHeader {
