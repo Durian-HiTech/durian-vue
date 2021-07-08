@@ -1,8 +1,8 @@
 <template>
 	<div class="homeRoot">
-		<span class="hometitle">
+		<div class="hometitle">
 			<b>Durian</b> Covid
-		</span>
+		</div>
 
 		<div class="homeMain">
 
@@ -29,7 +29,9 @@
 				</div>
 
 				<div class="homeTable">
+					<StatisticTable/>
 				</div>
+
 			</div>
 
 		</div>
@@ -37,11 +39,13 @@
 </template>
 
 <script>
-import LittleDataCard from '../components/common/LittleDataCard'
+import LittleDataCard from '../components/common/LittleDataCard.vue'
+import StatisticTable from '../components/charts/StatisticTable.vue'
 export default {
 	name: 'Home',
 	components: {
 		LittleDataCard,
+		StatisticTable,
 	},
 	data() {
 		return {
@@ -81,13 +85,15 @@ export default {
 </script>
 
 <style scoped>
-.homeRoot {
-	margin-top: 45px;
-}
+
 .hometitle {
+	margin-top: 100px;
+	margin-bottom: 80px;
 	font-size:80px; 
     align-self: flex-start; 
-    position: relative;
+
+	position: relative;
+    right: 500px;
 }
 
 .homeMain {
@@ -100,8 +106,7 @@ export default {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: flex-start;
-
+	align-items: center
 }
 
 .homeHeader {
@@ -109,6 +114,8 @@ export default {
 	justify-content: center;
 	align-items: flex-end;
 	margin-bottom: 20px;
+
+	align-self: start;
 }
 .homeOverview {
 	display: flex;
@@ -138,4 +145,14 @@ export default {
 	padding: 5px 15px 5px 15px;
 	margin: 3px;
 }
+.homeTable {
+
+	/* outline: #00ff00 dotted thick; */
+	margin-top: 20px;
+	height: 670px;
+	width: 800px;
+	padding: 10px;
+	overflow: hidden;
+}
+
 </style>

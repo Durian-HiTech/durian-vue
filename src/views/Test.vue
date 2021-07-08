@@ -5,42 +5,24 @@
 		<h2 style="margin-top: 20px;"> user state</h2>
 		<el-button @click="login()"> login </el-button>
 		<el-button @click="reset()"> reset </el-button>
-		<!-- <center style="display: flex; justify-content: center; align-items: center; background-color: #575551; padding:100px;"> -->
-		<!-- <SelectBar :buttons="buttons"/> -->
-		<!-- </center> -->
-		<LittleDataCard nownum="1123124" type="死亡" newnum="312" color="#00ACA5"/>
 
-		<!-- <CovidMap/> -->
-		<!-- <QuestionList/> -->
+		<center>
+		<StatisticTable style="height: 500px; width: 500px;"/>
+		</center>
+
 		<global-map></global-map>
 	</div>
 </template>
 
 <script>
-// import SelectBar from '../components/common/SelectBar.vue'
-import LittleDataCard from '../components/common/LittleDataCard'
-// import SelectBarForCovidMap from '../components/common/SelectBarForCovidMap'
-// import CovidMap from '../components/CovidMap'
-// import QuestionList from '../components/QuestionList'
+
+import StatisticTable from '../components/charts/StatisticTable.vue'
 import GlobalMap from '../components/charts/GlobalMap.vue'
 export default {
 	name: 'Test',
 	components: {
-		// SelectBar,
-		LittleDataCard,
-		// CovidMap,
-		// SelectBarForCovidMap,
-		// QuestionList,
-		GlobalMap
-	},
-	data() {
-		return {
-			buttons: [
-				"table",
-				"map",
-				"index",
-			]
-		}
+		GlobalMap,
+		StatisticTable,
 	},
 	methods: {
 		reset () {

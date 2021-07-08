@@ -12,12 +12,8 @@ export default {
 };
 </script>
 <style type="text/css">
-    * {
-    padding: 0;
-    margin: 0;
-    }
     * .gcs-footer {
-    margin-top: 50px;
+    margin-top: 100px;
     background: #E4E4E4;
     width: 100%;
     height: 125px;
