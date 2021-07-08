@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-card >
+        <v-card class="s_table">
             <v-card-title>
             <v-text-field
                 v-model="search"
@@ -15,11 +15,11 @@
             :headers="headers"
             :items="desserts"
             :search="search"
-            color='#00ACA5'
             :footer-props="{
                 disableItemsPerPage: true,
                 itemsPerPageOptions: [10],
             }"
+            color='#00ACA5'
             ></v-data-table>
         </v-card>
     </v-app>
@@ -133,6 +133,12 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style>
+.s_table th {
+    font-size: 18px !important;
+    white-space: nowrap !important;
+}
+.s_table td {
+    font-size: 18px !important;
+}
 </style>
