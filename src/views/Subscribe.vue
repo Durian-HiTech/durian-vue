@@ -7,10 +7,10 @@
 			<div class="homeMain">
                 <div class="cityList">
 
-                    <div class="homeSection">
+                    <div class="homeSection" v-for="city in cityList" v-bind:key="city.subscription_id">
                         <div class="homeHeader">
                             <div class="region">
-                                全国
+                                {{city.city_name}}
                             </div>
                             <div style="display: flex; align-items: center; ">
                                 <svg width="35px" height="35px" style="transform:rotate(90deg);" viewBox="0 0 1000 1000"><path fill="#666666" d="M796.014 412.647l-257.492-257.492c-20.11-20.11-52.709-20.11-72.819 0l-257.492 257.492c-20.11 20.11-20.11 52.709 0 72.819s52.709 20.11 72.819 0l169.585-169.585v493.664c0 28.453 23.046 51.499 51.499 51.499s51.499-23.046 51.499-51.499v-493.664l169.585 169.585c10.042 10.043 23.226 15.089 36.41 15.089s26.367-5.021 36.41-15.089c20.11-20.11 20.11-52.709 0-72.819z" /></svg>
@@ -26,24 +26,8 @@
                     </div>
 
 
-                    <div class="homeSection">
-                        <div class="homeHeader">
-                            <div class="region">
-                                全国
-                            </div>
-                            <div style="display: flex; align-items: center; ">
-                                <svg width="35px" height="35px" style="transform:rotate(90deg);" viewBox="0 0 1000 1000"><path fill="#666666" d="M796.014 412.647l-257.492-257.492c-20.11-20.11-52.709-20.11-72.819 0l-257.492 257.492c-20.11 20.11-20.11 52.709 0 72.819s52.709 20.11 72.819 0l169.585-169.585v493.664c0 28.453 23.046 51.499 51.499 51.499s51.499-23.046 51.499-51.499v-493.664l169.585 169.585c10.042 10.043 23.226 15.089 36.41 15.089s26.367-5.021 36.41-15.089c20.11-20.11 20.11-52.709 0-72.819z" /></svg>
-                                <div style="font-size: 20px; font-weight: 700; color: #666666; margin-left:5px;">Learn more...</div>
-                            </div>
-                        </div>
-
-                        <div class="homeOverview">
-                            <div v-for="(data, index) in overviewData" :key="index">
-                                <LittleDataCard :nownum="data.nownum" :type="data.type" :newnum="data.newnum" :color="data.color" />
-                            </div>
-                        </div>
+                    
                         
-                    </div>
                 </div>
 			</div>
 
@@ -52,6 +36,8 @@
 </template>
 <script>
 import LittleDataCard from "../components/common/LittleDataCard";
+import axios from "axios";
+import api from '../commonApi.js'
 export default {
   name: "Subscribe",
   components: {
@@ -59,6 +45,7 @@ export default {
   },
   data() {
 		return {
+            cityList: [],
 			overviewData : [
 				{
 					nownum: 123143241,
@@ -87,6 +74,37 @@ export default {
 			],
 		}
 	},
+    mounted: function(){
+        this.querySubCity()
+    },
+    methods:{
+        querySubCity(){
+            let formData = new FormData();
+            formData.append("user_id", this.$store.getters.userState.id);
+      let config = {
+        headers: {"Content-Type": "multipart/form-data",},
+      };
+      var _this = this;
+      axios.post(
+          api.baseApi+"/sub/list_all_subs",
+          formData,
+          config
+      )
+          .then(function (response) {
+            console.log(response)
+            console.log(response.status)
+            if (response.status == 200) {
+              console.log((response.data.data))
+              _this.cityList = response.data.data
+              console.log(_this.cityList)
+            } else {
+              console.log("请求失败");
+              // console.log(response.data);
+              // _this.fail()
+            }
+          });
+        }
+    }
 };
 </script>
 
