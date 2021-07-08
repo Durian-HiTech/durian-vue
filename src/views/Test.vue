@@ -8,20 +8,19 @@
 		<!-- <center style="display: flex; justify-content: center; align-items: center; background-color: #575551; padding:100px;"> -->
 		<!-- <SelectBar :buttons="buttons"/> -->
 		<!-- </center> -->
-		<NavBar/>
-
+		<LittleDataCard nownum="1123124" type="死亡" newnum="312" color="#00ACA5"/>
 
 	</div>
 </template>
 
 <script>
 // import SelectBar from '../components/common/SelectBar.vue'
-import NavBar from '../components/common/NavBar.vue'
+import LittleDataCard from '../components/common/LittleDataCard'
 export default {
 	name: 'Test',
 	components: {
 		// SelectBar,
-		NavBar
+		LittleDataCard,
 	},
 	data() {
 		return {
