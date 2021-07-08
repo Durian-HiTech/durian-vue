@@ -37,10 +37,10 @@ export default {
           title:"新闻",
           url: "/news",
         },
-		{
-			title:"问答",
-			url: "/question",
-		}
+		// {
+		// 	title:"问答",
+		// 	url: "/question",
+		// }
       ],
     };
   },
