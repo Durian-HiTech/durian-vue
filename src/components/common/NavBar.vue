@@ -1,26 +1,28 @@
 <template>
+
   <div id="nav_bar">
-	<user-avatar id='user-avatar'/>
+    <user-avatar id='user-avatar'/>
     <div class="nav_bar_frame">
       <div class="nav_bar_icon" @click="backtostartpage">
-        <div class="nav_bar_icon_title_bold">Durian</div>
-        <div class="nav_bar_icon_title"> Covid</div>
+      <div class="nav_bar_icon_title_bold">Durian</div>
+      <div class="nav_bar_icon_title"> Covid</div>
       </div>
 
       <div class="nav_bar_item_outer_frame">
-        <router-link
-          :to="item.url"
-          tag="div"
-          class="nav_bar_item"
-          active-class="nav_bar_item_active"
-          v-for="(item) in pages"
-          :key="item.name"
-        >
-          {{ item.title }}
-        </router-link>
+      <router-link
+        :to="item.url"
+        tag="div"
+        class="nav_bar_item"
+        active-class="nav_bar_item_active"
+        v-for="(item) in pages"
+        :key="item.name"
+      >
+        {{ item.title }}
+      </router-link>
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -54,6 +56,8 @@ export default {
 </script>
 
 <style scoped>
+
+
 #user-avatar {
 	position: fixed;
 	right: 20px;

@@ -2,18 +2,13 @@
     <div class="showcardroot">
         <div class="nownum">{{nownum}}</div>
         <div class="type">{{type}}</div>
-        <div class="newnum"> 新增 <span class="newNumVal">  +{{newnum}} </span> </div>
+        <div class="newnum"> 新增 <span class="newNumVal" :style="'color:' + this.color">  +{{newnum}} </span> </div>
     </div>
 </template>
 <script>
 export default({
     name:"LittleDataCard",
     props: ['nownum', 'type', 'newnum', 'color'],
-	mounted() {
-		if (this.color != '') {
-			this.$gsap.set('.newNumVal', {color: this.color})
-		}
-	}
 })
 </script>
 
