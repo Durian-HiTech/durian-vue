@@ -67,6 +67,7 @@
 
 <script>
 import axios from "axios";
+import api from '../commonApi.js'
 // import moment from "moment";
 
 export default {
@@ -127,7 +128,7 @@ export default {
       };
       var _this = this;
       axios.post(
-          "https://durian-go-318509.df.r.appspot.com/api/v1/sub/del_sub",
+          api.baseApi+"/sub/del_sub",
           formData,
           config
       ).then(function (response) {
@@ -149,7 +150,7 @@ export default {
       };
       var _this = this;
       axios.post(
-          "https://durian-go-318509.df.r.appspot.com/api/v1/sub/list_all_subs",
+          api.baseApi+"/sub/list_all_subs",
           formData,
           config
       )
@@ -177,7 +178,7 @@ export default {
       };
       var _this = this;
       axios.post(
-          "https://durian-go-318509.df.r.appspot.com/api/v1/sub/subscribe",
+          api.baseApi+"/sub/subscribe",
           formData,
           config
       )

@@ -36,6 +36,7 @@
 </template>
 
 <script>
+import api from '../commonApi.js'
 import axios from "axios";
 import moment from "moment";
 import 'moment/locale/zh-cn'
@@ -60,7 +61,7 @@ export default {
       };
       var _this = this;
       axios.get(
-          "http://durian-go-318509.df.r.appspot.com/api/v1/notice/list_all_questions",
+          api.baseApi+"/notice/list_all_questions",
           formData,
           config
       )
@@ -92,7 +93,7 @@ export default {
       };
       var _this = this;
       axios.post(
-          "https://durian-go-318509.df.r.appspot.com/api/v1/notice/list_all_comments",
+          api.baseApi+"/notice/list_all_comments",
           formData,
           config
       ).then(function (response) {
@@ -125,7 +126,7 @@ export default {
       };
       var _this = this;
       axios.post(
-          "https://durian-go-318509.df.r.appspot.com/api/v1/notice/create_comment",
+          api.baseApi+"/notice/create_comment",
           formData,
           config
       )

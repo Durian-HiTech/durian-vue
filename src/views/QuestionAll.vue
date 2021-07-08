@@ -37,7 +37,7 @@
 <script>
 import QuestionList from '../components/QuestionList'
 import axios from "axios";
-
+import api from '../commonApi.js'
 export default {
   name: 'QuestionAll',
   components: {
@@ -86,7 +86,7 @@ export default {
           };
           // var _this = this;
           axios.post(
-              "https://durian-go-318509.df.r.appspot.com/api/v1/notice/create_question",
+              api.baseApi+"/notice/create_question",
               formData,
               config
           ).then(function (response) {
