@@ -59,26 +59,23 @@ export default {
   methods: {
     getQuestions(id) {
       let formData = new FormData();
+      formData.append("question_id", id);
       let config = {
         headers: {"Content-Type": "multipart/form-data",},
       };
       var _this = this;
-      axios.get(
-          api.baseApi+"/notice/list_all_questions",
+      axios.post(
+          api.baseApi+"/notice/question_detail",
           formData,
           config
-      )
-          .then(function (response) {
+      ).then(function (response) {
             console.log(response.status)
             if (response.status == 200) {
-              for (var i = 0; i < response.data.data.length; i++) {
-                if(response.data.data[i].question_id == id) {
-                  _this.question = response.data.data[i]
-                  _this.question.question_time = moment(_this.question.question_time).startOf('day').fromNow();
-                  console.log(_this.question)
-                }
-                else continue;
-              }
+              _this.question = response.data.data
+              console.log(_this.question)
+              console.log(moment(_this.question.question_time).utcOffset(8))
+              _this.question.question_time = moment(_this.question.question_time).utcOffset(8).format('YYYY/MM/DD HH:mm:ss');
+              console.log(_this.question.question_time)
             } else {
               console.log("请求失败");
               // console.log(response.data);
