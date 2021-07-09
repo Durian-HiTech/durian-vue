@@ -94,15 +94,15 @@ export default {
             };
             var res = "<font size=\"7\" color=\"black\" face=\"KaiTi\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
             res += "<font size=\"5\">"
-            for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":";
-              for (var i in coviddata[key]) {
-                if (coviddata[key][i]["name"] == params.name) {
-                  res += coviddata[key][i]["value"] + "<br/>";
-                  break;
-                }
+            var tmp = {};
+            for(var i in coviddata){
+              if(coviddata[i]["name"] == params.name){
+                tmp = coviddata[i];
+                break;
               }
-              res += "</p>";
+            }
+            for (var key in mapping) {
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":" + tmp[key] + "<br/>"+"</p>";
             }
             res += "</font>";
             return res;
