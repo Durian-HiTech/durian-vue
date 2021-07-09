@@ -106,7 +106,7 @@ export default {
               }
             }
             for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":" + tmp[key] + "<br/>"+ "<br/>"+ "<br/>"+"</p >";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+ "<br/>"+ "<br/>"+"</p >";
             }
             res += "</font>";
             return res;
