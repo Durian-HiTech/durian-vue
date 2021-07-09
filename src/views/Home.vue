@@ -30,8 +30,8 @@
 						</div>
 					</div>
 
-					<div class="homeOverview">
-						<div v-for="(data, index) in overviewData" :key="index">
+					<div class="homeOverview" v-if="overviewDataloaded">
+						<div v-for="(data, index) in ChinaoverviewData" :key="index">
 							<LittleDataCard :nownum="data.nownum" :type="data.type" :newnum="data.newnum" :color="data.color" />
 						</div>
 					</div>
@@ -66,8 +66,8 @@
 						</div>
 					</div>
 
-					<div class="homeOverview">
-						<div v-for="(data, index) in overviewData" :key="index">
+					<div class="homeOverview" v-if="overviewDataloaded">
+						<div v-for="(data, index) in GlobaloverviewData" :key="index">
 							<LittleDataCard :nownum="data.nownum" :type="data.type" :newnum="data.newnum" :color="data.color" />
 						</div>
 					</div>
@@ -86,46 +86,30 @@
 import LittleDataCard from '../components/common/LittleDataCard.vue'
 import StatisticTable from '../components/charts/StatisticTable.vue'
 import SelectBar from '../components/common/SelectBar.vue'
+// import GlobalMap from '../components/charts/GlobalMap.vue'
+
 export default {
 	name: 'Home',
 	components: {
 		LittleDataCard,
 		StatisticTable,
 		SelectBar,
+		// GlobalMap
 	},
 	data() {
 		return {
-			overviewData : [
-				{
-					nownum: 123143241,
-					type: '确诊',
-					newnum: 2313,
-					color: '#AC3500',
-				},
-				{
-					nownum: 123143241,
-					type: '死亡',
-					newnum: 2313,
-					color: '#AC3500',
-				},
-				{
-					nownum: 123143241,
-					type: '治愈',
-					newnum: 2313,
-					color: "#00ACA5",
-				},
-				{
-					nownum: 123143241,
-					type: '疫苗',
-					newnum: 2313,
-					color: "#00ACA5",
-				}
-			],
+			ChinaoverviewData : [],
+			GlobaloverviewData:[],
 			buttons: ['全国', '世界'],
 			showChina: true,
+			overviewDataloaded:false,
 		}
 	},
-
+	watch:{
+	},
+	mounted(){
+		this.loadoverviewData();
+	},
 	methods: {
 		selected (index, differkey) {
 			if (differkey == '全国') {
@@ -139,6 +123,44 @@ export default {
 						break
 				}
 			}
+		},
+		loadoverviewData(){ //加载全球和中国数据
+			var overviewData = require('../data/samples/overviewDataSample.json');
+			var mapping = {
+				nowcases:{
+					type:"现有确诊",
+					color:"orange"
+				},
+				cases:{
+					type:"累计确诊",
+					color: '#AC3500',
+				},
+				deaths:{
+					type:"累计死亡",
+					color:"#000000"
+				},
+				recovered:{
+					type:"累计治愈",
+					color:"#00ACA5"
+				},
+				vaccine:{
+					type:"累积接种",
+					color:"#00ACA5"
+				}
+			}
+			var list = [];
+			for(var key in mapping){
+				var res = {
+					nownum:overviewData[key]["nownum"],
+					type:mapping[key]["type"],
+					newnum:overviewData[key]["newnum"],
+					color:mapping[key]["color"]
+				};
+				list.push(res);
+			}
+			this.ChinaoverviewData = list;
+			this.GlobaloverviewData = list;
+			this.overviewDataloaded = true;
 		}
 	},
 }

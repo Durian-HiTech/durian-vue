@@ -1,15 +1,23 @@
 <template>
     <div class="showcardroot">
-        <div class="nownum">{{nownum}}</div>
+        <div class="nownum"><span :style="'color:'+this.color">{{nownum}}</span></div>
         <div class="type">{{type}}</div>
-        <div class="newnum"> 新增 <span class="newNumVal" :style="'color:' + this.color">  +{{newnum}} </span> </div>
+        <div class="newnum"> 较上日 <span class="newNumVal" :style="'color:' + this.color">  {{newnumShow}} </span> </div>
     </div>
 </template>
 <script>
 export default({
     name:"LittleDataCard",
     props: ['nownum', 'type', 'newnum', 'color'],
+    computed:{
+        newnumShow(){
+            if(this.$props.newnum>0){
+                return "+"+this.$props.newnum.toString();
+            }else return this.$props.newnum;
+        }
+    }
 })
+
 </script>
 
 <style scoped>
