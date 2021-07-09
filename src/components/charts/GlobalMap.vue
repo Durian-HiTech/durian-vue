@@ -96,8 +96,8 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
-            res += "<font size=\"4\">"
+            var res = "<font size=\"15\">" + "<b>" + name + "</b>" + "</font>" + "<br/>" + "<br/>"+ "<br/>";
+            res += "<font size=\"12\">"
             var tmp = {};
             for(var i in coviddata){
               if(coviddata[i]["name"] == params.name){
@@ -106,7 +106,7 @@ export default {
               }
             }
             for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":" + tmp[key] + "<br/>"+"</p >";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":" + tmp[key] + "<br/>"+ "<br/>"+ "<br/>"+"</p >";
             }
             res += "</font>";
             return res;
