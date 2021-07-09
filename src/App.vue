@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-
+    <UserAvatar/>
+    <NavBar/>
     <!-- <NavButton id='NavButton'/> -->
     <router-view/>
     <Footer/>
-	<NavBar/>
+    
   </div>
 </template>
 
@@ -12,11 +13,13 @@
 // import NavButton from './components/common/NavButton.vue'
 import Footer from './components/common/Footer.vue'
 import NavBar from './components/common/NavBar.vue'
+import UserAvatar from './components/common/UserAvatar.vue'
 export default{
 	name: 'App',
 	components: {
 		Footer,
 		NavBar,
+    UserAvatar,
 	}
 }
 </script>
