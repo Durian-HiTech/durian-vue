@@ -2,48 +2,88 @@
 <v-app >
     <h1>{{title}}</h1>
     <p style="color:grey;">共{{total}}条通告</p>
-    <div
+    <!-- <div
         style="margin: 30px"
         v-for="post in posts.slice((this.currentPage - 1) * this.eachPage,
             this.currentPage * this.eachPage)"
         v-bind:key="post.notice_id"
     >
         <NewsCard v-bind:title="post.notice_title" :link="'notice/'+post.notice_id" :content="post.notice_content"/>
-    </div>
-    <v-pagination
+    </div> -->
+    <v-timeline>
+    <v-timeline-item
+      v-for="(post) in posts.slice(0,
+            this.a)"
+      :key="post.notice_title"
+      color="red lighten-1"
+      small
+    >
+      <template v-slot:opposite>
+       <span
+          :class="`headline font-weight-bold --text`"
+          v-text="post.notice_created_time"
+        ></span>
+      </template>
+      <div class="py-4">
+        <h2 :class="`headline font-weight-light mb-4 --text`">
+          <div v-text="post.notice_title"  :link="'notice/'+post.notice_id"  @click="goToNewsPage('notice/'+post.notice_id)"> </div>
+        </h2>
+        <div>
+         <div class="con" v-text="post.notice_content" :link="'notice/'+post.notice_id"></div>
+        </div>
+      </div>
+    </v-timeline-item>
+  </v-timeline>
+    <!-- <v-pagination
         style="margin-top: 30px;"
         v-model="currentPage"
         :length="Math.ceil(total / eachPage)"
         circle
         color="orange lighten-2"
-    ></v-pagination>
-
+    ></v-pagination> -->
+     <div class="load-more mr-bottom" v-if="a<total"  @click='loadMore' >点击加载更多</div>
+ <div class="load-more mr-bottom" v-else >没有更多了</div>
 </v-app>
 </template>
 
 
 <script>
 import api from '../commonApi.js'
-import NewsCard from './common/NewsCard.vue'
+// import NewsCard from './common/NewsCard.vue'
 
 export default {
     name:"NoticesList",
     data(){
         return {
+            a:8,
             posts: [
             //      {news_id:"1",news_title: '关于印发新型冠状病毒肺炎诊疗方案（试行第八版 修订版）的通知',news_content: "新闻内容01",news_created_time: "2021-07-04T10:53:50Z"} ,
             //      {news_id:"2",news_title: '关于调整《新冠肺炎疫情相关租金减让会计处理规定》适用范围的通知',news_content: "新闻内容01",news_created_time: "2021-07-04T10:53:50Z"} ,
             ],
-            currentPage: 1,
-            eachPage: 5,
+            years: [
+        {
+          color: 'cyan',
+          year: '1960',
+        },
+            ],
+            // currentPage: 1,
+            // eachPage: 5,
             total: 0,
+            page:1,
+            page_count:''
         }
     },
     props: ['title'],
     components: {
-        NewsCard
+        // NewsCard
     },    
     methods:{
+         loadMore:function(){
+          this.a+=5
+        },
+        goToNewsPage(link) {
+        this.$router.push(link)
+        },
         fetchData () {
         let _this = this
         this.$axios
@@ -71,5 +111,11 @@ export default {
 </script>
 
 <style scoped>
-
+.con{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:5;
+}
 </style>
