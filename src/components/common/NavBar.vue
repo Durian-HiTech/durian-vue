@@ -1,7 +1,7 @@
 <template>
 
   <div id="nav_bar">
-    <user-avatar id='user-avatar'/>
+    
     <div class="nav_bar_frame">
       <div class="nav_bar_icon" @click="backtostartpage">
         <div class="nav_bar_icon_title_bold">Durian</div>
@@ -26,11 +26,10 @@
 </template>
 
 <script>
-import UserAvatar from './UserAvatar.vue'
+
 export default {
   name: "NavBar",
   components: {
-	UserAvatar
   },
   data() {
     return {
@@ -42,7 +41,11 @@ export default {
         {
           title:"问答",
           url: "/question",
-        }
+        },
+        {
+          title:"行程",
+          url: "/travel",
+        },
       ],
     };
   },
