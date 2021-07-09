@@ -80,7 +80,7 @@ export default {
           transitionDuration: 0.2,
           padding: 40,
           textStyle:{
-            fontStyle: 'italic',
+            fontStyle: 'oblique',
           },
           formatter: function (params) {
             // 光标浮动显示内容控制
