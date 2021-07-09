@@ -9,16 +9,19 @@
 
 
 		<global-map></global-map>
+		<SearchCity/>
 	</div>
 </template>
 
 <script>
 
 import GlobalMap from '../components/charts/GlobalMap.vue'
+import SearchCity from '../components/common/SearchCity.vue'
 export default {
 	name: 'Test',
 	components: {
 		GlobalMap,
+		SearchCity,
 	},
 	methods: {
 		reset () {
