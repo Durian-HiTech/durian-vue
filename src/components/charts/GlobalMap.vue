@@ -88,7 +88,8 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = "<b>" + name + "</b>" + "<br/>";
+            var res = "<font size=\"7\" color=\"black\" face=\"KaiTi\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
+            res += "<font size=\"5\">"
             for (var key in mapping) {
               res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":";
               for (var i in coviddata[key]) {
@@ -99,6 +100,7 @@ export default {
               }
               res += "</p>";
             }
+            res += "</font>";
             return res;
           },
         },
