@@ -6,7 +6,7 @@
     </div>
 
     <!-- china -->
-    <div class="homeChina" v-if="showChina">
+    <div class="homeChina" v-if="showChina && dataLoaded">
       <div class="homeMain">
         <div class="homeLeftSection">
           <!-- <h1>这里是地图！！</h1> -->
@@ -44,7 +44,7 @@
             </div>
           </div>
 
-          <div class="homeOverview" v-if="overviewDataloaded">
+          <div class="homeOverview">
             <div v-for="(data, index) in ChinaoverviewData" :key="index">
               <LittleDataCard
                 :nownum="data.nownum"
@@ -55,7 +55,7 @@
             </div>
           </div>
 
-          <StatisticTable style="margin-top: 20px; width: 860px" />
+          <StatisticTable style="margin-top: 20px; width: 860px"  :tableData="ChinaTableData" :type="China"/>
         </div>
       </div>
     </div>
@@ -95,7 +95,7 @@
             </div>
           </div>
 
-          <div class="homeOverview" v-if="overviewDataloaded">
+          <div class="homeOverview">
             <div v-for="(data, index) in GlobaloverviewData" :key="index">
               <LittleDataCard
                 :nownum="data.nownum"
@@ -137,7 +137,7 @@ export default {
       GlobaloverviewData: [],
       buttons: ["全国", "世界"],
       showChina: true,
-      overviewDataloaded: false,
+      dataLoaded: false,
       type: "nowcases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
@@ -145,8 +145,7 @@ export default {
   },
   watch: {},
   mounted() {
-    this.loadoverviewData();
-    this.loadCovidData();
+    this.loadhomeData(); //加载国内国外细节数据和总数据
   },
   methods: {
     selected(index, differkey) {
@@ -161,9 +160,9 @@ export default {
         }
       }
     },
-    loadoverviewData() {
+    loadhomeData() {
       //加载全球和中国数据
-      var overviewData = require("../data/samples/overviewDataSample.json");
+      var homeData = require("../data/samples/HomeData.json");
       var mapping = {
         nowcases: {
           type: "现有确诊",
@@ -187,25 +186,31 @@ export default {
         },
       };
       var list = [];
+      var res = {};
       for (var key in mapping) {
-        var res = {
-          nownum: overviewData[key]["nownum"],
+        res = {
+          nownum: homeData["China"]["overview"][key]["nownum"],
           type: mapping[key]["type"],
-          newnum: overviewData[key]["newnum"],
+          newnum: homeData["China"]["overview"][key]["newnum"],
           color: mapping[key]["color"],
         };
         list.push(res);
       }
       this.ChinaoverviewData = list;
+      list = [];
+      for (key in mapping) {
+        res = {
+          nownum: homeData["Global"]["overview"][key]["nownum"],
+          type: mapping[key]["type"],
+          newnum: homeData["Global"]["overview"][key]["newnum"],
+          color: mapping[key]["color"],
+        };
+        list.push(res);
+      }
       this.GlobaloverviewData = list;
-      this.overviewDataloaded = true;
-    },
-    loadCovidData() {
-      var chinamapData = require("../data/samples/GlobalMapSample.json");
-      this.GlobalmapData = chinamapData;
-    },
-    test() {
-      console.log(this.GlobaloverviewData);
+      this.ChinamapData = homeData["China"]["detailed"];
+      this.GlobalmapData = homeData["Global"]["detailed"];
+      this.dataLoaded = true;
     },
   },
 };
@@ -248,13 +253,13 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.homeMapSection{
-	margin-top: 20px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	width: 100%;
+.homeMapSection {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 .homeHeader {
   display: flex;
