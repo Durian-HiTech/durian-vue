@@ -39,7 +39,7 @@ export default {
   */
   props: {
     data: {
-      type: Object,
+      type: Array,
       required: true,
     },
     type: {
@@ -51,7 +51,7 @@ export default {
     coviddata = this.$props.data;
     this.myChart = echarts.init(document.getElementById("global-main-map"));
     this.loadMap();
-    this.dataProcessing();
+    this.option["series"][0]["data"] = coviddata;
     this.loadData();
     var _this = this;
     this.myChart.on("click", function (param) {
@@ -106,7 +106,9 @@ export default {
                   break;
                 }
               }
-              res += "</p>";
+            }
+            for (var key in mapping) {
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":" + tmp[key] + "<br/>"+"</p>";
             }
             res += "</font>";
             return res;
@@ -140,6 +142,10 @@ export default {
             emphasis: {
               label: {
                 show: true,
+                formatter:function(param){
+                  var name = param.name;
+                  return countryName(name);
+                }
               },
             },
             data: [],
@@ -169,33 +175,10 @@ export default {
       console.log("开启新页面跳转到" + newcountry + "的分析页面");
     },
     loadData() {
-      this.option["series"][0]["data"] = coviddata[this.$props.type];
-      this.myChart.setOption(this.option);
-    },
-    dataProcessing() {
-      //计算当前确诊
-      var list = [];
-      for (var i in coviddata["cases"]) {
-        var name = coviddata["cases"][i]["name"];
-        var cnt = coviddata["cases"][i]["value"];
-        for (var j in coviddata["deaths"]) {
-          if (name == coviddata["deaths"][j]["name"]) {
-            cnt -= coviddata["deaths"][j]["value"];
-            break;
-          }
-        }
-        for (j in coviddata["recovered"]) {
-          if (name == coviddata["recovered"][j]["name"]) {
-            cnt -= coviddata["recovered"][j]["value"];
-            break;
-          }
-        }
-        list.push({
-          name: name,
-          value: cnt,
-        });
+      for(var i in this.option["series"][0]["data"]){
+        this.option["series"][0]["data"][i]["value"] = this.option["series"][0]["data"][i][this.$props.type];
       }
-      coviddata["nowcases"] = list;
+      this.myChart.setOption(this.option);
     },
   },
 };
