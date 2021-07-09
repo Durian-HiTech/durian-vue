@@ -46,6 +46,10 @@ export default {
           title:"行程",
           url: "/travel",
         },
+        {
+          title:"订阅",
+          url: "/subscribe",
+        }
       ],
     };
   },
