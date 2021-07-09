@@ -8,17 +8,27 @@
 
 
 
-		<global-map></global-map>
+		<global-map :data="this.coviddata" :type="this.type"></global-map>
 	</div>
 </template>
 
 <script>
 
 import GlobalMap from '../components/charts/GlobalMap.vue'
+var coviddata = require("../data/samples/GlobalMapSample.json")
 export default {
 	name: 'Test',
 	components: {
 		GlobalMap,
+	},
+	data(){
+		return {
+			coviddata:{},
+			type:"nowcases",
+		}
+	},
+	created(){//必须先赋值数据再加载globalmap
+		this.coviddata = coviddata;
 	},
 	methods: {
 		reset () {
