@@ -78,6 +78,10 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
+          padding: 40,
+          textStyle:{
+            fontStyle: 'italic',
+          },
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
