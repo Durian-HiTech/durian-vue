@@ -144,7 +144,6 @@ export default {
         },
       ],
       options: [
-        [
           { value: "Anhui", label: "安徽省" },
           { value: "Beijing", label: "北京市" },
           { value: "Chongqing", label: "重庆市" },
@@ -179,7 +178,6 @@ export default {
           { value: "Xizang", label: "西藏自治区" },
           { value: "Yunnan", label: "云南省" },
           { value: "Zhejiang", label: "浙江省" },
-        ],
       ],
       value: "",
     };
