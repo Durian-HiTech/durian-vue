@@ -96,19 +96,17 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = "<font size=\"7\" color=\"black\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
+            var res = "<font size=\"7\" color=\"black\" face=\"KaiTi\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
             res += "<font size=\"4\">"
-            for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":";
-              for (var i in coviddata[key]) {
-                if (coviddata[key][i]["name"] == params.name) {
-                  res += coviddata[key][i]["value"] + "<br/>";
-                  break;
-                }
+            var tmp = {};
+            for(var i in coviddata){
+              if(coviddata[i]["name"] == params.name){
+                tmp = coviddata[i];
+                break;
               }
             }
             for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":" + tmp[key] + "<br/>"+"</p>";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":" + tmp[key] + "<br/>"+"</p >";
             }
             res += "</font>";
             return res;
