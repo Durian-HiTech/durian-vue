@@ -10,7 +10,11 @@
             </el-table-column>
             <el-table-column align="right">
               <template slot="header">
-                <el-select v-model="value" placeholder="请选择" style="margin-right: 8px">
+                <el-select
+                  v-model="value"
+                  placeholder="请选择"
+                  style="margin-right: 8px"
+                >
                   <el-option
                     v-for="item in options"
                     :key="item.value"
@@ -38,7 +42,7 @@
           <div
             class="homeSection"
             v-for="city in cityList"
-            v-bind:key="city.subscription_id"
+            v-bind:key="city.city_name"
           >
             <div class="homeHeader">
               <div class="region">
@@ -181,6 +185,11 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
+      this.cityList.forEach(function (item, ind, arr) {
+        if (item.subscription_id == row.subscription_id){
+          arr.splice(ind, 1);
+        }
+      });
       axios
         .post(api.baseApi + "/sub/del_sub", formData, config)
         .then(function (response) {
@@ -189,8 +198,6 @@ export default {
             _this.updateSub();
           } else {
             console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
           }
         });
     },
@@ -203,18 +210,21 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
+      var tmp={"city_name":this.value, "user_id":this.$store.getters.userState.id}
+      // console.log("1---\n")
+      // console.log(tmp)
+      // console.log("2---\n")
+      // console.log(this.cityList)
+      this.cityList.push(tmp)
+      // console.log("3---\n")
+      // console.log(this.cityList)
       axios
         .post(api.baseApi + "/sub/subscribe", formData, config)
         .then(function (response) {
-          // console.log(response)
-          // console.log(response.status)
           if (response.status == 200) {
-            // console.log((response.data.data))
             _this.updateSub();
           } else {
             console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
           }
         });
     },
