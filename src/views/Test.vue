@@ -6,28 +6,25 @@
 		<el-button @click="login()"> login </el-button>
 		<el-button @click="reset()"> reset </el-button>
 
-
-
-		<global-map></global-map>
-		<SearchCity/>
-		
 		<center>
-		<CommentCard user="John Keats" time="3天前" :isAuthority="true" content='The only completely stationary object in the room was an enormous couch on which two young women were buoyed up as though upon an anchored balloon. They were both in white, and their dresses were rippling and fluttering as if they had just been blown back in after a short flight around the house. I must have stood for a few moments listening to the whip and snap of the curtains and the groan of a picture on the wall. Then there was a boom as Tom Buchanan shut the rear win- dows and the caught wind died out about the room, and the curtains and the rugs and the two young women ballooned slowly to the floor.'/>
+		<TravelCard time='2020.6.2' start='北京' destination='上海' num='D8828' />
 		</center>
-		<!-- <global-map></global-map> -->
+    <div class="test">
+      11
+    </div>
+
 	</div>
 </template>
 
 <script>
+import TravelCard from '../components/common/TravelCard.vue'
 
-// import GlobalMap from '../components/charts/GlobalMap.vue'
-import CommentCard from '../components/common/CommentCard.vue'
 var coviddata = require("../data/samples/GlobalMapSample.json")
 export default {
 	name: 'Test',
 	components: {
 		// GlobalMap,
-		CommentCard,
+		TravelCard,
 	},
 	data(){
 		return {
@@ -75,5 +72,14 @@ export default {
 </script>
 
 <style>
+.test{
+  background-image: url(../static/tag1.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
+  height: 200px;
+  width: 200px;
+
+}
 </style>

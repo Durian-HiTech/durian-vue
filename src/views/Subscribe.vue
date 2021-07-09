@@ -2,6 +2,17 @@
   <div class="subscribe_root">
     <span class="title"> <b>Covid</b> Subscriptions </span>
     <el-divider />
+
+    <div class="Header">
+      <div
+        class="region"
+        style="font-size: 55px; align-self: center"
+        @click="dialogTableVisible = true"
+      >
+        更新我的订阅城市
+      </div>
+    </div>
+
     <div class="homeChina">
       <div class="homeMain">
         <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
@@ -9,20 +20,6 @@
             <el-table-column label="订阅城市" prop="city_name">
             </el-table-column>
             <el-table-column align="right">
-              <template slot="header">
-                <el-select v-model="value" placeholder="请选择" style="margin-right: 8px">
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
-                  </el-option>
-                </el-select>
-                <el-button type="primary" icon="el-icon-search" @click="subCity"
-                  >订阅</el-button
-                >
-              </template>
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -33,12 +30,34 @@
               </template>
             </el-table-column>
           </el-table>
+          <el-select
+            v-model="value"
+            filterable
+            placeholder="请选择"
+            style="margin-right: 8px"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            >
+            </el-option>
+          </el-select>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            style="margin-top: 15px"
+            @click="subCity"
+            >订阅</el-button
+          >
         </el-dialog>
         <div class="cityList">
           <div
             class="homeSection"
             v-for="city in cityList"
-            v-bind:key="city.subscription_id"
+            v-bind:key="city.city_name"
           >
             <div class="homeHeader">
               <div class="region">
@@ -96,7 +115,7 @@ export default {
   },
   data() {
     return {
-      dialogTableVisible: true,
+      dialogTableVisible: false,
       cityList: [],
       overviewData: [
         {
@@ -125,26 +144,40 @@ export default {
         },
       ],
       options: [
-        {
-          value: "北京",
-          label: "北京",
-        },
-        {
-          value: "上海",
-          label: "上海",
-        },
-        {
-          value: "广州",
-          label: "广州",
-        },
-        {
-          value: "深圳",
-          label: "深圳",
-        },
-        {
-          value: "兰州",
-          label: "兰州",
-        },
+          { value: "Anhui", label: "安徽省" },
+          { value: "Beijing", label: "北京市" },
+          { value: "Chongqing", label: "重庆市" },
+          { value: "Fujian", label: "福建省" },
+          { value: "Gansu", label: "甘肃省" },
+          { value: "Guangdong", label: "广东省" },
+          { value: "Guangxi", label: "广西壮族自治区" },
+          { value: "Guizhou", label: "贵州省" },
+          { value: "Hainan", label: "海南省" },
+          { value: "Hebei", label: "河北省" },
+          { value: "Heilongjiang", label: "黑龙江省" },
+          { value: "Henan", label: "河南省" },
+          { value: "Hong Kong", label: "香港" },
+          { value: "Hubei", label: "湖北省" },
+          { value: "Hunan", label: "湖南省" },
+          { value: "Jiangsu", label: "江苏省" },
+          { value: "Jiangxi", label: "江西省" },
+          { value: "Jilin", label: "吉林省" },
+          { value: "Liaoning", label: "辽宁省" },
+          { value: "Macao", label: "澳门" },
+          { value: "Nei Mongol", label: "内蒙古自治区" },
+          { value: "Ningxia Hui", label: "宁夏回族自治区" },
+          { value: "Qinghai", label: "青海省" },
+          { value: "Shaanxi", label: "陕西省" },
+          { value: "Shandong", label: "山东省" },
+          { value: "Shanghai", label: "上海市" },
+          { value: "Shanxi", label: "山西省" },
+          { value: "Sichuan", label: "四川省" },
+          { value: "Taiwan", label: "台湾" },
+          { value: "Tianjin", label: "天津市" },
+          { value: "Xinjiang Uygur", label: "新疆维吾尔自治区" },
+          { value: "Xizang", label: "西藏自治区" },
+          { value: "Yunnan", label: "云南省" },
+          { value: "Zhejiang", label: "浙江省" },
       ],
       value: "",
     };
@@ -181,6 +214,11 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
+      this.cityList.forEach(function (item, ind, arr) {
+        if (item.subscription_id == row.subscription_id) {
+          arr.splice(ind, 1);
+        }
+      });
       axios
         .post(api.baseApi + "/sub/del_sub", formData, config)
         .then(function (response) {
@@ -189,8 +227,6 @@ export default {
             _this.updateSub();
           } else {
             console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
           }
         });
     },
@@ -203,20 +239,32 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
-      axios
-        .post(api.baseApi + "/sub/subscribe", formData, config)
-        .then(function (response) {
-          // console.log(response)
-          // console.log(response.status)
-          if (response.status == 200) {
-            // console.log((response.data.data))
-            _this.updateSub();
-          } else {
-            console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
-          }
-        });
+      var is_success = true;
+      var len_city = this.cityList.length;
+      for (var i = 0; i < len_city; i++) {
+        if (this.cityList[i].city_name == this.value) {
+          _this.$message({ message: "已订阅该城市", type: "false" });
+          is_success = false;
+          break;
+        }
+      }
+      if (is_success == true) {
+        var tmp = {
+          city_name: this.value,
+          user_id: this.$store.getters.userState.id,
+          disabled: true,
+        };
+        this.cityList.push(tmp);
+        axios
+          .post(api.baseApi + "/sub/subscribe", formData, config)
+          .then(function (response) {
+            if (response.status == 200) {
+              _this.updateSub();
+            } else {
+              console.log("请求失败");
+            }
+          });
+      }
     },
   },
 };

@@ -39,7 +39,7 @@ export default {
   */
   props: {
     data: {
-      type: Object,
+      type: Array,
       required: true,
     },
     type: {
@@ -51,7 +51,7 @@ export default {
     coviddata = this.$props.data;
     this.myChart = echarts.init(document.getElementById("global-main-map"));
     this.loadMap();
-    this.dataProcessing();
+    this.option["series"][0]["data"] = coviddata;
     this.loadData();
     var _this = this;
     this.myChart.on("click", function (param) {
@@ -66,11 +66,11 @@ export default {
         title: {
           text: "全球新型冠状病毒肺炎疫情图",
           textStyle: {
-            color: "#fff",
+            color: "#000",
           },
           subtext: "数据来源于各国政府机构等",
           subtextStyle: {
-            color: "#fff",
+            color: "#000",
           },
           left: "center",
         },
@@ -78,6 +78,14 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
+          padding: 40,
+          textStyle:{
+            fontStyle: 'normal',
+            fontFamily: 'Microsoft YaHei',
+            lineHeight: 2000,
+            width: 4,
+            height: 4,
+          },
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -88,23 +96,26 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = name + "<br/>";
-            for (var key in mapping) {
-              res += mapping[key] + ":";
-              for (var i in coviddata[key]) {
-                if (coviddata[key][i]["name"] == params.name) {
-                  res += coviddata[key][i]["value"] + "<br/>";
-                  break;
-                }
+            var res = "<font size=\"15\">" + "<b>" + name + "</b>" + "</font>" + "<br/>" + "<br/>"+ "<br/>";
+            res += "<font size=\"12\">"
+            var tmp = {};
+            for(var i in coviddata){
+              if(coviddata[i]["name"] == params.name){
+                tmp = coviddata[i];
+                break;
               }
             }
+            for (var key in mapping) {
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+ "<br/>"+ "<br/>"+"</p >";
+            }
+            res += "</font>";
             return res;
           },
         },
         visualMap: {
           left: "right",
           textStyle: {
-            color: "#fff",
+            color: "#000000",
           },
           pieces: [
             { min: 0, max: 999, label: "小于1000", color: "#FFFACD" },
@@ -124,10 +135,15 @@ export default {
             nameProperty: "NAME_1",
             type: "map",
             roam: true,
+            zoom:2,
             map: "",
             emphasis: {
               label: {
                 show: true,
+                formatter:function(param){
+                  var name = param.name;
+                  return countryName(name);
+                }
               },
             },
             data: [],
@@ -147,7 +163,7 @@ export default {
       const mapData = require("../../data/map/json/" + this.country);
       echarts.registerMap(this.country, mapData);
       this.option["series"][0]["map"] = this.country;
-      this.option["series"][0]["zoom"] = 1;
+      this.option["series"][0]["zoom"] = 2;
       this.option["series"][0]["center"] = undefined;
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
@@ -157,40 +173,17 @@ export default {
       console.log("开启新页面跳转到" + newcountry + "的分析页面");
     },
     loadData() {
-      this.option["series"][0]["data"] = coviddata[this.$props.type];
-      this.myChart.setOption(this.option);
-    },
-    dataProcessing() {
-      //计算当前确诊
-      var list = [];
-      for (var i in coviddata["cases"]) {
-        var name = coviddata["cases"][i]["name"];
-        var cnt = coviddata["cases"][i]["value"];
-        for (var j in coviddata["deaths"]) {
-          if (name == coviddata["deaths"][j]["name"]) {
-            cnt -= coviddata["deaths"][j]["value"];
-            break;
-          }
-        }
-        for (j in coviddata["recovered"]) {
-          if (name == coviddata["recovered"][j]["name"]) {
-            cnt -= coviddata["recovered"][j]["value"];
-            break;
-          }
-        }
-        list.push({
-          name: name,
-          value: cnt,
-        });
+      for(var i in this.option["series"][0]["data"]){
+        this.option["series"][0]["data"][i]["value"] = this.option["series"][0]["data"][i][this.$props.type];
       }
-      coviddata["nowcases"] = list;
+      this.myChart.setOption(this.option);
     },
   },
 };
 </script>
 <style scoped>
 #global-main-map {
-  width: 400px;
-  height: 200px;
+  width: 1000px;
+  height: 400px;
 }
 </style>

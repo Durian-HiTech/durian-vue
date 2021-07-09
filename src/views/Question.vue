@@ -1,36 +1,34 @@
 <template>
-  <div class="main" style="width: 100%; background-color: #F2F6FC; position: relative">
-    <div class="main-content" >
-      <el-container class="el-container" >
-        <el-header height="25px" class="el-header">{{question.question_title}} </el-header>
-        <el-main class="el-main-2" height="20px">{{question.user_id}}</el-main>
-        <div>
-          <p class="el-main">{{question.question_content}}</p>
+  <div class="main">
+    <div class="content">
+      <div class="left_margin" style="width: 18%;"></div>
+      <div class="main_content">
+        <div class="question">
+          <div class="question_title">
+            {{question.question_title}}
+          </div>
+          <div class="question_content">
+            {{question.question_content}}
+          </div>
+          <div class="question_user" style="text-align: left; color: gray; margin-left: 20px">
+            {{comment_list.length}}条回答
+          </div>
+          <el-divider>{{question.user_id}} 发布于 {{question.question_time}} </el-divider>
+
         </div>
-        <el-divider>{{question.question_time}}</el-divider>
-      </el-container>
-    </div>
-    <div class="comment" style="width: 70%">
-      <el-table
-          :data="comment_list"
-          style="width: 100%">
-        <el-table-column
-            prop="comment_time"
-            label="评论日期"
-            width="180">
-        </el-table-column>
-        <el-table-column
-            prop="user_id"
-            label="用户id"
-            width="180">
-        </el-table-column>
-        <el-table-column
-            prop="comment_content"
-            label="评论内容">
-        </el-table-column>
-      </el-table>
-      <el-input v-model="input" placeholder="请输入评论" ></el-input>
-      <el-button type="primary" @click="commit_comment">提交评论</el-button>
+        <div class="comment">
+          <div class="left_comment_margin" style="width: 10%;"></div>
+
+          <div class="comment_list" style="display: flex; flex-direction: column; width: 80%">
+            <div v-for="item in comment_list" :key="item.comment_id" style="width: 100%;">
+              <CommentCard style="margin: 20px" :user=item.user_id :is-authority=item.user_type :content=item.comment_content :time=item.comment_time></CommentCard>
+            </div>
+          </div>
+
+          <div class="right_comment_margin" style="width: 10%;"></div>
+        </div>
+      </div>
+      <div class="right_margin" style="width: 18%;"></div>
     </div>
   </div>
 </template>
@@ -40,7 +38,12 @@ import api from '../commonApi.js'
 import axios from "axios";
 import moment from "moment";
 import 'moment/locale/zh-cn'
+import CommentCard from '../components/common/CommentCard.vue'
 export default {
+  components: {
+    // GlobalMap,
+    CommentCard,
+  },
   data() {
     return {
       name: "问题界面",
@@ -56,28 +59,23 @@ export default {
   methods: {
     getQuestions(id) {
       let formData = new FormData();
+      formData.append("question_id", id);
       let config = {
         headers: {"Content-Type": "multipart/form-data",},
       };
       var _this = this;
-      axios.get(
-          api.baseApi+"/notice/list_all_questions",
+      axios.post(
+          api.baseApi+"/notice/question_detail",
           formData,
           config
-      )
-          .then(function (response) {
-            console.log(response)
+      ).then(function (response) {
             console.log(response.status)
             if (response.status == 200) {
-              console.log((response))
-              for (var i = 0; i < response.data.data.length; i++) {
-                if(response.data.data[i].question_id == id) {
-                  _this.question = response.data.data[i]
-                  _this.question.question_time = moment(_this.question.question_time).startOf('day').fromNow();
-                  console.log(_this.question)
-                }
-                else continue;
-              }
+              _this.question = response.data.data
+              console.log(_this.question)
+              console.log(moment(_this.question.question_time).utcOffset(8))
+              _this.question.question_time = moment(_this.question.question_time).utcOffset(8).format('YYYY/MM/DD HH:mm:ss');
+              console.log(_this.question.question_time)
             } else {
               console.log("请求失败");
               // console.log(response.data);
@@ -102,10 +100,13 @@ export default {
             if (response.status == 200) {
               console.log((response))
               _this.comment_list = response.data.data
-              for (var i = 0; i < _this.comment_list.length; i++) {
-                // console.log(moment(_this.comment_list[i].comment_time).format("MMM Do YY") )
+              if(_this.comment_list != null) {
+                for (var i = 0; i < _this.comment_list.length; i++) {
+                  // console.log(moment(_this.comment_list[i].comment_time).format("MMM Do YY") )
                   _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).startOf('day').fromNow();
+                }
               }
+              console.log(_this.comment_list)
               // _this.relatedloaded = true;
             } else {
               console.log("请求失败");
@@ -149,46 +150,52 @@ export default {
 }
 </script>
 <style scope>
-.comment{
-  background-color: #FFFFFF;
-  width: 75%;
+.main{
+  width: 100%; background-color: #F2F6FC; margin-top: 50px
+}
+.content{
+  /*background-color: #FFFFFF;*/
+  display: flex;
+  flex-direction: row;
   height: 800px;
-  margin: 25px 50px 25px 100px;
+  /*margin: 25px 50px 25px 100px;*/
+}
+.question_content {
+  text-align: left;
+  width: 95%;
+  margin: 20px;
+}
+.comment{
+  /*background-color: #FFFFFF;*/
+  display: flex;
+  flex-direction: row;
+  /*width: 75%;*/
+  height: 800px;
+  /*margin: 25px 50px 25px 100px;*/
 }
 .main_content{
-  background-color: #FFFFFF;
-  width: 75%;
-  height: 800px;
-  margin: 25px 50px 25px 100px;
+  display: flex;
+  flex-direction: column;
+  /*height: 500px;*/
+  width: 64%;
 }
-.el-container{
-  height: 250px;
+
+.question{
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  /*background-color: violet;*/
 }
-.el-header{
-  /*background-color: #C0C4CC;*/
+.question_title{
+  /*background-color: blueviolet;*/
+  width: 95%;
+  text-align: left;
+  font-size: 28px;
   font-weight: bold;
-  /*height: 40px;*/
-  text-align: left;
-  font-size: 24px;
-  margin: 5px 5px 0px;
+  margin-left: 20px;
+  margin-top: 20px;
 }
-.el-main{
-  text-align: left;
-  /*height: 30px;*/
-  margin-left: 5px;
-  margin-top: 5px;
-  font-size: 14px;
-}
-.el-main::-webkit-scrollbar {
-  display: none;
-}
-.author{
-  /*background-color: antiquewhite;*/
-  text-align: left;
-  font-size: 14px;
-  margin-left: 5px;
-  margin-top: 5px;
-}
+
 p{
   word-break: keep-all;
 }
