@@ -78,6 +78,10 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
+          padding: 40,
+          textStyle:{
+            fontStyle: 'italic',
+          },
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -88,16 +92,19 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = name + "<br/>";
+            var res = "<font size=\"7\" color=\"black\" face=\"KaiTi\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
+            res += "<font size=\"5\">"
             for (var key in mapping) {
-              res += mapping[key] + ":";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":";
               for (var i in coviddata[key]) {
                 if (coviddata[key][i]["name"] == params.name) {
                   res += coviddata[key][i]["value"] + "<br/>";
                   break;
                 }
               }
+              res += "</p>";
             }
+            res += "</font>";
             return res;
           },
         },
