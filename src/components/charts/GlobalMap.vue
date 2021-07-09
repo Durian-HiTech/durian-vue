@@ -66,11 +66,11 @@ export default {
         title: {
           text: "全球新型冠状病毒肺炎疫情图",
           textStyle: {
-            color: "#fff",
+            color: "#000",
           },
           subtext: "数据来源于各国政府机构等",
           subtextStyle: {
-            color: "#fff",
+            color: "#000",
           },
           left: "center",
         },
@@ -88,15 +88,16 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = name + "<br/>";
+            var res = "<b>" + name + "</b>" + "<br/>";
             for (var key in mapping) {
-              res += mapping[key] + ":";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":";
               for (var i in coviddata[key]) {
                 if (coviddata[key][i]["name"] == params.name) {
                   res += coviddata[key][i]["value"] + "<br/>";
                   break;
                 }
               }
+              res += "</p>";
             }
             return res;
           },
@@ -104,7 +105,7 @@ export default {
         visualMap: {
           left: "right",
           textStyle: {
-            color: "#fff",
+            color: "#000000",
           },
           pieces: [
             { min: 0, max: 999, label: "小于1000", color: "#FFFACD" },
@@ -124,6 +125,7 @@ export default {
             nameProperty: "NAME_1",
             type: "map",
             roam: true,
+            zoom:2,
             map: "",
             emphasis: {
               label: {
@@ -147,7 +149,7 @@ export default {
       const mapData = require("../../data/map/json/" + this.country);
       echarts.registerMap(this.country, mapData);
       this.option["series"][0]["map"] = this.country;
-      this.option["series"][0]["zoom"] = 1;
+      this.option["series"][0]["zoom"] = 2;
       this.option["series"][0]["center"] = undefined;
       this.myChart.setOption(this.option);
       this.myChart.hideLoading();
@@ -190,7 +192,7 @@ export default {
 </script>
 <style scoped>
 #global-main-map {
-  width: 400px;
-  height: 200px;
+  width: 1000px;
+  height: 400px;
 }
 </style>
