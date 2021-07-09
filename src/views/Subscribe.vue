@@ -2,6 +2,17 @@
   <div class="subscribe_root">
     <span class="title"> <b>Covid</b> Subscriptions </span>
     <el-divider />
+
+    <div class="Header">
+      <div
+        class="region"
+        style="font-size: 55px; align-self: center"
+        @click="dialogTableVisible = true"
+      >
+        更新我的订阅城市
+      </div>
+    </div>
+
     <div class="homeChina">
       <div class="homeMain">
         <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
@@ -9,24 +20,6 @@
             <el-table-column label="订阅城市" prop="city_name">
             </el-table-column>
             <el-table-column align="right">
-              <template slot="header">
-                <el-select
-                  v-model="value"
-                  placeholder="请选择"
-                  style="margin-right: 8px"
-                >
-                  <el-option
-                    v-for="item in options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  >
-                  </el-option>
-                </el-select>
-                <el-button type="primary" icon="el-icon-search" @click="subCity"
-                  >订阅</el-button
-                >
-              </template>
               <template slot-scope="scope">
                 <el-button
                   size="mini"
@@ -37,6 +30,28 @@
               </template>
             </el-table-column>
           </el-table>
+          <el-select
+            v-model="value"
+            filterable
+            placeholder="请选择"
+            style="margin-right: 8px"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+              :disabled="item.disabled"
+            >
+            </el-option>
+          </el-select>
+          <el-button
+            type="primary"
+            icon="el-icon-search"
+            style="margin-top: 15px"
+            @click="subCity"
+            >订阅</el-button
+          >
         </el-dialog>
         <div class="cityList">
           <div
@@ -100,7 +115,7 @@ export default {
   },
   data() {
     return {
-      dialogTableVisible: true,
+      dialogTableVisible: false,
       cityList: [],
       overviewData: [
         {
@@ -186,7 +201,7 @@ export default {
       };
       var _this = this;
       this.cityList.forEach(function (item, ind, arr) {
-        if (item.subscription_id == row.subscription_id){
+        if (item.subscription_id == row.subscription_id) {
           arr.splice(ind, 1);
         }
       });
@@ -210,23 +225,32 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
-      var tmp={"city_name":this.value, "user_id":this.$store.getters.userState.id}
-      // console.log("1---\n")
-      // console.log(tmp)
-      // console.log("2---\n")
-      // console.log(this.cityList)
-      this.cityList.push(tmp)
-      // console.log("3---\n")
-      // console.log(this.cityList)
-      axios
-        .post(api.baseApi + "/sub/subscribe", formData, config)
-        .then(function (response) {
-          if (response.status == 200) {
-            _this.updateSub();
-          } else {
-            console.log("请求失败");
-          }
-        });
+      var is_success = true;
+      var len_city = this.cityList.length;
+      for (var i = 0; i < len_city; i++) {
+        if (this.cityList[i].city_name == this.value) {
+          _this.$message({ message: "已订阅该城市", type: "false" });
+          is_success = false;
+          break;
+        }
+      }
+      if (is_success == true) {
+        var tmp = {
+          city_name: this.value,
+          user_id: this.$store.getters.userState.id,
+          disabled: true,
+        };
+        this.cityList.push(tmp);
+        axios
+          .post(api.baseApi + "/sub/subscribe", formData, config)
+          .then(function (response) {
+            if (response.status == 200) {
+              _this.updateSub();
+            } else {
+              console.log("请求失败");
+            }
+          });
+      }
     },
   },
 };
