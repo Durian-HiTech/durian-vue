@@ -88,15 +88,16 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = name + "<br/>";
+            var res = "<b>" + name + "</b>" + "<br/>";
             for (var key in mapping) {
-              res += mapping[key] + ":";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":";
               for (var i in coviddata[key]) {
                 if (coviddata[key][i]["name"] == params.name) {
                   res += coviddata[key][i]["value"] + "<br/>";
                   break;
                 }
               }
+              res += "</p>";
             }
             return res;
           },
