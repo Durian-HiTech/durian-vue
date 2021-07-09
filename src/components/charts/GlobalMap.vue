@@ -80,7 +80,7 @@ export default {
           transitionDuration: 0.2,
           padding: 40,
           textStyle:{
-            fontStyle: 'italic',
+            fontStyle: 'normal',
             fontFamily: 'Microsoft YaHei',
             lineHeight: 2000,
             width: 4,
@@ -96,7 +96,7 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = "<font size=\"7\" color=\"black\" face=\"KaiTi\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
+            var res = "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>";
             res += "<font size=\"4\">"
             var tmp = {};
             for(var i in coviddata){
