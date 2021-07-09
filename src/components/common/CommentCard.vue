@@ -45,7 +45,7 @@ export default {
     box-shadow: 0px 0px 10px 2px rgba(128, 128, 128, 0.2);
     border-radius: 20px;
 
-    width: 60%;
+    width: 100%;
 
     display: flex;
     justify-content: center;
@@ -66,7 +66,7 @@ export default {
     align-items: center;
 }
 .commentInfoItem {
-    
+
 	color: white;
 
 	border-radius: 30px;

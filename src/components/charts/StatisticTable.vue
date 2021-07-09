@@ -48,7 +48,7 @@ export default {
         required:true
       },
       tableData:{
-        type:Object,
+        type:Array,
         required:true
       }
     },
@@ -58,6 +58,8 @@ export default {
       } else{
         this.headers[0].text = "国家";
       }
+      this.detailed = this.$props.tableData;
+
     },
     data () {
       return {

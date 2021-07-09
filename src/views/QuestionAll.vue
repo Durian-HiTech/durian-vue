@@ -10,7 +10,6 @@
           :visible.sync="dialogVisible"
           width="30%"
           :before-close="handleClose">
-        <span>这是一段信息</span>
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
           <el-form-item label="问题名称" prop="name">
             <el-input v-model="ruleForm.name"></el-input>

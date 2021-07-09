@@ -55,7 +55,7 @@
             </div>
           </div>
 
-          <StatisticTable style="margin-top: 20px; width: 860px"  :tableData="ChinaTableData" :type="China"/>
+          <StatisticTable style="margin-top: 20px; width: 860px"  :tableData="ChinamapData" :type="'China'"/>
         </div>
       </div>
     </div>
@@ -110,7 +110,7 @@
             <global-map :data="GlobalmapData" :type="type"></global-map>
           </div>
 
-          <StatisticTable style="margin-top: 20px; width: 860px" />
+          <StatisticTable style="margin-top: 20px; width: 860px"  :tableData="GlobalmapData" :type="'Global'"/>
         </div>
       </div>
     </div>
