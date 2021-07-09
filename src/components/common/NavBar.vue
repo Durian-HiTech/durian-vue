@@ -41,7 +41,11 @@ export default {
         {
           title:"问答",
           url: "/question",
-        }
+        },
+        {
+          title:"行程",
+          url: "/travel",
+        },
       ],
     };
   },
