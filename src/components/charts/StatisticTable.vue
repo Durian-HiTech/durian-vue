@@ -23,12 +23,12 @@
             color='#00ACA5'
             >
 
-                <template v-slot:[`item.calories`]="{ item }">
+                <template v-slot:[`item.nowcases`]="{ item }">
                     <v-chip
-                        :color="getColor(item.calories)"
+                        :color="getColor(item.nowcases)"
                         dark
                     >
-                        {{ item.calories }}
+                        {{ item.nowcases }}
                     </v-chip>
                 </template>
             
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-
+var countryen2zh = require('../../data/utils/countryen2zh.json')
 export default {
     name: 'StatisticTable',
     props:{
@@ -59,7 +59,14 @@ export default {
         this.headers[0].text = "国家";
       }
       this.detailed = this.$props.tableData;
-
+      for(var i in this.detailed){
+        for(var item in countryen2zh){
+          if(countryen2zh[item]["value"] == this.detailed[i]["name"]){
+            this.detailed[i]["zhname"] = countryen2zh[item]["label"];
+            break;
+          }
+        }
+      }
     },
     data () {
       return {
@@ -69,7 +76,7 @@ export default {
             text: '省份',
             align: 'start',
             sortable: false,
-            value: 'name',
+            value: 'zhname',
           },
           { text: '现有确诊', value: 'nowcases' },
           { text: '累积确诊', value: 'cases' },
@@ -82,9 +89,9 @@ export default {
       }
     },
     methods: {
-        getColor (calories) {
-        if (calories > 100000) return 'red'
-        else if (calories > 1000) return 'orange'
+        getColor (nowcases) {
+        if (nowcases > 100000) return 'red'
+        else if (nowcases > 1000) return 'orange'
         else return 'green'
       },
     },

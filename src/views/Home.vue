@@ -8,10 +8,6 @@
     <!-- china -->
     <div class="homeChina" v-if="showChina && dataLoaded">
       <div class="homeMain">
-        <div class="homeLeftSection">
-          <!-- <h1>这里是地图！！</h1> -->
-        </div>
-
         <div class="homeRightSection">
           <div class="homeHeader">
             <div class="region">全国</div>
@@ -55,7 +51,14 @@
             </div>
           </div>
 
-          <StatisticTable style="margin-top: 20px; width: 860px"  :tableData="ChinamapData" :type="'China'"/>
+          <div class="homeLeftSection">
+            <!-- <h1>这里是地图！！</h1> -->
+          </div>
+          <StatisticTable
+            style="margin-top: 20px; width: 860px"
+            :tableData="ChinamapData"
+            :type="'China'"
+          />
         </div>
       </div>
     </div>
@@ -110,7 +113,11 @@
             <global-map :data="GlobalmapData" :type="type"></global-map>
           </div>
 
-          <StatisticTable style="margin-top: 20px; width: 860px"  :tableData="GlobalmapData" :type="'Global'"/>
+          <StatisticTable
+            style="margin-top: 20px; width: 860px"
+            :tableData="GlobalmapData"
+            :type="'Global'"
+          />
         </div>
       </div>
     </div>
