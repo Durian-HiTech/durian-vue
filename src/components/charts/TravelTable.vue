@@ -16,14 +16,13 @@
           :headers="headers"
           :items="desserts"
           :search="search"
-          :custom-filter="customFilter"
           :footer-props="{
             disableItemsPerPage: true,
             itemsPerPageOptions: [10],
           }"
           color="#00ACA5"
         >
-          <template v-slot:[`item.nowcases`]="{ item }">
+          <template v-slot:[`item.calories`]="{ item }">
             <v-chip :color="getColor(item.calories)" dark>
               {{ item.calories }}
             </v-chip>
@@ -39,6 +38,7 @@ export default {
     name: 'TravelTable',
     data () {
       return {
+        search: '',
         headers: [
           {
             text: 'Dessert (100g serving)',
@@ -136,6 +136,13 @@ export default {
         ],
       }
     },
+    methods: {
+        getColor (value) {
+            if (value > 100000) return 'red'
+            else if (value > 1000) return 'orange'
+            else return 'green'
+        },
+    }
 }
 </script>
 

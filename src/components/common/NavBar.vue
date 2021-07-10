@@ -36,7 +36,7 @@ export default {
       pages: [
         {
           title:"疫情分析",
-          utl:"/analysis"
+          url:"/analysis"
         },
         {
           title:"新闻",
