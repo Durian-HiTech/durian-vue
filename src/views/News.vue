@@ -24,7 +24,6 @@ export default {
 </script>
 <style scoped>
   .root {
-    margin-top: 100px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -32,14 +31,14 @@ export default {
   }
 
   .title {
-    font-size:80px; 
+    margin-top: 70px;
+    font-size: 30px; 
     align-self: flex-start; 
     position: relative;
     left: 250px;
   }
 
   .newsSection {
-    margin-top: 20px;
     width: 85%;
     display: flex;
     justify-content: space-around;

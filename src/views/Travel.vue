@@ -125,20 +125,20 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: 70px;
 
-	margin-top: 100px;
-
-	align-self: flex-start; 
-
-	margin-right: 40%;
+	position: relative;
+	right: 400px;
 	}
 	.titleText {
-		font-size:80px; 
+		font-size: 30px; 
+		align-self: flex-start; 
+		position: relative;
+		
 	}
 	.travelTitle .SelectBar {
 		/* outline: #00ff00 dotted thick; */
 
-		margin-top: 20px;
 		margin-left: 30px;
 	}
 
