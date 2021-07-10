@@ -1,28 +1,11 @@
 <template>
-  <div id="home-china-map"></div>
+  <div id="analysis-china-map"></div>
 </template>
 <script>
-/*
-功能：
-1. 展示世界地图
-2. 可以改变热力图主键
-3. 鼠标悬浮显示该国家所有数据
-4. 点击国家跳转到该国家分析页面
-5. 国家显示中文
-*/
 import * as echarts from "echarts";
-var provincemapping = require("../../data/utils/china_en2province.json");
-var countryName = function (name) {
-  // en2zh
-  for (var key in provincemapping) {
-    if (provincemapping[key]["value"] == name)
-      return provincemapping[key]["label"];
-  }
-  return name;
-};
 var coviddata; //为了显示所有数据存储一份全局数据
 export default {
-  name: "HomeChinaMap",
+  name: "AnalysisChinaMap",
   props: {
     data: {
       type: Array,
@@ -35,7 +18,7 @@ export default {
   },
   mounted() {
     coviddata = this.$props.data;
-    this.myChart = echarts.init(document.getElementById("home-china-map"));
+    this.myChart = echarts.init(document.getElementById("anslysis-china-map"));
     this.loadMap();
     this.option["series"][0]["data"] = coviddata;
     this.loadData();
@@ -49,17 +32,6 @@ export default {
       myChart: "",
       country: "China", //不变
       option: {
-        title: {
-          text: "全球新型冠状病毒肺炎疫情图",
-          textStyle: {
-            color: "#000",
-          },
-          subtext: "数据来源于各国政府机构等",
-          subtextStyle: {
-            color: "#000",
-          },
-          left: "center",
-        },
         tooltip: {
           trigger: "item",
           showDelay: 0,
@@ -80,6 +52,7 @@ export default {
               cases: "确诊",
               deaths: "死亡",
               recovered: "治愈",
+              vaccine: "接种",
             };
             var res = "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
             res += "<font size=\"4\">"

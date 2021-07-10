@@ -1,14 +1,27 @@
 <template>
     <div class="showcardroot">
-        <div class="nownum"><span :style="'color:'+this.color">{{nownum | cutLongNum}}</span></div>
+        <div class="nownum"><span :style="'color:'+this.color">{{nowanimatednum | cutLongNum}}</span></div>
         <div class="type">{{type}}</div>
-        <div class="newnum"> 较上日 <span class="newNumVal" :style="'color:' + this.color">  {{newnum | cutLongNewNum}} </span> </div>
+        <div class="newnum"> 较上日 <span class="newNumVal" :style="'color:' + this.color">  {{newanimatednum | cutLongNewNum}} </span> </div>
     </div>
 </template>
 <script>
+import gsap from "gsap/gsap-core"
+
 export default({
     name:"LittleDataCard",
     props: ['nownum', 'type', 'newnum', 'color'],
+    data(){
+        return{
+              newnumber:0,
+        nownumber:0,
+        }
+      
+    },
+    mounted(){
+        this.newnumber = this.$props.newnum;
+        this.nownumber = this.$props.nownum;
+    },
     filters: {
         cutLongNum (value) {
 
@@ -32,8 +45,27 @@ export default({
             } else if ( value > 1000) {
                 return sign + (value/1000).toFixed(1) + 'k'
             }
-            return value
+            return sign+value
         },
+    },
+    computed:{
+        nowanimatednum:function(){
+            if(typeof(nownumber) == undefined)return 0;
+            return this.nownumber.toFixed(0);
+        },
+        newanimatednum:function(){
+            if(typeof(newnumber) == undefined)return 0;
+            return this.newnumber.toFixed(0);
+        }
+
+    },
+    watch:{
+        nownum:function(newvalue){
+            gsap.to(this.$data,{duration:0.5,nownumber:newvalue})
+        },
+        newnum:function(newvalue){
+            gsap.to(this.$data,{duration:0.5,newnumber:newvalue})
+        }
     }
 })
 

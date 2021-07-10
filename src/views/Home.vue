@@ -118,7 +118,7 @@
           </div>
 
           <div class="homeMapSection">
-            <global-map :data="GlobalmapData" :type="type"></global-map>
+            <home-global-map :data="GlobalmapData" :type="type"></home-global-map>
           </div>
         </div>
 
@@ -136,16 +136,16 @@
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import StatisticTable from "../components/charts/StatisticTable.vue";
 import SelectBar from "../components/common/SelectBar.vue";
-import GlobalMap from "../components/charts/GlobalMap.vue";
+import HomeGlobalMap from "../components/charts/HomeGlobalMap.vue";
 import HomeChinaMap from '../components/charts/HomeChinaMap.vue'
-
+import api from '../commonApi.js'
 export default {
   name: "Home",
   components: {
     LittleDataCard,
     StatisticTable,
     SelectBar,
-    GlobalMap,
+    HomeGlobalMap,
     HomeChinaMap
   },
   data() {
@@ -162,7 +162,13 @@ export default {
   },
   watch: {},
   mounted() {
-    this.loadhomeData(); //加载国内国外细节数据和总数据
+    var _this = this;
+    this.$axios.get(api.baseApi + '/data/list_overview').then(function(response){
+      if(response.data.success){
+        _this.loadhomeData(response.data.data);
+      }
+    })
+    //this.loadhomeData(); //加载国内国外细节数据和总数据
   },
   methods: {
     selected(index, differkey) {
@@ -177,9 +183,9 @@ export default {
         }
       }
     },
-    loadhomeData() {
+    loadhomeData(homeData) {
       //加载全球和中国数据
-      var homeData = require("../data/samples/HomeData.json");
+      //var homeData = require("../data/samples/HomeData.json");
       var mapping = {
         nowcases: {
           type: "现有确诊",
@@ -195,10 +201,6 @@ export default {
         },
         recovered: {
           type: "累计治愈",
-          color: "#00ACA5",
-        },
-        vaccine: {
-          type: "累积接种",
           color: "#00ACA5",
         },
       };
@@ -227,7 +229,6 @@ export default {
       this.GlobaloverviewData = list;
       this.ChinamapData = homeData["China"]["detailed"];
       this.GlobalmapData = homeData["Global"]["detailed"];
-      console.log(this.GlobalmapData);
       this.dataLoaded = true;
     },
     changeKey(nowtype) {
@@ -236,7 +237,6 @@ export default {
         累计确诊: "cases",
         累计死亡: "deaths",
         累计治愈: "recovered",
-        累积接种: "vaccine",
       };
       for (var key in mapping) {
         if (key == nowtype) {
@@ -257,21 +257,16 @@ export default {
   justify-content: center;
   align-items: center;
 
-  margin-top: 80px;
-  margin-bottom: 40px;
+  margin-top: 60px;
 
-  align-self: flex-start;
-
-  margin-right: 40%;
+  margin-right: 1160px;
 }
 .titleText {
-  font-size: 80px;
+  font-size: 30px;
 }
 .hometitle .SelectBar {
   /* outline: #00ff00 dotted thick; */
-
-  margin-top: 20px;
-  margin-left: 30px;
+  margin-left: 30px; 
 }
 
 .homeMain {

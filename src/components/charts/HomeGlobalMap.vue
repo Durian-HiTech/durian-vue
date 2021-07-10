@@ -78,7 +78,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 10,
+          padding: 40,
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -87,10 +87,9 @@ export default {
               cases: "确诊",
               deaths: "死亡",
               recovered: "治愈",
-              vaccine: "接种",
             };
-            var res =  "<b>" + name + "</b>"  + "<br/>" ;
-            
+            var res = "<br/>"+ "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
+            res += "<font size=\"4\">"
             var tmp = {};
             for(var i in coviddata){
               if(coviddata[i]["name"] == params.name){
@@ -101,7 +100,7 @@ export default {
             for (var key in mapping) {
               res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+"</p >";
             }
-          
+            res += "</font>";
             return res;
           },
         },
@@ -117,9 +116,10 @@ export default {
               min: 10000,
               max: 100000,
               label: "10000-100000",
-              color: "#f46d43",
+              color: "#fdae61",
             },
-            { min: 100000, label: "大于100000", color: "#a50026" },
+            { min: 100000, max:1000000,label: "100000-1000000", color: "#f46d43" },
+            {min:1000000, label:"大于1000000", color:"#a50026"}
           ],
         },
         series: [

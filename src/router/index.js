@@ -40,6 +40,11 @@ const routes = [
   component: () => import('../views/NewsDetails.vue')
   },
   {
+    path: '/rumor/:id',
+    name: 'RumorDetails',
+    component: () => import('../views/RumorDetails.vue')
+  },
+  {
   path: '/notice/:id',
   name: 'NoticeDetails',
   component: () => import('../views/NoticeDetails.vue')
@@ -60,9 +65,14 @@ const routes = [
     component: () => import('../views/Subscribe.vue')
   },
   {
-    path:'/analysis',
-    name:'Analysis',
-    component: () => import('../views/Analysis.vue')
+    path:'/chinaanalysis',
+    name:'ChinaAnalysis',
+    component: () => import('../views/ChinaAnalysis.vue')
+  },
+  {
+    path:'/globalanalysis',
+    name:'GlobalAnalysis',
+    component: () => import('../views/GlobalAnalysis.vue')
   },
   {
     path: '/policy',

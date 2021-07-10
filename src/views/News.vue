@@ -5,7 +5,7 @@
     </span>
     <el-divider/>
     <div class="newsSection">
-      <NoticesList title="中国病例最新变化情况" style="width: 700px"/>
+      <NoticesList title="中国新冠疫情最新通告" style="width: 700px"/>
       <NewsList title="中国疫情防控措施" style="width: 500px"/>
       <!-- <NewsList title="国际疫情防控措施" style="width: 400px"/> -->
     </div>
@@ -24,7 +24,6 @@ export default {
 </script>
 <style scoped>
   .root {
-    margin-top: 100px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -32,14 +31,14 @@ export default {
   }
 
   .title {
-    font-size:80px; 
+    margin-top: 70px;
+    font-size: 30px; 
     align-self: flex-start; 
     position: relative;
     left: 250px;
   }
 
   .newsSection {
-    margin-top: 20px;
     width: 85%;
     display: flex;
     justify-content: space-around;

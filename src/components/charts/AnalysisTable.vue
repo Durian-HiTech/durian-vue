@@ -17,7 +17,6 @@
           :items="detailed"
           :search="search"
           :custom-filter="customFilter"
-          @click:row="clickevent"
           :footer-props="{
             disableItemsPerPage: true,
             itemsPerPageOptions: [10],
@@ -73,6 +72,7 @@ export default {
           { text: '累积确诊', value: 'cases' },
           { text: '累积治愈', value: 'recovered' },
           { text: '累积死亡', value: 'deaths' },
+          { text: '疫苗接种', value: 'vaccine' },
         ],
         detailed: [
         ],
@@ -92,7 +92,7 @@ export default {
         this.detailed = this.$props.tableData;
         var i;
         var item;
-        if(this.$props.type == "China"){
+        if(this.$props.type == "China"){ // 中国
           this.headers[0].text = "省份";
           for(i in this.detailed){
             for(item in provinceen2zh){
@@ -102,7 +102,7 @@ export default {
               }
             }
           }
-        } else{
+        } else if(this.$props.type == 'Global'){ //世界
           this.headers[0].text = "国家";
           for(i in this.detailed){
             for(item in countryen2zh){
@@ -112,10 +112,12 @@ export default {
               }
             }
           }
+        } else{ // 其他国家的区域，没有中文数据
+            this.headers[0].text = "区域";
+            for(i in this.detailed){
+                this.detailed[i]["zhname"] = this.detailed[i]["name"];
+            }
         }
-      },
-      clickevent(value){
-        console.log(value)
       }
     }
 }
@@ -126,7 +128,6 @@ export default {
   padding: 10px;
   height: 670px;
   overflow: hidden;
-  
 }
 .s_table th {
   font-size: 18px !important;
@@ -134,6 +135,5 @@ export default {
 }
 .s_table td {
   font-size: 18px !important;
-  white-space: nowrap !important;
 }
 </style>

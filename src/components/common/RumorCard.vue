@@ -6,19 +6,19 @@
     >
       <v-img
           src='../../assets/backgroundImage/rumor0.jpg'
-          height="200px"
+          height="80px"
           v-if="showImage.a"
       ></v-img>
 
       <v-img
           src='../../assets/backgroundImage/rumor1.jpg'
-          height="200px"
+          height="80px"
           v-if="showImage.b"
       ></v-img>
 
       <v-img
           src='../../assets/backgroundImage/rumor2.jpg'
-          height="200px"
+          height="80px"
           v-if="showImage.c"
       ></v-img>
 
@@ -192,9 +192,9 @@ export default {
   computed: {
     showImage () {
       return {
-        a: (this.title.length % 5) == 0,
-        b: (this.title.length % 5) == 1,
-        c: (this.title.length % 5) == 2
+        a: (this.title.length % 7) == 0,
+        b: (this.title.length % 7) == 1,
+        c: (this.title.length % 7) == 2
       }
     },
   },
@@ -229,20 +229,28 @@ export default {
   background-image: url(../../static/tag0.png);
   background-repeat: no-repeat;
   background-position: right;
+  background-position-y: -1px;
+  background-size: 120px 120px;
 }
 .test_1{
   background-image: url(../../static/tag1.png);
   background-repeat: no-repeat;
   background-position: right;
+  background-position-y: -1px;
+  background-size: 120px 120px;
 }
 .test_2{
   background-image: url(../../static/tag2.png);
   background-repeat: no-repeat;
   background-position: right;
+  background-position-y: -1px;
+  background-size: 120px 120px;
 }
 .test_3{
   background-image: url(../../static/tag3.png);
   background-repeat: no-repeat;
   background-position: right;
+  background-position-y: -1px;
+  background-size: 120px 120px;
 }
 </style>
