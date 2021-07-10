@@ -14,19 +14,6 @@
 
 			<div class="travelUpSection">
 
-				<div class="travelMap">
-					<!-- This is the map -->
-				</div>
-
-				<div class="travelTable">
-					<TravelTable/>
-				</div>
-
-			</div>
-
-			<div class="travelDownSection">
-
-					
 				<div style="display: flex;">	
 					<div style='width: 500px'>
 						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内预警航线</el-button>
@@ -41,6 +28,18 @@
 
 			</div>
 
+			<div class="travelDownSection">
+
+				<div class="travelMap">
+					<!-- This is the map -->
+				</div>
+
+				<div class="travelTable">
+					<TravelTable/>
+				</div>
+
+			</div>
+
 		</div>
 	</div>
 	
@@ -50,19 +49,6 @@
 
 			<div class="travelUpSection">
 
-				<div class="travelMap">
-					<!-- This is the map -->
-				</div>
-
-				<div class="travelTable">
-					This is the table
-				</div>
-
-			</div>
-
-			<div class="travelDownSection">
-
-					
 				<div style="display: flex;">	
 					<div style='width: 500px'>
 						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内出发预警航线</el-button>
@@ -73,6 +59,19 @@
 						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国际到达预警航线</el-button>
 						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='北京' destination='上海' num='D8828' status='已取消'/>
 					</div>
+				</div>
+
+
+			</div>
+
+			<div class="travelDownSection">
+
+				<div class="travelMap">
+					<!-- This is the map -->
+				</div>
+
+				<div class="travelTable">
+					This is the table
 				</div>
 
 			</div>
@@ -185,9 +184,9 @@ export default {
 	flex-direction: column;
 	}
 	.travelUpSection {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.travelMap {
@@ -204,6 +203,9 @@ export default {
 	}
 	.travelDownSection {
 		margin-top: 50px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.travelTable {
