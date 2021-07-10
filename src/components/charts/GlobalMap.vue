@@ -78,14 +78,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 40,
-          textStyle:{
-            fontStyle: 'normal',
-            fontFamily: 'Microsoft YaHei',
-            lineHeight: 2000,
-            width: 4,
-            height: 4,
-          },
+          padding: 10,
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -96,8 +89,8 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res = "<font size=\"15\">" + "<b>" + name + "</b>" + "</font>" + "<br/>" + "<br/>"+ "<br/>";
-            res += "<font size=\"12\">"
+            var res = "<br/>"+ "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
+            
             var tmp = {};
             for(var i in coviddata){
               if(coviddata[i]["name"] == params.name){
@@ -106,9 +99,9 @@ export default {
               }
             }
             for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+ "<br/>"+ "<br/>"+"</p >";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+"</p >";
             }
-            res += "</font>";
+          
             return res;
           },
         },

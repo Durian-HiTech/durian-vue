@@ -1,7 +1,7 @@
 <template>
-  <div class="main">
+  <div class="main_question">
     <div class="content">
-      <div class="left_margin" style="width: 18%;"></div>
+      <div class="left_margin" style="width: 23%;"></div>
       <div class="main_content">
         <div class="question">
           <div class="question_title">
@@ -13,22 +13,46 @@
           <div class="question_user" style="text-align: left; color: gray; margin-left: 20px">
             {{comment_list.length}}条回答
           </div>
-          <el-divider>{{question.user_id}} 发布于 {{question.question_time}} </el-divider>
-
+          <el-divider>{{question.username}} 发布于 {{question.question_time}} </el-divider>
         </div>
-        <div class="comment">
-          <div class="left_comment_margin" style="width: 10%;"></div>
 
-          <div class="comment_list" style="display: flex; flex-direction: column; width: 80%">
-            <div v-for="item in comment_list" :key="item.comment_id" style="width: 100%;">
-              <CommentCard style="margin: 20px" :user=item.user_id :is-authority=item.user_type :content=item.comment_content :time=item.comment_time></CommentCard>
+        <div class="comment">
+          <div class="left_comment_margin" style="width: 5%;"></div>
+
+          <div class="comment_list" style="display: flex; flex-direction: column; width: 90%;">
+            <div style="display: flex; flex-direction: row; justify-content: center; align-items: center;
+                   margin: 15px"
+                  >
+              <div style="height: 100%;  display: flex;
+                  justify-content: center; align-items: center">
+                <el-avatar size=medium style="margin-left: 10px; " >
+                  <img src="../assets/avatar/cat.jpg">
+                </el-avatar>
+              </div>
+<!--              <el-input placeholder="Add a comment"-->
+<!--                        v-model=input-->
+<!--                        type="textarea"-->
+<!--                        autosize-->
+<!--                        resize="vertical"-->
+<!--                        style="background-color: red; margin-left: 10px; width: 80%"></el-input>-->
+              <el-input
+                  type="textarea"
+                  autosize
+                  placeholder="Add a comment..."
+                  style="font-size: 16px; margin-left: 5px; margin-right: 5px"
+                  v-model="input">
+              </el-input>
+              <el-button type="primary" style="background-color: #2b6dad; border-radius: 10px" @click="commit_comment">评论</el-button>
+            </div>
+            <div v-for="item in comment_list" :key="item.comment_id" style="width: 97%;">
+              <CommentCard style="margin: 10px" :user=item.user_id :is-authority=item.user_type :content=item.comment_content :time=item.comment_time></CommentCard>
             </div>
           </div>
 
-          <div class="right_comment_margin" style="width: 10%;"></div>
+          <div class="right_comment_margin" style="width: 5%;"></div>
         </div>
       </div>
-      <div class="right_margin" style="width: 18%;"></div>
+      <div class="right_margin" style="width: 23%;"></div>
     </div>
   </div>
 </template>
@@ -103,7 +127,8 @@ export default {
               if(_this.comment_list != null) {
                 for (var i = 0; i < _this.comment_list.length; i++) {
                   // console.log(moment(_this.comment_list[i].comment_time).format("MMM Do YY") )
-                  _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).startOf('day').fromNow();
+                  _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).utcOffset(8);
+                  _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).startOf('minute').fromNow();
                 }
               }
               console.log(_this.comment_list)
@@ -122,6 +147,17 @@ export default {
       formData.append("user_type", this.$store.getters.userState.type);
       formData.append("question_id", this.$route.params.id);
       formData.append("comment_content", this.input);
+
+      var tmp = {}
+      tmp['comment_content'] = this.input
+      tmp['comment_id'] = -1
+      tmp['comment_time'] = "几秒前"
+      tmp['question_id'] = this.$route.params.id
+      tmp['user_id'] = this.$store.getters.userState.id
+      tmp['user_type'] = this.$store.getters.userState.type
+      tmp['username'] = this.$store.getters.userState.name
+      this.comment_list.unshift(tmp)
+      console.log(this.comment_list)
       let config = {
         headers: {"Content-Type": "multipart/form-data",},
       };
@@ -136,7 +172,11 @@ export default {
             console.log(response.status)
             if (response.status == 200) {
               //console.log((response))
-              _this.getComment(_this.$route.params.id);
+
+
+              console
+              _this.input = ''
+              // _this.getComment(_this.$route.params.id);
             } else {
               console.log("请求失败");
               // console.log(response.data);
@@ -150,15 +190,16 @@ export default {
 }
 </script>
 <style scope>
-.main{
+.main_question{
   width: 100%;
+  background-color: #F2F6FC;
   margin-top: 50px
 }
 .content{
   /*background-color: #FFFFFF;*/
   display: flex;
   flex-direction: row;
-  height: 800px;
+  /*height: 800px;*/
   /*margin: 25px 50px 25px 100px;*/
 }
 .question_content {
@@ -171,20 +212,21 @@ export default {
   display: flex;
   flex-direction: row;
   /*width: 75%;*/
-  height: 800px;
+  /*height: 800px;*/
   /*margin: 25px 50px 25px 100px;*/
 }
 .main_content{
   display: flex;
   flex-direction: column;
   /*height: 500px;*/
-  width: 64%;
+  background-color: white;
+  width: 54%;
 }
 
 .question{
   display: flex;
   flex-direction: column;
-  height: 300px;
+  /*height: 300px;*/
   /*background-color: violet;*/
 }
 .question_title{

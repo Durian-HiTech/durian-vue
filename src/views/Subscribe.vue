@@ -4,13 +4,28 @@
     <el-divider />
 
 
-    <div
+    <!-- <div
 		style="font-size: 30px; color: #444444; align-self: center; display: flex; justify-content: center; align-items: center;"
 		@click="dialogTableVisible = true"
     >
     <el-button type="primary" icon="el-icon-edit" circle style="margin-right: 20px;"></el-button>
       更新我的订阅城市
-    </div>
+    </div> -->
+
+    <v-app style='height: 20px;'>
+      <v-btn
+        rounded
+        color="cyan"
+        dark
+        @click="dialogTableVisible = true"
+        width='200px'
+      >
+        <v-icon left>
+          mdi-pencil
+        </v-icon>
+        更新我的订阅城市
+      </v-btn>
+    </v-app>
 
     <div class="homeChina">
       <div class="homeMain">

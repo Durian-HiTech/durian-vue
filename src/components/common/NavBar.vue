@@ -44,7 +44,7 @@ export default {
           url: "/news",
         },
         {
-          title:"问答",
+          title:"知识版块",
           url: "/question",
         },
         {
