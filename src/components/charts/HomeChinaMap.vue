@@ -169,7 +169,7 @@ export default {
 </script>
 <style scoped>
 #home-china-map {
-  width: 1000px;
-  height: 400px;
+  width: 800px;
+  height: 500px;
 }
 </style>
