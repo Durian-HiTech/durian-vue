@@ -78,7 +78,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 10,
+          padding: 40,
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -90,7 +90,7 @@ export default {
               vaccine: "接种",
             };
             var res = "<br/>"+ "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
-            
+            res += "<font size=\"4\">"
             var tmp = {};
             for(var i in coviddata){
               if(coviddata[i]["name"] == params.name){
@@ -101,7 +101,7 @@ export default {
             for (var key in mapping) {
               res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+"</p >";
             }
-          
+            res += "</font>";
             return res;
           },
         },
