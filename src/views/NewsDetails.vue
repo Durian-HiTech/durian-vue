@@ -66,14 +66,14 @@ export default {
 </script>
 <style scoped>
 .root {
-  margin-top: 100px;
   display:flex;
   justify-content:center;
   align-items:center;
   flex-direction: column;
 }
 .title {
-    font-size:80px; 
+    margin-top: 70px;
+    font-size: 30px; 
     align-self: flex-start; 
     position: relative;
     left: 250px;
@@ -82,7 +82,7 @@ export default {
   /* outline: #00ff00 dotted thick;  */
   font-size:37px;
   font-weight:700;
-  width: 1000px;
+  width: 60%;
   margin-top: 20px;
   margin-bottom: 10px;
 }
@@ -91,7 +91,7 @@ export default {
   margin-top: 50px;
   margin-bottom: 20px;
   
-  width: 1500px;
+  width: 80%;
   font-size: 20px;
   line-height: 1.8;
   letter-spacing: 1.5px;

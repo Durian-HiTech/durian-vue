@@ -126,6 +126,7 @@ export default {
   padding: 10px;
   height: 670px;
   overflow: hidden;
+  
 }
 .s_table th {
   font-size: 18px !important;
@@ -133,5 +134,6 @@ export default {
 }
 .s_table td {
   font-size: 18px !important;
+  white-space: nowrap !important;
 }
 </style>

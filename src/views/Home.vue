@@ -257,21 +257,16 @@ export default {
   justify-content: center;
   align-items: center;
 
-  margin-top: 80px;
-  margin-bottom: 40px;
+  margin-top: 60px;
 
-  align-self: flex-start;
-
-  margin-right: 40%;
+  margin-right: 1160px;
 }
 .titleText {
-  font-size: 80px;
+  font-size: 30px;
 }
 .hometitle .SelectBar {
   /* outline: #00ff00 dotted thick; */
-
-  margin-top: 20px;
-  margin-left: 30px;
+  margin-left: 30px; 
 }
 
 .homeMain {

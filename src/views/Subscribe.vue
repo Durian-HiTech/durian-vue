@@ -3,15 +3,6 @@
     <span class="title"> <b>Covid</b> Subscriptions </span>
     <el-divider />
 
-
-    <!-- <div
-		style="font-size: 30px; color: #444444; align-self: center; display: flex; justify-content: center; align-items: center;"
-		@click="dialogTableVisible = true"
-    >
-    <el-button type="primary" icon="el-icon-edit" circle style="margin-right: 20px;"></el-button>
-      更新我的订阅城市
-    </div> -->
-
     <v-app style='height: 20px;'>
       <v-btn
         rounded
@@ -322,14 +313,14 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 100px;
 }
 .title {
-  font-size: 80px;
-  align-self: flex-start;
-  position: relative;
-  left: 250px;
-}
+    margin-top: 70px;
+    font-size: 30px; 
+    align-self: flex-start; 
+    position: relative;
+    left: 250px;
+  }
 .hometitle {
   /* outline: #00ff00 dotted thick; */
 
