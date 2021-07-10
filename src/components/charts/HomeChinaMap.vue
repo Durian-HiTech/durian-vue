@@ -104,15 +104,16 @@ export default {
             color: "#000000",
           },
           pieces: [
-            { min: 0, max: 999, label: "小于1000", color: "#FFFACD" },
+           { min: 0, max: 999, label: "小于1000", color: "#FFFACD" },
             { min: 1000, max: 10000, label: "1000-10000", color: "#fee090" },
             {
               min: 10000,
               max: 100000,
               label: "10000-100000",
-              color: "#f46d43",
+              color: "#fdae61",
             },
-            { min: 100000, label: "大于100000", color: "#a50026" },
+            { min: 100000, max:1000000,label: "100000-1000000", color: "#f46d43" },
+            {min:1000000, label:"大于1000000", color:"#a50026"}
           ],
         },
         series: [

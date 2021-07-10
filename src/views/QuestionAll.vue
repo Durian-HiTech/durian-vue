@@ -24,7 +24,6 @@ export default {
 
 <style scoped>
 .root {
-    margin-top: 100px;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -32,8 +31,9 @@ export default {
   }
 
 .title {
-    font-size:80px;
-    align-self: flex-start;
+    margin-top: 70px;
+    font-size: 30px; 
+    align-self: flex-start; 
     position: relative;
     left: 250px;
   }
