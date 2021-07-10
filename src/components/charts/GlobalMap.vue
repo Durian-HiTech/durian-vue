@@ -89,7 +89,7 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res =  "<b>" + name + "</b>"  + "<br/>" ;
+            var res = "<br/>"+ "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
             
             var tmp = {};
             for(var i in coviddata){
