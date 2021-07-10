@@ -17,6 +17,7 @@
           :items="detailed"
           :search="search"
           :custom-filter="customFilter"
+          @click:row="clickevent"
           :footer-props="{
             disableItemsPerPage: true,
             itemsPerPageOptions: [10],
@@ -72,7 +73,6 @@ export default {
           { text: '累积确诊', value: 'cases' },
           { text: '累积治愈', value: 'recovered' },
           { text: '累积死亡', value: 'deaths' },
-          { text: '疫苗接种', value: 'vaccine' },
         ],
         detailed: [
         ],
@@ -113,6 +113,9 @@ export default {
             }
           }
         }
+      },
+      clickevent(value){
+        console.log(value)
       }
     }
 }

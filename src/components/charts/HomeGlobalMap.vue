@@ -87,7 +87,6 @@ export default {
               cases: "确诊",
               deaths: "死亡",
               recovered: "治愈",
-              vaccine: "接种",
             };
             var res = "<br/>"+ "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
             res += "<font size=\"4\">"

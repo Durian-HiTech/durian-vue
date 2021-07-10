@@ -50,9 +50,11 @@ export default({
     },
     computed:{
         nowanimatednum:function(){
+            if(typeof(nownumber) == undefined)return 0;
             return this.nownumber.toFixed(0);
         },
         newanimatednum:function(){
+            if(typeof(newnumber) == undefined)return 0;
             return this.newnumber.toFixed(0);
         }
 

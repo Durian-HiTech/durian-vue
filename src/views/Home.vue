@@ -203,10 +203,6 @@ export default {
           type: "累计治愈",
           color: "#00ACA5",
         },
-        vaccine: {
-          type: "累积接种",
-          color: "#00ACA5",
-        },
       };
       var list = [];
       var res = {};
@@ -241,7 +237,6 @@ export default {
         累计确诊: "cases",
         累计死亡: "deaths",
         累计治愈: "recovered",
-        累积接种: "vaccine",
       };
       for (var key in mapping) {
         if (key == nowtype) {
