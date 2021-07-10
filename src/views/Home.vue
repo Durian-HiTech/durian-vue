@@ -320,7 +320,7 @@ export default {
   width: 800px;
 }
 .homeTable {
-  margin-top: 20px; 
+  margin-top: 70px; 
   margin-left: 30px; 
   width: 550px;
 }
