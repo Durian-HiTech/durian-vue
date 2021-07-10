@@ -11,46 +11,74 @@
 	<!-- China -->
 	<div class="travelChina" v-if="showChina">
 		<div class="travelMain">
-			<div class="map">
+
+			<div class="travelUpSection">
+
+				<div class="map">
+					<!-- This is the map -->
+				</div>
+
+				<div class="travelTable">
+					This is the table
+				</div>
 
 			</div>
-			<div class="right">
+
+			<div class="travelDownSection">
+
 				<el-input  style="width: 300px " v-model="SearchInput" placeholder="请输入搜索内容"></el-input>
-				
-				<div class="choice">
-					<el-button  style="font-weight: bold;" round>国内预警航线</el-button>
+					
+				<div style="display: flex;">	
+					<div style='width: 500px'>
+						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内预警航线</el-button>
+						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
+					</div>
+
+					<div style='width: 500px; margin-left: 50px;'>
+						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内预警高铁</el-button>
+						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='北京' destination='上海' num='D8828' status='已取消'/>
+					</div>
 				</div>
-				<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
-				
-				<div class="choice">
-					<el-button  style="font-weight: bold;" round>国内预警高铁</el-button>
-				</div>
-				<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
 
 			</div>
+
 		</div>
 	</div>
 	
 	<!-- World -->
 	<div class="travelWorld" v-if="!showChina">
 		<div class="travelMain">
-			<div class="map">
-		
+
+			<div class="travelUpSection">
+
+				<div class="map">
+					<!-- This is the map -->
+				</div>
+
+				<div class="travelTable">
+					This is the table
+				</div>
+
 			</div>
-			<div class="right">
+
+			<div class="travelDownSection">
+
 				<el-input  style="width: 300px " v-model="SearchInput" placeholder="请输入搜索内容"></el-input>
-				
-				<div class="choice">
-					<el-button  style="font-weight: bold;" round>国内出发预警航线</el-button>
+					
+				<div style="display: flex;">	
+					<div style='width: 500px'>
+						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内出发预警航线</el-button>
+						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
+					</div>
+
+					<div style='width: 500px; margin-left: 50px;'>
+						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国际到达预警航线</el-button>
+						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='北京' destination='上海' num='D8828' status='已取消'/>
+					</div>
 				</div>
-				<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
-				
-				<div class="choice">
-					<el-button  style="font-weight: bold;" round>国际到达预警航线</el-button>
-				</div>
-				<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
-		
+
 			</div>
+
 		</div>
 	</div>
 
@@ -119,25 +147,28 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+	flex-direction: column;
   }
+  .travelUpSection {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+
+
+
   .map {
       /* background-color: rgb(0, 0, 0); */
       justify-content: center;
       align-items: center;
       text-align:cente;
       height: 500px;
-      width: 50%;
+      width: 800px;
       margin: 30px;
 
       border: #cccccc solid thin;
       border-radius: 40px;
   }
-  .right {
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-  }
-  .choice {
-      margin: 50px;
-  }
+
+
 </style>
