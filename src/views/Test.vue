@@ -5,10 +5,13 @@
 		<h2 style="margin-top: 20px;"> user state</h2>
 		<el-button @click="login()"> login </el-button>
 		<el-button @click="reset()"> reset </el-button>
-		
+
 		<center>
 		<TravelCard time='2020.6.2' start='北京' destination='上海' num='D8828' />
 		</center>
+    <div class="test">
+      11
+    </div>
 
 	</div>
 </template>
@@ -69,5 +72,14 @@ export default {
 </script>
 
 <style>
+.test{
+  background-image: url(../static/tag1.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 
+  height: 200px;
+  width: 200px;
+
+}
 </style>

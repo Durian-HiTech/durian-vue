@@ -3,14 +3,13 @@
     <span class="title"> <b>Covid</b> Subscriptions </span>
     <el-divider />
 
-    <div class="Header">
-      <div
-        class="region"
-        style="font-size: 55px; align-self: center"
-        @click="dialogTableVisible = true"
-      >
-        更新我的订阅城市
-      </div>
+
+    <div
+		style="font-size: 30px; color: #444444; align-self: center; display: flex; justify-content: center; align-items: center;"
+		@click="dialogTableVisible = true"
+    >
+    <el-button type="primary" icon="el-icon-edit" circle style="margin-right: 20px;"></el-button>
+      更新我的订阅城市
     </div>
 
     <div class="homeChina">
