@@ -1,20 +1,39 @@
 <template>
     <div class="showcardroot">
-        <div class="nownum"><span :style="'color:'+this.color">{{nownum}}</span></div>
+        <div class="nownum"><span :style="'color:'+this.color">{{nownum | cutLongNum}}</span></div>
         <div class="type">{{type}}</div>
-        <div class="newnum"> 较上日 <span class="newNumVal" :style="'color:' + this.color">  {{newnumShow}} </span> </div>
+        <div class="newnum"> 较上日 <span class="newNumVal" :style="'color:' + this.color">  {{newnum | cutLongNewNum}} </span> </div>
     </div>
 </template>
 <script>
 export default({
     name:"LittleDataCard",
     props: ['nownum', 'type', 'newnum', 'color'],
-    computed:{
-        newnumShow(){
-            if(this.$props.newnum>0){
-                return "+"+this.$props.newnum.toString();
-            }else return this.$props.newnum;
-        }
+    filters: {
+        cutLongNum (value) {
+
+            if ( value > 1000000) {
+                return (value/1000000).toFixed(1) + 'M'
+            } else if ( value > 1000) {
+                return (value/1000).toFixed(1) + 'k'
+            }
+            return value
+        },
+        cutLongNewNum (value) {
+
+            var sign = "+"
+            if (value < 0) {
+                sign = "-"
+                value = -value
+            }
+
+            if ( value > 1000000) {
+                return sign + (value/1000000).toFixed(1) + 'M'
+            } else if ( value > 1000) {
+                return sign + (value/1000).toFixed(1) + 'k'
+            }
+            return value
+        },
     }
 })
 
@@ -29,6 +48,8 @@ export default({
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+
+    white-space: nowrap;
 }
 .nownum {
     font-family: "Gill Sans", sans-serif;
