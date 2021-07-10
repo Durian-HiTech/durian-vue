@@ -35,6 +35,10 @@ export default {
     return {
       pages: [
         {
+          title:"疫情分析",
+          utl:"/analysis"
+        },
+        {
           title:"新闻",
           url: "/news",
         },

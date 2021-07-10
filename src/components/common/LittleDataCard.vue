@@ -32,23 +32,26 @@ export default({
 }
 .nownum {
     font-family: "Gill Sans", sans-serif;
-    font-size: 35px;
+    font-size: 30px;
     font-weight: 600;
 }
 .newnum {
     color: rgb(104, 105, 106);
-    font-size: 25px;
+    font-size: 14px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
 }
 .newNumVal {
-	color: #AC3500;
+	color: #000000;
+    font-size: 22px;
 	font-weight: 900;
 }
 .type {
   white-space: nowrap;
   text-align: center;
 
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
 
   background-color:rgba(20, 20, 20, 0.3);
