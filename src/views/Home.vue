@@ -118,7 +118,7 @@
           </div>
 
           <div class="homeMapSection">
-            <global-map :data="GlobalmapData" :type="type"></global-map>
+            <home-global-map :data="GlobalmapData" :type="type"></home-global-map>
           </div>
         </div>
 
@@ -136,7 +136,7 @@
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import StatisticTable from "../components/charts/StatisticTable.vue";
 import SelectBar from "../components/common/SelectBar.vue";
-import GlobalMap from "../components/charts/GlobalMap.vue";
+import HomeGlobalMap from "../components/charts/HomeGlobalMap.vue";
 import HomeChinaMap from '../components/charts/HomeChinaMap.vue'
 import api from '../commonApi.js'
 export default {
@@ -145,7 +145,7 @@ export default {
     LittleDataCard,
     StatisticTable,
     SelectBar,
-    GlobalMap,
+    HomeGlobalMap,
     HomeChinaMap
   },
   data() {
