@@ -1,8 +1,8 @@
 <template>
     <div class="AirlineDetailRoot">
         <airline-map ref="AirlineMap">
-
         </airline-map>
+
     </div>
 </template>
 

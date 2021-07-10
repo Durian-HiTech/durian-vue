@@ -1,17 +1,34 @@
 <template>
-    <div id="airline-map" style="width: 1000px; height: 800px;"></div>
+    <div id="airline-map-root">
+        <div id="airline-map" style="width: 1000px; height: 800px;"></div>
+        <SelectBar class="SelectBar" :buttons="buttons"/>
+        <airline-table ref="AirlineTable"
+        :table-data="this.tableData"
+        :province="this.curr"></airline-table>
+    </div>
 </template>
 
 <script>
     import * as echarts from "echarts";
+    import AirlineTable from "./AirlineTable";
+    import SelectBar from "../common/SelectBar";
     // import api from "../../commonApi";
     import $ from "jquery";
 
     var mapData;
     var data = [];
+    var chartData = [];
+    // eslint-disable-next-line no-unused-vars
+    var arrCivil = [];
+    // eslint-disable-next-line no-unused-vars
+    var depCivil = [];
 
     export default {
         name: "AirlineMap",
+        components: {
+            AirlineTable,
+            SelectBar
+        },
         mounted() {
             require('echarts/lib/component/geo');
             this.myChart = echarts.init(document.getElementById("airline-map"));
@@ -27,6 +44,20 @@
             this.myChart.on("click", function (param) {
                 _this.clickevent(param);
             });
+            $.ajax({
+                url: "https://www.umetrip.com/gateway/api/web/umeflightstatus-live/live/getchartstatistics",
+                type: 'POST',
+                async: false,
+                dataType: 'json',
+                data: {},
+                success: function (response) {
+                    // console.log(response);
+                    chartData = response
+                }
+            });
+            // console.log(chartData);
+            arrCivil = chartData.arrCivil;
+            depCivil = chartData.depCivil;
 
         },
         data() {
@@ -34,6 +65,9 @@
                 myChart: "",
                 mapName: "China",
                 curr: "",
+                buttons: ["国内进港", "国内出港"],
+                switchContent: 0,
+                tableData: [],
                 option: {
                     title: {
                         text: "国内航班",
@@ -111,8 +145,7 @@
                                 opacity: 0.6
                             },
 
-                            data: [
-                            ]
+                            data: []
                         }
                     ]
                 },
@@ -123,7 +156,7 @@
             //     this.loadMap();
             // },
             curr() {
-                console.log(this.curr);
+                // console.log(this.curr);
                 var posMap;
                 var curr = this.curr;
                 $.ajax({
@@ -136,12 +169,58 @@
                     },
                     success: function (response) {
                         // console.log(response);
-                        console.log(curr);
+                        // console.log(curr);
                         posMap = response.posMap[curr];
                     }
                 });
-                console.log(posMap);
-                this.setCoords(posMap)
+                // console.log(posMap);
+                this.setCoords(posMap);
+                var currContent;
+                var _this = this;
+                if (this.switchContent === 0) {
+                    currContent = arrCivil.find(function (item) {
+                        return item.provinceName === _this.curr;
+                    });
+
+                } else if (this.switchContent === 1) {
+                    currContent = depCivil.find(function (item) {
+                        return item.provinceName === _this.curr;
+                    });
+                }
+                // console.log(currContent);
+                this.tableData = [];
+                this.tableData.push(currContent.now);
+                this.tableData[0].name = "总计";
+                this.tableData[0].execsumHis = currContent.execsumHis;
+                currContent.airportInfoList.forEach(function (item) {
+                    _this.tableData.push(item.now);
+                    _this.tableData[_this.tableData.length - 1].name = item.airportName;
+                    _this.tableData[_this.tableData.length - 1].execsumHis = item.execsumHis;
+                });
+            },
+            switchContent() {
+                var currContent;
+                var _this = this;
+                if (this.switchContent === 0) {
+                    currContent = arrCivil.find(function (item) {
+                        return item.provinceName === _this.curr;
+                    });
+
+                } else if (this.switchContent === 1) {
+                    currContent = depCivil.find(function (item) {
+                        return item.provinceName === _this.curr;
+                    });
+                }
+                // console.log(currContent);
+                this.tableData = [];
+                this.tableData.push(currContent.now);
+                this.tableData[0].name = "总计";
+                this.tableData[0].execsumHis = currContent.execsumHis;
+                currContent.airportInfoList.forEach(function (item) {
+                    _this.tableData.push(item.now);
+                    _this.tableData[_this.tableData.length - 1].name = item.airportName;
+                    _this.tableData[_this.tableData.length - 1].execsumHis = item.execsumHis;
+                });
             }
         },
         methods: {
@@ -158,7 +237,7 @@
                     return item.name === param.name;
                 }).shorter;
             },
-            setCoords (data) {
+            setCoords(data) {
                 if (data !== undefined) {
                     this.option["series"][1].data = data;
                     this.myChart.setOption(this.option);
@@ -167,6 +246,11 @@
                     this.option["series"][1].data = [];
                     this.myChart.setOption(this.option);
                     this.myChart.hideLoading();
+                }
+            },
+            selected(index, differkey) {
+                if (differkey === "国内进港") {
+                    this.switchContent = index;
                 }
             }
         }
