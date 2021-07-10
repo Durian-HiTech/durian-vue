@@ -53,21 +53,25 @@
             </div>
           </div>
 
-          <div class="homeLeftSection">
+          <div class="homeMapSection">
             <home-china-map :data="ChinamapData" :type="type"></home-china-map>
           </div>
-          <StatisticTable
-            style="margin-top: 20px; width: 860px"
+          
+        </div>
+
+        <StatisticTable
+            class="homeTable"
             :tableData="ChinamapData"
             :type="'China'"
           />
-        </div>
+
       </div>
     </div>
 
     <!-- world -->
     <div class="homeWorld" v-if="!showChina">
       <div class="homeMain">
+
         <div class="homeRightSection">
           <div class="homeHeader">
             <div class="region" style="background-color: #d9d221">世界</div>
@@ -116,13 +120,13 @@
           <div class="homeMapSection">
             <global-map :data="GlobalmapData" :type="type"></global-map>
           </div>
-
-          <StatisticTable
-            style="margin-top: 20px; width: 860px"
-            :tableData="GlobalmapData"
-            :type="'Global'"
-          />
         </div>
+
+        <StatisticTable
+          class="homeTable"
+          :tableData="GlobalmapData"
+          :type="'Global'"
+        />
       </div>
     </div>
   </div>
@@ -252,8 +256,8 @@ export default {
   justify-content: center;
   align-items: center;
 
-  margin-top: 100px;
-  margin-bottom: 80px;
+  margin-top: 80px;
+  margin-bottom: 40px;
 
   align-self: flex-start;
 
@@ -288,6 +292,10 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
+
+  border: #cccccc solid thin;
+  border-radius: 40px;
+  overflow: hidden;
 }
 .homeHeader {
   display: flex;
@@ -302,12 +310,18 @@ export default {
   justify-content: space-between;
   align-items: center;
 
-  padding-left: 30px;
-  padding-right: 30px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border: #cccccc solid thin;
   border-radius: 40px;
+  width: 800px;
+}
+.homeTable {
+  margin-top: 20px; 
+  margin-left: 30px; 
+  width: 550px;
 }
 
 .region {
