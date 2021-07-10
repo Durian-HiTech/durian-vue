@@ -1,7 +1,7 @@
 <template>
   <div class="main_question">
     <div class="content">
-      <div class="left_margin" style="width: 23%;"></div>
+      <div class="left_margin" style="width: 15%;"></div>
       <div class="main_content">
         <div class="question">
           <div class="question_title">
@@ -52,7 +52,21 @@
           <div class="right_comment_margin" style="width: 5%;"></div>
         </div>
       </div>
-      <div class="right_margin" style="width: 23%;"></div>
+      <div class="right_margin" style="width: 21%;">
+        <div class="related_question">
+          <div class="related_question_header" style="margin-top: 10px; margin-left: 10px; font-size: 18px; text-align: left; ">
+            Related Questions
+            <el-divider></el-divider>
+          </div>
+          <div class="related_question_content" style="text-align: left; margin-left: 5px; color: gray;">
+            <div v-for="item in related_list" :key="item.id" style="margin: 10px">
+              <href url="">{{ item.content }}</href>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="right_margin" style="width: 10%; "></div>
     </div>
   </div>
 </template>
@@ -73,7 +87,13 @@ export default {
       name: "问题界面",
       comment_list: [],
       input: '',
-      question: {}
+      question: {},
+      related_list: [
+        {id: 1, content: "question1"},
+        {id: 2, content: "question2"},
+        {id: 3, content: "question3"},
+        {id: 4, content: "question4"},
+      ]
     }
   },
   mounted() {
@@ -238,8 +258,13 @@ export default {
   margin-left: 20px;
   margin-top: 20px;
 }
+.related_question{
+  /*background-color: blueviolet;*/
+  height: 400px;
+  width: 300px;
+  position: fixed;
+  right: 160px;
+  top: 60px;
+  }
 
-p{
-  word-break: keep-all;
-}
 </style>
