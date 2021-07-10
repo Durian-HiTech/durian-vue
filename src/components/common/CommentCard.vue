@@ -4,8 +4,8 @@
         <el-avatar size=medium src="https://img2.baidu.com/it/u=153086019,155710187&fm=26&fmt=auto&gp=0.jpg"> </el-avatar>
         <div style="display: flex; flex-direction: column; text-align: left; margin-left: 5px; padding: 4px">
           <div style="font-size: small">
-<!--            {{ user }}-->
-            Mohamed Al Aufi
+            {{ user }}
+<!--            Mohamed Al Aufi-->
           </div>
           <div style="font-size: small; color: gray">
             A Comparative Religion Specialist
