@@ -1,5 +1,5 @@
 <template>
-  <div class="main">
+  <div class="main_question">
     <div class="content">
       <div class="left_margin" style="width: 23%;"></div>
       <div class="main_content">
@@ -175,7 +175,7 @@ export default {
 }
 </script>
 <style scope>
-.main{
+.main_question{
   width: 100%;
   background-color: #F2F6FC;
   margin-top: 50px
