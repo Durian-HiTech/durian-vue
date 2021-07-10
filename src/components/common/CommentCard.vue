@@ -1,9 +1,17 @@
 <template>
     <div class="commentRoot">
-        <div class="commentUser">
-            {{ user}}
+      <div class="commentUser">
+        <el-avatar size=medium src="https://img2.baidu.com/it/u=153086019,155710187&fm=26&fmt=auto&gp=0.jpg"> </el-avatar>
+        <div style="display: flex; flex-direction: column; text-align: left; margin-left: 5px; padding: 4px">
+          <div style="font-size: small">
+<!--            {{ user }}-->
+            Mohamed Al Aufi
+          </div>
+          <div style="font-size: small; color: gray">
+            A Comparative Religion Specialist
+          </div>  
         </div>
-
+      </div>
         <div class="commentInfo">
             <div class="commentInfoItem" style="background-color:#06a19c;">
                 {{ time }}
@@ -43,7 +51,7 @@ export default {
     padding: 20px;
     background-color: white;
     box-shadow: 0px 0px 10px 2px rgba(128, 128, 128, 0.2);
-    border-radius: 20px;
+    border-radius: 5px;
 
     width: 100%;
 
@@ -54,9 +62,9 @@ export default {
 }
 .commentUser {
     align-self: flex-start;
-
+    display: flex;
+    flex-direction: row;
     font-weight: bold;
-    font-size: 20px;
 }
 .commentInfo {
     align-self: flex-start;
