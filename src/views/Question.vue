@@ -60,7 +60,7 @@
           </div>
           <div class="related_question_content" style="text-align: left; margin-left: 5px; color: gray;">
             <div v-for="item in related_list" :key="item.id" style="margin: 10px">
-              <href url="">{{ item.content }}</href>
+              <router-link :to="{path: '/question/'+ item.id}" @click.native="refresh">{{ item.content }} </router-link>
             </div>
           </div>
 
@@ -89,10 +89,10 @@ export default {
       input: '',
       question: {},
       related_list: [
-        {id: 1, content: "question1"},
-        {id: 2, content: "question2"},
-        {id: 3, content: "question3"},
-        {id: 4, content: "question4"},
+        {id: 1, content: "If your partner would allow it, would you sleep, cook, read and watch TV naked?"},
+        {id: 2, content: "Do you go naked when home alone?"},
+        {id: 3, content: "I want to sleep shirtless at night, but I am a girl and my parents wake me up each"},
+        {id: 4, content: "Do you wear clothes when you are alone at home?"},
       ]
     }
   },
@@ -204,6 +204,9 @@ export default {
             }
           });
     },
+    refresh(){
+      this.$router.go(0);
+    }
   },
 
 
@@ -266,5 +269,10 @@ export default {
   right: 160px;
   top: 60px;
   }
-
+a{
+  text-decoration: none;
+}
+.router-link-active {
+  text-decoration: none;
+}
 </style>
