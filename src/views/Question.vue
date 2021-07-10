@@ -13,7 +13,7 @@
           <div class="question_user" style="text-align: left; color: gray; margin-left: 20px">
             {{comment_list.length}}条回答
           </div>
-          <el-divider>{{question.user_id}} 发布于 {{question.question_time}} </el-divider>
+          <el-divider>{{question.username}} 发布于 {{question.question_time}} </el-divider>
         </div>
 
         <div class="comment">
@@ -127,7 +127,8 @@ export default {
               if(_this.comment_list != null) {
                 for (var i = 0; i < _this.comment_list.length; i++) {
                   // console.log(moment(_this.comment_list[i].comment_time).format("MMM Do YY") )
-                  _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).startOf('day').fromNow();
+                  _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).utcOffset(8);
+                  _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).startOf('minute').fromNow();
                 }
               }
               console.log(_this.comment_list)
@@ -146,6 +147,17 @@ export default {
       formData.append("user_type", this.$store.getters.userState.type);
       formData.append("question_id", this.$route.params.id);
       formData.append("comment_content", this.input);
+
+      var tmp = {}
+      tmp['comment_content'] = this.input
+      tmp['comment_id'] = -1
+      tmp['comment_time'] = "几秒前"
+      tmp['question_id'] = this.$route.params.id
+      tmp['user_id'] = this.$store.getters.userState.id
+      tmp['user_type'] = this.$store.getters.userState.type
+      tmp['username'] = this.$store.getters.userState.name
+      this.comment_list.unshift(tmp)
+      console.log(this.comment_list)
       let config = {
         headers: {"Content-Type": "multipart/form-data",},
       };
@@ -160,8 +172,11 @@ export default {
             console.log(response.status)
             if (response.status == 200) {
               //console.log((response))
+
+
+              console
               _this.input = ''
-              _this.getComment(_this.$route.params.id);
+              // _this.getComment(_this.$route.params.id);
             } else {
               console.log("请求失败");
               // console.log(response.data);

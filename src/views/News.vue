@@ -5,7 +5,7 @@
     </span>
     <el-divider/>
     <div class="newsSection">
-      <NoticesList title="中国病例最新变化情况" style="width: 700px"/>
+      <NoticesList title="中国新冠疫情最新通告" style="width: 700px"/>
       <NewsList title="中国疫情防控措施" style="width: 500px"/>
       <!-- <NewsList title="国际疫情防控措施" style="width: 400px"/> -->
     </div>

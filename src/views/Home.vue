@@ -138,7 +138,7 @@ import StatisticTable from "../components/charts/StatisticTable.vue";
 import SelectBar from "../components/common/SelectBar.vue";
 import GlobalMap from "../components/charts/GlobalMap.vue";
 import HomeChinaMap from '../components/charts/HomeChinaMap.vue'
-
+import api from '../commonApi.js'
 export default {
   name: "Home",
   components: {
@@ -162,7 +162,13 @@ export default {
   },
   watch: {},
   mounted() {
-    this.loadhomeData(); //加载国内国外细节数据和总数据
+    var _this = this;
+    this.$axios.get(api.baseApi + '/data/list_overview').then(function(response){
+      if(response.data.success){
+        _this.loadhomeData(response.data.data);
+      }
+    })
+    //this.loadhomeData(); //加载国内国外细节数据和总数据
   },
   methods: {
     selected(index, differkey) {
@@ -177,9 +183,9 @@ export default {
         }
       }
     },
-    loadhomeData() {
+    loadhomeData(homeData) {
       //加载全球和中国数据
-      var homeData = require("../data/samples/HomeData.json");
+      //var homeData = require("../data/samples/HomeData.json");
       var mapping = {
         nowcases: {
           type: "现有确诊",
@@ -227,7 +233,6 @@ export default {
       this.GlobaloverviewData = list;
       this.ChinamapData = homeData["China"]["detailed"];
       this.GlobalmapData = homeData["Global"]["detailed"];
-      console.log(this.GlobalmapData);
       this.dataLoaded = true;
     },
     changeKey(nowtype) {
