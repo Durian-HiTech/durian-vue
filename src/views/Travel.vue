@@ -26,7 +26,6 @@
 
 			<div class="travelDownSection">
 
-				<el-input  style="width: 300px " v-model="SearchInput" placeholder="请输入搜索内容"></el-input>
 					
 				<div style="display: flex;">	
 					<div style='width: 500px'>
@@ -63,7 +62,6 @@
 
 			<div class="travelDownSection">
 
-				<el-input  style="width: 300px " v-model="SearchInput" placeholder="请输入搜索内容"></el-input>
 					
 				<div style="display: flex;">	
 					<div style='width: 500px'>
@@ -82,18 +80,48 @@
 		</div>
 	</div>
 
+	<div class="track" style="padding:20px;margin:0 auto;margin-top:70px;">
+		<div style="font-size:30px;padding:5px">
+				疫情轨迹
+		</div>
+		<div class="trackCardRoot">
+			<div class="row">
+				<div class="trackCity">印度尼西亚</div>
+				<track-card destination="浙江杭州"></track-card>
+				<track-card destination="浙江徐州"></track-card>
+			</div>
+		</div>
+		<div class="trackCardRoot">
+			<div class="row">
+				<div class="trackCity">广州东莞</div>
+				<track-card destination="陕西咸阳"></track-card>
+				<track-card destination="紫阳县汉王镇"></track-card>
+			</div>
+		</div>
+		<div class="trackCardRoot">
+			<div class="row">
+				<div class="trackCity">北京</div>
+				<track-card destination="广州"></track-card>
+				<track-card destination="深vbhhshfdsdfdasfs圳"></track-card>
+				<track-card destination="深大范德萨范德萨发生	"></track-card>
+			</div>
+		</div>
+	</div>
+
   </div>
 </template>
 <script>
 import SelectBar from '../components/common/SelectBar.vue'
 import TravelCard from '../components/common/TravelCard.vue'
 import TravelTable from '../components/charts/TravelTable.vue'
+import TrackCard from '@/components/common/TrackCard.vue'
 export default {
   name: "Travel",
   components: {
 	SelectBar,
 	TravelCard,
 	TravelTable,
+    TrackCard,
   },
   data() {
     return {
@@ -175,6 +203,48 @@ export default {
 	margin-left: 20px; 
 	width: 550px;
 	}
-
-
+	.track {
+		border: #cccccc solid thin;
+		border-radius: 40px;
+		width: 80%;
+		justify-content: center;
+		align-items: center;
+	}
+	.trackCardRoot {
+	border: #bfbec0 solid thin;
+	border-radius: 30px;
+	width: auto;
+	height: 120px;
+	
+	position: relative;
+	
+	display: flex;
+	/* flex-direction: column; */
+	align-items: center;
+	justify-content: space-around;
+	white-space: nowrap;
+	}
+	.trackCity {
+	font-size: 40px;
+	font-weight: bold;
+	
+	white-space: nowrap;
+	text-align: center;
+	
+	font-size: 27px;
+	font-weight: 500;
+	
+	background-color: #e6e6e6;
+	
+	border-radius: 30px;
+	
+	padding: 5px 15px 5px 15px;
+	margin: 3px;
+	
+	}
+	.row {
+		display: flex;
+		margin-right: 0px;
+		flex-direction: row;
+	}
 </style>
