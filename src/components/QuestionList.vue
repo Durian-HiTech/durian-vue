@@ -10,7 +10,7 @@
             this.currentPage * this.eachPage)"
           v-bind:key="rumor.rumor_id"
       >
-        <RumorCard v-bind:title="rumor.rumor_title" :content="rumor.rumor_content" :rumor_type="rumor.rumor_type"/>
+        <RumorCard v-bind:title="rumor.rumor_title" :content="rumor.rumor_content" :rumor_type="rumor.rumor_type" :link="'rumor/'+rumor.rumor_id" />
       </div>
       <v-pagination
           style="margin-top: 30px;"
