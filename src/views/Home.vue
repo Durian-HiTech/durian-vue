@@ -42,17 +42,19 @@
 
           <div class="homeOverview">
             <div v-for="(data, index) in ChinaoverviewData" :key="index">
+              <div @click="changeKey(data.type)">
               <LittleDataCard
                 :nownum="data.nownum"
                 :type="data.type"
                 :newnum="data.newnum"
                 :color="data.color"
               />
+              </div>
             </div>
           </div>
 
           <div class="homeLeftSection">
-            <!-- <h1>这里是地图！！</h1> -->
+            <home-china-map :data="ChinamapData" :type="type"></home-china-map>
           </div>
           <StatisticTable
             style="margin-top: 20px; width: 860px"
@@ -100,12 +102,14 @@
 
           <div class="homeOverview">
             <div v-for="(data, index) in GlobaloverviewData" :key="index">
-              <LittleDataCard
-                :nownum="data.nownum"
-                :type="data.type"
-                :newnum="data.newnum"
-                :color="data.color"
-              />
+              <div @click="changeKey(data.type)">
+                <LittleDataCard
+                  :nownum="data.nownum"
+                  :type="data.type"
+                  :newnum="data.newnum"
+                  :color="data.color"
+                />
+              </div>
             </div>
           </div>
 
@@ -129,6 +133,7 @@ import LittleDataCard from "../components/common/LittleDataCard.vue";
 import StatisticTable from "../components/charts/StatisticTable.vue";
 import SelectBar from "../components/common/SelectBar.vue";
 import GlobalMap from "../components/charts/GlobalMap.vue";
+import HomeChinaMap from '../components/charts/HomeChinaMap.vue'
 
 export default {
   name: "Home",
@@ -137,6 +142,7 @@ export default {
     StatisticTable,
     SelectBar,
     GlobalMap,
+    HomeChinaMap
   },
   data() {
     return {
@@ -218,6 +224,21 @@ export default {
       this.ChinamapData = homeData["China"]["detailed"];
       this.GlobalmapData = homeData["Global"]["detailed"];
       this.dataLoaded = true;
+    },
+    changeKey(nowtype) {
+      var mapping = {
+        现有确诊: "nowcases",
+        累计确诊: "cases",
+        累计死亡: "deaths",
+        累计治愈: "recovered",
+        累积接种: "vaccine",
+      };
+      for (var key in mapping) {
+        if (key == nowtype) {
+          this.type = mapping[key];
+          break;
+        }
+      }
     },
   },
 };
