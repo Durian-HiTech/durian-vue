@@ -21,7 +21,7 @@
       <template v-slot:opposite>
        <span
           :class="`headline font-weight-bold --text`"
-          v-text="post.notice_created_time"
+          v-text="post.notice_created_time.slice(0,10)"
         ></span>
       </template>
       <div class="py-4">
