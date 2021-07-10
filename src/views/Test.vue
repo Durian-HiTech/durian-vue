@@ -7,11 +7,11 @@
 		<el-button @click="reset()"> reset </el-button>
 
 		<center>
-		<TravelCard time='2020.6.2' start='北京' destination='上海' num='D8828' />
+		<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
 		</center>
-    <div class="test">
+    <!-- <div class="test">
       11
-    </div>
+    </div> -->
 
 	</div>
 </template>
