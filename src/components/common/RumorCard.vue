@@ -6,19 +6,19 @@
     >
       <v-img
           src='../../assets/backgroundImage/rumor0.jpg'
-          height="200px"
+          height="80px"
           v-if="showImage.a"
       ></v-img>
 
       <v-img
           src='../../assets/backgroundImage/rumor1.jpg'
-          height="200px"
+          height="80px"
           v-if="showImage.b"
       ></v-img>
 
       <v-img
           src='../../assets/backgroundImage/rumor2.jpg'
-          height="200px"
+          height="80px"
           v-if="showImage.c"
       ></v-img>
 
@@ -192,9 +192,9 @@ export default {
   computed: {
     showImage () {
       return {
-        a: (this.title.length % 5) == 0,
-        b: (this.title.length % 5) == 1,
-        c: (this.title.length % 5) == 2
+        a: (this.title.length % 7) == 0,
+        b: (this.title.length % 7) == 1,
+        c: (this.title.length % 7) == 2
       }
     },
   },
