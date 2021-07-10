@@ -70,6 +70,11 @@ const routes = [
     path: '/subscribe',
     name: 'Subscribe',
     component: () => import('../views/Subscribe.vue')
+  },
+  {
+    path: '/policy',
+    name: 'PolicyAI',
+    component: () => import('../views/PolicyAI.vue')
   }
 
 ]
