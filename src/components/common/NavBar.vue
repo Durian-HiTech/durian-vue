@@ -3,7 +3,7 @@
     <div class="nav_bar_frame">
       <div class="nav_bar_icon" @click="backtostartpage">
         <div class="nav_bar_icon_title_bold">Durian</div>
-        <div class="nav_bar_icon_title">Covid</div>
+        <div class="nav_bar_icon_title"> Covid</div>
       </div>
 
       <div class="nav_bar_item_outer_frame">

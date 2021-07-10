@@ -1,11 +1,11 @@
 <template>
-  <div class="root">
-	<div class="travelTitle" >
-		<div class='titleText'>
+  <div class="travelRoot">
+	<span class="travelTitle" >
+		<span class='titleText'>
 			<b>Covid</b> <span>Travel</span>
-		</div>
+		</span>
 		<SelectBar class='SelectBar' :buttons="buttons"/>
-	</div>
+	</span>
     <el-divider/>
 
 	<!-- China -->
@@ -148,6 +148,13 @@ export default {
 }
 </script>
 <style scoped>
+
+	.travelRoot {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	}
 
 	.travelTitle {
 	display: flex;
