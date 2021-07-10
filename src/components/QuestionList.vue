@@ -2,7 +2,7 @@
   <div class="main">
 
     <v-app style="margin: 30px">
-      <h1>{{title}}</h1>
+      <h1>谣言&辟谣</h1>
       <p style="color:grey;">共{{this.rumor_list.length}}条谣言/辟谣</p>
       <div
           style="margin: 30px"
@@ -23,7 +23,7 @@
     </v-app>
 
     <v-app style="margin: 30px">
-      <h1>{{title}}</h1>
+      <h1>问答专区</h1>
       <p style="color:grey;">共{{this.question_list.length}}条提问</p>
       <div
           class="rumor"
@@ -46,19 +46,19 @@
 
 
     <v-app style="margin: 30px">
-      <h1>{{title}}</h1>
+      <h1>防疫小知识</h1>
       <p style="color:grey;">共{{total}}条防疫小知识</p>
       <div
           style="margin: 30px"
-          v-for="question in question_list.slice((this.currentPage - 1) * this.eachPage,
-            this.currentPage * this.eachPage)"
+          v-for="question in question_list.slice((this.currentPage_3 - 1) * this.eachPage,
+            this.currentPage_3 * this.eachPage)"
           v-bind:key="question.question_id"
       >
         <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
       </div>
       <v-pagination
           style="margin-top: 30px;"
-          v-model="currentPage"
+          v-model="currentPage_3"
           :length="Math.ceil(total / eachPage)"
           circle
           color="cyan"
