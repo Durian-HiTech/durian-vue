@@ -70,6 +70,11 @@ const routes = [
     path: '/subscribe',
     name: 'Subscribe',
     component: () => import('../views/Subscribe.vue')
+  },
+  {
+    path:'/analysis',
+    name:'Analysis',
+    component: () => import('../views/Analysis.vue')
   }
 
 ]

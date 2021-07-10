@@ -16,6 +16,7 @@
             :headers="headers"
             :items="detailed"
             :search="search"
+            :custom-filter="customFilter"
             :footer-props="{
                 disableItemsPerPage: true,
                 itemsPerPageOptions: [10],
@@ -107,6 +108,10 @@ export default {
         else if (nowcases > 1000) return 'orange'
         else return 'green'
       },
+      customFilter(_,search,item){
+        if(item.name.toLowerCase().indexOf(search.toLowerCase())!=-1||item.zhname.toLowerCase().indexOf(search.toLowerCase())!=-1)return true;
+        return false;
+      }
     },
 }
 </script>
