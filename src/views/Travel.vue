@@ -136,11 +136,8 @@ export default {
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        height: 500px;
-		
-		overflow: scroll;
   }
   .choice {
-      margin: 20%;
+      margin: 50px;
   }
 </style>

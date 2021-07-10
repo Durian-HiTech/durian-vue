@@ -1,5 +1,5 @@
 <template>
-  <div id="global-main-map"></div>
+  <div id="home-china-map"></div>
 </template>
 <script>
 /*
@@ -11,32 +11,18 @@
 5. 国家显示中文
 */
 import * as echarts from "echarts";
-var countrymapping = require("../../data/utils/countryen2zh.json");
+var provincemapping = require("../../data/utils/china_en2province.json");
 var countryName = function (name) {
   // en2zh
-  for (var key in countrymapping) {
-    if (countrymapping[key]["value"] == name)
-      return countrymapping[key]["label"];
+  for (var key in provincemapping) {
+    if (provincemapping[key]["value"] == name)
+      return provincemapping[key]["label"];
   }
   return name;
 };
 var coviddata; //为了显示所有数据存储一份全局数据
 export default {
-  name: "GlobalMap",
-  /*
-    data:所有区域或国家的**当天**四个数据
-    {
-      "cases":[{name:"",value:""}],
-      "deaths":[],
-      "recovered":[],
-      "vaccine":[]
-    }
-
-    type:热力图主键:
-    __type__=["cases","deaths","recovered","vaccine","nowcases"]
-    
-    country:当前国家/World String
-  */
+  name: "HomeChinaMap",
   props: {
     data: {
       type: Array,
@@ -49,7 +35,7 @@ export default {
   },
   mounted() {
     coviddata = this.$props.data;
-    this.myChart = echarts.init(document.getElementById("global-main-map"));
+    this.myChart = echarts.init(document.getElementById("home-china-map"));
     this.loadMap();
     this.option["series"][0]["data"] = coviddata;
     this.loadData();
@@ -61,7 +47,7 @@ export default {
   data() {
     return {
       myChart: "",
-      country: "World", //不变
+      country: "China", //不变
       option: {
         title: {
           text: "全球新型冠状病毒肺炎疫情图",
@@ -78,7 +64,14 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 10,
+          padding: 40,
+          textStyle:{
+            fontStyle: 'normal',
+            fontFamily: 'Microsoft YaHei',
+            lineHeight: 2000,
+            width: 4,
+            height: 4,
+          },
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -89,8 +82,8 @@ export default {
               recovered: "治愈",
               vaccine: "接种",
             };
-            var res =  "<b>" + name + "</b>"  + "<br/>" ;
-            
+            var res = "<font size=\"15\">" + "<b>" + name + "</b>" + "</font>" + "<br/>" + "<br/>"+ "<br/>";
+            res += "<font size=\"12\">"
             var tmp = {};
             for(var i in coviddata){
               if(coviddata[i]["name"] == params.name){
@@ -99,9 +92,9 @@ export default {
               }
             }
             for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+"</p >";
+              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+ "<br/>"+ "<br/>"+"</p >";
             }
-          
+            res += "</font>";
             return res;
           },
         },
@@ -175,7 +168,7 @@ export default {
 };
 </script>
 <style scoped>
-#global-main-map {
+#home-china-map {
   width: 800px;
   height: 500px;
 }

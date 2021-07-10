@@ -2,22 +2,22 @@
   <div class="test">
     <v-card
         class="mx-auto"
-        width="460"
+        width="344"
     >
       <v-img
-          src='../../assets/backgroundImage/question0.jpg'
+          src='../../assets/backgroundImage/rumor0.jpg'
           height="200px"
           v-if="showImage.a"
       ></v-img>
 
       <v-img
-          src='../../assets/backgroundImage/question1.jpg'
+          src='../../assets/backgroundImage/rumor1.jpg'
           height="200px"
           v-if="showImage.b"
       ></v-img>
 
       <v-img
-          src='../../assets/backgroundImage/question2.jpg'
+          src='../../assets/backgroundImage/rumor2.jpg'
           height="200px"
           v-if="showImage.c"
       ></v-img>

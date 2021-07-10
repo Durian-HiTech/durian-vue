@@ -151,7 +151,8 @@ export default {
 </script>
 <style scope>
 .main{
-  width: 100%; background-color: #F2F6FC; margin-top: 50px
+  width: 100%;
+  margin-top: 50px
 }
 .content{
   /*background-color: #FFFFFF;*/
