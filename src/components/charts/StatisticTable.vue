@@ -1,41 +1,37 @@
 <template>
-    <div class="s_table_root">
+  <div class="s_table_root">
     <v-app>
-        <v-card class="s_table">
-            <v-card-title>
-            <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="Search"
-                single-line
-                hide-details
-                color='#00ACA5'
-            ></v-text-field>
-            </v-card-title>
-            <v-data-table
-            :headers="headers"
-            :items="detailed"
-            :search="search"
-            :footer-props="{
-                disableItemsPerPage: true,
-                itemsPerPageOptions: [10],
-            }"
-            color='#00ACA5'
-            >
-
-                <template v-slot:[`item.nowcases`]="{ item }">
-                    <v-chip
-                        :color="getColor(item.nowcases)"
-                        dark
-                    >
-                        {{ item.nowcases }}
-                    </v-chip>
-                </template>
-            
-            </v-data-table>
-        </v-card>
+      <v-card class="s_table">
+        <v-card-title>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+            color="#00ACA5"
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table
+          :headers="headers"
+          :items="detailed"
+          :search="search"
+          :custom-filter="customFilter"
+          :footer-props="{
+            disableItemsPerPage: true,
+            itemsPerPageOptions: [10],
+          }"
+          color="#00ACA5"
+        >
+          <template v-slot:[`item.nowcases`]="{ item }">
+            <v-chip :color="getColor(item.nowcases)" dark>
+              {{ item.nowcases }}
+            </v-chip>
+          </template>
+        </v-data-table>
+      </v-card>
     </v-app>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -53,34 +49,15 @@ export default {
         required:true
       }
     },
-    mounted(){
-      this.detailed = this.$props.tableData;
-      var i;
-      var item;
-      if(this.$props.type == "China"){
-        this.headers[0].text = "省份";
-        for(i in this.detailed){
-        for(item in provinceen2zh){
-          if(provinceen2zh[item]["value"] == this.detailed[i]["name"]){
-            this.detailed[i]["zhname"] = provinceen2zh[item]["label"];
-            break;
-          }
-        }
+    watch:{
+      tableData(){
+        this.loadData();
       }
-      } else{
-        this.headers[0].text = "国家";
-        for(i in this.detailed){
-        for(item in countryen2zh){
-          if(countryen2zh[item]["value"] == this.detailed[i]["name"]){
-            this.detailed[i]["zhname"] = countryen2zh[item]["label"];
-            break;
-          }
-        }
-      }
-      }
-      
-      
     },
+    mounted(){
+      this.loadData();
+    },
+
     data () {
       return {
         search: '',
@@ -102,26 +79,56 @@ export default {
       }
     },
     methods: {
-        getColor (nowcases) {
+      getColor (nowcases) {
         if (nowcases > 100000) return 'red'
         else if (nowcases > 1000) return 'orange'
         else return 'green'
       },
-    },
+      customFilter(_,search,item){
+        if(item.name.toLowerCase().indexOf(search.toLowerCase())!=-1||item.zhname.toLowerCase().indexOf(search.toLowerCase())!=-1)return true;
+        return false;
+      },
+      loadData(){
+        this.detailed = this.$props.tableData;
+        var i;
+        var item;
+        if(this.$props.type == "China"){
+          this.headers[0].text = "省份";
+          for(i in this.detailed){
+            for(item in provinceen2zh){
+              if(provinceen2zh[item]["value"] == this.detailed[i]["name"]){
+                this.detailed[i]["zhname"] = provinceen2zh[item]["label"];
+                break;
+              }
+            }
+          }
+        } else{
+          this.headers[0].text = "国家";
+          for(i in this.detailed){
+            for(item in countryen2zh){
+              if(countryen2zh[item]["value"] == this.detailed[i]["name"]){
+                this.detailed[i]["zhname"] = countryen2zh[item]["label"];
+                break;
+              }
+            }
+          }
+        }
+      }
+    }
 }
 </script>
 
 <style>
 .s_table_root {
-    padding: 10px;
-    height: 670px;
-	overflow: hidden;
+  padding: 10px;
+  height: 670px;
+  overflow: hidden;
 }
 .s_table th {
-    font-size: 18px !important;
-    white-space: nowrap !important;
+  font-size: 18px !important;
+  white-space: nowrap !important;
 }
 .s_table td {
-    font-size: 18px !important;
+  font-size: 18px !important;
 }
 </style>

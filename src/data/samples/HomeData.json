@@ -2,24 +2,24 @@
     "Global": {
         "overview": {
             "nowcases": {
-                "nownum": 1234,
-                "newnum": 1234
+                "nownum": 1234123,
+                "newnum": 12341
             },
             "cases": {
-                "nownum": 1234,
-                "newnum": 1234
+                "nownum": 4124,
+                "newnum": 12323144
             },
             "deaths": {
-                "nownum": 1234,
-                "newnum": 1234
+                "nownum": 123,
+                "newnum": 41234
             },
             "recovered": {
-                "nownum": 12344,
-                "newnum": -1234
+                "nownum": 124334,
+                "newnum": -123
             },
             "vaccine": {
-                "nownum": 1234,
-                "newnum": 1234
+                "nownum": 123344,
+                "newnum": 34
             }
         },
         "detailed": [
