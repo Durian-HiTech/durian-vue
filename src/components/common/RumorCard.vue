@@ -2,7 +2,7 @@
   <div class="test">
     <v-card
         class="mx-auto"
-        width="460"
+        width="344"
     >
       <v-img
           src='../../assets/backgroundImage/question0.jpg'
