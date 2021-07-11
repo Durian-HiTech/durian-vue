@@ -1,22 +1,22 @@
 <template>
   <div class="root">
     <span class="title">
-      <b>Covid</b> Q&A
+      <b>Covid</b> Knowledge
     </span>
       
     <el-divider/>
-    <QuestionList/>
+    <KnowledgeList/>
   </div>
 </template>
 
 
 <script>
-import QuestionList from '../components/QuestionList'
+import KnowledgeList from '../components/KnowledgeList.vue'
 
 export default {
   name: 'QuestionAll',
   components: {
-    QuestionList,
+    KnowledgeList,
   },
 
 }

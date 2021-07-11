@@ -47,11 +47,11 @@ export default {
     return {
       pages: [
         {
-          title:"国内疫情分析",
+          title:"国内疫情",
           url:"/chinaanalysis"
         },
         {
-          title:"国际疫情分析",
+          title:"国际疫情",
           url:"/globalanalysis"
         },
         {
@@ -59,8 +59,12 @@ export default {
           url: "/news",
         },
         {
-          title:"知识版块",
+          title:"问答",
           url: "/question",
+        },
+        {
+          title:"知识",
+          url: "/knowledge",
         },
         {
           title:"行程",
