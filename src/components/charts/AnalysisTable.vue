@@ -72,7 +72,6 @@ export default {
           { text: '累积确诊', value: 'cases' },
           { text: '累积治愈', value: 'recovered' },
           { text: '累积死亡', value: 'deaths' },
-          { text: '疫苗接种', value: 'vaccine' },
         ],
         detailed: [
         ],
