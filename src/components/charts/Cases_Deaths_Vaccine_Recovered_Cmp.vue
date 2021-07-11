@@ -11,6 +11,7 @@ import * as echarts from 'echarts';
 var option;
 var json_data = [["Date", "Number", "Type"]];
 export default{
+  name: 'CasesDeathsVaccieRecoveredCmp',
   props:{
     data_table:{
       type:Object,
