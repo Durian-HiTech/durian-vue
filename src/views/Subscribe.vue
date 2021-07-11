@@ -1,6 +1,21 @@
 <template>
   <div class="subscribe_root">
-    <span class="title"> <b>Covid</b> Subscriptions </span>
+    <span class="title"> 
+
+      <b style="margin-right: 10px;">Covid</b> Subscriptions
+
+      <el-input
+      placeholder="Search"
+      v-model="search"
+      style="margin-left: 250px; width: 300px;"
+      >
+        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+      </el-input>
+    
+    </span>
+
+    
+
     <el-divider />
 
     <v-app style='height: 20px;'>
@@ -41,14 +56,25 @@
             placeholder="请选择"
             style="margin-right: 8px"
           >
-            <el-option
+            <!-- <el-option
               v-for="item in options"
               :key="item.value"
               :label="item.label"
               :value="item.value"
               :disabled="item.disabled"
             >
-            </el-option>
+            </el-option> -->
+            <el-option-group
+              v-for="group in options"
+              :key="group.label"
+              :label="group.label">
+              <el-option
+                v-for="item in group.options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-option-group>
           </el-select>
           <el-button
             type="primary"
@@ -61,7 +87,7 @@
         <div class="cityList">
           <div
             class="homeSection"
-            v-for="city in cityList"
+            v-for="city in cityList_show"
             v-bind:key="city.city_name"
           >
             <div class="homeHeader">
@@ -118,10 +144,18 @@ export default {
   components: {
     LittleDataCard,
   },
+  computed: {
+    cityList_show () {
+      return this.cityList.filter(
+                item => item.city_name.indexOf(this.search)>=0
+      )
+    }
+  },
   data() {
     return {
       dialogTableVisible: false,
       cityList: [],
+      search: '',
       overviewData: [
         {
           nownum: 123143241,
@@ -148,13 +182,58 @@ export default {
           color: "#00ACA5",
         },
       ],
-      options: [
+      // options: [
+      //   { value: "安徽省", label: "安徽省" },
+      //   { value: "北京市", label: "北京市" },
+      //   { value: "重庆市", label: "重庆市" },
+      //   { value: "福建省", label: "福建省" },
+      //   { value: "甘肃省", label: "甘肃省" },
+      //   { value: "广东省", label: "广东省" },
+      //   { value: "广西壮族自治区", label: "广西壮族自治区" },
+      //   { value: "贵州省", label: "贵州省" },
+      //   { value: "海南省", label: "海南省" },
+      //   { value: "河北省", label: "河北省" },
+      //   { value: "黑龙江省", label: "黑龙江省" },
+      //   { value: "河南省", label: "河南省" },
+      //   { value: "香港", label: "香港" },
+      //   { value: "湖北省", label: "湖北省" },
+      //   { value: "湖南省", label: "湖南省" },
+      //   { value: "江苏省", label: "江苏省" },
+      //   { value: "江西省", label: "江西省" },
+      //   { value: "吉林省", label: "吉林省" },
+      //   { value: "辽宁省", label: "辽宁省" },
+      //   { value: "澳门", label: "澳门" },
+      //   { value: "内蒙古自治区", label: "内蒙古自治区" },
+      //   { value: "宁夏回族自治区", label: "宁夏回族自治区" },
+      //   { value: "青海省", label: "青海省" },
+      //   { value: "陕西省", label: "陕西省" },
+      //   { value: "山东省", label: "山东省" },
+      //   { value: "上海市", label: "上海市" },
+      //   { value: "山西省", label: "山西省" },
+      //   { value: "四川省", label: "四川省" },
+      //   { value: "台湾", label: "台湾" },
+      //   { value: "天津市", label: "天津市" },
+      //   { value: "新疆维吾尔自治区", label: "新疆维吾尔自治区" },
+      //   { value: "西藏自治区", label: "西藏自治区" },
+      //   { value: "云南省", label: "云南省" },
+      //   { value: "浙江省", label: "浙江省" },
+      // ],
+      options: [{
+        label: '热门城市',
+        options: [
+        { value: "云南省", label: "云南省" },
+        {value: "北京市", label: "北京市" }, 
+        { value: "上海市", label: "上海市" },
+        { value: "广东省", label: "广东省" },]
+        }, {
+        label: '城市名',
+        options: [
         { value: "安徽省", label: "安徽省" },
-        { value: "北京市", label: "北京市" },
+        // { value: "北京市", label: "北京市" },
         { value: "重庆市", label: "重庆市" },
         { value: "福建省", label: "福建省" },
         { value: "甘肃省", label: "甘肃省" },
-        { value: "广东省", label: "广东省" },
+        // { value: "广东省", label: "广东省" },
         { value: "广西壮族自治区", label: "广西壮族自治区" },
         { value: "贵州省", label: "贵州省" },
         { value: "海南省", label: "海南省" },
@@ -174,16 +253,17 @@ export default {
         { value: "青海省", label: "青海省" },
         { value: "陕西省", label: "陕西省" },
         { value: "山东省", label: "山东省" },
-        { value: "上海市", label: "上海市" },
+        // { value: "上海市", label: "上海市" },
         { value: "山西省", label: "山西省" },
         { value: "四川省", label: "四川省" },
         { value: "台湾", label: "台湾" },
         { value: "天津市", label: "天津市" },
         { value: "新疆维吾尔自治区", label: "新疆维吾尔自治区" },
         { value: "西藏自治区", label: "西藏自治区" },
-        { value: "云南省", label: "云南省" },
+        // { value: "云南省", label: "云南省" },
         { value: "浙江省", label: "浙江省" },
-      ],
+        ]
+      }],
       convertEngOptions: [
         { value: "Anhui", label: "安徽省" },
         { value: "Beijing", label: "北京市" },
@@ -261,7 +341,7 @@ export default {
         .post(api.baseApi + "/sub/del_sub", formData, config)
         .then(function (response) {
           if (response.status == 200) {
-            _this.updateSub();
+            _this.$message({ message: "成功删除订阅", type: "true" });
           } else {
             console.log("请求失败");
           }
@@ -278,13 +358,23 @@ export default {
       var _this = this;
       var is_success = true;
       var len_city = this.cityList.length;
-      for (var i = 0; i < len_city; i++) {
-        if (this.cityList[i].city_name == this.value) {
-          _this.$message({ message: "已订阅该城市", type: "false" });
+
+      if (this.value==""){
+        _this.$message({ message: "您尚未订阅，请先选择一项订阅城市", type: "false" });
           is_success = false;
-          break;
+      }
+
+
+      if (is_success == true){
+        for (var i = 0; i < len_city; i++) {
+          if (this.cityList[i].city_name == this.value) {
+            _this.$message({ message: "已订阅该城市", type: "false" });
+            is_success = false;
+            break;
+          }
         }
       }
+      
       if (is_success == true) {
         var tmp = {
           city_name: this.value,
@@ -296,7 +386,7 @@ export default {
           .post(api.baseApi + "/sub/subscribe", formData, config)
           .then(function (response) {
             if (response.status == 200) {
-              _this.updateSub();
+              _this.$message({ message: "成功订阅", type: "true" });
             } else {
               console.log("请求失败");
             }
@@ -317,33 +407,15 @@ export default {
 .title {
     margin-top: 70px;
     font-size: 30px; 
-    align-self: flex-start; 
+    align-self: flex-start;
     position: relative;
     left: 250px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }
-.hometitle {
-  /* outline: #00ff00 dotted thick; */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 100px;
-  margin-bottom: 80px;
-
-  align-self: flex-start;
-
-  margin-right: 40%;
-}
-.titleText {
-  font-size: 80px;
-}
-.hometitle .SelectBar {
-  /* outline: #00ff00 dotted thick; */
-
-  margin-top: 20px;
-  margin-left: 30px;
-}
 
 .homeMain {
   display: flex;

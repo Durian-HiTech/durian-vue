@@ -80,7 +80,7 @@
 	</div>
 
 	<div class="track" style="padding:20px;margin:0 auto;margin-top:70px;">
-		<div style="font-size:30px;padding:5px">
+		<div style="font-size:20px;padding:5px;font-color:">
 				疫情轨迹
 		</div>
 		<div class="trackCardRoot">
@@ -89,6 +89,7 @@
 				<track-card destination="浙江杭州"></track-card>
 				<track-card destination="浙江徐州"></track-card>
 			</div>
+			<div>2021/06/23-2021/07/07</div>
 		</div>
 		<div class="trackCardRoot">
 			<div class="row">
@@ -96,14 +97,7 @@
 				<track-card destination="陕西咸阳"></track-card>
 				<track-card destination="紫阳县汉王镇"></track-card>
 			</div>
-		</div>
-		<div class="trackCardRoot">
-			<div class="row">
-				<div class="trackCity">北京</div>
-				<track-card destination="广州"></track-card>
-				<track-card destination="深vbhhshfdsdfdasfs圳"></track-card>
-				<track-card destination="深大范德萨范德萨发生	"></track-card>
-			</div>
+			<div>2021/07/02-2021/07/09</div>
 		</div>
 	</div>
 
@@ -127,6 +121,22 @@ export default {
 		SearchInput: '',
 		buttons: ['国内', '国际'],
 		showChina: true,
+		track :[
+			[
+				{position:'浙江杭州',coordinate:"120.21201,30.2084" },
+				{position:'浙江徐州',coordinate:"117.18554,34.28823"},
+			],
+			[
+				{position:'广东东莞',coordinate:"113.75179,23.02067"},
+				{position:'陕西咸阳',coordinate:"108.70641,34.32908"},
+				{position:'紫阳县汉王镇',coordinate:"108.446617,32.714622"},
+				
+			],
+			[
+
+			]
+
+		]
     }
   },
   methods: {
@@ -223,7 +233,7 @@ export default {
 	border: #bfbec0 solid thin;
 	border-radius: 30px;
 	width: auto;
-	height: 120px;
+	height: 80px;
 	
 	position: relative;
 	

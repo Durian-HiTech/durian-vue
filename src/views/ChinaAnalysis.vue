@@ -45,18 +45,24 @@
       <analysis-table :type="country['name']" :tableData="mapData"></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
+    <div class="Cases">待插入</div>
+    <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
+      <CasesDeathsVaccieRecoveredCmp />
+    </div>
   </div>
 </template>
 <script>
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue"
+import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue"
 export default {
   name: "ChinaAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
-    AnalysisChinaMap
+    AnalysisChinaMap,
+    CasesDeathsVaccieRecoveredCmp
   },
   data() {
     return {
