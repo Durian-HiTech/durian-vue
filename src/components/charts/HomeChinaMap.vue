@@ -122,6 +122,10 @@ export default {
             type: "map",
             roam: true,
             zoom:2,
+            scaleLimit:{
+              min:1,
+              max:4
+            },
             map: "",
             emphasis: {
               label: {

@@ -96,7 +96,7 @@ export default {
           this.headers[0].text = "省份";
           for(i in this.detailed){
             for(item in provinceen2zh){
-              if(provinceen2zh[item]["value"] == this.detailed[i]["name"]){
+              if(provinceen2zh[item]["value"] == this.detailed[i]["name"] || provinceen2zh[item]["label"] == this.detailed[i]["name"]){
                 this.detailed[i]["zhname"] = provinceen2zh[item]["label"];
                 break;
               }
@@ -106,19 +106,20 @@ export default {
           this.headers[0].text = "国家";
           for(i in this.detailed){
             for(item in countryen2zh){
-              if(countryen2zh[item]["value"] == this.detailed[i]["name"]){
+              if(countryen2zh[item]["value"] == this.detailed[i]["name"] || countryen2zh[item]["label"] == this.detailed[i]["name"]){
                 this.detailed[i]["zhname"] = countryen2zh[item]["label"];
                 break;
               }
             }
           }
-        } else{ // 其他国家的区域，没有中文数据
+        } else{ // 其他国家的区域，直接就是中文
             this.headers[0].text = "区域";
             for(i in this.detailed){
                 this.detailed[i]["zhname"] = this.detailed[i]["name"];
             }
         }
       }
+     
     }
 }
 </script>
