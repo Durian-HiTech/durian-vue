@@ -5,7 +5,8 @@
 import * as echarts from "echarts";
 var chinaen2zh = require("../../data/utils/china_en2province.json");
 var coviddata; //为了显示所有数据存储一份全局数据
-var mapdata = {}; // 中文名字和adcode的对照表
+var mapdata = {}; // 中文名字和adcode对照表
+var chinazh2en = {};
 export default {
   name: "AnalysisChinaMap",
   props: {
@@ -138,9 +139,9 @@ export default {
             type: "map",
             roam: true,
             zoom: 2,
-            scaleLimit:{
-              min:1,
-              max:4
+            scaleLimit: {
+              min: 1,
+              max: 4,
             },
             map: "",
             emphasis: {
@@ -158,14 +159,15 @@ export default {
     type() {
       this.loadData();
     },
-    data() {// data若变则country必定已经变
+    data() {
+      // data若变则country必定已经变
       coviddata = this.$props.data;
       var mapname;
       if (this.$props.country["name"] == "China") {
         mapname = "China";
-        this.dataprocessing(); //全国数据需要转中文
+        this.dataprocessing(); //全国数据需要中文和拼音
       } else {
-        mapname = this.$props.country["adcode"];
+        mapname = this.$props.country["info"]["adcode"];
       }
       this.loadMap(mapname);
       this.option["series"][0]["data"] = coviddata;
@@ -173,11 +175,18 @@ export default {
     },
   },
   methods: {
+    loadzh2en(){
+      for(var item in chinaen2zh){
+        chinazh2en[chinaen2zh[item]["label"]] = chinaen2zh[item]["value"];
+      }
+    },
     dataprocessing() {
       // 当前图为China时将获取的省会数据英文名称转中文
       for (var i in coviddata) {
         for (var item in chinaen2zh) {
-          if (coviddata[i]["name"] == chinaen2zh[item]["value"]) {
+          if (
+            coviddata[i]["name"] == chinaen2zh[item]["value"]
+          ) {
             coviddata[i]["name"] = chinaen2zh[item]["label"];
             break;
           }
@@ -198,10 +207,14 @@ export default {
       this.myChart.setOption(this.option);
     },
     clickevent(newcountry) {
-      if(this.$props.country.name != 'China')return ;//最多到二级
+      if (this.$props.country.name != "China") return; //最多到二级
       this.$parent.changeCountry({
         name: newcountry,
-        adcode: mapdata[newcountry],
+        info:{
+          name: chinazh2en[newcountry],
+          adcode: mapdata[newcountry],
+        }
+        
       });
     },
     loadData() {

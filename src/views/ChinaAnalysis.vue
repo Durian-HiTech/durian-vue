@@ -7,10 +7,24 @@
     <div class="MapSection" v-if="dataloaded">
       <div class="MapMain">
         <div class="Map">
-          <analysis-china-map :data="mapData" :country="country" :type="type"></analysis-china-map>
+          <el-page-header
+            @back="backtoChina"
+            :content="country['name'] + '疫情地图'"
+            v-if="country['name'] != 'China'"
+          ></el-page-header>
+          <div
+            v-if="country['name'] == 'China'"
+          >中国疫情地图</div>
+          <analysis-china-map
+            :data="mapData"
+            :country="country"
+            :type="type"
+          ></analysis-china-map>
         </div>
         <div class="Overview">
+          <!-- 显示时间，待美化 -->
           <span>{{ date }}</span>
+
           <div v-for="(data, index) in overviewData" :key="index">
             <div @click="changeKey(data.type)">
               <LittleDataCard
@@ -39,44 +53,45 @@
           :show-tooltip="false"
         ></el-slider>
       </div>
-      <div class="Player">这里是播放器</div>
     </div>
     <div class="TableSection" v-if="dataloaded">
-      <analysis-table :type="country['name']" :tableData="mapData"></analysis-table>
+      <analysis-table
+        :type="country['name']"
+        :tableData="mapData"
+      ></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
     <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
-      <CasesDeathsVaccieRecoveredCmp 
-        :DateTable = "{}"
-      />
+      <CasesDeathsVaccieRecoveredCmp :DateTable="{}" />
     </div>
   </div>
 </template>
 <script>
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
-import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue"
-import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue"
+import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
+import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
 export default {
   name: "ChinaAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    CasesDeathsVaccieRecoveredCmp
+    CasesDeathsVaccieRecoveredCmp,
   },
   data() {
     return {
       date: "",
       timevalue: 0,
-      country:{},//China或省或省会 {name:"",adcode:"",}
-      type:"",//热力图主键
+      country: {}, //China或省或省会 {name:"",adcode:"",}
+      type: "", //热力图主键
       data: "", //const
       dataloaded: false,
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
+      loadlocal:true,
     };
   },
   watch: {
@@ -95,19 +110,35 @@ export default {
   },
   computed: {},
   mounted() {
-    this.loaddata("China");
-    this.country = {name:"China",adcode:""};
+    this.loaddata({
+      name:"China",
+      zhname:"中国"
+    });
+    this.country = { 
+      name: "China", 
+      info:{
+        name:"",
+        adcode: "", 
+      }
+    };
     this.type = "nowcases";
   },
   methods: {
     loaddata(name) {
       // 获得中国或指定省会或指定城市
       this.dataloaded = false;
-      this.data = require("../data/samples/" + name + "AnalysisSample.json");
-      this.maxTimeNum = this.data.length - 1;
-      this.date = this.data[this.timevalue]["date"];
-      this.loadporpsdata();
-      this.dataloaded = true;
+      if(this.loadlocal){
+        if(name.name=='China')this.data = require("../data/samples/" + name.name + "AnalysisSample.json");
+        else this.data = require("../data/samples/"+name.zhname+"AnalysisSample.json");
+        this.maxTimeNum = this.data.length - 1;
+        this.date = this.data[this.timevalue]["date"];
+        this.loadporpsdata();
+        this.dataloaded = true;
+      }else{
+        return ;
+      }
+      
+      
     },
     changeKey(nowtype) {
       var mapping = {
@@ -163,12 +194,24 @@ export default {
     },
     changeCountry(obj) {
       this.country = obj;
-      this.loaddata(obj.name);
+      this.loaddata({
+        name:obj.info.name,
+        zhname:obj.name
+      });
     },
+    backtoChina() {
+      this.changeCountry({
+        name:'China',
+        info:{
+          name:'',
+          adcode:''
+        }
+      })
+    },
+    loadCasesDeathsVaccieRecoveredCmp() {},
   },
-  loadCasesDeathsVaccieRecoveredCmp(){
 
-  },
+  
 };
 </script>
 <style scoped>
