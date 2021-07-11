@@ -60,6 +60,11 @@ const routes = [
     component: () => import('../views/Question.vue')
   },
   {
+    path: '/knowledge/:id',
+    name: 'Knowledge',
+    component: () => import('../views/Question.vue')
+  },
+  {
     path: '/subscribe',
     name: 'Subscribe',
     component: () => import('../views/Subscribe.vue')
