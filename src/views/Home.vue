@@ -45,8 +45,9 @@
           </div>
 
           <div class="homeOverview">
+            <span style="color:grey; font-weight: bold; font-size: 11px;position: absolute; bottom: 1px; left: 6px">*点击以切换显示数据</span>
             <div v-for="(data, index) in ChinaoverviewData" :key="index">
-              <div @click="changeKey(data.type)">
+              <div @click="changeKey(data.type)" style="cursor: pointer;">
               <LittleDataCard
                 :nownum="data.nownum"
                 :type="data.type"
@@ -109,8 +110,9 @@
           </div>
 
           <div class="homeOverview">
+            <span style="color:grey; font-weight: bold; font-size: 11px;position: absolute; bottom: 1px; left: 6px">*点击以切换显示数据</span>
             <div v-for="(data, index) in GlobaloverviewData" :key="index">
-              <div @click="changeKey(data.type)">
+              <div @click="changeKey(data.type)" style="cursor: pointer;">
                 <LittleDataCard
                   :nownum="data.nownum"
                   :type="data.type"
@@ -332,6 +334,8 @@ export default {
   align-self: start;
 }
 .homeOverview {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
