@@ -88,12 +88,12 @@
       <div class="cityList">
         <div
           class="homeSection"
-          v-for="city in cityList_show"
-          v-bind:key="city.city_name"
+          v-for="(city, index) in cityList_show"
+          v-bind:key="index"
         >
           <div class="homeHeader">
             <div class="region">
-              {{ city.city_name }}
+              {{ city.name }}
             </div>
             <div style="display: flex; align-items: center">
               <svg
@@ -121,20 +121,39 @@
           </div>
 
           <div class="homeOverview">
-            <div v-for="(data, index) in overviewData" :key="index">
               <LittleDataCard
-                :nownum="data.nownum"
-                :type="data.type"
-                :newnum="data.newnum"
-                :color="data.color"
+                :nownum="city.cases"
+                :newnum="city.newcases"
+                type="确诊"
+                color="#AC3500"
               />
-            </div>
+
+               <LittleDataCard
+                :nownum="city.deaths"
+                :newnum="city.newdeaths"
+                type="死亡"
+                color="black"
+              />
+
+               <LittleDataCard
+                :nownum="city.recovered"
+                :newnum="city.newrecovered"
+                type="治愈"
+                color="#00ACA5"
+              />
+
+               <!-- <LittleDataCard
+                :nownum="city.vaccine"
+                :newnum="city.newvaccine"
+                type="疫苗"
+                color="#00ACA5"
+              /> -->
           </div>
         </div>
       </div>
 
       <div>
-        {{newMessage}}
+        {{information}}
       </div>
 
     </div>
@@ -153,11 +172,8 @@ export default {
   computed: {
     cityList_show () {
       return this.cityList.filter(
-                item => item.city_name.indexOf(this.search)>=0
+                item => item.name.indexOf(this.search)>=0
       )
-    },
-    newMessage () {
-      return 'new message'
     },
     isLogined () {
       return this.$store.getters.userState.isLogined
@@ -168,32 +184,7 @@ export default {
       dialogTableVisible: false,
       cityList: [],
       search: '',
-      overviewData: [
-        {
-          nownum: 123143241,
-          type: "确诊",
-          newnum: 2313,
-          color: "#AC3500",
-        },
-        {
-          nownum: 123143241,
-          type: "死亡",
-          newnum: 2313,
-          color: "#AC3500",
-        },
-        {
-          nownum: 123143241,
-          type: "治愈",
-          newnum: 2313,
-          color: "#00ACA5",
-        },
-        {
-          nownum: 123143241,
-          type: "疫苗",
-          newnum: 2313,
-          color: "#00ACA5",
-        },
-      ],
+      information: '',
       // options: [
       //   { value: "安徽省", label: "安徽省" },
       //   { value: "北京市", label: "北京市" },
@@ -316,10 +307,11 @@ export default {
     };
   },
   mounted: function () {
-    this.querySubCity();
+    // this.querySubCity();
+    this.getSubsData();
   },
   methods: {
-    querySubCity() {
+    getSubsData () {
       let formData = new FormData();
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
@@ -327,15 +319,34 @@ export default {
       };
       var _this = this;
       axios
-        .post(api.baseApi + "/sub/list_all_subs", formData, config)
+        .post(api.baseApi + "/sub/list_subs_data", formData, config)
         .then(function (response) {
           if (response.status == 200) {
-            _this.cityList = response.data.data;
+            console.log(response)
+            _this.information = response.data.information
+            _this.cityList = response.data.data
           } else {
             console.log("请求失败");
           }
         });
     },
+    // querySubCity() {
+    //   let formData = new FormData();
+    //   formData.append("user_id", this.$store.getters.userState.id);
+    //   let config = {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   };
+    //   var _this = this;
+    //   axios
+    //     .post(api.baseApi + "/sub/list_all_subs", formData, config)
+    //     .then(function (response) {
+    //       if (response.status == 200) {
+    //         _this.cityList = response.data.data;
+    //       } else {
+    //         console.log("请求失败");
+    //       }
+    //     });
+    // },
     handleDelete(index, row) {
       let formData = new FormData();
       formData.append("city_name", row.city_name);
@@ -360,7 +371,7 @@ export default {
         });
     },
     subCity() {
-      console.log(this.value);
+      // console.log(this.value);
       let formData = new FormData();
       formData.append("city_name", this.value);
       formData.append("user_id", this.$store.getters.userState.id);
@@ -469,7 +480,7 @@ export default {
   white-space: nowrap;
   text-align: center;
 
-  font-size: 27px;
+  font-size: 22px;
   font-weight: 500;
 
   background-color: #06a19c;
@@ -477,7 +488,7 @@ export default {
 
   border-radius: 30px;
 
-  padding: 5px 15px 5px 15px;
+  padding: 2px 12px 2px 12px;
   margin: 3px;
 }
 </style>
