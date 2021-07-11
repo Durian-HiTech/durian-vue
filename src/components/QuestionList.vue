@@ -23,86 +23,98 @@
     </span>
     </el-dialog>
 
-    <v-app style="margin: 30px">
-      <h1>谣言&辟谣</h1>
-      <p style="color:grey;">共{{this.rumor_list.length}}条谣言/辟谣</p>
-      <div
-          style="margin: 30px"
-          v-for="rumor in rumor_list.slice((this.currentPage - 1) * this.eachPage,
-            this.currentPage * this.eachPage)"
-          v-bind:key="rumor.rumor_id"
+    <el-input
+      placeholder="Search"
+      v-model="search"
+      style="width: 70%;"
       >
-        <RumorCard v-bind:title="rumor.rumor_title" :content="rumor.rumor_content" :rumor_type="rumor.rumor_type" :link="'rumor/'+rumor.rumor_id" />
-      </div>
-      <v-pagination
-          style="margin-top: 30px;"
-          v-model="currentPage"
-          :length="Math.ceil(this.rumor_list.length / eachPage)"
-          circle
-          color="cyan"
-      ></v-pagination>
+      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    </el-input>
 
-    </v-app>
+    <div style="display: flex; justify-content: center; align-items: flex-start;">
 
-    <v-app style="margin: 30px">
-      <h1>问答专区</h1>
-      <p style="color:grey;">共{{this.question_list.length}}条提问</p>
-
-      <center>
-        <v-btn
-          rounded
-          color="cyan"
-          dark
-          @click="dialogVisible = true"
-          width='140px'
+      <v-app style="margin: 30px">
+        <h1>谣言&辟谣</h1>
+        <p style="color:grey;">共{{this.rumor_list_show.length}}条谣言/辟谣</p>
+        <div
+            style="margin: 30px"
+            v-for="rumor in rumor_list_show.slice((this.currentPage - 1) * this.eachPage,
+              this.currentPage * this.eachPage)"
+            v-bind:key="rumor.rumor_id"
         >
-          <v-icon left>
-            mdi-pencil
-          </v-icon>
-          我要提问
-        </v-btn>
-      </center>
+          <RumorCard v-bind:title="rumor.rumor_title" :content="rumor.rumor_content" :rumor_type="rumor.rumor_type" :link="'rumor/'+rumor.rumor_id" />
+        </div>
+        <v-pagination
+            style="margin-top: 30px;"
+            v-model="currentPage"
+            :length="Math.ceil(this.rumor_list_show.length / eachPage)"
+            circle
+            color="cyan"
+        ></v-pagination>
 
-      <div
-          class="rumor"
-          style="margin: 30px;"
-          v-for="question in question_list.slice((this.currentPage_2 - 1) * this.eachPage,
-            this.currentPage_2 * this.eachPage)"
-          v-bind:key="question.question_id"
-      >
-        <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
-      </div>
-      <v-pagination
-          style="margin-top: 30px;"
-          v-model="currentPage_2"
-          :length="Math.ceil(this.question_list.length / eachPage)"
-          circle
-          color="cyan"
-      ></v-pagination>
+      </v-app>
 
-    </v-app>
+      <v-app style="margin: 30px">
+        <h1>问答专区</h1>
+        <p style="color:grey;">共{{this.question_list_show.length}}条提问</p>
 
+        <center>
+          <v-btn
+            rounded
+            color="cyan"
+            dark
+            @click="dialogVisible = true"
+            width='140px'
+          >
+            <v-icon left>
+              mdi-pencil
+            </v-icon>
+            我要提问
+          </v-btn>
+        </center>
 
-    <v-app style="margin: 30px">
-      <h1>防疫小知识</h1>
-      <p style="color:grey;">共{{total}}条防疫小知识</p>
-      <div
-          style="margin: 30px"
-          v-for="question in question_list.slice((this.currentPage_3 - 1) * this.eachPage,
-            this.currentPage_3 * this.eachPage)"
-          v-bind:key="question.question_id"
-      >
-        <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
-      </div>
-      <v-pagination
-          style="margin-top: 30px;"
-          v-model="currentPage_3"
-          :length="Math.ceil(total / eachPage)"
-          circle
-          color="cyan"
-      ></v-pagination>
+        <div
+            class="rumor"
+            style="margin: 30px;"
+            v-for="question in question_list_show.slice((this.currentPage_2 - 1) * this.eachPage,
+              this.currentPage_2 * this.eachPage)"
+            v-bind:key="question.question_id"
+        >
+          <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
+        </div>
+        <v-pagination
+            style="margin-top: 30px;"
+            v-model="currentPage_2"
+            :length="Math.ceil(this.question_list_show.length / eachPage)"
+            circle
+            color="cyan"
+        ></v-pagination>
 
-    </v-app>
+      </v-app>
+
+      <v-app style="margin: 30px">
+        <h1>防疫小知识</h1>
+        <p style="color:grey;">共{{total}}条防疫小知识</p>
+        <div
+            style="margin: 30px"
+            v-for="question in question_list.slice((this.currentPage_3 - 1) * this.eachPage,
+              this.currentPage_3 * this.eachPage)"
+            v-bind:key="question.question_id"
+        >
+          <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
+        </div>
+        <v-pagination
+            style="margin-top: 30px;"
+            v-model="currentPage_3"
+            :length="Math.ceil(total / eachPage)"
+            circle
+            color="cyan"
+        ></v-pagination>
+
+      </v-app>
+
+    </div>
+
   </div>
 
 </template>
@@ -115,7 +127,7 @@ import RumorCard from './common/RumorCard'
 import moment from "moment"
 
 export default {
-    name:"NewsList",
+    name:"QuestionList",
     data(){
         return {
             question_list: [],
@@ -126,6 +138,7 @@ export default {
             eachPage: 5,
             total: 0,
             dialogVisible: false,
+            search: '',
             ruleForm: {
               name: '',
               content: '',
@@ -146,6 +159,18 @@ export default {
     components: {
         QuestionCard,
         RumorCard
+    },
+    computed: {
+      rumor_list_show () {
+        return this.rumor_list.filter(
+          item => item.rumor_title.indexOf(this.search)>=0
+        )
+      },
+      question_list_show () {
+        return this.question_list.filter(
+          item => item.question_title.indexOf(this.search)>=0
+        )
+      }
     },
     methods:{
         getAllQuestions() {
@@ -245,7 +270,7 @@ export default {
         },
         resetForm(formName) {
           this.$refs[formName].resetFields();
-        } 
+        },
       },
     mounted : function(){
         this.getAllQuestions();
@@ -258,7 +283,8 @@ export default {
 .main{
   /*background-color: violet;*/
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
 }
 .rumor{
   background-image: url(../static/tag1.png);
