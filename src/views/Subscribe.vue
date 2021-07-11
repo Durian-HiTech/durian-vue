@@ -14,8 +14,6 @@
     
     </span>
 
-    
-
     <el-divider />
 
     <v-app style='height: 20px;'>
@@ -33,106 +31,111 @@
       </v-btn>
     </v-app>
 
-    <div class="homeChina">
-      <div class="homeMain">
-        <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
-          <el-table :data="cityList" style="width: 100%">
-            <el-table-column label="订阅城市" prop="city_name">
-            </el-table-column>
-            <el-table-column align="right">
-              <template slot-scope="scope">
-                <el-button
-                  size="mini"
-                  type="danger"
-                  @click="handleDelete(scope.$index, scope.row)"
-                  >取消订阅</el-button
-                >
-              </template>
-            </el-table-column>
-          </el-table>
-          <el-select
-            v-model="value"
-            filterable
-            placeholder="请选择"
-            style="margin-right: 8px"
+
+    <div class="homeMain">
+      <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
+        <el-table :data="cityList" style="width: 100%">
+          <el-table-column label="订阅城市" prop="city_name">
+          </el-table-column>
+          <el-table-column align="right">
+            <template slot-scope="scope">
+              <el-button
+                size="mini"
+                type="danger"
+                @click="handleDelete(scope.$index, scope.row)"
+                >取消订阅</el-button
+              >
+            </template>
+          </el-table-column>
+        </el-table>
+        <el-select
+          v-model="value"
+          filterable
+          placeholder="请选择"
+          style="margin-right: 8px"
+        >
+          <!-- <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+            :disabled="item.disabled"
           >
-            <!-- <el-option
-              v-for="item in options"
+          </el-option> -->
+          <el-option-group
+            v-for="group in options"
+            :key="group.label"
+            :label="group.label">
+            <el-option
+              v-for="item in group.options"
               :key="item.value"
               :label="item.label"
-              :value="item.value"
-              :disabled="item.disabled"
-            >
-            </el-option> -->
-            <el-option-group
-              v-for="group in options"
-              :key="group.label"
-              :label="group.label">
-              <el-option
-                v-for="item in group.options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-option-group>
-          </el-select>
-          <el-button
-            type="primary"
-            icon="el-icon-search"
-            style="margin-top: 15px"
-            @click="subCity"
-            >订阅</el-button
-          >
-        </el-dialog>
-        <div class="cityList">
-          <div
-            class="homeSection"
-            v-for="city in cityList_show"
-            v-bind:key="city.city_name"
-          >
-            <div class="homeHeader">
-              <div class="region">
-                {{ city.city_name }}
-              </div>
-              <div style="display: flex; align-items: center">
-                <svg
-                  width="35px"
-                  height="35px"
-                  style="transform: rotate(90deg)"
-                  viewBox="0 0 1000 1000"
-                >
-                  <path
-                    fill="#666666"
-                    d="M796.014 412.647l-257.492-257.492c-20.11-20.11-52.709-20.11-72.819 0l-257.492 257.492c-20.11 20.11-20.11 52.709 0 72.819s52.709 20.11 72.819 0l169.585-169.585v493.664c0 28.453 23.046 51.499 51.499 51.499s51.499-23.046 51.499-51.499v-493.664l169.585 169.585c10.042 10.043 23.226 15.089 36.41 15.089s26.367-5.021 36.41-15.089c20.11-20.11 20.11-52.709 0-72.819z"
-                  />
-                </svg>
-                <div
-                  style="
-                    font-size: 20px;
-                    font-weight: 700;
-                    color: #666666;
-                    margin-left: 5px;
-                  "
-                >
-                  Learn more...
-                </div>
+              :value="item.value">
+            </el-option>
+          </el-option-group>
+        </el-select>
+        <el-button
+          type="primary"
+          icon="el-icon-search"
+          style="margin-top: 15px"
+          @click="subCity"
+          >订阅</el-button
+        >
+      </el-dialog>
+      <div class="cityList">
+        <div
+          class="homeSection"
+          v-for="city in cityList_show"
+          v-bind:key="city.city_name"
+        >
+          <div class="homeHeader">
+            <div class="region">
+              {{ city.city_name }}
+            </div>
+            <div style="display: flex; align-items: center">
+              <svg
+                width="35px"
+                height="35px"
+                style="transform: rotate(90deg)"
+                viewBox="0 0 1000 1000"
+              >
+                <path
+                  fill="#666666"
+                  d="M796.014 412.647l-257.492-257.492c-20.11-20.11-52.709-20.11-72.819 0l-257.492 257.492c-20.11 20.11-20.11 52.709 0 72.819s52.709 20.11 72.819 0l169.585-169.585v493.664c0 28.453 23.046 51.499 51.499 51.499s51.499-23.046 51.499-51.499v-493.664l169.585 169.585c10.042 10.043 23.226 15.089 36.41 15.089s26.367-5.021 36.41-15.089c20.11-20.11 20.11-52.709 0-72.819z"
+                />
+              </svg>
+              <div
+                style="
+                  font-size: 20px;
+                  font-weight: 700;
+                  color: #666666;
+                  margin-left: 5px;
+                "
+              >
+                Learn more...
               </div>
             </div>
+          </div>
 
-            <div class="homeOverview">
-              <div v-for="(data, index) in overviewData" :key="index">
-                <LittleDataCard
-                  :nownum="data.nownum"
-                  :type="data.type"
-                  :newnum="data.newnum"
-                  :color="data.color"
-                />
-              </div>
+          <div class="homeOverview">
+            <div v-for="(data, index) in overviewData" :key="index">
+              <LittleDataCard
+                :nownum="data.nownum"
+                :type="data.type"
+                :newnum="data.newnum"
+                :color="data.color"
+              />
             </div>
           </div>
         </div>
       </div>
+
+      <div>
+        {{newMessage}}
+      </div>
+
     </div>
+
   </div>
 </template>
 <script>
@@ -149,7 +152,11 @@ export default {
       return this.cityList.filter(
                 item => item.city_name.indexOf(this.search)>=0
       )
-    }
+    },
+    newMessage () {
+
+      return 'new message'
+    },
   },
   data() {
     return {
