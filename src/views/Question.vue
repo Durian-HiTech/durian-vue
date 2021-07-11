@@ -32,23 +32,17 @@
                   <img src="../assets/avatar/cat.jpg">
                 </el-avatar>
               </div>
-<!--              <el-input placeholder="Add a comment"-->
-<!--                        v-model=input-->
-<!--                        type="textarea"-->
-<!--                        autosize-->
-<!--                        resize="vertical"-->
-<!--                        style="background-color: red; margin-left: 10px; width: 80%"></el-input>-->
               <el-input
                   type="textarea"
-                  autosize
-                  placeholder="Add a comment..."
+                  placeholder="输入添加评论"
+                  :autosize="{ minRows: 3, maxRows: 5 }"
                   style="font-size: 16px; margin-left: 5px; margin-right: 5px"
                   v-model="input">
               </el-input>
               <el-button type="primary" style="background-color: #2b6dad; border-radius: 10px" @click="commit_comment">评论</el-button>
             </div>
             <div v-for="item in comment_list" :key="item.comment_id" style="width: 97%;">
-              <CommentCard style="margin: 10px" :user=item.user_id :is-authority=item.user_type :content=item.comment_content :time=item.comment_time></CommentCard>
+              <CommentCard style="margin: 10px" :username=item.username :is-authority=item.user_type :content=item.comment_content :time=item.comment_time :user_info=item.user_info></CommentCard>
             </div>
           </div>
 
