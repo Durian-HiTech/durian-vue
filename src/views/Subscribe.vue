@@ -8,6 +8,7 @@
       placeholder="Search"
       v-model="search"
       style="margin-left: 250px; width: 300px;"
+      v-if='isLogined'
       >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
@@ -16,7 +17,9 @@
 
     <el-divider />
 
-    <v-app style='height: 20px;'>
+    <el-tag type="danger" v-if='!isLogined' style="font-weight: bold; font-size: 15px;">请先登录!</el-tag>
+
+    <v-app style='height: 20px;' v-if='isLogined'>
       <v-btn
         rounded
         color="cyan"
@@ -32,7 +35,7 @@
     </v-app>
 
 
-    <div class="homeMain">
+    <div class="homeMain" v-if='isLogined'>
       <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
         <el-table :data="cityList" style="width: 100%">
           <el-table-column label="订阅城市" prop="city_name">
@@ -154,9 +157,11 @@ export default {
       )
     },
     newMessage () {
-
       return 'new message'
     },
+    isLogined () {
+      return this.$store.getters.userState.isLogined
+    }
   },
   data() {
     return {

@@ -34,9 +34,11 @@ export default {
     },
   },
   mounted() {
+    console.log(this.$props.type)
     coviddata = this.$props.data;
     this.myChart = echarts.init(document.getElementById("home-china-map"));
     this.loadMap();
+    // 赋值进去
     this.option["series"][0]["data"] = coviddata;
     this.loadData();
     var _this = this;
@@ -64,14 +66,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 40,
-          textStyle:{
-            fontStyle: 'normal',
-            fontFamily: 'Microsoft YaHei',
-            lineHeight: 2000,
-            width: 4,
-            height: 4,
-          },
+          padding: 10,
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -81,8 +76,7 @@ export default {
               deaths: "死亡",
               recovered: "治愈",
             };
-            var res = "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
-            res += "<font size=\"4\">"
+            var res = "<b>" + name + "</b>" + "<br/>";
             var tmp = {};
             for(var i in coviddata){
               if(coviddata[i]["name"] == params.name){
@@ -93,7 +87,6 @@ export default {
             for (var key in mapping) {
               res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+"</p >";
             }
-            res += "</font>";
             return res;
           },
         },
@@ -117,7 +110,7 @@ export default {
         },
         series: [
           {
-            name: "GlobalMap",
+            name: "ChinaMap",
             nameProperty: "NAME_1",
             type: "map",
             roam: true,
@@ -127,6 +120,7 @@ export default {
               max:4
             },
             map: "",
+            // 高亮时显示特效
             emphasis: {
               label: {
                 show: true,
@@ -137,6 +131,33 @@ export default {
               },
             },
             data: [],
+          },
+          {
+            name: '高风险地区',
+            type: "scatter",
+            map: "China",
+            coordinateSystem: 'none',
+            data:[
+              {name: '云南', value: 1000}
+            ],
+            symbolSize: function (val) {
+              return val[2] / 10;
+            },
+            label: {
+              formatter: '{b}',
+              position: 'right'
+            },
+            itemStyle: {
+              color: '#a50026'
+            },
+            emphasis: {
+              label: {
+                show: true
+              }
+            },
+            encode: {
+              value: 2
+            },
           },
         ],
       },
@@ -151,7 +172,7 @@ export default {
     loadMap() {
       this.myChart.showLoading();
       const mapData = require("../../data/map/json/" + this.country);
-      echarts.registerMap(this.country, mapData);
+      echarts.registerMap("China", mapData);
       this.option["series"][0]["map"] = this.country;
       this.option["series"][0]["zoom"] = 2;
       this.option["series"][0]["center"] = undefined;
@@ -173,7 +194,7 @@ export default {
 </script>
 <style scoped>
 #home-china-map {
-  width: 800px;
+  width: 700px;
   height: 500px;
 }
 </style>

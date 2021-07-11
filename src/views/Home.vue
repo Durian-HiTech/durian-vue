@@ -5,6 +5,10 @@
       <SelectBar class="SelectBar" :buttons="buttons" />
     </div>
 
+    <center>
+    <i class="el-icon-loading" v-if='!dataLoaded' style='font-size:40px; margin-top: 100px;'></i>
+    </center>
+
     <!-- china -->
     <div class="homeChina" v-if="showChina && dataLoaded">
       <div class="homeMain">
@@ -232,7 +236,6 @@ export default {
       this.ChinamapData = homeData["China"]["detailed"];
       this.GlobalmapData = homeData["Global"]["detailed"];
       this.dataLoaded = true;
-      console.log(this.GlobalmapData);
     },
     changeKey(nowtype) {
       var mapping = {
@@ -314,13 +317,13 @@ export default {
   padding-top: 5px;
   padding-bottom: 5px;
   border: #cccccc solid thin;
-  border-radius: 40px;
-  width: 800px;
+  border-radius: 10px;
+  width: 700px;
 }
 .homeTable {
   margin-top: 70px;
   margin-left: 30px;
-  width: 550px;
+  width: 650px;
 }
 
 .region {
