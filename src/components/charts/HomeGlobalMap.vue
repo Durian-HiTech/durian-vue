@@ -34,7 +34,7 @@ export default {
 
     type:热力图主键:
     __type__=["cases","deaths","recovered","vaccine","nowcases"]
-    
+
     country:当前国家/World String
   */
   props: {
@@ -83,7 +83,7 @@ export default {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
             var mapping = {
-              nowcases: "现有",
+              now_cases: "现有",
               cases: "确诊",
               deaths: "死亡",
               recovered: "治愈",
