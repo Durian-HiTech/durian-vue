@@ -76,7 +76,7 @@ export default {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
             var mapping = {
-              now_cases: "现有",
+              nowcases: "现有",
               cases: "确诊",
               deaths: "死亡",
               recovered: "治愈",

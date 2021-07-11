@@ -107,6 +107,20 @@ export default {
       this.loadporpsdata();
       this.dataloaded = true;
     },
+    changeKey(nowtype) {
+      var mapping = {
+        现有确诊: "nowcases",
+        累计确诊: "cases",
+        累计死亡: "deaths",
+        累计治愈: "recovered",
+      };
+      for (var key in mapping) {
+        if (key == nowtype) {
+          this.type = mapping[key];
+          break;
+        }
+      }
+    },
     loadporpsdata() {
       //Update mapData & overviewData
       this.mapData = this.data[this.timevalue]["detailed"];

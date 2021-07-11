@@ -155,7 +155,7 @@ export default {
       buttons: ["全国", "世界"],
       showChina: true,
       dataLoaded: false,
-      type: "now_cases", //当前地图上显示的热力图主键
+      type: "nowcases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
     };
@@ -188,7 +188,7 @@ export default {
       //var homeData = require("../data/samples/HomeData.json");
       console.log(homeData)
       var mapping = {
-        now_cases: {
+        nowcases: {
           type: "现有确诊",
           color: "orange",
         },
@@ -209,9 +209,9 @@ export default {
       var res = {};
       for (var key in mapping) {
         res = {
-          nownum: homeData["China"]["overview"][key]["now_num"],
+          nownum: homeData["China"]["overview"][key]["nownum"],
           type: mapping[key]["type"],
-          newnum: homeData["China"]["overview"][key]["new_num"],
+          newnum: homeData["China"]["overview"][key]["newnum"],
           color: mapping[key]["color"],
         };
         list.push(res);
@@ -221,9 +221,9 @@ export default {
       list = [];
       for (key in mapping) {
         res = {
-          nownum: homeData["Global"]["overview"][key]["now_num"],
+          nownum: homeData["Global"]["overview"][key]["nownum"],
           type: mapping[key]["type"],
-          newnum: homeData["Global"]["overview"][key]["new_num"],
+          newnum: homeData["Global"]["overview"][key]["newnum"],
           color: mapping[key]["color"],
         };
         list.push(res);
@@ -236,7 +236,7 @@ export default {
     },
     changeKey(nowtype) {
       var mapping = {
-        现有确诊: "now_cases",
+        现有确诊: "nowcases",
         累计确诊: "cases",
         累计死亡: "deaths",
         累计治愈: "recovered",
