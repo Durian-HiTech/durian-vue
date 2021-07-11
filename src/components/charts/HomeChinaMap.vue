@@ -64,14 +64,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 40,
-          textStyle:{
-            fontStyle: 'normal',
-            fontFamily: 'Microsoft YaHei',
-            lineHeight: 2000,
-            width: 4,
-            height: 4,
-          },
+          padding: 10,
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = countryName(params.name);
@@ -81,8 +74,7 @@ export default {
               deaths: "死亡",
               recovered: "治愈",
             };
-            var res = "<font size=\"7\">" + "<b>" + name + "</b>" + "</font>" + "<br/>"+ "<br/>";
-            res += "<font size=\"4\">"
+            var res = "<b>" + name + "</b>" + "<br/>";
             var tmp = {};
             for(var i in coviddata){
               if(coviddata[i]["name"] == params.name){
@@ -93,7 +85,6 @@ export default {
             for (var key in mapping) {
               res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+"</p >";
             }
-            res += "</font>";
             return res;
           },
         },
@@ -173,7 +164,7 @@ export default {
 </script>
 <style scoped>
 #home-china-map {
-  width: 800px;
+  width: 700px;
   height: 500px;
 }
 </style>
