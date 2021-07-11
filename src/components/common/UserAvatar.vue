@@ -18,6 +18,9 @@
 				<el-form-item label="新密码">
 					<el-input v-model="userForm.newPassword" autocomplete="off" show-password></el-input>
 				</el-form-item>
+				<el-form-item label="个人信息">
+					<el-input v-model="userForm.user_info" autocomplete="off"></el-input>
+				</el-form-item>
 			</el-form>
 			
 			<span slot="footer" class="dialog-footer">
@@ -123,7 +126,7 @@ export default {
 			formData.append('username', this.userForm.name);
 			formData.append('password_old', this.userForm.password);
 			formData.append('password_new', this.userForm.newPassword);
-			
+			formData.append('user_info', this.userForm.user_info);
 			// - TODO: test response
 			let _this = this
 			this.$axios
