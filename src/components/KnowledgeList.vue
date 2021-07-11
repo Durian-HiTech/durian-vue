@@ -39,7 +39,7 @@
       <v-app style="margin: 30px">
         <h1>防疫小知识</h1>
 
-        <p style="color: grey; margin-bottom:45px">
+        <p style="color: grey; margin-bottom: 45px">
           共{{ this.knowledge_list_show.length }}条防疫小知识
         </p>
 
@@ -48,7 +48,7 @@
             防疫小知识
             <v-spacer></v-spacer>
             <v-text-field
-              v-model="search"
+              v-model="search_knowledge"
               append-icon="mdi-magnify"
               label="Search"
               single-line
@@ -58,7 +58,8 @@
           <v-data-table
             :headers="headers"
             :items="knowledge_list"
-            :search="search"
+            :search="search_knowledge"
+            @click:row="handleClick"
           ></v-data-table>
         </v-card>
 
@@ -109,6 +110,7 @@ export default {
       eachPage: 5,
       dialogVisible: false,
       search: "",
+      search_knowledge: "",
       headers: [
         {
           text: "标题",
@@ -200,6 +202,11 @@ export default {
             // _this.fail()
           }
         });
+    },
+    handleClick(value) {
+      console.log(value)
+
+      // this.viewDetails(value);
     },
   },
   mounted: function () {
