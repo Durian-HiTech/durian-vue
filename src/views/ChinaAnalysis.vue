@@ -47,7 +47,9 @@
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
     <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
-      <CasesDeathsVaccieRecoveredCmp />
+      <CasesDeathsVaccieRecoveredCmp 
+        :DateTable = "{}"
+      />
     </div>
   </div>
 </template>
@@ -145,6 +147,9 @@ export default {
       }
       this.overviewData = list;
     },
+  },
+  loadCasesDeathsVaccieRecoveredCmp(){
+
   },
 };
 </script>
