@@ -34,7 +34,7 @@ export default {
 
     type:热力图主键:
     __type__=["cases","deaths","recovered","vaccine","nowcases"]
-    
+
     country:当前国家/World String
   */
   props: {
@@ -129,6 +129,10 @@ export default {
             type: "map",
             roam: true,
             zoom:2,
+            scaleLimit:{
+              min:1,
+              max:4
+            },
             map: "",
             emphasis: {
               label: {

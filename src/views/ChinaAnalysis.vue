@@ -6,7 +6,9 @@
     </div>
     <div class="MapSection" v-if="dataloaded">
       <div class="MapMain">
-        <div class="Map">这里是地图</div>
+        <div class="Map">
+          <analysis-china-map :data="mapData" :country="country" :type="type"></analysis-china-map>
+        </div>
         <div class="Overview">
           <span>{{ date }}</span>
           <div v-for="(data, index) in overviewData" :key="index">
@@ -23,14 +25,15 @@
       </div>
       <div class="TimeLine">
         <el-date-picker
-        class="datepicker"
+          class="datepicker"
           v-model="date"
           type="date"
           value-format="yyyy-MM-dd 00:00:00"
           format="yyyy 年 MM 月 dd 日"
         >
         </el-date-picker>
-        <el-slider class="slider"
+        <el-slider
+          class="slider"
           v-model="timevalue"
           :max="maxTimeNum"
           :show-tooltip="false"
@@ -38,34 +41,37 @@
       </div>
       <div class="Player">这里是播放器</div>
     </div>
-    <div class="TableSection">
-      <analysis-table
-        :type="'China'"
-        :tableData="mapData"
-      ></analysis-table>
+    <div class="TableSection" v-if="dataloaded">
+      <analysis-table :type="country['name']" :tableData="mapData"></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
     <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
-      <CasesDeathsVaccieRecoveredCmp />
+      <CasesDeathsVaccieRecoveredCmp 
+        :DateTable = "{}"
+      />
     </div>
   </div>
 </template>
 <script>
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
-import LittleDataCard from "../components/common/LittleDataCard.vue"
+import LittleDataCard from "../components/common/LittleDataCard.vue";
+import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue"
 import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue"
 export default {
   name: "ChinaAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
+    AnalysisChinaMap,
     CasesDeathsVaccieRecoveredCmp
   },
   data() {
     return {
       date: "",
       timevalue: 0,
+      country:{},//China或省或省会 {name:"",adcode:"",}
+      type:"",//热力图主键
       data: "", //const
       dataloaded: false,
       maxTimeNum: 0, //const
@@ -74,21 +80,14 @@ export default {
     };
   },
   watch: {
-    timevalue(newvalue,oldvalue) {
-        console.log(oldvalue);
+    timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
       this.loadporpsdata();
-            console.log("timevalue"+this.maxTimeNum + typeof(this.maxTimeNum));
-      console.log("timevalue"+this.timevalue + typeof(this.timevalue));
     },
-    date(newvalue,oldvalue) {
-        console.log(oldvalue);
+    date(newvalue) {
       for (var item in this.data) {
         if (this.data[item]["date"] == newvalue) {
-            console.log(item + typeof(item))
           this.timevalue = Number(item);
-                console.log("date"+this.maxTimeNum + typeof(this.maxTimeNum));
-      console.log("date"+this.timevalue + typeof(this.timevalue));
           return;
         }
       }
@@ -96,19 +95,36 @@ export default {
   },
   computed: {},
   mounted() {
-    this.loaddata();
+    this.loaddata("China");
+    this.country = {name:"China",adcode:""};
+    this.type = "nowcases";
   },
   methods: {
-    loaddata() {
+    loaddata(name) {
+      // 获得中国或指定省会或指定城市
       this.dataloaded = false;
-      this.data = require("../data/samples/ChinaAnalysisSample.json");
-      this.dataloaded = true;
+      this.data = require("../data/samples/" + name + "AnalysisSample.json");
       this.maxTimeNum = this.data.length - 1;
       this.date = this.data[this.timevalue]["date"];
       this.loadporpsdata();
-
+      this.dataloaded = true;
     },
-    loadporpsdata() {//Update mapData & overviewData
+    changeKey(nowtype) {
+      var mapping = {
+        现有确诊: "nowcases",
+        累计确诊: "cases",
+        累计死亡: "deaths",
+        累计治愈: "recovered",
+      };
+      for (var key in mapping) {
+        if (key == nowtype) {
+          this.type = mapping[key];
+          break;
+        }
+      }
+    },
+    loadporpsdata() {
+      //Update mapData & overviewData
       this.mapData = this.data[this.timevalue]["detailed"];
       var mapping = {
         nowcases: {
@@ -134,17 +150,24 @@ export default {
       };
       var list = [];
       var res = {};
-      for(var key in mapping){
-          res = {
-              nownum: this.data[this.timevalue]["overview"][key]["nownum"],
-              type:mapping[key]["type"],
-              newnum:this.data[this.timevalue]["overview"][key]["newnum"],
-              color:mapping[key]["color"]
-          }
-          list.push(res);
+      for (var key in mapping) {
+        res = {
+          nownum: this.data[this.timevalue]["overview"][key]["nownum"],
+          type: mapping[key]["type"],
+          newnum: this.data[this.timevalue]["overview"][key]["newnum"],
+          color: mapping[key]["color"],
+        };
+        list.push(res);
       }
       this.overviewData = list;
     },
+    changeCountry(obj) {
+      this.country = obj;
+      this.loaddata(obj.name);
+    },
+  },
+  loadCasesDeathsVaccieRecoveredCmp(){
+
   },
 };
 </script>
@@ -200,11 +223,11 @@ export default {
 .Map {
   width: 80%;
 }
-.slider{
-    margin-left: 20px;
-    width: 500px;
+.slider {
+  margin-left: 20px;
+  width: 500px;
 }
-.datepicker{
-    width: 200px;
+.datepicker {
+  width: 200px;
 }
 </style>

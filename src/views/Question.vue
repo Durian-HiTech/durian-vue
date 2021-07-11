@@ -52,7 +52,7 @@
       <div class="right_margin" style="width: 21%;">
         <div class="related_question">
           <div class="related_question_header" style="margin-top: 10px; margin-left: 10px; font-size: 18px; text-align: left; ">
-            Related Questions
+            为您推荐问题
             <el-divider></el-divider>
           </div>
           <div class="related_question_content" style="text-align: left; margin-left: 5px; color: gray;">

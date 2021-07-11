@@ -35,7 +35,7 @@
     <div style="display: flex; justify-content: center; align-items: flex-start;">
 
       <v-app style="margin: 30px">
-        <h1>谣言&辟谣</h1>
+        <h1>辟谣专区</h1>
         <p style="color:grey;">共{{this.rumor_list_show.length}}条谣言/辟谣</p>
         <div
             style="margin: 30px"
@@ -95,19 +95,19 @@
 
       <v-app style="margin: 30px">
         <h1>防疫小知识</h1>
-        <p style="color:grey;">共{{total}}条防疫小知识</p>
+        <p style="color:grey;">共{{this.knowledge_list_show.length}}条防疫小知识</p>
         <div
             style="margin: 30px"
-            v-for="question in question_list.slice((this.currentPage_3 - 1) * this.eachPage,
+            v-for="knowledge in knowledge_list_show.slice((this.currentPage_3 - 1) * this.eachPage,
               this.currentPage_3 * this.eachPage)"
-            v-bind:key="question.question_id"
+            v-bind:key="knowledge.knowledge_id"
         >
-          <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
+          <QuestionCard v-bind:title="knowledge.knowledge_title" :link="'knowledge/'+knowledge.knowledge_id" :content="knowledge.knowledge_content"/>
         </div>
         <v-pagination
             style="margin-top: 30px;"
             v-model="currentPage_3"
-            :length="Math.ceil(total / eachPage)"
+            :length="Math.ceil(this.knowledge_list_show.length / eachPage)"
             circle
             color="cyan"
         ></v-pagination>
@@ -130,6 +130,7 @@ export default {
     name:"QuestionList",
     data(){
         return {
+            knowledge_list:[],
             question_list: [],
             rumor_list: [],
             currentPage: 1,
@@ -161,6 +162,11 @@ export default {
         RumorCard
     },
     computed: {
+      knowledge_list_show () {
+        return this.knowledge_list.filter(
+          item => item.knowledge_title.indexOf(this.search)>=0
+        )
+      },
       rumor_list_show () {
         return this.rumor_list.filter(
           item => item.rumor_title.indexOf(this.search)>=0
@@ -177,6 +183,29 @@ export default {
           return new Promise(resolve => 
               setTimeout(resolve, ms)
           )
+        },
+        getAllKnowledge() {
+        let formData = new FormData();
+        let config = {
+            headers: {"Content-Type": "multipart/form-data",},
+        };
+        var _this = this;
+        this.$axios.get(
+            api.baseApi+"/notice/list_all_knowledge",
+            formData,
+            config
+        ).then(function (response) {
+                console.log(response.status)
+                if (response.status == 200) {
+                // console.log((response))
+                _this.knowledge_list = response.data.data
+                
+                } else {
+                console.log("请求失败");
+                // console.log(response.data);
+                // _this.fail()
+                }
+            });
         },
         getAllQuestions() {
         let formData = new FormData();
@@ -261,7 +290,7 @@ export default {
                     if (response.status == 200) {
                       console.log((response))
                        _this.$message({ message: "提问成功", type: "success" });
-                      _this.sleep(500).then(()=>{
+                      _this.sleep(10).then(()=>{
                         _this.$router.go(0)
                       })
                     } else {
@@ -283,6 +312,7 @@ export default {
     mounted : function(){
         this.getAllQuestions();
         this.getAllRumors();
+        this.getAllKnowledge();
     },
 }
 </script>
