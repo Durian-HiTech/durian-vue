@@ -56,7 +56,7 @@
           <div class="homeMapSection">
             <home-china-map :data="ChinamapData" :type="type"></home-china-map>
           </div>
-          
+
         </div>
 
         <StatisticTable
@@ -155,7 +155,7 @@ export default {
       buttons: ["全国", "世界"],
       showChina: true,
       dataLoaded: false,
-      type: "nowcases", //当前地图上显示的热力图主键
+      type: "now_cases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
     };
@@ -165,7 +165,7 @@ export default {
     var _this = this;
     this.$axios.get(api.baseApi + '/data/list_overview').then(function(response){
       if(response.data.success){
-        _this.loadhomeData(response.data.data);
+        _this.loadhomeData(response.data);
       }
     })
     //this.loadhomeData(); //加载国内国外细节数据和总数据
@@ -186,8 +186,9 @@ export default {
     loadhomeData(homeData) {
       //加载全球和中国数据
       //var homeData = require("../data/samples/HomeData.json");
+      console.log(homeData)
       var mapping = {
-        nowcases: {
+        now_cases: {
           type: "现有确诊",
           color: "orange",
         },
@@ -208,20 +209,21 @@ export default {
       var res = {};
       for (var key in mapping) {
         res = {
-          nownum: homeData["China"]["overview"][key]["nownum"],
+          nownum: homeData["China"]["overview"][key]["now_num"],
           type: mapping[key]["type"],
-          newnum: homeData["China"]["overview"][key]["newnum"],
+          newnum: homeData["China"]["overview"][key]["new_num"],
           color: mapping[key]["color"],
         };
         list.push(res);
       }
       this.ChinaoverviewData = list;
+      console.log(this.ChinaoverviewData)
       list = [];
       for (key in mapping) {
         res = {
-          nownum: homeData["Global"]["overview"][key]["nownum"],
+          nownum: homeData["Global"]["overview"][key]["now_num"],
           type: mapping[key]["type"],
-          newnum: homeData["Global"]["overview"][key]["newnum"],
+          newnum: homeData["Global"]["overview"][key]["new_num"],
           color: mapping[key]["color"],
         };
         list.push(res);
@@ -233,7 +235,7 @@ export default {
     },
     changeKey(nowtype) {
       var mapping = {
-        现有确诊: "nowcases",
+        现有确诊: "now_cases",
         累计确诊: "cases",
         累计死亡: "deaths",
         累计治愈: "recovered",
@@ -266,7 +268,7 @@ export default {
 }
 .hometitle .SelectBar {
   /* outline: #00ff00 dotted thick; */
-  margin-left: 30px; 
+  margin-left: 30px;
 }
 
 .homeMain {
@@ -290,7 +292,7 @@ export default {
   width: 100%;
 
   border: #cccccc solid thin;
-  border-radius: 40px;
+  border-radius: 10px;
   overflow: hidden;
 }
 .homeHeader {
@@ -315,8 +317,8 @@ export default {
   width: 800px;
 }
 .homeTable {
-  margin-top: 70px; 
-  margin-left: 30px; 
+  margin-top: 70px;
+  margin-left: 30px;
   width: 550px;
 }
 
