@@ -69,7 +69,7 @@ export default {
             sortable: false,
             value: 'zhname',
           },
-          { text: '现有确诊', value: 'nowcases' },
+          { text: '现有确诊', value: 'now_cases' },
           { text: '累积确诊', value: 'cases' },
           { text: '累积治愈', value: 'recovered' },
           { text: '累积死亡', value: 'deaths' },
@@ -126,7 +126,7 @@ export default {
   padding: 10px;
   height: 670px;
   overflow: hidden;
-  
+
 }
 .s_table th {
   font-size: 18px !important;

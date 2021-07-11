@@ -1,4 +1,5 @@
 <template>
+
   <div class="main">
     <el-dialog
           title="提示"
@@ -9,8 +10,8 @@
           <el-form-item label="问题名称" prop="name">
             <el-input v-model="ruleForm.name"></el-input>
           </el-form-item>
-          <el-form-item label="问题内容" prop="name">
-            <el-input v-model="ruleForm.content"></el-input>
+          <el-form-item label="问题内容" prop="content">
+            <el-input v-model="ruleForm.content" type="textarea" ></el-input>
           </el-form-item>
 
 
@@ -116,7 +117,6 @@
     </div>
 
   </div>
-
 </template>
 
 
@@ -173,6 +173,11 @@ export default {
       }
     },
     methods:{
+           sleep(ms) {
+          return new Promise(resolve => 
+              setTimeout(resolve, ms)
+          )
+        },
         getAllQuestions() {
         let formData = new FormData();
         let config = {
@@ -246,7 +251,7 @@ export default {
               let config = {
                 headers: {"Content-Type": "multipart/form-data",},
               };
-              // var _this = this;
+               var _this = this;
               this.$axios.post(
                   api.baseApi+"/notice/create_question",
                   formData,
@@ -255,7 +260,10 @@ export default {
                     console.log(response.status)
                     if (response.status == 200) {
                       console.log((response))
-
+                       _this.$message({ message: "提问成功", type: "success" });
+                      _this.sleep(500).then(()=>{
+                        _this.$router.go(0)
+                      })
                     } else {
                       console.log("请求失败");
                       // console.log(response.data);
