@@ -1,10 +1,10 @@
 <template>
   <div class="root">
-    <span class="title">
+    <!-- <span class="title">
       <b>Covid</b> News
-    </span>
+    </span> -->
     <el-divider/>
-    <div class="newsSection">
+    <div class="newsSection"  style="margin-top:20px">
       <NoticesList title="中国新冠疫情最新通告" style="width: 700px"/>
       <NewsList title="中国疫情防控政策" style="width: 500px"/>
       <!-- <NewsList title="国际疫情防控措施" style="width: 400px"/> -->
