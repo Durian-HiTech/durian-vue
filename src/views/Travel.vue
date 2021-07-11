@@ -97,14 +97,6 @@
 				<track-card destination="紫阳县汉王镇"></track-card>
 			</div>
 		</div>
-		<div class="trackCardRoot">
-			<div class="row">
-				<div class="trackCity">北京</div>
-				<track-card destination="广州"></track-card>
-				<track-card destination="深vbhhshfdsdfdasfs圳"></track-card>
-				<track-card destination="深大范德萨范德萨发生	"></track-card>
-			</div>
-		</div>
 	</div>
 
   </div>
@@ -127,6 +119,22 @@ export default {
 		SearchInput: '',
 		buttons: ['国内', '国际'],
 		showChina: true,
+		track :[
+			[
+				{position:'浙江杭州',coordinate:"120.21201,30.2084" },
+				{position:'浙江徐州',coordinate:"117.18554,34.28823"},
+			],
+			[
+				{position:'广东东莞',coordinate:"113.75179,23.02067"},
+				{position:'陕西咸阳',coordinate:"108.70641,34.32908"},
+				{position:'紫阳县汉王镇',coordinate:"108.446617,32.714622"},
+				
+			],
+			[
+
+			]
+
+		]
     }
   },
   methods: {
