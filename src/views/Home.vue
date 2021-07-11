@@ -162,6 +162,14 @@ export default {
       type: "nowcases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
+      locationInfo: {
+        ip: '', 
+        country: '',
+        province: '',
+        city: '',
+        district: '',
+        location: '',
+      },
     };
   },
   watch: {},
@@ -175,6 +183,22 @@ export default {
     //this.loadhomeData(); //加载国内国外细节数据和总数据
   },
   methods: {
+    getLocation () {
+      // eslint-disable-next-line 
+      this.locationInfo.ip = returnCitySN.cip
+
+      var _this = this
+      this.$axios.get("https://restapi.amap.com/v5/ip?key=a593d64ab73229be6b3d1ef802b76849&type=4&ip="+this.locationInfo.ip)
+        .then( response => {
+          _this.locationInfo.country = response.data.country
+          _this.locationInfo.province = response.data.province
+          _this.locationInfo.city = response.data.city
+          _this.locationInfo.district = response.data.district
+          _this.locationInfo.location = response.data.location
+
+          console.log(_this.locationInfo)
+        })
+    },
     selected(index, differkey) {
       if (differkey == "全国") {
         switch (index) {

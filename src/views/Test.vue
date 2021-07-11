@@ -1,85 +1,52 @@
 <template>
 	<div class="root">
 		<h1 style='margin-top:100px;'>This is Test Page</h1>
-		<br>
-		<h2 style="margin-top: 20px;"> user state</h2>
-		<el-button @click="login()"> login </el-button>
-		<el-button @click="reset()"> reset </el-button>
-
-		<center>
-		<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>
-		</center>
-    <!-- <div class="test">
-      11
-    </div> -->
+		
+		<h1>{{ locationInfo.district }}</h1>
 
 	</div>
 </template>
 
-<script>
-import TravelCard from '../components/common/TravelCard.vue'
 
-var coviddata = require("../data/samples/GlobalMapSample.json")
+
+<script>
 export default {
 	name: 'Test',
 	components: {
-		// GlobalMap,
-		TravelCard,
 	},
-	data(){
-		return {
-			coviddata:{},
-			type:"nowcases",
+	data() {
+      return {
+        locationInfo: {
+			ip: '', 
+			country: '',
+			province: '',
+			city: '',
+			district: '',
+			location: '',
 		}
-	},
-	created(){//必须先赋值数据再加载globalmap
-		this.coviddata = coviddata;
-	},
-	methods: {
-		reset () {
-			this.$store.commit('reset')
-		},
-		login () {
-			this.$store.commit('login', {
-				name: 'John Keats',
-				id: '10',
-				type: '1',
-				affiliation: 'Oxford'
+      };
+    },
+	mounted () {
+		// eslint-disable-next-line 
+		this.locationInfo.ip = returnCitySN.cip
+
+		var _this = this
+		this.$axios.get("https://restapi.amap.com/v5/ip?key=a593d64ab73229be6b3d1ef802b76849&type=4&ip="+this.locationInfo.ip)
+			.then( response => {
+				_this.locationInfo.country = response.data.country
+				_this.locationInfo.province = response.data.province
+				_this.locationInfo.city = response.data.city
+				_this.locationInfo.district = response.data.district
+				_this.locationInfo.location = response.data.location
+
+				console.log(_this.locationInfo)
 			})
-		},
-		/**
-		 * @param {Object} index
-		 * @param {Object} differkey : differkey是对应的SelectBar的第一个选项的名字，用于区分不同的SelectBar
-		 */
-		selected (index, differkey) {
-			if (differkey == 'table') {
-				switch(index)
-				{
-					case 0:
-						console.log(0)
-						break
-					case 1:
-						console.log(1)
-						break
-					case 2:
-						console.log(2)
-						break
-				}
-			}
-		}
-	},
+	}
 }
 </script>
 
+
+
 <style>
-.test{
-  background-image: url(../static/tag1.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-
-  height: 200px;
-  width: 200px;
-
-}
+#container {width:300px; height: 180px; }  
 </style>
