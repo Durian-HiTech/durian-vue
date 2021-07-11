@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <span class="title">
-      <b>Covid</b> Q&A
+      <b>Covid</b> Knowledge
     </span>
       
     <el-divider/>
