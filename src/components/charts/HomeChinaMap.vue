@@ -213,6 +213,7 @@ export default {
     },
     clickevent(newcountry) {
       //地图点击事件
+      this.$router.push({path: '/chinaanalysis'});
       console.log("开启新页面跳转到" + newcountry + "的分析页面");
     },
     loadData() {
