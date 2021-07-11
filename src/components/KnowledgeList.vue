@@ -215,7 +215,7 @@ export default {
         });
     },
     handleClick(value) {
-      console.log(value)
+      // console.log(value)
       window.location.href = value.knowledge_link
       // this.viewDetails(value);
     },
