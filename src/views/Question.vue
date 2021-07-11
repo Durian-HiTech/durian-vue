@@ -10,8 +10,11 @@
           <div class="question_content">
             {{question.question_content}}
           </div>
-          <div class="question_user" style="text-align: left; color: gray; margin-left: 20px">
+          <div class="question_user" style="text-align: left; color: gray; margin-left: 20px" v-if="has_comments">
             {{comment_list.length}}条回答
+          </div>
+          <div class="question_user" style="text-align: left; color: gray; margin-left: 20px" v-else>
+            0条回答
           </div>
           <el-divider>{{question.username}} 发布于 {{question.question_time}} </el-divider>
         </div>
@@ -88,6 +91,7 @@ export default {
       comment_list: [],
       input: '',
       question: {},
+      has_comments: false,
       related_list: [
         {id: 1, content: "If your partner would allow it, would you sleep, cook, read and watch TV naked?"},
         {id: 2, content: "Do you go naked when home alone?"},
@@ -113,13 +117,9 @@ export default {
           formData,
           config
       ).then(function (response) {
-            console.log(response.status)
             if (response.status == 200) {
               _this.question = response.data.data
-              console.log(_this.question)
-              console.log(moment(_this.question.question_time).utcOffset(8))
               _this.question.question_time = moment(_this.question.question_time).utcOffset(8).format('YYYY/MM/DD HH:mm:ss');
-              console.log(_this.question.question_time)
             } else {
               console.log("请求失败");
               // console.log(response.data);
@@ -139,19 +139,16 @@ export default {
           formData,
           config
       ).then(function (response) {
-            console.log(response)
-            console.log(response.status)
             if (response.status == 200) {
-              console.log((response))
-              _this.comment_list = response.data.data
-              if(_this.comment_list != null) {
+              console.log((response.data.data))
+              if(response.data.data != null) {
+                _this.comment_list = response.data.data
                 for (var i = 0; i < _this.comment_list.length; i++) {
                   // console.log(moment(_this.comment_list[i].comment_time).format("MMM Do YY") )
                   _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).utcOffset(8);
                   _this.comment_list[i].comment_time = moment(_this.comment_list[i].comment_time).startOf('minute').fromNow();
                 }
               }
-              console.log(_this.comment_list)
               // _this.relatedloaded = true;
             } else {
               console.log("请求失败");
@@ -161,21 +158,23 @@ export default {
           });
     },
     commit_comment() {
-      console.log(this.input)
+      var tmpt = this.input
+      this.input = ''
       let formData = new FormData();
       formData.append("user_id", this.$store.getters.userState.id);
       formData.append("user_type", this.$store.getters.userState.type);
       formData.append("question_id", this.$route.params.id);
-      formData.append("comment_content", this.input);
+      formData.append("comment_content", tmpt);
 
       var tmp = {}
-      tmp['comment_content'] = this.input
+      tmp['comment_content'] = tmpt
       tmp['comment_id'] = -1
       tmp['comment_time'] = "几秒前"
       tmp['question_id'] = this.$route.params.id
       tmp['user_id'] = this.$store.getters.userState.id
       tmp['user_type'] = this.$store.getters.userState.type
       tmp['username'] = this.$store.getters.userState.name
+      console.log(this.comment_list)
       this.comment_list.unshift(tmp)
       console.log(this.comment_list)
       let config = {
@@ -192,11 +191,7 @@ export default {
             console.log(response.status)
             if (response.status == 200) {
               //console.log((response))
-
-
-              console
-              _this.input = ''
-              // _this.getComment(_this.$route.params.id);
+              _this.getComment(_this.$route.params.id);
             } else {
               console.log("请求失败");
               // console.log(response.data);
