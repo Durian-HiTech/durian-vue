@@ -1,7 +1,7 @@
 <template>
 <v-app >
     <h1>{{title}}</h1>
-    <p style="color:grey;">共{{total}}条新闻</p>
+    <p style="color:grey;">共{{total}}条防控政策</p>
     <div
         style="margin: 30px"
         v-for="post in posts.slice((this.currentPage - 1) * this.eachPage,
