@@ -1,17 +1,28 @@
 <template>
   <div class="main">
-    <el-input placeholder="Search" v-model="search" style="width: 50%">
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-    </el-input>
+    
 
     <div
       style="display: flex; justify-content: center; align-items: flex-start"
     >
       <v-app style="margin: 30px">
+        
+
         <h1>辟谣专区</h1>
         <p style="color: grey">
           共{{ this.rumor_list_show.length }}条谣言/辟谣
         </p>
+
+        <center>
+        <el-input
+          placeholder="Search"
+          v-model="search"
+          style="width: 85%; margin-bottom: 10px;"
+          >
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+        </center>
+
         <div
           style="margin: 30px"
           v-for="rumor in rumor_list_show.slice(
