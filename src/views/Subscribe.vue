@@ -261,7 +261,7 @@ export default {
         .post(api.baseApi + "/sub/del_sub", formData, config)
         .then(function (response) {
           if (response.status == 200) {
-            _this.updateSub();
+            _this.$message({ message: "成功删除订阅", type: "true" });
           } else {
             console.log("请求失败");
           }
@@ -278,13 +278,23 @@ export default {
       var _this = this;
       var is_success = true;
       var len_city = this.cityList.length;
-      for (var i = 0; i < len_city; i++) {
-        if (this.cityList[i].city_name == this.value) {
-          _this.$message({ message: "已订阅该城市", type: "false" });
+
+      if (this.value==""){
+        _this.$message({ message: "您尚未订阅，请先选择一项订阅城市", type: "false" });
           is_success = false;
-          break;
+      }
+
+
+      if (is_success == true){
+        for (var i = 0; i < len_city; i++) {
+          if (this.cityList[i].city_name == this.value) {
+            _this.$message({ message: "已订阅该城市", type: "false" });
+            is_success = false;
+            break;
+          }
         }
       }
+      
       if (is_success == true) {
         var tmp = {
           city_name: this.value,
@@ -296,7 +306,7 @@ export default {
           .post(api.baseApi + "/sub/subscribe", formData, config)
           .then(function (response) {
             if (response.status == 200) {
-              _this.updateSub();
+              _this.$message({ message: "成功订阅", type: "true" });
             } else {
               console.log("请求失败");
             }
