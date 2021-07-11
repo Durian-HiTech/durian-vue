@@ -3,6 +3,14 @@
     <span class="title"> <b>Covid</b> Subscriptions </span>
     <el-divider />
 
+    <el-input
+      placeholder="Search"
+      v-model="search"
+      style="width: 50%; margin-bottom: 10px;"
+      >
+      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    </el-input>
+
     <v-app style='height: 20px;'>
       <v-btn
         rounded
@@ -72,7 +80,7 @@
         <div class="cityList">
           <div
             class="homeSection"
-            v-for="city in cityList"
+            v-for="city in cityList_show"
             v-bind:key="city.city_name"
           >
             <div class="homeHeader">
@@ -129,10 +137,18 @@ export default {
   components: {
     LittleDataCard,
   },
+  computed: {
+    cityList_show () {
+      return this.cityList.filter(
+                item => item.city_name.indexOf(this.search)>=0
+      )
+    }
+  },
   data() {
     return {
       dialogTableVisible: false,
       cityList: [],
+      search: '',
       overviewData: [
         {
           nownum: 123143241,

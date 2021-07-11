@@ -1,10 +1,21 @@
 <template>
 <v-app >
+
+    <center>
+    <el-input
+      placeholder="Search"
+      v-model="search"
+      style="width: 70%; margin-bottom: 10px;"
+      >
+      <i slot="prefix" class="el-input__icon el-icon-search"></i>
+    </el-input>
+    </center>
+
     <h1>{{title}}</h1>
-    <p style="color:grey;">共{{total}}条防控政策</p>
+    <p style="color:grey;">共{{this.posts_show.length}}条新闻</p>
     <div
         style="margin: 30px"
-        v-for="post in posts.slice((this.currentPage - 1) * this.eachPage,
+        v-for="post in posts_show.slice((this.currentPage - 1) * this.eachPage,
             this.currentPage * this.eachPage)"
         v-bind:key="post.news_id"
     >
@@ -13,7 +24,7 @@
     <v-pagination
         style="margin-top: 30px;"
         v-model="currentPage"
-        :length="Math.ceil(total / eachPage)"
+        :length="Math.ceil(this.posts_show.length / eachPage)"
         circle
         color="orange lighten-2"
     ></v-pagination>
@@ -30,16 +41,20 @@ export default {
     name:"NewsList",
     data(){
         return {
-            posts: [
-            //      {news_id:"1",news_title: '关于印发新型冠状病毒肺炎诊疗方案（试行第八版 修订版）的通知',news_content: "新闻内容01",news_created_time: "2021-07-04T10:53:50Z"} ,
-            //      {news_id:"2",news_title: '关于调整《新冠肺炎疫情相关租金减让会计处理规定》适用范围的通知',news_content: "新闻内容01",news_created_time: "2021-07-04T10:53:50Z"} ,
-            ],
+            posts: [],
             currentPage: 1,
             eachPage: 5,
-            total: 0,
+            search: '',
         }
     },
     props: ['title'],
+    computed: {
+        posts_show () {
+            return this.posts.filter(
+                item => item.news_title.indexOf(this.search)>=0
+            )
+        }
+    },
     components: {
         NewsCard
     },    
@@ -56,7 +71,6 @@ export default {
                         // console.log(response.data.data)
                     }
                     // console.log(_this.posts)
-                    _this.total = _this.posts.length 
                 }else {
                     this.$message({message: response.data.message,
                                     type: 'error'})
