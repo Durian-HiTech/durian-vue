@@ -108,9 +108,37 @@ export default {
             {min:1000000, label:"大于1000000", color:"#a50026"}
           ],
         },
+        geo: {
+          show: true,
+          map: 'China',
+          label: {
+            normal: {
+              show: false
+            },
+            emphasis: {
+              show: true
+            }
+          },
+          scaleLimit:{
+            min:1,
+            max:4
+          },
+          roam: true,
+          itemStyle: {
+            normal: {
+              areaColor: '#031525',
+              borderColor: '#3B5077'
+            },
+            emphasis: {
+              areaColor: '#2B91B7'
+            }
+          },
+          zoom: 2
+        },
         series: [
           {
             name: "ChinaMap",
+            // geoIndex: 0,
             nameProperty: "NAME_1",
             type: "map",
             roam: true,
@@ -135,29 +163,31 @@ export default {
           {
             name: '高风险地区',
             type: "scatter",
-            map: "China",
-            coordinateSystem: 'none',
+            geoIndex: 0,
+            coordinateSystem: 'geo',
             data:[
-              {name: '云南', value: 1000}
+              {name: '云南', value: [97.855883,
+                  24.010734, 1000]}
             ],
             symbolSize: function (val) {
               return val[2] / 10;
             },
             label: {
-              formatter: '{b}',
-              position: 'right'
+              show: true,
+              textStyle: {
+                color: '#fff',
+                fontSize: 9
+              }
             },
             itemStyle: {
-              color: '#a50026'
+              color: '#F62157' // 标志颜色
             },
             emphasis: {
               label: {
                 show: true
               }
             },
-            encode: {
-              value: 2
-            },
+            zlevel: 6,
           },
         ],
       },
