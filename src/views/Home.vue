@@ -5,6 +5,10 @@
       <SelectBar class="SelectBar" :buttons="buttons" />
     </div>
 
+    <center>
+    <i class="el-icon-loading" v-if='!dataLoaded' style='font-size:40px; margin-top: 100px;'></i>
+    </center>
+
     <!-- china -->
     <div class="homeChina" v-if="showChina && dataLoaded">
       <div class="homeMain">

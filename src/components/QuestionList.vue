@@ -24,7 +24,9 @@
     </span>
     </el-dialog>
 
-    <div style="display: flex; justify-content: center; align-items: flex-start;">
+    <div style=' display: flex; 
+      justify-content: center; 
+      align-items: flex-start; '>
 
       <v-app style="margin: 30px">
         <h1>问答专区</h1>
@@ -49,21 +51,23 @@
           <el-input
             placeholder="Search"
             v-model="search"
-            style="width: 85%; margin-top: 20px;"
+            style="width: 350px; margin-top: 20px;"
             >
             <i slot="prefix" class="el-input__icon el-icon-search"></i>
           </el-input>
         </center>
 
-        <div
-            class="rumor"
-            style="margin: 30px;"
-            v-for="question in question_list_show.slice((this.currentPage - 1) * this.eachPage,
-              this.currentPage * this.eachPage)"
-            v-bind:key="question.question_id"
-        >
-          <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
+        <div class='listSection'>
+          <div
+              style="margin: 30px; "
+              v-for="question in question_list_show.slice((this.currentPage - 1) * this.eachPage,
+                this.currentPage * this.eachPage)"
+              v-bind:key="question.question_id"
+          >
+            <QuestionCard v-bind:title="question.question_title" :link="'question/'+question.question_id" :content="question.question_content"/>
+          </div>
         </div>
+
         <v-pagination
             style="margin-top: 30px;"
             v-model="currentPage"
@@ -91,7 +95,7 @@ export default {
         return {
             question_list: [],
             currentPage: 1,
-            eachPage: 5,
+            eachPage: 10,
             dialogVisible: false,
             search: '',
             ruleForm: {
@@ -215,8 +219,14 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-.rumor{
-  background-image: url(../static/tag1.png);
-  background-size: 200px 200px;
+.listSection {
+  /* outline: #00ff00 dotted thick; */
+
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+  flex-wrap: wrap;
+
+  width: 850px;
 }
 </style>
