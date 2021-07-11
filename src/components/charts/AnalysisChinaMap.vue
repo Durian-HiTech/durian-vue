@@ -65,7 +65,7 @@ export default {
             var enname = ""; //英文名字
             for (var j in chinaen2zh) {
               if (chinaen2zh[j]["label"] == name) {
-                enname = chinaen2zh[j]["name"];
+                enname = chinaen2zh[j]["value"];
                 break;
               }
             }
