@@ -232,6 +232,7 @@ export default {
       this.ChinamapData = homeData["China"]["detailed"];
       this.GlobalmapData = homeData["Global"]["detailed"];
       this.dataLoaded = true;
+      console.log(this.GlobalmapData);
     },
     changeKey(nowtype) {
       var mapping = {
