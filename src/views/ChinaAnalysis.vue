@@ -146,7 +146,6 @@ export default {
         let config = {
           headers: { "Content-Type": "multipart/form-data" },
         };
-        console.log(name.name);
         if (name.name == "China") {
           formData.append("country", "China");
           this.$axios

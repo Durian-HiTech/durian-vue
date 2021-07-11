@@ -1,8 +1,8 @@
 <template>
   <div class="root">
-    <span class="title">
+    <!-- <span class="title">
       <b>Covid</b> Knowledge
-    </span>
+    </span> -->
       
     <el-divider/>
     <KnowledgeList/>
