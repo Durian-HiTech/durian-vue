@@ -27,11 +27,10 @@
   { "value": "Shanghai", "label": "上海市" },
   { "value": "Shanxi", "label": "山西省" },
   { "value": "Sichuan", "label": "四川省" },
-  { "value": "Taiwan", "label": "台湾" },
+  { "value": "Taiwan", "label": "台湾省" },
   { "value": "Tianjin", "label": "天津市" },
   { "value": "Xinjiang", "label": "新疆维吾尔自治区" },
   { "value": "Xizang", "label": "西藏自治区" },
   { "value": "Yunnan", "label": "云南省" },
-  { "value": "Zhejiang", "label": "浙江省" },
-  {}
+  { "value": "Zhejiang", "label": "浙江省" }
 ]

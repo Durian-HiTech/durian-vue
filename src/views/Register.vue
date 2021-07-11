@@ -29,13 +29,21 @@
             </el-input >
         </div>
 
-		<!-- 确认 -->
-		<div class="inputSection">
-			<div style="font-size: 14px; padding: 5px;">确认密码</div>
-			<el-input v-model="RegisterForm.confirmation" placeholder="Password" show-password>
-				<i slot="prefix" class="el-input__icon el-icon-lock" style="font-size: 17px;"></i>
-			</el-input >
-		</div>
+        <!-- 确认 -->
+        <div class="inputSection">
+          <div style="font-size: 14px; padding: 5px;">确认密码</div>
+          <el-input v-model="RegisterForm.confirmation" placeholder="Password" show-password>
+            <i slot="prefix" class="el-input__icon el-icon-lock" style="font-size: 17px;"></i>
+          </el-input >
+        </div>
+
+        <!-- 用户信息 -->
+        <div class="inputSection">
+            <div style="font-size: 14px; padding: 5px;">个人信息</div>
+            <el-input v-model="RegisterForm.user_info" placeholder="UserInfo">
+                <i slot="prefix" class="el-input__icon el-icon-user" style="font-size: 17px;"></i>
+            </el-input >
+        </div>
 		
 		<!-- 用户类型 -->
 		<div class="inputSection">
@@ -75,6 +83,7 @@ export default {
 				username:'',
 				password:'',
 				confirmation : '',
+        user_info:'',
 				userType: '普通用户',
 				affiliation: '',
 			},
@@ -89,6 +98,7 @@ export default {
 				let formData = new FormData();
 				formData.append('username', this.RegisterForm.username);
 				formData.append('password', this.RegisterForm.password);
+        formData.append('user_info', this.RegisterForm.user_info);
 				formData.append('user_type', this.RegisterForm.userType == '普通用户' ? '0' : '1')
 				formData.append('affiliation', this.RegisterForm.affiliation)
 				

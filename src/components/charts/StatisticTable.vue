@@ -38,6 +38,14 @@
 <script>
 var countryen2zh = require('../../data/utils/countryen2zh.json')
 var provinceen2zh = require('../../data/utils/china_en2province.json')
+var countryName = function (name) {
+  // en2zh
+  for (var key in countryen2zh) {
+    if (countryen2zh[key]["value"] == name)
+      return countryen2zh[key]["label"];
+  }
+  return name;
+};
 export default {
     name: 'StatisticTable',
     props:{
@@ -105,12 +113,7 @@ export default {
         } else{
           this.headers[0].text = "国家";
           for(i in this.detailed){
-            for(item in countryen2zh){
-              if(countryen2zh[item]["value"] == this.detailed[i]["name"]){
-                this.detailed[i]["zhname"] = countryen2zh[item]["label"];
-                break;
-              }
-            }
+            this.detailed[i]["zhname"] = countryName(this.detailed[i]['name']);
           }
         }
       },
