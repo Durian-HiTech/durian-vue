@@ -25,6 +25,7 @@ export default {
     },
   },
   mounted() {
+    this.loadzh2en();
     coviddata = this.$props.data;
     var mapname;
     if (this.$props.country["name"] == "China") {
@@ -73,7 +74,6 @@ export default {
               cases: "确诊",
               deaths: "死亡",
               recovered: "治愈",
-              vaccine: "接种",
             };
             var res =
               '<font size="7">' +
@@ -159,17 +159,21 @@ export default {
     type() {
       this.loadData();
     },
-    data() {
-      // data若变则country必定已经变
-      coviddata = this.$props.data;
+    country(){
       var mapname;
       if (this.$props.country["name"] == "China") {
         mapname = "China";
-        this.dataprocessing(); //全国数据需要中文和拼音
+        //this.dataprocessing(); //全国数据需要中文和拼音
       } else {
         mapname = this.$props.country["info"]["adcode"];
       }
       this.loadMap(mapname);
+    },
+    data() {
+      coviddata = this.$props.data;
+      if(this.$props.country["name"]=="China"){
+        this.dataprocessing();
+      }
       this.option["series"][0]["data"] = coviddata;
       this.loadData();
     },

@@ -12,9 +12,7 @@
             :content="country['name'] + '疫情地图'"
             v-if="country['name'] != 'China'"
           ></el-page-header>
-          <div
-            v-if="country['name'] == 'China'"
-          >中国疫情地图</div>
+          <div v-if="country['name'] == 'China'">中国疫情地图</div>
           <analysis-china-map
             :data="mapData"
             :country="country"
@@ -62,23 +60,25 @@
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
-    <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
+    <!-- <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
       <CasesDeathsVaccieRecoveredCmp :DateTable="{}" />
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
+import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
+// import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
+
 export default {
   name: "ChinaAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    CasesDeathsVaccieRecoveredCmp,
+    //CasesDeathsVaccieRecoveredCmp,
   },
   data() {
     return {
@@ -91,7 +91,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal:true,
+      loadlocal: false,
     };
   },
   watch: {
@@ -111,34 +111,75 @@ export default {
   computed: {},
   mounted() {
     this.loaddata({
-      name:"China",
-      zhname:"中国"
+      name: "China",
+      zhname: "中国",
     });
-    this.country = { 
-      name: "China", 
-      info:{
-        name:"",
-        adcode: "", 
-      }
+    this.country = {
+      name: "China",
+      info: {
+        name: "",
+        adcode: "",
+      },
     };
     this.type = "nowcases";
   },
   methods: {
     loaddata(name) {
       // 获得中国或指定省会或指定城市
-      this.dataloaded = false;
-      if(this.loadlocal){
-        if(name.name=='China')this.data = require("../data/samples/" + name.name + "AnalysisSample.json");
-        else this.data = require("../data/samples/"+name.zhname+"AnalysisSample.json");
+      //this.dataloaded = false;
+      if (this.loadlocal) {
+        if (name.name == "China")
+          this.data = require("../data/samples/" +
+            name.name +
+            "AnalysisSample.json");
+        else
+          this.data = require("../data/samples/" +
+            name.zhname +
+            "AnalysisSample.json");
         this.maxTimeNum = this.data.length - 1;
         this.date = this.data[this.timevalue]["date"];
         this.loadporpsdata();
         this.dataloaded = true;
-      }else{
-        return ;
+      } else {
+        var formData = new FormData();
+        var _this = this;
+        let config = {
+          headers: { "Content-Type": "multipart/form-data" },
+        };
+        console.log(name.name);
+        if (name.name == "China") {
+          formData.append("country", "China");
+          this.$axios
+            .post(api.baseApi + "/data/list_country_overview", formData, config)
+            .then(function (response) {
+              if (response.data.success) {
+                _this.data = response.data.data;
+                _this.maxTimeNum = _this.data.length - 1;
+                _this.date = _this.data[_this.timevalue]["date"];
+                _this.loadporpsdata();
+                _this.dataloaded = true;
+              }
+            });
+        } else {
+          formData.append("name", name.name);
+          formData.append("zhname", name.zhname);
+          this.$axios
+            .post(
+              api.baseApi + "/data/list_province_overview",
+              formData,
+              config
+            )
+            .then(function (response) {
+              if (response.data.success) {
+                _this.data = response.data.data;
+                _this.maxTimeNum = _this.data.length - 1;
+                _this.date = _this.data[_this.timevalue]["date"];
+                _this.loadporpsdata();
+                _this.dataloaded = true;
+              }
+            });
+        }
       }
-      
-      
     },
     changeKey(nowtype) {
       var mapping = {
@@ -174,10 +215,6 @@ export default {
           type: "累计治愈",
           color: "#00ACA5",
         },
-        vaccine: {
-          type: "累积接种",
-          color: "#00ACA5",
-        },
       };
       var list = [];
       var res = {};
@@ -195,23 +232,21 @@ export default {
     changeCountry(obj) {
       this.country = obj;
       this.loaddata({
-        name:obj.info.name,
-        zhname:obj.name
+        name: obj.info.name,
+        zhname: obj.name,
       });
     },
     backtoChina() {
       this.changeCountry({
-        name:'China',
-        info:{
-          name:'',
-          adcode:''
-        }
-      })
+        name: "China",
+        info: {
+          name: "China",
+          adcode: "",
+        },
+      });
     },
     loadCasesDeathsVaccieRecoveredCmp() {},
   },
-
-  
 };
 </script>
 <style scoped>
