@@ -74,7 +74,6 @@ export default {
           title:"订阅",
           url: "/subscribe",
         },
-        
       ],
     };
   },
