@@ -12,9 +12,7 @@
             :content="countryzhname + '疫情地图'"
             v-if="country != 'World'"
           ></el-page-header>
-          <div
-            v-if="country == 'World'"
-          >世界疫情地图</div>
+          <div v-if="country == 'World'">世界疫情地图</div>
           <analysis-global-map
             :data="mapData"
             :country="country"
@@ -55,10 +53,7 @@
       </div>
     </div>
     <div class="TableSection" v-if="dataloaded">
-      <analysis-table
-        :type="country"
-        :tableData="mapData"
-      ></analysis-table>
+      <analysis-table :type="country" :tableData="mapData"></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
@@ -68,6 +63,7 @@
   </div>
 </template>
 <script>
+import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
@@ -93,17 +89,17 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal:true,
+      loadlocal: false,
     };
   },
-  computed:{
-    countryzhname(){
-      for(var i in countryen2zh){
-        if(countryen2zh[i]["value"] == this.country)return countryen2zh[i]["label"];
+  computed: {
+    countryzhname() {
+      for (var i in countryen2zh) {
+        if (countryen2zh[i]["value"] == this.country)
+          return countryen2zh[i]["label"];
       }
       return this.country;
-    }
-
+    },
   },
   watch: {
     timevalue(newvalue) {
@@ -128,17 +124,46 @@ export default {
     loaddata(name) {
       // 获得世界或指定国家
       this.dataloaded = false;
-      if(this.loadlocal){
+      if (this.loadlocal) {
         this.data = require("../data/samples/" + name + "AnalysisSample.json");
         this.maxTimeNum = this.data.length - 1;
         this.date = this.data[this.timevalue]["date"];
         this.loadporpsdata();
         this.dataloaded = true;
-      }else{
-        return ;
+      } else {
+        var formData = new FormData();
+        var _this = this;
+        let config = {
+          headers: { "Content-Type": "multipart/form-data" },
+        };
+        if (name == "World") {
+          this.$axios
+            .get(api.baseApi + "/data/list_history_overview")
+            .then(function (response) {
+              if (response.data.success) {
+                _this.data = response.data.Global;
+                console.log(_this.data);
+                _this.maxTimeNum = _this.data.length - 1;
+                _this.date = _this.data[_this.timevalue]["date"];
+                _this.loadporpsdata();
+                _this.dataloaded = true;
+              }
+            });
+        } else {
+          formData.append("country", name);
+          this.$axios
+            .post(api.baseApi + "/data/list_country_overview", formData, config)
+            .then(function (response) {
+              if (response.data.success) {
+                _this.data = response.data.data;
+                _this.maxTimeNum = _this.data.length - 1;
+                _this.date = _this.data[_this.timevalue]["date"];
+                _this.loadporpsdata();
+                _this.dataloaded = true;
+              }
+            });
+        }
       }
-      
-      
     },
     changeKey(nowtype) {
       var mapping = {
@@ -188,14 +213,14 @@ export default {
       }
       this.overviewData = list;
     },
-    hasMap(name){
-      for(var i in countries){
-        if(countries[i]["value"] == name)return true;
+    hasMap(name) {
+      for (var i in countries) {
+        if (countries[i]["value"] == name) return true;
       }
       return false;
     },
     changeCountry(name) {
-      if(!this.hasMap(name))return ;
+      if (!this.hasMap(name)) return;
       this.country = name;
       this.loaddata(name);
     },
@@ -204,8 +229,6 @@ export default {
     },
     loadCasesDeathsVaccieRecoveredCmp() {},
   },
-
-  
 };
 </script>
 <style scoped>
