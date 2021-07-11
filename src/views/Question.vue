@@ -29,16 +29,10 @@
                   <img src="../assets/avatar/cat.jpg">
                 </el-avatar>
               </div>
-<!--              <el-input placeholder="Add a comment"-->
-<!--                        v-model=input-->
-<!--                        type="textarea"-->
-<!--                        autosize-->
-<!--                        resize="vertical"-->
-<!--                        style="background-color: red; margin-left: 10px; width: 80%"></el-input>-->
               <el-input
                   type="textarea"
-                  autosize
-                  placeholder="Add a comment..."
+                  placeholder="输入添加评论"
+                  :autosize="{ minRows: 3, maxRows: 5 }"
                   style="font-size: 16px; margin-left: 5px; margin-right: 5px"
                   v-model="input">
               </el-input>
