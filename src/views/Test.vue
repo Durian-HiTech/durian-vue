@@ -2,7 +2,7 @@
 	<div class="root">
 		<h1 style='margin-top:100px;'>This is Test Page</h1>
 		
-		<h1>{{ locationInfo.district }}</h1>
+		<h1>{{ locationInfo }}</h1>
 
 	</div>
 </template>
