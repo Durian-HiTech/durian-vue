@@ -20,14 +20,14 @@
       </div>
     </div>
 
-    <router-link
-      to="/subscribe"
+    <div
       tag="div"
       class="new_message"
-
+      v-if="show_sub"
+      @click="toNewMessage()"
     >
           您的订阅有新的消息 !
-    </router-link>
+    </div>
 
   </div>
 </template>
@@ -37,6 +37,11 @@
 export default {
   name: "NavBar",
   components: {
+  },
+  computed: {
+    show_sub () {
+      return this.$store.getters.userState.show_sub
+    }
   },
   data() {
     return {
@@ -70,10 +75,14 @@ export default {
     };
   },
   methods: {
-	backtostartpage(){
-		this.$router.push('/')
-		window.location.reload();
-	},
+    backtostartpage(){
+      this.$router.push('/')
+      window.location.reload();
+    },
+    toNewMessage () {
+      this.$store.commit('haveRead')
+      this.$router.push('/subscribe')
+    },
   }
 };
 </script>
