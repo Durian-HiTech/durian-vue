@@ -152,8 +152,31 @@
         </div>
       </div>
 
-      <div>
-        {{information}}
+      <div style='margin-left:20px; margin-top: 50px;' v-if='isLogined'>
+
+        <v-card
+          class="mx-auto"
+          color="rgb(230, 162, 60)"
+          dark
+          max-width="400"
+        >
+          <v-card-title>
+            <v-icon
+              large
+              left
+            >
+              mdi-bell
+            </v-icon>
+            <span class="text-h6 font-weight-light">Update</span>
+          </v-card-title>
+
+          <v-card-text style='font-weight: bold; font-size: 20px;'>
+            {{information}}
+          </v-card-text>
+
+        </v-card>
+
+
       </div>
 
     </div>
@@ -322,7 +345,7 @@ export default {
         .post(api.baseApi + "/sub/list_subs_data", formData, config)
         .then(function (response) {
           if (response.status == 200) {
-            console.log(response)
+            // console.log(response)
             _this.information = response.data.information
             _this.cityList = response.data.data
           } else {

@@ -1,41 +1,39 @@
 <template>
-  <div class="main_question">
-    <div class="content">
-      <div class="left_margin" style="width: 15%"></div>
-      <div class="main_content">
-        <div class="question">
-          <div class="question_title">
-            {{ question.question_title }}
+  <v-container class="grey lighten-5" style="margin-top: 50px">
+    <v-row no-gutters>
+      <v-col cols="12" sm="6" md="8" style="padding: 10px">
+        <v-card class="pa-2" outlined tile>
+          <div class="question">
+            <div class="question_title" style="text-align: center">
+              {{ question.question_title }}
+            </div>
+            <div class="question_content" style="text-align: center">
+              {{ question.question_content }}
+            </div>
+            <div
+              class="question_user"
+              style="text-align: left; color: gray; margin-left: 20px"
+              v-if="has_comments"
+            >
+              {{ comment_list.length }}条回答
+            </div>
+            <div
+              class="question_user"
+              style="text-align: left; color: gray; margin-left: 20px"
+              v-else
+            >
+              0条回答
+            </div>
+            <el-divider
+              >{{ question.username }} 发布于 {{ question.question_time }}
+            </el-divider>
           </div>
-          <div class="question_content">
-            {{ question.question_content }}
-          </div>
-          <div
-            class="question_user"
-            style="text-align: left; color: gray; margin-left: 20px"
-            v-if="has_comments"
-          >
-            {{ comment_list.length }}条回答
-          </div>
-          <div
-            class="question_user"
-            style="text-align: left; color: gray; margin-left: 20px"
-            v-else
-          >
-            0条回答
-          </div>
-          <el-divider
-            >{{ question.username }} 发布于 {{ question.question_time }}
-          </el-divider>
-        </div>
-
-        <div class="comment">
-          <div class="left_comment_margin" style="width: 5%"></div>
 
           <div
             class="comment_list"
-            style="display: flex; flex-direction: column; width: 90%"
+            style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 98%;"
           >
+
             <div
               style="
                 display: flex;
@@ -43,6 +41,7 @@
                 justify-content: center;
                 align-items: center;
                 margin: 15px;
+                width: 100%;
               "
             >
               <div
@@ -72,51 +71,42 @@
                 >评论</el-button
               >
             </div>
-            <div
-              v-for="item in comment_list"
-              :key="item.comment_id"
-              style="width: 97%"
-            >
-              <CommentCard
-                style="margin: 10px"
-                :username="item.username"
-                :is-authority="item.user_type"
-                :content="item.comment_content"
-                :time="item.comment_time"
-                :user_info="item.user_info"
-              ></CommentCard>
-            </div>
-          </div>
 
-          <div class="right_comment_margin" style="width: 5%"></div>
-        </div>
-      </div>
-      <div class="right_margin" style="width: 21%">
-        <div class="related_question">
-          <!-- <div class="related_question_header" style="margin-top: 10px; margin-left: 10px; font-size: 18px; text-align: left; ">
-            为您推荐问题
-            <el-divider></el-divider>
-          </div>
-          <div class="related_question_content" style="text-align: left; margin-left: 5px; color: gray;">
-            <div v-for="item in related_list" :key="item.id" style="margin: 10px">
-              <router-link :to="{path: '/question/'+ item.id}" @click.native="refresh">{{ item.content }} </router-link>
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
+              <div
+                v-for="item in comment_list"
+                :key="item.comment_id"
+                style="width: 100%;"
+              >
+                <CommentCard
+                  style="margin: 10px;"
+                  :username="item.username"
+                  :is-authority="item.user_type"
+                  :content="item.comment_content"
+                  :time="item.comment_time"
+                  :user_info="item.user_info"
+                ></CommentCard>
+              </div>
             </div>
-          </div> -->
+
+          </div>
+        </v-card>
+      </v-col>
+      <v-col cols="6" md="4" style="padding: 10px">
+        <v-card class="pa-2" outlined tile>
           <template>
-            <v-simple-table>
+            <v-simple-table style="margin: 30px">
               <template v-slot:default>
                 <thead>
                   <tr>
-                    <th class="text-left">
-                      为您推荐问题
-                    </th>
+                    <th class="text-left"><h1>为您推荐问题</h1></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
                     v-for="item in recommend_questions"
                     :key="item.question_id"
-                    @click="goToNewsPage('/question/'+item.question_id)"
+                    @click="goToNewsPage('/question/' + item.question_id)"
                   >
                     <td>{{ item.question_title }}</td>
                   </tr>
@@ -124,13 +114,13 @@
               </template>
             </v-simple-table>
           </template>
-
-        </div>
-      </div>
-      <div class="right_margin" style="width: 10%"></div>
-    </div>
-  </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+
+
 
 <script>
 import api from "../commonApi.js";
@@ -153,13 +143,13 @@ export default {
       has_comments: false,
 
       desserts: [
-          {
-            name: 'Frozen Yogurt',
-          },
-          {
-            name: 'Ice cream sandwich',
-          }
-        ],
+        {
+          name: "Frozen Yogurt",
+        },
+        {
+          name: "Ice cream sandwich",
+        },
+      ],
 
       related_list: [
         {
@@ -184,9 +174,9 @@ export default {
   },
   methods: {
     goToNewsPage(link) {
-      this.$router.push(link)
+      this.$router.push(link);
     },
-    getRecommendQuestions(){
+    getRecommendQuestions() {
       var _this = this;
       axios
         .get(api.baseApi + "/notice/list_all_questions")
@@ -336,6 +326,8 @@ export default {
 .question {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   /*height: 300px;*/
   /*background-color: violet;*/
 }
