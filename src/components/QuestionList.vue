@@ -35,7 +35,7 @@
     <div style="display: flex; justify-content: center; align-items: flex-start;">
 
       <v-app style="margin: 30px">
-        <h1>谣言&辟谣</h1>
+        <h1>辟谣专区</h1>
         <p style="color:grey;">共{{this.rumor_list_show.length}}条谣言/辟谣</p>
         <div
             style="margin: 30px"
@@ -290,7 +290,7 @@ export default {
                     if (response.status == 200) {
                       console.log((response))
                        _this.$message({ message: "提问成功", type: "success" });
-                      _this.sleep(500).then(()=>{
+                      _this.sleep(10).then(()=>{
                         _this.$router.go(0)
                       })
                     } else {

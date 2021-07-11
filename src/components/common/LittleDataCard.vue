@@ -13,10 +13,10 @@ export default({
     props: ['nownum', 'type', 'newnum', 'color'],
     data(){
         return{
-              newnumber:0,
-        nownumber:0,
+            newnumber:0,
+            nownumber:0,
         }
-      
+
     },
     mounted(){
         this.newnumber = this.$props.newnum;
@@ -74,7 +74,7 @@ export default({
 <style scoped>
 .showcardroot {
     margin: 10px;
-    margin-left:15px; 
+    margin-left:15px;
     margin-right:15px;
 	display: flex;
 	justify-content: center;
