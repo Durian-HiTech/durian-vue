@@ -101,7 +101,7 @@ export default {
               }
             }
           }
-        } else if(this.$props.type == 'Global'){ //世界
+        } else if(this.$props.type == 'World'){ //世界
           this.headers[0].text = "国家";
           for(i in this.detailed){
             for(item in countryen2zh){

@@ -8,12 +8,12 @@
       <div class="MapMain">
         <div class="Map">
           <el-page-header
-            @back="backtoChina"
-            :content="country['name'] + '疫情地图'"
-            v-if="country['name'] != 'Global'"
+            @back="backtoWorld"
+            :content="countryzhname + '疫情地图'"
+            v-if="country != 'World'"
           ></el-page-header>
           <div
-            v-if="country['name'] == 'Global'"
+            v-if="country == 'World'"
           >世界疫情地图</div>
           <analysis-global-map
             :data="mapData"
@@ -56,35 +56,37 @@
     </div>
     <div class="TableSection" v-if="dataloaded">
       <analysis-table
-        :type="country['name']"
+        :type="country"
         :tableData="mapData"
       ></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
-    <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
+    <!-- <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
       <CasesDeathsVaccieRecoveredCmp :DateTable="{}" />
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
-import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
+import countryen2zh from "../data/utils/countryen2zh.json";
+import countries from "../data/utils/countries.json";
+// import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
 export default {
-  name: "ChinaAnalysis",
+  name: "GlobalAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
     AnalysisGlobalMap,
-    CasesDeathsVaccieRecoveredCmp,
+    //CasesDeathsVaccieRecoveredCmp,
   },
   data() {
     return {
       date: "",
       timevalue: 0,
-      country: {}, //China或省或省会 {name:"",adcode:"",}
+      country: "", //World或其他国家
       type: "", //热力图主键
       data: "", //const
       dataloaded: false,
@@ -93,6 +95,15 @@ export default {
       overviewData: [], //littlecard
       loadlocal:true,
     };
+  },
+  computed:{
+    countryzhname(){
+      for(var i in countryen2zh){
+        if(countryen2zh[i]["value"] == this.country)return countryen2zh[i]["label"];
+      }
+      return this.country;
+    }
+
   },
   watch: {
     timevalue(newvalue) {
@@ -108,28 +119,17 @@ export default {
       }
     },
   },
-  computed: {},
   mounted() {
-    this.loaddata({
-      name:"China",
-      zhname:"中国"
-    });
-    this.country = { 
-      name: "Global", 
-      info:{
-        name:"",
-        adcode: "", 
-      }
-    };
+    this.loaddata("World");
+    this.country = "World";
     this.type = "nowcases";
   },
   methods: {
     loaddata(name) {
-      // 获得中国或指定省会或指定城市
+      // 获得世界或指定国家
       this.dataloaded = false;
       if(this.loadlocal){
-        if(name.name=='China')this.data = require("../data/samples/" + name.name + "AnalysisSample.json");
-        else this.data = require("../data/samples/"+name.zhname+"AnalysisSample.json");
+        this.data = require("../data/samples/" + name + "AnalysisSample.json");
         this.maxTimeNum = this.data.length - 1;
         this.date = this.data[this.timevalue]["date"];
         this.loadporpsdata();
@@ -174,10 +174,6 @@ export default {
           type: "累计治愈",
           color: "#00ACA5",
         },
-        vaccine: {
-          type: "累积接种",
-          color: "#00ACA5",
-        },
       };
       var list = [];
       var res = {};
@@ -192,21 +188,19 @@ export default {
       }
       this.overviewData = list;
     },
-    changeCountry(obj) {
-      this.country = obj;
-      this.loaddata({
-        name:obj.info.name,
-        zhname:obj.name
-      });
+    hasMap(name){
+      for(var i in countries){
+        if(countries[i]["value"] == name)return true;
+      }
+      return false;
     },
-    backtoChina() {
-      this.changeCountry({
-        name:'China',
-        info:{
-          name:'',
-          adcode:''
-        }
-      })
+    changeCountry(name) {
+      if(!this.hasMap(name))return ;
+      this.country = name;
+      this.loaddata(name);
+    },
+    backtoWorld() {
+      this.changeCountry("World");
     },
     loadCasesDeathsVaccieRecoveredCmp() {},
   },

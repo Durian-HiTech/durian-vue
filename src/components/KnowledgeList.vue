@@ -71,33 +71,12 @@
             :items="knowledge_list"
             :search="search_knowledge"
             @click:row="handleClick"
+            :footer-props="{
+              disableItemsPerPage: true,
+              itemsPerPageOptions: [25],
+            }"
           ></v-data-table>
         </v-card>
-
-        <!-- <p style="color: grey">
-          共{{ this.knowledge_list_show.length }}条防疫小知识
-        </p>
-        <div
-          style="margin: 30px"
-          v-for="knowledge in knowledge_list_show.slice(
-            (this.currentPage_2 - 1) * this.eachPage,
-            this.currentPage_2 * this.eachPage
-          )"
-          v-bind:key="knowledge.knowledge_id"
-        >
-          <QuestionCard
-            v-bind:title="knowledge.knowledge_title"
-            :link="'knowledge/' + knowledge.knowledge_id"
-            :content="knowledge.knowledge_content"
-          />
-        </div>
-        <v-pagination
-          style="margin-top: 30px"
-          v-model="currentPage_2"
-          :length="Math.ceil(this.knowledge_list_show.length / eachPage)"
-          circle
-          color="cyan"
-        ></v-pagination> -->
       </v-app>
     </div>
   </div>
