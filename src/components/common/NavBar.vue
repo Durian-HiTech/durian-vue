@@ -19,6 +19,16 @@
         </router-link>
       </div>
     </div>
+
+    <router-link
+      to="/subscribe"
+      tag="div"
+      class="new_message"
+
+    >
+          您的订阅有新的消息 !
+    </router-link>
+
   </div>
 </template>
 
@@ -69,6 +79,27 @@ export default {
 </script>
 
 <style scoped>
+.new_message {
+  position: absolute; 
+  right: 90px; 
+  top: 10px; 
+  z-index: 12;
+
+  font-weight: bold;
+  color: white;
+
+  background-color: rgb(230, 162, 60);
+  border-radius: 30px;
+  padding: 1px;
+  padding-left: 6px;
+  padding-right: 6px;
+
+  box-shadow: 0px 0px 10px 2px rgba(128, 128, 128, 0.1);
+
+  cursor: pointer;
+
+}
+
 #user-avatar {
   position: fixed;
   right: 20px;
@@ -146,5 +177,11 @@ export default {
 .el-button--text:hover {
   font-size: 16px;
   color: rgb(7, 7, 7);
+}
+
+.nav_bar_new_status {
+  position: relative;
+  right: 100px;
+  top: 5px;
 }
 </style>
