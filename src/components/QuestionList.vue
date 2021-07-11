@@ -26,7 +26,7 @@
     <el-input
       placeholder="Search"
       v-model="search"
-      style="width: 70%;"
+      style="width: 50%;"
       >
       <i slot="prefix" class="el-input__icon el-icon-search"></i>
     </el-input>
