@@ -75,6 +75,7 @@
 			</div>
 		</div>
 	</div>
+
 	</div>
 </template>
 
@@ -182,7 +183,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .avatar {
 	/* outline: #00ff00 dotted thick; */
 	height: 40px;

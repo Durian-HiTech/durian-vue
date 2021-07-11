@@ -1,15 +1,22 @@
 <template>
   <div class="subscribe_root">
-    <span class="title"> <b>Covid</b> Subscriptions </span>
-    <el-divider />
+    <span class="title"> 
 
-    <el-input
+      <b style="margin-right: 10px;">Covid</b> Subscriptions
+
+      <el-input
       placeholder="Search"
       v-model="search"
-      style="width: 50%; margin-bottom: 10px;"
+      style="margin-left: 250px; width: 300px;"
       >
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-    </el-input>
+        <i slot="prefix" class="el-input__icon el-icon-search"></i>
+      </el-input>
+    
+    </span>
+
+    
+
+    <el-divider />
 
     <v-app style='height: 20px;'>
       <v-btn
@@ -400,33 +407,15 @@ export default {
 .title {
     margin-top: 70px;
     font-size: 30px; 
-    align-self: flex-start; 
+    align-self: flex-start;
     position: relative;
     left: 250px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
   }
-.hometitle {
-  /* outline: #00ff00 dotted thick; */
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 100px;
-  margin-bottom: 80px;
-
-  align-self: flex-start;
-
-  margin-right: 40%;
-}
-.titleText {
-  font-size: 80px;
-}
-.hometitle .SelectBar {
-  /* outline: #00ff00 dotted thick; */
-
-  margin-top: 20px;
-  margin-left: 30px;
-}
 
 .homeMain {
   display: flex;
