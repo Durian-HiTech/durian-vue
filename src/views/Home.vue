@@ -314,13 +314,13 @@ export default {
   padding-top: 5px;
   padding-bottom: 5px;
   border: #cccccc solid thin;
-  border-radius: 40px;
-  width: 800px;
+  border-radius: 10px;
+  width: 700px;
 }
 .homeTable {
   margin-top: 70px;
   margin-left: 30px;
-  width: 550px;
+  width: 650px;
 }
 
 .region {

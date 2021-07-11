@@ -24,14 +24,6 @@
     </span>
     </el-dialog>
 
-    <el-input
-      placeholder="Search"
-      v-model="search"
-      style="width: 50%;"
-      >
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-    </el-input>
-
     <div style="display: flex; justify-content: center; align-items: flex-start;">
 
       <v-app style="margin: 30px">
@@ -51,6 +43,16 @@
             </v-icon>
             我要提问
           </v-btn>
+        </center>
+
+        <center>
+          <el-input
+            placeholder="Search"
+            v-model="search"
+            style="width: 85%; margin-top: 20px;"
+            >
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
         </center>
 
         <div

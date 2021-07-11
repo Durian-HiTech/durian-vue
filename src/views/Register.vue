@@ -2,15 +2,7 @@
     <div class="root">
       <div id = "RegisterCard">
 
-        <div id="title">
-            <span style="font-weight: bold;">Durian</span>  <span>Covid</span>
-        </div>
-
-
-        <div>
-            <span style="font-size: 45px; font-weight: bold;"> Register </span>
-        </div>
-
+        <div style="font-size: 45px; font-weight: bold; margin-top:30px;"> Register </div>
 
         <!-- 用户名 -->
         <div class="inputSection">
@@ -127,7 +119,7 @@ export default {
 			if (this.RegisterForm.userType == '普通用户') {
 				this.$gsap.set('#RegisterCard', {height: "660px"})
 			} else if (this.RegisterForm.userType == '认证机构用户') {
-				this.$gsap.set('#RegisterCard', {height: "730px"})
+				this.$gsap.set('#RegisterCard', {height: "720px"})
 			}
 		},
 	},

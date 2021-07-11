@@ -1,18 +1,19 @@
 <template>
 <v-app >
 
-    <center>
-    <el-input
-      placeholder="Search"
-      v-model="search"
-      style="width: 70%; margin-bottom: 10px;"
-      >
-      <i slot="prefix" class="el-input__icon el-icon-search"></i>
-    </el-input>
-    </center>
-
     <h1>{{title}}</h1>
     <p style="color:grey;">共{{this.posts_show.length}}条新闻</p>
+
+    <center>
+        <el-input
+          placeholder="Search"
+          v-model="search"
+          style="width: 70%; margin-bottom: 10px;"
+          >
+          <i slot="prefix" class="el-input__icon el-icon-search"></i>
+        </el-input>
+    </center>
+
     <div
         style="margin: 30px"
         v-for="post in posts_show.slice((this.currentPage - 1) * this.eachPage,
