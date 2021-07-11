@@ -72,6 +72,7 @@ export default {
 						type: response.data.detail.user_type,
 						affiliation: response.data.detail.affiliation,
 						id: response.data.detail.user_id,
+            show_sub: response.data.show_sub,
 					})
 					
 					_this.$router.push({path: '/'})

@@ -20,14 +20,14 @@
       </div>
     </div>
 
-    <router-link
-      to="/subscribe"
+    <div
       tag="div"
       class="new_message"
-
+      v-if="show_sub"
+      @click="toNewMessage()"
     >
           您的订阅有新的消息 !
-    </router-link>
+    </div>
 
   </div>
 </template>
@@ -38,15 +38,20 @@ export default {
   name: "NavBar",
   components: {
   },
+  computed: {
+    show_sub () {
+      return this.$store.getters.userState.show_sub
+    }
+  },
   data() {
     return {
       pages: [
         {
-          title:"国内疫情分析",
+          title:"国内疫情",
           url:"/chinaanalysis"
         },
         {
-          title:"国际疫情分析",
+          title:"国际疫情",
           url:"/globalanalysis"
         },
         {
@@ -54,8 +59,12 @@ export default {
           url: "/news",
         },
         {
-          title:"知识版块",
+          title:"问答",
           url: "/question",
+        },
+        {
+          title:"知识",
+          url: "/knowledge",
         },
         {
           title:"行程",
@@ -70,10 +79,14 @@ export default {
     };
   },
   methods: {
-	backtostartpage(){
-		this.$router.push('/')
-		window.location.reload();
-	},
+    backtostartpage(){
+      this.$router.push('/')
+      window.location.reload();
+    },
+    toNewMessage () {
+      this.$store.commit('haveRead')
+      this.$router.push('/subscribe')
+    },
   }
 };
 </script>

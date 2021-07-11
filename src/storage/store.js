@@ -12,6 +12,7 @@ const store = new Vuex.Store({
 		name: '',
 		type: '',
 		affiliation: '',
+		show_sub: false,
 	}
   },
   mutations: {
@@ -21,6 +22,7 @@ const store = new Vuex.Store({
 		state.userState.id = userInfo.id
 		state.userState.type = userInfo.type
 		state.userState.affiliation = userInfo.affiliation 
+		state.userState.show_sub = userInfo.show_sub
 	},
 	reset (state) {
 		state.userState.isLogined = false
@@ -28,6 +30,10 @@ const store = new Vuex.Store({
 		state.userState.id = ''
 		state.userState.type = ''
 		state.userState.affiliation = ''
+		state.userState.show_sub = false
+	},
+	haveRead (state) {
+		state.userState.show_sub = false
 	},
   },
   getters: {
