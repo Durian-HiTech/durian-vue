@@ -1,123 +1,131 @@
 <template>
-  <div class="main">
-    <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
-      width="30%"
-      :before-close="handleClose"
-    >
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="100px"
-        class="demo-ruleForm"
-      >
-        <el-form-item label="问题名称" prop="name">
-          <el-input v-model="ruleForm.name"></el-input>
-        </el-form-item>
-        <el-form-item label="问题内容" prop="content">
-          <el-input v-model="ruleForm.content" type="textarea"></el-input>
-        </el-form-item>
-
-        <el-form-item>
-          <el-button type="primary" @click="submitForm('ruleForm')"
-            >立即创建</el-button
+  <v-container class="grey lighten-5">
+    <v-row no-gutters>
+      <v-col cols="12" sm="6" md="8"  style="padding: 10px">
+        <v-card class="pa-2" outlined tile>
+          <el-dialog
+            title="提示"
+            :visible.sync="dialogVisible"
+            width="30%"
+            :before-close="handleClose"
           >
-          <el-button @click="resetForm('ruleForm')">重置</el-button>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer"> </span>
-    </el-dialog>
-
-    <div
-      style="display: flex; justify-content: center; align-items: flex-start"
-    >
-      <v-app style="margin: 30px">
-        <h1>问答专区</h1>
-        <p style="color: grey">共{{ this.question_list_show.length }}条提问</p>
-
-        <center>
-          <v-btn
-            rounded
-            color="cyan"
-            dark
-            @click="dialogVisible = true"
-            width="140px"
-          >
-            <v-icon left> mdi-pencil </v-icon>
-            我要提问
-          </v-btn>
-        </center>
-
-        <center>
-          <el-input
-            placeholder="Search"
-            v-model="search"
-            style="width: 350px; margin-top: 20px"
-          >
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
-          </el-input>
-        </center>
-
-        <div class="listSection">
-          <div
-            style="margin: 30px"
-            v-for="question in question_list_show.slice(
-              (this.currentPage - 1) * this.eachPage,
-              this.currentPage * this.eachPage
-            )"
-            v-bind:key="question.question_id"
-          >
-            <QuestionCard
-              v-bind:title="question.question_title"
-              :link="'question/' + question.question_id"
-              :content="question.question_content"
-            />
-          </div>
-        </div>
-
-        <!-- <div class="related_question_header" style="margin-top: 10px; margin-left: 10px; font-size: 18px; text-align: left; ">
-            为您推荐问题
-            <el-divider></el-divider>
-          </div>
-          <div class="related_question_content" style="text-align: left; margin-left: 5px; color: gray;">
-            <div v-for="item in related_list" :key="item.id" style="margin: 10px">
-              <router-link :to="{path: '/question/'+ item.id}" @click.native="refresh">{{ item.content }} </router-link>
-            </div>
-          </div> -->
-
-        <v-pagination
-          style="margin-top: 30px"
-          v-model="currentPage"
-          :length="Math.ceil(this.question_list_show.length / eachPage)"
-          circle
-          color="cyan"
-        ></v-pagination>
-      </v-app>
-    </div>
-    <template>
-      <v-simple-table>
-        <template v-slot:default>
-          <thead>
-            <tr>
-              <th class="text-left">为您推荐问题</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="item in recommend_questions"
-              :key="item.question_id"
-              @click="goToNewsPage('/question/' + item.question_id)"
+            <el-form
+              :model="ruleForm"
+              :rules="rules"
+              ref="ruleForm"
+              label-width="100px"
+              class="demo-ruleForm"
             >
-              <td>{{ item.question_title }}</td>
-            </tr>
-          </tbody>
-        </template>
-      </v-simple-table>
-    </template>
-  </div>
+              <el-form-item label="问题名称" prop="name">
+                <el-input v-model="ruleForm.name"></el-input>
+              </el-form-item>
+              <el-form-item label="问题内容" prop="content">
+                <el-input v-model="ruleForm.content" type="textarea"></el-input>
+              </el-form-item>
+
+              <el-form-item>
+                <el-button type="primary" @click="submitForm('ruleForm')"
+                  >立即创建</el-button
+                >
+                <el-button @click="resetForm('ruleForm')">重置</el-button>
+              </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer"> </span>
+          </el-dialog>
+
+          <div
+            style="
+              display: flex;
+              justify-content: center;
+              align-items: flex-start;
+            "
+          >
+            <v-app style="margin: 30px">
+              <h1>问答专区</h1>
+              <p style="color: grey">
+                共{{ this.question_list_show.length }}条提问
+              </p>
+
+              <center>
+                <v-btn
+                  rounded
+                  color="cyan"
+                  dark
+                  @click="dialogVisible = true"
+                  width="140px"
+                >
+                  <v-icon left> mdi-pencil </v-icon>
+                  我要提问
+                </v-btn>
+              </center>
+
+              <center>
+                <el-input
+                  placeholder="Search"
+                  v-model="search"
+                  style="width: 350px; margin-top: 20px"
+                >
+                  <i slot="prefix" class="el-input__icon el-icon-search"></i>
+                </el-input>
+              </center>
+
+              <div class="listSection">
+                <div
+                  style="margin: 30px"
+                  v-for="question in question_list_show.slice(
+                    (this.currentPage - 1) * this.eachPage,
+                    this.currentPage * this.eachPage
+                  )"
+                  v-bind:key="question.question_id"
+                >
+                  <QuestionCard
+                    v-bind:title="question.question_title"
+                    :link="'question/' + question.question_id"
+                    :content="question.question_content"
+                  />
+                </div>
+              </div>
+
+              <v-pagination
+                style="margin-top: 30px"
+                v-model="currentPage"
+                :length="Math.ceil(this.question_list_show.length / eachPage)"
+                circle
+                color="cyan"
+              ></v-pagination>
+            </v-app>
+          </div>
+        </v-card>
+      </v-col>
+      <v-col cols="6" md="4" style="padding: 10px">
+        <v-card class="pa-2" outlined tile>
+          <template>
+            <v-simple-table style="margin: 30px">
+              <template v-slot:default>
+                <thead>
+                  <tr>
+                    <th class="text-left"><h1>为您推荐问题</h1></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="item in recommend_questions"
+                    :key="item.question_id"
+                    @click="goToNewsPage('/question/' + item.question_id)"
+                  >
+                    <td>{{ item.question_title }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </template>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+
+
 
 
 <script>
