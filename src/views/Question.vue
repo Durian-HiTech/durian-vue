@@ -31,8 +31,9 @@
 
           <div
             class="comment_list"
-            style="display: flex; flex-direction: column; width: 90%"
+            style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 98%;"
           >
+
             <div
               style="
                 display: flex;
@@ -40,6 +41,7 @@
                 justify-content: center;
                 align-items: center;
                 margin: 15px;
+                width: 100%;
               "
             >
               <div
@@ -69,26 +71,24 @@
                 >评论</el-button
               >
             </div>
-            <div
-              v-for="item in comment_list"
-              :key="item.comment_id"
-              style="
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-              "
-            >
-              <CommentCard
-                style="margin: 10px"
-                :username="item.username"
-                :is-authority="item.user_type"
-                :content="item.comment_content"
-                :time="item.comment_time"
-                :user_info="item.user_info"
-              ></CommentCard>
+
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
+              <div
+                v-for="item in comment_list"
+                :key="item.comment_id"
+                style="width: 100%;"
+              >
+                <CommentCard
+                  style="margin: 10px;"
+                  :username="item.username"
+                  :is-authority="item.user_type"
+                  :content="item.comment_content"
+                  :time="item.comment_time"
+                  :user_info="item.user_info"
+                ></CommentCard>
+              </div>
             </div>
+
           </div>
         </v-card>
       </v-col>
