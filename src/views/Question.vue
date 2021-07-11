@@ -45,7 +45,7 @@
               <el-button type="primary" style="background-color: #2b6dad; border-radius: 10px" @click="commit_comment">评论</el-button>
             </div>
             <div v-for="item in comment_list" :key="item.comment_id" style="width: 97%;">
-              <CommentCard style="margin: 10px" :user=item.user_id :is-authority=item.user_type :content=item.comment_content :time=item.comment_time></CommentCard>
+              <CommentCard style="margin: 10px" :username=item.username :is-authority=item.user_type :content=item.comment_content :time=item.comment_time :user_info=item.user_info></CommentCard>
             </div>
           </div>
 
