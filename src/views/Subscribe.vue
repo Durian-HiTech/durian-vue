@@ -38,7 +38,7 @@
     <div class="homeMain" v-if='isLogined'>
       <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
         <el-table :data="cityList" style="width: 100%">
-          <el-table-column label="订阅城市" prop="city_name">
+          <el-table-column label="订阅城市" prop="name">
           </el-table-column>
           <el-table-column align="right">
             <template slot-scope="scope">
@@ -372,14 +372,14 @@ export default {
     // },
     handleDelete(index, row) {
       let formData = new FormData();
-      formData.append("city_name", row.city_name);
+      formData.append("name", row.name);
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
       this.cityList.forEach(function (item, ind, arr) {
-        if (item.city_name == row.city_name) {
+        if (item.name == row.name) {
           arr.splice(ind, 1);
         }
       });
@@ -396,7 +396,7 @@ export default {
     subCity() {
       // console.log(this.value);
       let formData = new FormData();
-      formData.append("city_name", this.value);
+      formData.append("name", this.value);
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
         headers: { "Content-Type": "multipart/form-data" },
@@ -413,7 +413,7 @@ export default {
 
       if (is_success == true){
         for (var i = 0; i < len_city; i++) {
-          if (this.cityList[i].city_name == this.value) {
+          if (this.cityList[i].name == this.value) {
             _this.$message({ message: "已订阅该城市", type: "false" });
             is_success = false;
             break;
@@ -423,7 +423,7 @@ export default {
       
       if (is_success == true) {
         var tmp = {
-          city_name: this.value,
+          name: this.value,
           user_id: this.$store.getters.userState.id,
           disabled: true,
         };
