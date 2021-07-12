@@ -165,8 +165,14 @@ export default {
     },
   },
   mounted() {
-    this.loaddata("World");
-    this.country = "World";
+    var query = this.$route.query.name;
+    if (query != undefined) {
+      this.loaddata(query);
+      this.country = query;
+    } else {
+      this.loaddata("World");
+      this.country = "World";
+    }
     this.type = "nowcases";
   },
   methods: {
