@@ -75,7 +75,7 @@ export default {
         LittleDataCard,
     },
     mounted () {
-      // this.getLocation()
+      this.getLocation()
       this.getData()
     },
     data() {
