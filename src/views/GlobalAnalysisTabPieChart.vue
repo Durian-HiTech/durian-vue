@@ -12,6 +12,7 @@
       <div>这是朱晨宇写的
         <BingChart
         :dataType="type"
+        :dataTable="data"
         >
         </BingChart>
       </div>

@@ -90,7 +90,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane class="tabPane" label="疫苗接种分析">
-y          <VaccineGraph/>
+          <VaccineGraph/>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -127,7 +127,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: true,
+      loadlocal: false,
     };
   },
   computed: {
