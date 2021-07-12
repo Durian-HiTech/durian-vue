@@ -1,11 +1,13 @@
 <template>
   <div class="homeRoot">
-    <div class="hometitle">
+    <!-- <div class="hometitle">
       <div class="titleText"><b>Durian</b> <span>Covid</span></div>
       <div class="subtitleText">国内疫情分析</div>
-    </div>
+    </div> -->
     <div class="MapSection" v-if="dataloaded">
+
       <div class="MapMain">
+
         <div class="Map">
           <el-page-header
             @back="backtoChina"
@@ -13,28 +15,40 @@
             v-if="country['name'] != 'China'"
           ></el-page-header>
           <div v-if="country['name'] == 'China'">中国疫情地图</div>
-          <analysis-china-map
-            :data="mapData"
-            :country="country"
-            :type="type"
-          ></analysis-china-map>
+          
+          <div style='border: #cccccc solid thin;
+            border-radius: 10px;
+            '>
+            <analysis-china-map
+              :data="mapData"
+              :country="country"
+              :type="type"
+            ></analysis-china-map>
+          </div>
+
         </div>
+
         <div class="Overview">
           <!-- 显示时间，待美化 -->
-          <span>{{ date }}</span>
+          <span>{{ date | cutLongDate }}</span>
 
-          <div v-for="(data, index) in overviewData" :key="index">
-            <div @click="changeKey(data.type)">
-              <LittleDataCard
-                :nownum="data.nownum"
-                :type="data.type"
-                :newnum="data.newnum"
-                :color="data.color"
-              />
+          <div class="overviewData">
+            <div v-for="(data, index) in overviewData" :key="index">
+              <div @click="changeKey(data.type)">
+                <LittleDataCard
+                  :nownum="data.nownum"
+                  :type="data.type"
+                  :newnum="data.newnum"
+                  :color="data.color"
+                />
+              </div>
             </div>
           </div>
+
         </div>
+
       </div>
+
       <div class="TimeLine">
         <el-date-picker
           class="datepicker"
@@ -51,11 +65,14 @@
           :show-tooltip="false"
         ></el-slider>
       </div>
+
     </div>
+
     <div class="TableSection" v-if="dataloaded">
       <analysis-table
         :type="country['name']"
         :tableData="mapData"
+        style="width: 950px"
       ></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
@@ -109,6 +126,11 @@ export default {
     },
   },
   computed: {},
+  filters: {
+      cutLongDate: function (value) {
+        return value.slice(0,10)
+      },
+  },
   mounted() {
     this.loaddata({
       name: "China",
@@ -280,12 +302,25 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  margin-top: 80px;
 }
 .Overview {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 20px;
+}
+.overviewData {
+  border: #cccccc solid thin;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: space-around;
 }
 .TimeLine {
   display: flex;
@@ -297,10 +332,9 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.Map {
-  width: 80%;
-}
+
 .slider {
+  margin-top: 20px;
   margin-left: 20px;
   width: 500px;
 }

@@ -44,14 +44,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 40,
-          textStyle: {
-            fontStyle: "normal",
-            fontFamily: "Microsoft YaHei",
-            lineHeight: 2000,
-            width: 4,
-            height: 4,
-          },
+          padding: 10,
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = params.name;
@@ -70,14 +63,10 @@ export default {
               recovered: "治愈",
             };
             var res =
-              '<font size="7">' +
               "<b>" +
               zhname +
               "</b>" +
-              "</font>" +
-              "<br/>" +
               "<br/>";
-            res += '<font size="4">';
             var tmp = {};
             for (i in coviddata) {
               if (coviddata[i]["name"] == name) {
@@ -97,7 +86,6 @@ export default {
                 "<br/>" +
                 "</p >";
             }
-            res += "</font>";
             return res;
           },
         },
@@ -204,8 +192,7 @@ export default {
 </script>
 <style scoped>
 #analysis-global-map {
-  width: 800px;
-  height: 500px;
-  margin-right: 50px;
+  width: 900px;
+  height: 600px;
 }
 </style>

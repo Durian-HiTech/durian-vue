@@ -1,9 +1,9 @@
 <template>
   <div class="homeRoot">
-    <div class="hometitle">
+    <!-- <div class="hometitle">
       <div class="titleText"><b>Durian</b> <span>Covid</span></div>
       <div class="subtitleText">国际疫情分析</div>
-    </div>
+    </div> -->
     <div class="MapSection" v-if="dataloaded">
       <div class="MapMain">
         <div class="Map">
@@ -13,26 +13,35 @@
             v-if="country != 'World'"
           ></el-page-header>
           <div v-if="country == 'World'">世界疫情地图</div>
-          <analysis-global-map
-            :data="mapData"
-            :country="country"
-            :type="type"
-          ></analysis-global-map>
+
+          <div style='border: #cccccc solid thin;
+                border-radius: 10px;
+                overflow: hidden;'>
+            <analysis-global-map
+              :data="mapData"
+              :country="country"
+              :type="type"
+            ></analysis-global-map>
+          </div>
+
         </div>
         <div class="Overview">
           <!-- 显示时间，待美化 -->
-          <span>{{ date }}</span>
-
-          <div v-for="(data, index) in overviewData" :key="index">
-            <div @click="changeKey(data.type)">
-              <LittleDataCard
-                :nownum="data.nownum"
-                :type="data.type"
-                :newnum="data.newnum"
-                :color="data.color"
-              />
+          <span>{{ date | cutLongDate}}</span>
+          
+          <div class='overviewData'>
+            <div v-for="(data, index) in overviewData" :key="index">
+              <div @click="changeKey(data.type)">
+                <LittleDataCard
+                  :nownum="data.nownum"
+                  :type="data.type"
+                  :newnum="data.newnum"
+                  :color="data.color"
+                />
+              </div>
             </div>
           </div>
+
         </div>
       </div>
       <div class="TimeLine">
@@ -53,7 +62,7 @@
       </div>
     </div>
     <div class="TableSection" v-if="dataloaded">
-      <analysis-table :type="country" :tableData="mapData"></analysis-table>
+      <analysis-table :type="country" :tableData="mapData" style="width: 950px"></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
@@ -100,6 +109,11 @@ export default {
       }
       return this.country;
     },
+  },
+  filters: {
+      cutLongDate: function (value) {
+        return value.slice(0,10)
+      },
   },
   watch: {
     timevalue(newvalue) {
@@ -263,12 +277,24 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 80px;
 }
 .Overview {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 20px;
+}
+.overviewData {
+  border: #cccccc solid thin;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: space-around;
 }
 .TimeLine {
   display: flex;
@@ -280,10 +306,9 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.Map {
-  width: 80%;
-}
+
 .slider {
+  margin-top: 20px;
   margin-left: 20px;
   width: 500px;
 }

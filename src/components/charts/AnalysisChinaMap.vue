@@ -51,14 +51,7 @@ export default {
           trigger: "item",
           showDelay: 0,
           transitionDuration: 0.2,
-          padding: 40,
-          textStyle: {
-            fontStyle: "normal",
-            fontFamily: "Microsoft YaHei",
-            lineHeight: 2000,
-            width: 4,
-            height: 4,
-          },
+          padding: 10,
           formatter: function (params) {
             // 光标浮动显示内容控制
             var name = params.name; //name是中文，数据可能是英文
@@ -76,14 +69,10 @@ export default {
               recovered: "治愈",
             };
             var res =
-              '<font size="7">' +
               "<b>" +
               name +
               "</b>" +
-              "</font>" +
-              "<br/>" +
               "<br/>";
-            res += '<font size="4">';
             var tmp = {};
             for (var i in coviddata) {
               if (
@@ -106,7 +95,6 @@ export default {
                 "<br/>" +
                 "</p >";
             }
-            res += "</font>";
             return res;
           },
         },
@@ -236,7 +224,7 @@ export default {
 </script>
 <style scoped>
 #analysis-china-map {
-  width: 800px;
-  height: 500px;
+  width: 900px;
+  height: 600px;
 }
 </style>
