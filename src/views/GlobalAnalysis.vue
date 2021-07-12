@@ -91,6 +91,7 @@
         </el-tab-pane>
         <el-tab-pane class="tabPane" label="疫苗接种分析">
           <div class="Cases">疫苗图表</div>
+          <VaccineGraph></VaccineGraph>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -103,6 +104,7 @@ import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
 import countryen2zh from "../data/utils/countryen2zh.json";
 import countries from "../data/utils/countries.json";
+import VaccineGraph from "../components/charts/VaccineGraph.vue";
 import GlobalAnalysisTab from "../views/GlobalAnalysisTab.vue";
 
 export default {
@@ -111,6 +113,7 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisGlobalMap,
+    VaccineGraph,
     GlobalAnalysisTab,
   },
   data() {
