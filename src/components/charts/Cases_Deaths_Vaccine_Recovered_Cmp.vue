@@ -75,71 +75,49 @@ export default{
     },
     mycharts(){
       console.log(global_data)
+      let type_list = ['cases', 'deaths', 'nowcases', 'recovered', 'vaccine']
+      var seriesList = [];
+      var datasetWithFilters = [];
+      echarts.util.each(type_list, function (type) {
+        console.log(type)
+        datasetWithFilters.push({
+          id: type,
+          fromDatasetId: 'dataset_raw',
+          transform: {
+            type: 'filter',
+            config: {
+              and: [
+                { dimension: 'Number', gte: 5},
+                { dimension: 'Type', '=': type},
+              ]
+            }
+          }
+        });
+        seriesList.push({
+          type: 'line',
+          datasetId: type,
+          showSymbol: false,
+          endLabel: {
+            show: true,
+            formatter: function (params) {
+              return params.value[2];
+            }
+          },
+          encode: {
+            x: 'Date',
+            y: 'Number',
+            label: ['Number'],
+            itemName: 'Date',
+            tooltip: ['Number'],
+          }
+        })
+      });
+
       option = {
         dataset: [{
           id: 'dataset_raw',
           source: global_data
-        },{
-          id: 'cases',
-          fromDatasetId: 'dataset_raw',
-          transform: {
-            type: 'filter',
-            config: {
-              and: [
-                { dimension: 'Number', gte: 5},
-                { dimension: 'Type', '=': 'cases'},
-              ]
-            }
-          }
-        },{
-          id: 'deaths',
-          fromDatasetId: 'dataset_raw',
-          transform: {
-            type: 'filter',
-            config: {
-              and: [
-                { dimension: 'Number', gte: 5},
-                { dimension: 'Type', '=': 'deaths' },
-              ]
-            }
-          }
-        },{
-          id: 'nowcases',
-          fromDatasetId: 'dataset_raw',
-          transform: {
-            type: 'filter',
-            config: {
-              and: [
-                { dimension: 'Number', gte: 5},
-                { dimension: 'Type', '=': 'nowcases' },
-              ]
-            }
-          }
-        }, {
-          id: 'recovered',
-          fromDatasetId: 'dataset_raw',
-          transform: {
-            type: 'filter',
-            config: {
-              and: [
-                { dimension: 'Number', gte: 5},
-                { dimension: 'Type', '=': 'recovered'},
-              ]
-            }
-          }
-        },{
-          id: 'vaccine',
-          fromDatasetId: 'dataset_raw',
-          transform: {
-            type: 'filter',
-            config: {
-              and: [
-                { dimension: 'Number', gte: 5},
-                { dimension: 'Type', '=': 'vaccine'},
-              ]
-            }
-          }
-        }],
+        }].concat(datasetWithFilters),
         title: {
           text: 'Doese of Vaccination of USA and China last 30 days',
           textStyle: {
@@ -156,93 +134,9 @@ export default{
         yAxis: {
           name: 'Number'
         },
-        series: [{
-          type: 'line',
-          datasetId: 'cases',
-          showSymbol: false,
-          endLabel: {
-            show: true,
-            formatter: function (params) {
-              return params.value[2];
-            }
-          },
-          encode: {
-            x: 'Date',
-            y: 'Number',
-            label: ['Number'],
-            itemName: 'Date',
-            tooltip: ['Number'],
-          }
-        },{
-          type: 'line',
-          datasetId: 'deaths',
-          showSymbol: false,
-          endLabel: {
-            show: true,
-            formatter: function (params) {
-              return params.value[2];
-            }
-          },
-          encode: {
-            x: 'Date',
-            y: 'Number',
-            label: ['Number'],
-            itemName: 'Date',
-            tooltip: ['Number'],
-          }
-        },{
-          type: 'line',
-          datasetId: 'nowcases',
-          showSymbol: false,
-          endLabel: {
-            show: true,
-            formatter: function (params) {
-              return params.value[1];
-            }
-          },
-          encode: {
-            x: 'Date',
-            y: 'Number',
-            label: ['Number'],
-            itemName: 'Date',
-            tooltip: ['Number'],
-          }
-        }, {
-          type: 'line',
-          datasetId: 'recovered',
-          showSymbol: false,
-          endLabel: {
-            show: true,
-            formatter: function (params) {
-              return params.value[2];
-            }
-          },
-          encode: {
-            x: 'Date',
-            y: 'Number',
-            label: ['Number'],
-            itemName: 'Date',
-            tooltip: ['Number'],
-          }
-        },{
-          type: 'line',
-          datasetId: 'vaccine',
-          showSymbol: false,
-          endLabel: {
-            show: true,
-            formatter: function (params) {
-              return params.value[2];
-            }
-          },
-          encode: {
-            x: 'Date',
-            y: 'Number',
-            label: ['Number'],
-            itemName: 'Date',
-            tooltip: ['Number'],
-          }
-        }]
+        series: seriesList
       };
+      console.log(seriesList)
 
       // console.log(data_table)
       // 使用 macarons 主题
