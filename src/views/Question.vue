@@ -99,7 +99,7 @@
               <template v-slot:default>
                 <thead>
                   <tr>
-                    <th class="text-left"><h1>为您推荐问题</h1></th>
+                    <th class="text-left"><h1 style="color:black; margin-bottom: 20px">为您推荐问题</h1></th>
                   </tr>
                 </thead>
                 <tbody>
