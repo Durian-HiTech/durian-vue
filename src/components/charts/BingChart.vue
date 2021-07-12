@@ -40,7 +40,7 @@ export default{
             var Sum = 0;
             console.log(All)
             var TTT = this.$props.dataType;
-            console.log(TTT)
+            console.log("Hello",TTT)
             for (var i=0;i<PresentData["detailed"].length;i++)
             {
                 console.log(i,Sum);
@@ -91,7 +91,9 @@ export default{
         },
     },
     watch: {
-
+        dataType(){
+            this.getData()
+        }
     }
 };
 </script>
