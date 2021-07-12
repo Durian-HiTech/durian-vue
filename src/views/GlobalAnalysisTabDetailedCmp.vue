@@ -117,7 +117,7 @@ export default {
         },
       ],
       type: "nowcases",
-      countries: ['China', 'United States of America', 'Japan'],
+      countries: ['China','Japan'],
       list: [''],
     };
   },
