@@ -81,7 +81,7 @@ export default {
     type(newvalue) {
       this.update(this.countries, newvalue);
     },
-    data() {
+    data_table() {
       this.list = [];
       this.countries = [];
       this.loadlist(); //区域列表
