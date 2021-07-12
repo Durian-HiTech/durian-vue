@@ -110,14 +110,13 @@ import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
 import countryen2zh from "../data/utils/countryen2zh.json";
 import countries from "../data/utils/countries.json";
 import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
-
 export default {
   name: "GlobalAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
     AnalysisGlobalMap,
-    cmp_chart
+    cmp_chart,
   },
   data() {
     return {
@@ -131,7 +130,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   computed: {

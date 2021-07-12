@@ -119,7 +119,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   watch: {
