@@ -3,7 +3,7 @@
     <div id="Four_Type_Cmp" style="width: 1200px; height: 540px;"> </div>
   </div>
 </template>
-
+e
 <script>
 // import axios from "axios";
 import * as echarts from 'echarts';

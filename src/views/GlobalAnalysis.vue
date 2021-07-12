@@ -9,7 +9,7 @@
         ></el-page-header>
         <div v-if="country == 'World'">世界疫情数据</div>
       </div>
-      <el-tabs :tab-position="'left'" style="height: 600px; margin-top: 5px">
+      <el-tabs :tab-position="'left'" style="height: 700px; margin-top: 5px">
         <el-tab-pane class="tabPane" label="疫情地图">
           <div class="MapMain">
             <div class="Map">
@@ -128,7 +128,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: true,
+      loadlocal: false,
     };
   },
   computed: {
