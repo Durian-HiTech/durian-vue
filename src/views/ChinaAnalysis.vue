@@ -333,6 +333,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
 }
 .MapMain {
   display: flex;
@@ -341,7 +342,6 @@ export default {
 }
 
 .slider {
-  margin-top: 20px;
   margin-left: 20px;
   width: 500px;
 }
