@@ -69,7 +69,7 @@ export default {
                     console.log(tmp)
                     _this.option.series[0].data.push(tmp)
                 }
-                _this.myChart.setOption(this.option);
+                _this.myChart.setOption(_this.option);
                 console.log(_this.date)
             }else{
                 console.log("请求失败")
