@@ -32,9 +32,7 @@ export default{
   methods: {
     getData() {
       global_data = []
-      console.log(this.$props.data_table)
       global_data.push(json_data)
-      console.log(this.$props.data_table.length)
       for(let i = this.$props.data_table.length - 1; i >= 0; i--) {
         global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['cases']['nownum'], 'cases', 'Global']);
         global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['deaths']['nownum'], 'deaths', 'Global']);
@@ -45,7 +43,6 @@ export default{
       this.mycharts()
     },
     mycharts(){
-      console.log(global_data)
       let type_list = ['cases', 'deaths', 'nowcases', 'recovered']
       var seriesList = [];
       var datasetWithFilters = [];
