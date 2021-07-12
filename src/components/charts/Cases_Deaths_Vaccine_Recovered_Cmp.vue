@@ -1,13 +1,12 @@
 <template>
   <div >
-    <div id="Four_Type_Cmp" style="width: 450px; height: 300px;"> </div>
+    <div id="Four_Type_Cmp" style="width: 1000px; height: 600px;"> </div>
   </div>
 </template>
 
 <script>
 // import axios from "axios";
 import * as echarts from 'echarts';
-import data_table from '../../data/samples/WorldAnalysisSample.json'
 var global_data = [];
 var option;
 var json_data = ["Date", "Number", "Type", "Country"];
@@ -15,7 +14,8 @@ export default{
   name: 'CasesDeathsVaccineRecoveredCmp',
   props:{
     data_table:{
-      type:Object,
+      type: Array,
+      require: true
     }
   },
   data() {
@@ -31,53 +31,24 @@ export default{
   },
   methods: {
     getData() {
+      console.log(this.$props.data_table)
       global_data.push(json_data)
-      for(let i = 0; i < data_table.length; i++) {
-        var tmp = []
-        tmp[0] = data_table[i]['date']
-        tmp[3] = 'Global'
-        let sum = {
-          0: {
-            value: 0,
-            name: 'cases'
-          },
-          1: {
-            value: 0,
-            name: 'deaths'
-          },
-          2: {
-            value: 0,
-            name: 'nowcases'
-          },
-          3: {
-            value: 0,
-            name: 'recovered'
-          },
-          4: {
-            value: 0,
-            name: 'vaccine'
-          },
-        }
-        for(let i = 0; i < data_table[i]["detailed"].length; i++){
-          sum[0]['value'] += data_table[i]["detailed"][i]['cases']
-          sum[1]['value'] += data_table[i]["detailed"][i]['deaths']
-          sum[2]['value'] += data_table[i]["detailed"][i]['nowcases']
-          sum[3]['value'] += data_table[i]["detailed"][i]['recovered']
-          sum[4]['value'] += data_table[i]["detailed"][i]['vaccine']
-        }
-        for(let j = 0; j < 5; j++) {
-          global_data.push([tmp[0], sum[j]['value'], sum[j]['name'], tmp[3]]);
-        }
+      console.log(this.$props.data_table.length)
+      for(let i = this.$props.data_table.length - 1; i >= 0; i--) {
+        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['cases']['nownum'], 'cases', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['deaths']['nownum'], 'deaths', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['nowcases']['nownum'], 'nowcases', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['recovered']['nownum'], 'recovered', 'Global']);
+        // global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['vaccine']['nownum'], 'vaccine', 'Global']);
       }
       this.mycharts()
     },
     mycharts(){
       console.log(global_data)
-      let type_list = ['cases', 'deaths', 'nowcases', 'recovered', 'vaccine']
+      let type_list = ['cases', 'deaths', 'nowcases', 'recovered']
       var seriesList = [];
       var datasetWithFilters = [];
       echarts.util.each(type_list, function (type) {
-        console.log(type)
         datasetWithFilters.push({
           id: type,
           fromDatasetId: 'dataset_raw',
@@ -87,6 +58,7 @@ export default{
               and: [
                 { dimension: 'Number', gte: 5},
                 { dimension: 'Type', '=': type},
+                { dimension: 'Country', '=': 'Global'}
               ]
             }
           }
@@ -101,10 +73,14 @@ export default{
               return params.value[2];
             }
           },
+          emphasis: {
+            focus: 'series'
+          },
+
           encode: {
             x: 'Date',
             y: 'Number',
-            label: ['Number'],
+            label: ['Type', 'Number'],
             itemName: 'Date',
             tooltip: ['Number'],
           }
@@ -122,6 +98,23 @@ export default{
               color: "#fff",
             },
         },
+        dataZoom: [{
+          id: 'dataZoomx',
+          type: 'slider',
+          realtime: true,
+          filterMode: 'empty',
+          start:0,
+          end: 1000,
+          xAxisIndex: [0]
+        },{
+          id: 'dataZoomY',
+          type: 'slider',
+          realtime: true,
+          filterMode: 'empty',
+          start:0,
+          end: 100,
+          yAxisIndex: [0]
+        }],
         tooltip: {
           trigger: 'axis',
         },
@@ -134,16 +127,12 @@ export default{
         },
         series: seriesList
       };
-      console.log(seriesList)
 
-      // console.log(data_table)
       // 使用 macarons 主题
       let myChart = echarts.init(document.getElementById('Four_Type_Cmp'));
       myChart.setOption(option)
       //图表自适应
-      window.addEventListener("resize",function(){
-        myChart.resize()  // myChart 是实例对象
-      })
+
     },
   },
   watch: {

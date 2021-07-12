@@ -85,9 +85,9 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane class='tabPane' label="疫情数据分析">
-          <div class="ChartSection">
-            <cmp_chart>
+        <el-tab-pane label="疫情数据分析">
+          <div class="ChartSection" style="width: 100%; height: 100%;">
+            <cmp_chart :data_table="data">
 
             </cmp_chart>
           </div>
