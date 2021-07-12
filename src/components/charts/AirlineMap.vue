@@ -1,55 +1,57 @@
 <template>
     <div id="airline-map-root">
         <SelectBar class="SelectBar" :buttons="buttons1"/>
-        <v-app>
-            <v-card class="route-table">
-                <v-card-title>
-                    <v-text-field
-                            v-model="departActual"
-                            label="出发地"
-                            single-line
-                            hide-details
-                            color="#00ACA5"
-                    ></v-text-field>
-                    →
-                    <v-text-field
-                            v-model="arriveActual"
-                            label="到达地"
-                            single-line
-                            hide-details
-                            color="#00ACA5"
-                    ></v-text-field>
-                    <el-button style="font-size: 18px; font-weight: bold; margin: 20px;" round
-                               @click="updateRoute">查询
-                    </el-button>
-                </v-card-title>
+        <div style="display: flex">
+            <v-app>
+                <v-card class="route-table">
+                    <v-card-title>
+                        <v-text-field
+                                v-model="departActual"
+                                label="出发地"
+                                single-line
+                                hide-details
+                                color="#00ACA5"
+                        ></v-text-field>
+                        →
+                        <v-text-field
+                                v-model="arriveActual"
+                                label="到达地"
+                                single-line
+                                hide-details
+                                color="#00ACA5"
+                        ></v-text-field>
+                        <el-button style="font-size: 18px; font-weight: bold; margin: 20px;" round
+                                   @click="updateRoute">查询
+                        </el-button>
+                    </v-card-title>
 
-                <v-card-text>
-                    <div v-if="showRouteType===0" class="flight-route-list">
-                        <TravelCard v-for="item in currFlights"
-                                    :key="item.flight_number"
-                                    :startTime='item.departure_date'
-                                    :arriveTime='item.arrival_date'
-                                    :start='item.departure_city_name'
-                                    :destination='item.arrival_city_name'
-                                    :num='item.flight_number'
-                                    :status='item.status'/>
-                    </div>
-                    <div v-else-if="showRouteType===1" class="train-route-list">
-                        <TravelCard v-for="item in currTrains"
-                                    :key="item.train_id"
-                                    :startTime='item.train_start_date'
-                                    :arriveTime='item.train_start_date'
-                                    :start='item.departure_city'
-                                    :destination='item.arrival_city'
-                                    :num='item.train_id'
-                                    :status='0'/>
-                    </div>
-                </v-card-text>
-            </v-card>
-        </v-app>
-        <div id="airline-map" style="width: 1000px; height: 800px;"></div>
-                <SelectBar class="SelectBar" :buttons="buttons"/>
+                    <v-card-text>
+                        <div v-if="showRouteType===0" class="flight-route-list">
+                            <TravelCard v-for="item in currFlights"
+                                        :key="item.flight_number"
+                                        :startTime='item.departure_date'
+                                        :arriveTime='item.arrival_date'
+                                        :start='item.departure_city_name'
+                                        :destination='item.arrival_city_name'
+                                        :num='item.flight_number'
+                                        :status='item.status'/>
+                        </div>
+                        <div v-else-if="showRouteType===1" class="train-route-list">
+                            <TravelCard v-for="item in currTrains"
+                                        :key="item.train_id"
+                                        :startTime='item.train_start_date'
+                                        :arriveTime='item.train_start_date'
+                                        :start='item.departure_city'
+                                        :destination='item.arrival_city'
+                                        :num='item.train_id'
+                                        :status='0'/>
+                        </div>
+                    </v-card-text>
+                </v-card>
+            </v-app>
+            <div id="airline-map" style="width: 1000px; height: 800px;"></div>
+        </div>
+        <SelectBar class="SelectBar" :buttons="buttons"/>
         <airline-table ref="AirlineTable"
                        :table-data="this.tableData"
                        :province="this.curr"></airline-table>
@@ -208,7 +210,7 @@
                 ],
                 option: {
                     title: {
-                        text: "国内航班",
+                        text: "行程显示",
                     },
                     // visualMap: {
                     // left: 'right',
@@ -469,14 +471,12 @@
             selected(index, differkey) {
                 if (differkey === "国内进港") {
                     this.switchContent = index;
-                }
-                else
-                if (differkey === "航班查询") {
+                } else if (differkey === "航班查询") {
                     this.showRouteType = index;
                 }
             },
             updateRoute() {
-                if (this.arriveActual === "" || this.departActual === "")alert("输入不能为空！");
+                if (this.arriveActual === "" || this.departActual === "") alert("输入不能为空！");
                 else {
                     this.departCity = this.departActual;
                     this.arriveCity = this.arriveActual;
@@ -494,5 +494,6 @@
     .route-table {
         width: 750px;
         height: 800px;
+        overflow: hidden;
     }
 </style>
