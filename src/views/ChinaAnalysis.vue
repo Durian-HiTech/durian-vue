@@ -82,7 +82,11 @@
         </el-tab-pane>
 
         <el-tab-pane class='tabPane' label="疫情数据分析">
-          <div class="ChartSection">这里是Echarts图表</div>
+          <div class="ChartSection">
+            <cmp_chart :data_table="data">
+
+            </cmp_chart>
+          </div>
         </el-tab-pane>
 
         <el-tab-pane class='tabPane' label="疫苗接种分析">
@@ -97,6 +101,8 @@ import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
+import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
+
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
 var provincezh2en = require("../data/utils/provincezh2en.json");
@@ -106,6 +112,7 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
+    cmp_chart
   },
   data() {
     return {

@@ -31,6 +31,7 @@ export default{
   },
   methods: {
     getData() {
+      global_data = []
       console.log(this.$props.data_table)
       global_data.push(json_data)
       console.log(this.$props.data_table.length)
@@ -130,6 +131,7 @@ export default{
 
       // 使用 macarons 主题
       let myChart = echarts.init(document.getElementById('Four_Type_Cmp'));
+      myChart.clear()
       myChart.setOption(option)
       //图表自适应
 
