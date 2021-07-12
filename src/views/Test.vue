@@ -1,23 +1,32 @@
 <template>
 	<div class="root">
 		<h1 style='margin-top:100px;'>This is Test Page</h1>
-		
-		<h1>{{ locationInfo }}</h1>
 
+		<h1>{{ locationInfo }}</h1>
+		<airline-detail ref="AirlineDetail"></airline-detail>
 	</div>
 </template>
 
-
-
 <script>
+import TravelCard from '../components/common/TravelCard.vue'
+
+// import GlobalMap from '../components/charts/GlobalMap.vue'
+// import CommentCard from '../components/common/CommentCard.vue'
+import AirlineDetail from "../components/AirlineDetail";
+import RiskMap from "../components/RiskMap";
+var coviddata = require("../data/samples/GlobalMapSample.json")
 export default {
 	name: 'Test',
 	components: {
+		RiskMap,
+		AirlineDetail,
+		// GlobalMap,
+		TravelCard,
 	},
 	data() {
       return {
         locationInfo: {
-			ip: '', 
+			ip: '',
 			country: '',
 			province: '',
 			city: '',
@@ -27,7 +36,7 @@ export default {
       };
     },
 	mounted () {
-		// eslint-disable-next-line 
+		// eslint-disable-next-line
 		this.locationInfo.ip = returnCitySN.cip
 
 		var _this = this
@@ -45,8 +54,6 @@ export default {
 }
 </script>
 
-
-
 <style>
-#container {width:300px; height: 180px; }  
+#container {width:300px; height: 180px; }
 </style>

@@ -101,7 +101,7 @@
             //   else return 'green'
             // },
             customFilter(_, search, item) {
-                if (item.name.toLowerCase().indexOf(search.toLowerCase()) !== -1) return true;
+                if (item.name.toLowerCase().search(search.toLowerCase()) !== -1) return true;
                 return false;
             },
             loadData() {
