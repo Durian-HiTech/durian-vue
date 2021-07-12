@@ -144,7 +144,6 @@ export default {
           window.open(href, "_blank");
         }
       }
-      console.log(value);
     },
   },
 };

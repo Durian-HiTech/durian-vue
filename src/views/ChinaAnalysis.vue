@@ -99,6 +99,7 @@ import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
+var provincezh2en = require("../data/utils/provincezh2en.json");
 export default {
   name: "ChinaAnalysis",
   components: {
@@ -148,6 +149,10 @@ export default {
     var query = this.$route.query.name;
     if (query != undefined) {
       var zhname = provinceen2zh[query];
+      if(zhname == undefined){ //说明参数是中文
+        zhname = query;
+        query = provincezh2en[query];
+      }
       this.loaddata({
         name:query,
         zhname:zhname
