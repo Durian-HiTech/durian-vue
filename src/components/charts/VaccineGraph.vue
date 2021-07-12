@@ -1,11 +1,48 @@
 <template>
-    <div class="vaccine_root">
-        123
-    </div>
+  <div id="vaccine_root">123</div>
 </template>
 
 <script>
+import * as echarts from 'echarts';
+var chartDom = document.getElementById('vaccine_root');
+var myChart = echarts.init(chartDom);
 export default {
-    name: "VaccineGraph"
+    name: "VaccineGraph",
+    mounted(){
+        myChart.setOption(this.option)
+    },
+    data(){
+        return{
+            option:{
+            legend: {
+                top: 'bottom'
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            series: [
+                {
+                    name: '面积模式',
+                    type: 'pie',
+                    radius: [50, 250],
+                    center: ['50%', '50%'],
+                    roseType: 'area',
+                    itemStyle: {
+                        borderRadius: 8
+                    },
+                    data: [
+                        {value: 40, name: 'rose 1'},
+                        {value: 38, name: 'rose 2'},
+                    ]
+                }
+            ]}
+        }
+    }
 }
 </script>
