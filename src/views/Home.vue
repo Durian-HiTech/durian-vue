@@ -198,7 +198,7 @@ export default {
       type: "nowcases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   watch: {},
