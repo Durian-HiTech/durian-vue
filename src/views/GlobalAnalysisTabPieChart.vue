@@ -1,9 +1,5 @@
 <template>
-  <div class="overviewAnalysisMain">
-    <div class="overviewLineChart">
-      <cmp-chart :data_table="data"></cmp-chart>
-    </div>
-    <div class="overviewPieChart">
+  <div class="GlobalAnalysisTabPieChart">
       <el-select v-model="type">
         <el-option
           v-for="item in options"
@@ -13,15 +9,14 @@
         >
         </el-option>
       </el-select>
-    </div>
+      <div>这是朱晨宇写的</div>
   </div>
 </template>
 <script>
-import CmpChart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp";
 export default {
-  name: "GlobalAnalysisTabOverview",
+  name: "GlobalAnalysisTabPieChart",
   components: {
-    CmpChart,
+      
   },
   props: {
     data: {
@@ -57,18 +52,8 @@ export default {
 </script>
 
 <style scoped>
-.overviewAnalysisMain {
-  display: flex;
-}
-.overviewLineChart {
-  display: flex;
-  justify-content: left;
-  margin-right: 20px;
-}
-.overviewPieChart {
-  margin-top: 10px;
+.GlobalAnalysisTabPieChart {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 </style>

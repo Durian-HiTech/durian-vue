@@ -86,7 +86,7 @@
         </el-tab-pane>
         <el-tab-pane class="tabPane" label="疫情数据分析">
           <div class="ChartSection">
-            <global-analysis-tab :data="data"></global-analysis-tab>
+            <global-analysis-tab :data="data" :country="country"></global-analysis-tab>
           </div>
         </el-tab-pane>
         <el-tab-pane class="tabPane" label="疫苗接种分析">
