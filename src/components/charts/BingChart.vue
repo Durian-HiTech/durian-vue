@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div id="BingChart" style="width: 1000px; height: 600px;">xdm有无三上悠亚资源</div>
+    <div id="BingChart" style="width: 1000px; height: 600px;">xdm有无三上悠亚资源。樱桃空也可。</div>
   </div>
 </template>
 
@@ -11,8 +11,8 @@ var option;
 export default{
     name: 'BingChart',
     props: {
-        data_table:{
-            type: Array,
+        dataType:{
+            type: String,
             require: true
         }
     },
@@ -36,14 +36,16 @@ export default{
             console.log(data[0])
             var PresentData = data[0]
             var SaveList = [];
-            var All = PresentData["overview"]["nowcases"]["nownum"]+223076;
+            var All = PresentData["overview"][this.$props.dataType]["nownum"]+223076;
             var Sum = 0;
             console.log(All)
+            var TTT = this.$props.dataType;
+            console.log("Hello",TTT)
             for (var i=0;i<PresentData["detailed"].length;i++)
             {
                 console.log(i,Sum);
-                Sum += PresentData["detailed"][i]["nowcases"];
-                SaveList.push({value:PresentData["detailed"][i]["nowcases"],name:PresentData["detailed"][i]["name"]})
+                Sum += PresentData["detailed"][i][this.$props.dataType];
+                SaveList.push({value:PresentData["detailed"][i][this.$props.dataType],name:PresentData["detailed"][i]["name"]})
             }
             SaveList.push({value:(All-Sum),name:"Others"})
             console.log(SaveList);
@@ -89,7 +91,9 @@ export default{
         },
     },
     watch: {
-
+        dataType(){
+            this.getData()
+        }
     }
 };
 </script>

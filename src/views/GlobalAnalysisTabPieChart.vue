@@ -10,7 +10,9 @@
         </el-option>
       </el-select>
       <div>这是朱晨宇写的
-        <BingChart>
+        <BingChart
+        :dataType="type"
+        >
         </BingChart>
       </div>
   </div>
@@ -30,6 +32,7 @@ export default {
   },
   data() {
     return {
+      
       options: [
         {
           value: "nowcases",
