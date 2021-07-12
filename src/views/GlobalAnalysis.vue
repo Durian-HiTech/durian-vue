@@ -103,7 +103,6 @@ import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
 import countryen2zh from "../data/utils/countryen2zh.json";
 import countries from "../data/utils/countries.json";
-
 import GlobalAnalysisTab from "../views/GlobalAnalysisTab.vue";
 
 export default {
