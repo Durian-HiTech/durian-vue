@@ -176,7 +176,8 @@ export default {
     },
     clickevent(newcountry) {
       if (this.$props.country != "World") return; //最多到二级
-      this.$parent.$parent.$parent.changeCountry(newcountry);
+      if(newcountry == 'China') this.$router.push({path: '/chinaanalysis'});
+      else this.$parent.$parent.$parent.changeCountry(newcountry);
     },
     loadData() {
       // 数据已经加载完毕，改变数据中value对应的值
