@@ -10,7 +10,7 @@
         <div v-if="country == 'World'">世界疫情数据</div>
       </div>
       <el-tabs :tab-position="'left'" style="height: 600px; margin-top: 5px">
-        <el-tab-pane class='tabPane' label="疫情地图">
+        <el-tab-pane class="tabPane" label="疫情地图">
           <div class="MapMain">
             <div class="Map">
               <div
@@ -56,11 +56,10 @@
                 </div>
               </div>
             </div>
-
           </div>
         </el-tab-pane>
 
-        <el-tab-pane class='tabPane' label="疫情数据表">
+        <el-tab-pane class="tabPane" label="疫情数据表">
           <div class="TableSection">
             <analysis-table
               :type="country"
@@ -85,20 +84,14 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="疫情数据分析">
-          <div class="ChartSection" style="width: 100%; height: 100%;">
-
-            <cmp_chart :data_table="data">
-
-            </cmp_chart>
+        <el-tab-pane class="tabPane" label="疫情数据分析">
+          <div class="ChartSection">
+            <global-analysis-tab :data="data"></global-analysis-tab>
           </div>
         </el-tab-pane>
-        <el-tab-pane class='tabPane' label="疫苗接种分析">
+        <el-tab-pane class="tabPane" label="疫苗接种分析">
           <div class="Cases">疫苗图表</div>
         </el-tab-pane>
-        <!-- <el-tab-pane class='tabPane' label="疫情预测">
-          <div class="Cases">预测图表</div>
-        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>
@@ -111,6 +104,9 @@ import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
 import countryen2zh from "../data/utils/countryen2zh.json";
 import countries from "../data/utils/countries.json";
 import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
+
+import GlobalAnalysisTab from "../views/GlobalAnalysisTab.vue";
+
 export default {
   name: "GlobalAnalysis",
   components: {
@@ -118,6 +114,7 @@ export default {
     LittleDataCard,
     AnalysisGlobalMap,
     cmp_chart,
+    GlobalAnalysisTab,
   },
   data() {
     return {
@@ -353,5 +350,8 @@ export default {
 }
 .tabPane {
   width: 1200px;
+}
+.ChartSection{
+  margin-left: 20px;
 }
 </style>

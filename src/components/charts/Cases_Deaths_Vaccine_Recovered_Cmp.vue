@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div id="Four_Type_Cmp" style="width: 1000px; height: 600px;"> </div>
+    <div id="Four_Type_Cmp" style="width: 700px; height: 540px;"> </div>
   </div>
 </template>
 
