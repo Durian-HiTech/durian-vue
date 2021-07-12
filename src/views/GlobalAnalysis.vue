@@ -91,7 +91,7 @@
         </el-tab-pane>
         <el-tab-pane class="tabPane" label="疫苗接种分析">
           <div class="Cases">疫苗图表</div>
-          <VaccineGraph></VaccineGraph>
+          <VaccineGraph/>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -349,6 +349,10 @@ export default {
   width: 200px;
 }
 .tabPane {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 1200px;
 }
 .ChartSection{
