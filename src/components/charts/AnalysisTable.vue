@@ -19,7 +19,7 @@
           :custom-filter="customFilter"
           :footer-props="{
             disableItemsPerPage: true,
-            itemsPerPageOptions: [10],
+            itemsPerPageOptions: [7],
           }"
           color="#00ACA5"
         >
