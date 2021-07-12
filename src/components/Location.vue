@@ -76,26 +76,26 @@ export default {
     },
     mounted () {
       this.getLocation()
-      this.getData()
+      // this.getData()
     },
     data() {
       return {
-        // locationInfo: {
-        // 	ip: '',
-        // 	country: '',
-        // 	province: '',
-        // 	city: '',
-        // 	district: '',
-        // 	location: '',
-        // },
         locationInfo: {
           ip: '',
-          country: '中国',
-          province: '北京市',
-          city: '北京市',
-          district: '海淀区',
-          location: '116.310316,39.956074',
+          country: '',
+          province: '',
+          city: '',
+          district: '',
+          location: '',
         },
+        // locationInfo: {
+        //   ip: '',
+        //   country: '中国',
+        //   province: '北京市',
+        //   city: '北京市',
+        //   district: '海淀区',
+        //   location: '116.310316,39.956074',
+        // },
         // locationInfo: {
         //   ip: '',
         //   country: '中国',
@@ -151,6 +151,7 @@ export default {
               _this.locationInfo.location = response.data.location
 
               console.log(_this.locationInfo)
+              _this.getData()
             })
         },
         getData () {
