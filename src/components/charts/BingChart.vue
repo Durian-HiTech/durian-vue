@@ -6,7 +6,6 @@
 
 <script>
 import * as echarts from 'echarts';
-//var data = require("../../data/samples/WorldAnalysisSample.json");
 var option;
 export default{
     name: 'BingChart',
@@ -37,7 +36,6 @@ export default{
             this.mycharts()
         },
         mycharts(){
-            //console.log(data[0])
             //console.log("Hello from Other Side",this.$props.dataTable[0])
             var PresentData = this.$props.dataTable[0]
             var SaveList = [];
