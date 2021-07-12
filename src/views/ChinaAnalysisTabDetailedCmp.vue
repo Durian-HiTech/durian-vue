@@ -1,5 +1,5 @@
 <template>
-  <div class="GlobalAnalysisTabDetailedCmp" v-if="dataloaded">
+  <div class="ChinaAnalysisTabDetailedCmp" v-if="dataloaded">
     <div class="topselector">
       <el-select v-model="countries" multiple filterable>
         <el-option
@@ -40,9 +40,10 @@
   </div>
 </template>
 <script>
-var countryen2zh = require("../data/utils/countryen2zh.json");
+var provinceen2zh = require("../data/utils/provinceen2zh.json");
+var provincezh2en = require("../data/utils/provincezh2en.json");
 export default {
-  name: "GlobalAnalysisTabOverviewCmp",
+  name: "ChinaAnalysisTabDetailedCmp",
   props: {
     data: {
       type: Array,
@@ -73,10 +74,11 @@ export default {
       this.date = oldvalue;
     },
     data() {
-      this.countries = [];
       this.list = [];
+      this.countries = [];
       this.loadtimeline();
       this.loadlist(); //区域列表
+      this.dataloaded = true;
     },
   },
   data() {
@@ -115,18 +117,16 @@ export default {
       var detailed = this.$props.data[0]["detailed"];
       for (var i in detailed) {
         var enname = detailed[i]["name"];
-        var zhname = ""
-       for (var j in countryen2zh) {
-          if (countryen2zh[j]["value"] == enname) {
-            zhname = countryen2zh[j]["label"];
-            break;
-          }
+        var zhname = provinceen2zh[enname];
+        if (zhname == undefined) {
+          //说明name就是中文
+          zhname = enname;
+          enname = provincezh2en[zhname];
         }
-        if(zhname == "")zhname = enname;
         this.list.push({
-          value:enname,
-          label:zhname
-        })
+          value: enname,
+          label: zhname,
+        });
       }
     },
     loadtimeline() {
@@ -137,14 +137,13 @@ export default {
     },
     loadporpsdata() {
       this.data_table = this.$props.data[this.timevalue]["detailed"];
-      console.log(this.data_table);
     },
   },
 };
 </script>
 
 <style scoped>
-.GlobalAnalysisTabDetailedCmp {
+.ChinaAnalysisTabDetailedCmp {
   display: flex;
   flex-direction: column;
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="GlobalAnalysisTabOverviewCmp">
+  <div class="ChinaAnalysisTabOverviewCmp">
     <div class="topselector">
       <el-select v-model="countries" multiple filterable style="width: 400px">
         <el-option
@@ -27,13 +27,14 @@
 </template>
 <script>
 import * as echarts from "echarts";
-var countryen2zh = require("../data/utils/countryen2zh.json");
+var provinceen2zh = require("../data/utils/provinceen2zh.json");
+var provincezh2en = require("../data/utils/provincezh2en.json");
 var option;
 var json_data = ["Date", "Number", "Type", "Country"];
 var global_data = [];
 var region_data = [];
 export default {
-  name: "GlobalAnalysisTabOverviewCmp",
+  name: "ChinaAnalysisTabOverviewCmp",
   props: {
     data_table: {
       type: Array,
@@ -41,7 +42,7 @@ export default {
     },
   },
   mounted() {
-    this.list = [];
+    this.myChart = echarts.init(document.getElementById("FourTypeSelector"));
     this.loadlist(); //区域列表
     // 加载全局变量
     this.getGlobalData();
@@ -72,10 +73,12 @@ export default {
       type: "nowcases",
       countries: [],
       list: [],
+      myChart: "",
     };
   },
   watch: {
     countries(newvalue) {
+      console.log(this.countries);
       this.update(newvalue, this.type);
     },
     type(newvalue) {
@@ -96,18 +99,16 @@ export default {
       var detailed = this.$props.data_table[0]["detailed"];
       for (var i in detailed) {
         var enname = detailed[i]["name"];
-        var zhname = ""
-        for (var j in countryen2zh) {
-          if (countryen2zh[j]["value"] == enname) {
-            zhname = countryen2zh[j]["label"];
-            break;
-          }
+        var zhname = provinceen2zh[enname];
+        if (zhname == undefined) {
+          //说明name就是中文
+          zhname = enname;
+          enname = provincezh2en[zhname];
         }
-        if(zhname == "")zhname = enname;
         this.list.push({
-          value:enname,
-          label:zhname
-        })
+          value: enname,
+          label: zhname,
+        });
       }
     },
     getGlobalData() {
@@ -147,37 +148,47 @@ export default {
       for (let i = this.$props.data_table.length - 1; i >= 0; i--) {
         var item = this.$props.data_table[i];
         for (let j = 0; j < item["detailed"].length; j++) {
+          var zhname = provinceen2zh[item["detailed"][j]["name"]];
+          if (zhname == undefined) zhname = item["detailed"][j]["name"]; //说明直接就是中文
           region_data.push([
             item["date"],
             item["detailed"][j]["cases"],
             "cases",
-            item["detailed"][j]["name"],
+            zhname,
           ]);
           region_data.push([
             item["date"],
             item["detailed"][j]["deaths"],
             "deaths",
-            item["detailed"][j]["name"],
+            zhname,
           ]);
           region_data.push([
             item["date"],
             item["detailed"][j]["nowcases"],
             "nowcases",
-            item["detailed"][j]["name"],
+            zhname,
           ]);
           region_data.push([
             item["date"],
             item["detailed"][j]["recovered"],
             "recovered",
-            item["detailed"][j]["name"],
+            zhname,
           ]);
         }
       }
     },
-    update(now_countries, type) {
+    update(countries, type) {
       var seriesList = [];
       var datasetWithFilters = [];
+      var now_countries = [];
+      for (let i in countries) {
+        now_countries.push(countries[i]);
+      }
       if (now_countries !== []) {
+        for (var i in now_countries) {
+          var zhname = provinceen2zh[now_countries[i]];
+          if (zhname != undefined) now_countries[i] = zhname;
+        }
         for (let i = 0; i < now_countries.length; i++) {
           datasetWithFilters.push({
             id: now_countries[i] + type,
@@ -263,16 +274,15 @@ export default {
         series: seriesList,
       };
 
-      let myChart = echarts.init(document.getElementById("FourTypeSelector"));
-      myChart.clear();
-      myChart.setOption(option);
+      this.myChart.clear();
+      this.myChart.setOption(option);
     },
   },
 };
 </script>
 
 <style scoped>
-.GlobalAnalysisTabOverviewCmp {
+.ChinaAnalysisTabOverviewCmp {
   display: flex;
   flex-direction: column;
 }
