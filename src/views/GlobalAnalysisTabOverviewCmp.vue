@@ -96,14 +96,18 @@ export default {
       var detailed = this.$props.data_table[0]["detailed"];
       for (var i in detailed) {
         var enname = detailed[i]["name"];
+        var zhname = ""
         for (var j in countryen2zh) {
           if (countryen2zh[j]["value"] == enname) {
-            this.list.push({
-              value: enname,
-              label: countryen2zh[j]["label"],
-            });
+            zhname = countryen2zh[j]["label"];
+            break;
           }
         }
+        if(zhname == "")zhname = enname;
+        this.list.push({
+          value:enname,
+          label:zhname
+        })
       }
     },
     getGlobalData() {
