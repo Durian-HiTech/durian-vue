@@ -20,7 +20,7 @@
 <script>
 import BingChart from "../components/charts/BingChart.vue";
 export default {
-  name: "GlobalAnalysisTabPieChart",
+  name: "ChinaAnalysisTabPieChart",
   components: {
       BingChart,
   },

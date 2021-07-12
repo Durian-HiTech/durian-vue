@@ -1,5 +1,5 @@
 <template>
-  <div class="GlobalAnalysisTabDetailedCmp" v-if="dataloaded">
+  <div class="ChinaAnalysisTabDetailedCmp" v-if="dataloaded">
     <div class="topselector">
       <el-select v-model="countries" multiple filterable>
         <el-option
@@ -40,9 +40,10 @@
   </div>
 </template>
 <script>
-var countryen2zh = require("../data/utils/countryen2zh.json");
+var provinceen2zh = require("../data/utils/provinceen2zh.json");
+var provincezh2en = require("../data/utils/provincezh2en.json");
 export default {
-  name: "GlobalAnalysisTabOverviewCmp",
+  name: "ChinaAnalysisTabDetailedCmp",
   props: {
     data: {
       type: Array,
@@ -109,14 +110,16 @@ export default {
       var detailed = this.$props.data[0]["detailed"];
       for (var i in detailed) {
         var enname = detailed[i]["name"];
-        for (var j in countryen2zh) {
-          if (countryen2zh[j]["value"] == enname) {
-            this.list.push({
-              value: enname,
-              label: countryen2zh[j]["label"],
-            });
-          }
+        var zhname = provinceen2zh[enname];
+        if (zhname == undefined) {
+          //说明name就是中文
+          zhname = enname;
+          enname = provincezh2en[zhname];
         }
+        this.list.push({
+          value: enname,
+          label: zhname,
+        });
       }
     },
     loadtimeline() {
@@ -127,14 +130,13 @@ export default {
     },
     loadporpsdata() {
       this.data_table = this.$props.data[this.timevalue]["detailed"];
-      console.log(this.data_table)
     },
   },
 };
 </script>
 
 <style scoped>
-.GlobalAnalysisTabDetailedCmp {
+.ChinaAnalysisTabDetailedCmp {
   display: flex;
   flex-direction: column;
 }

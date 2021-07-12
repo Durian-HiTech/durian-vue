@@ -14,7 +14,7 @@
       <china-analysis-tab-overview-cmp :data_table="data"></china-analysis-tab-overview-cmp>
     </v-tab-item>
     <v-tab-item>
-      <!-- <global-analysis-tab-detailed-cmp :data="data"></global-analysis-tab-detailed-cmp> -->
+      <china-analysis-tab-detailed-cmp :data="data"></china-analysis-tab-detailed-cmp>
     </v-tab-item>
   </v-tabs>
 </template>
@@ -22,14 +22,14 @@
 import ChinaAnalysisTabPieChart from "./ChinaAnalysisTabPieChart.vue";
 import CmpChart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp";
 import ChinaAnalysisTabOverviewCmp from "./ChinaAnalysisTabOverviewCmp.vue";
-// import GlobalAnalysisTabDetailedCmp from "./GlobalAnalysisTabDetailedCmp.vue"
+import ChinaAnalysisTabDetailedCmp from "./ChinaAnalysisTabDetailedCmp.vue"
 export default {
-  name: "GlobalAnalysisTab",
+  name: "ChinaAnalysisTab",
   components: {
     ChinaAnalysisTabPieChart,
     CmpChart,
     ChinaAnalysisTabOverviewCmp,
-    // GlobalAnalysisTabDetailedCmp
+    ChinaAnalysisTabDetailedCmp
   },
   props: {
     data: {
@@ -50,7 +50,6 @@ export default {
   mounted(){
       this.zhname = this.$props.country.name;
       this.enname = this.$props.country.info.name;
-      console.log(this.$props.data)
   },
   computed:{
     refer(){
