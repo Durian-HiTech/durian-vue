@@ -84,6 +84,15 @@ export default {
     type(newvalue) {
       this.update(this.countries, newvalue);
     },
+    data_table() {
+      this.list = [];
+      this.countries = [];
+      this.loadlist(); //区域列表
+      // 加载全局变量
+      this.getGlobalData();
+      this.getRegionData();
+      this.update(this.countries, this.type);
+    },
   },
   methods: {
     loadlist() {

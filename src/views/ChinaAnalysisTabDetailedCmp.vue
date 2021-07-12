@@ -73,6 +73,13 @@ export default {
       }
       this.date = oldvalue;
     },
+    data() {
+      this.list = [];
+      this.countries = [];
+      this.loadtimeline();
+      this.loadlist(); //区域列表
+      this.dataloaded = true;
+    },
   },
   data() {
     return {

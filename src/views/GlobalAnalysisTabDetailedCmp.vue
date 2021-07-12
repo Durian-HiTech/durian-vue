@@ -72,6 +72,12 @@ export default {
       }
       this.date = oldvalue;
     },
+    data() {
+      this.countries = [];
+      this.list = [];
+      this.loadtimeline();
+      this.loadlist(); //区域列表
+    },
   },
   data() {
     return {
@@ -127,7 +133,7 @@ export default {
     },
     loadporpsdata() {
       this.data_table = this.$props.data[this.timevalue]["detailed"];
-      console.log(this.data_table)
+      console.log(this.data_table);
     },
   },
 };
