@@ -7,15 +7,15 @@
 <script>
 // import axios from "axios";
 import * as echarts from 'echarts';
-
+import data_table from '../../data/samples/WorldAnalysisSample.json'
+var global_data = [];
 var option;
-var json_data = [["Date", "Number", "Type"]];
+var json_data = ["Date", "Number", "Type", "Country"];
 export default{
-  name: 'CasesDeathsVaccieRecoveredCmp',
+  name: 'CasesDeathsVaccineRecoveredCmp',
   props:{
     data_table:{
       type:Object,
-      required:true
     }
   },
   data() {
@@ -31,26 +31,54 @@ export default{
   },
   methods: {
     getData() {
-      for(let key in this.$props.data_table) {
-        for(let i = 0; i < this.$props.data_table[key].length; i++) {
-          var tmp = [];
-          tmp[0] = this.$props.data_table[key][i].date;
-          tmp[2] = key;
-          let sum_value = 0;
-          for (let j = 0; j < this.$props.data_table[key][i].value.length; j++) {
-            sum_value += this.$props.data_table[key][i].value[j].value;
-          }
-          tmp[1] = sum_value;
-          json_data.push(tmp);
+      global_data.push(json_data)
+      console.log(data_table)
+      for(let i = 0; i < data_table.length; i++) {
+        var tmp = []
+        tmp[0] = data_table[i]['date']
+        tmp[3] = 'Global'
+        let sum = {
+          0: {
+            value: 0,
+            name: 'cases'
+          },
+          1: {
+            value: 0,
+            name: 'deaths'
+          },
+          2: {
+            value: 0,
+            name: 'nowcases'
+          },
+          3: {
+            value: 0,
+            name: 'recovered'
+          },
+          4: {
+            value: 0,
+            name: 'vaccine'
+          },
+        }
+        for(let i = 0; i < data_table[i]["detailed"].length; i++){
+          sum[0]['value'] += data_table[i]["detailed"][i]['cases']
+          sum[1]['value'] += data_table[i]["detailed"][i]['deaths']
+          sum[2]['value'] += data_table[i]["detailed"][i]['nowcases']
+          sum[3]['value'] += data_table[i]["detailed"][i]['recovered']
+          sum[4]['value'] += data_table[i]["detailed"][i]['vaccine']
+        }
+        for(let j = 0; j < 5; j++) {
+          global_data.push([tmp[0], sum[j]['value'], sum[j]['name'], tmp[3]]);
         }
       }
+      console.log(global_data)
       this.mycharts()
     },
     mycharts(){
+      console.log(global_data)
       option = {
         dataset: [{
           id: 'dataset_raw',
-          source: json_data
+          source: global_data
         },{
           id: 'cases',
           fromDatasetId: 'dataset_raw',
@@ -76,6 +104,18 @@ export default{
             }
           }
         },{
+          id: 'nowcases',
+          fromDatasetId: 'dataset_raw',
+          transform: {
+            type: 'filter',
+            config: {
+              and: [
+                { dimension: 'Number', gte: 5},
+                { dimension: 'Type', '=': 'nowcases' },
+              ]
+            }
+          }
+        }, {
           id: 'recovered',
           fromDatasetId: 'dataset_raw',
           transform: {
@@ -151,6 +191,23 @@ export default{
             tooltip: ['Number'],
           }
         },{
+          type: 'line',
+          datasetId: 'nowcases',
+          showSymbol: false,
+          endLabel: {
+            show: true,
+            formatter: function (params) {
+              return params.value[1];
+            }
+          },
+          encode: {
+            x: 'Date',
+            y: 'Number',
+            label: ['Number'],
+            itemName: 'Date',
+            tooltip: ['Number'],
+          }
+        }, {
           type: 'line',
           datasetId: 'recovered',
           showSymbol: false,
