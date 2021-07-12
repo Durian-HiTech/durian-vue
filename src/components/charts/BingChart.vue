@@ -6,7 +6,7 @@
 
 <script>
 import * as echarts from 'echarts';
-var data = require("../../data/samples/WorldAnalysisSample.json");
+//var data = require("../../data/samples/WorldAnalysisSample.json");
 var option;
 export default{
     name: 'BingChart',

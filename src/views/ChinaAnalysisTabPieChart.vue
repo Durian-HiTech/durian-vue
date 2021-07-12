@@ -12,6 +12,7 @@
       <div>这是朱晨宇写的中国饼图
         <BingChart
         :dataType="type"
+        :dataTable="data"
         >
         </BingChart>
       </div>
