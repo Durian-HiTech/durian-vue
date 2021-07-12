@@ -124,8 +124,8 @@
                 myChart: "",
                 mapName: "China",
                 curr: "",
-                buttons: ["国内进港", "国内出港"],
-                buttons1: ["航班查询", "列车查询"],
+                buttons: ["入境", "出境"],
+                buttons1: ["航班", "列车"],
                 switchContent: 0,
                 showRouteType: 0,       //0显示航班，1显示列车
                 tableData: [],
@@ -469,9 +469,9 @@
                 }
             },
             selected(index, differkey) {
-                if (differkey === "国内进港") {
+                if (differkey === "入境") {
                     this.switchContent = index;
-                } else if (differkey === "航班查询") {
+                } else if (differkey === "航班") {
                     this.showRouteType = index;
                 }
             },
