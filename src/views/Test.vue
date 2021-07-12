@@ -3,6 +3,7 @@
 		<h1 style='margin-top:100px;'>This is Test Page</h1>
 
 		<h1>{{ locationInfo }}</h1>
+		
 		<airline-detail ref="AirlineDetail"></airline-detail>
 	</div>
 </template>

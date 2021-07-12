@@ -27,7 +27,7 @@
 
                     <v-card-text>
                         <div v-if="showRouteType===0" class="flight-route-list">
-                            <TravelCard v-for="item in currFlights"
+                            <TravelCard class='route-list-card' v-for="item in currFlights"
                                         :key="item.flight_number"
                                         :startTime='item.departure_date'
                                         :arriveTime='item.arrival_date'
@@ -37,7 +37,7 @@
                                         :status='item.status'/>
                         </div>
                         <div v-else-if="showRouteType===1" class="train-route-list">
-                            <TravelCard v-for="item in currTrains"
+                            <TravelCard class='route-list-card' v-for="item in currTrains"
                                         :key="item.train_id"
                                         :startTime='item.train_start_date'
                                         :arriveTime='item.train_start_date'
@@ -495,5 +495,8 @@
         width: 750px;
         height: 800px;
         overflow: hidden;
+    }
+    .route-list-card {
+        margin: 15px;
     }
 </style>
