@@ -28,7 +28,7 @@ export default {
     this.loadzh2en();
     coviddata = this.$props.data;
     var mapname;
-    if (this.$props.country["name"] == "China") {
+    if (this.$props.country["name"] == "中国") {
       mapname = "China";
       this.dataprocessing(); //全国数据需要转中文
     } else {
@@ -150,7 +150,7 @@ export default {
     },
     country(){
       var mapname;
-      if (this.$props.country["name"] == "China") {
+      if (this.$props.country["name"] == "中国") {
         mapname = "China";
         //this.dataprocessing(); //全国数据需要中文和拼音
       } else {
@@ -160,7 +160,7 @@ export default {
     },
     data() {
       coviddata = this.$props.data;
-      if(this.$props.country["name"]=="China"){
+      if(this.$props.country["name"]=="中国"){
         this.dataprocessing();
       }
       this.option["series"][0]["data"] = coviddata;
@@ -192,7 +192,7 @@ export default {
       this.myChart.setOption(this.option);
     },
     clickevent(newcountry) {
-      if (this.$props.country.name != "China") return; //最多到二级
+      if (this.$props.country.name != "中国") return; //最多到二级
       this.$parent.$parent.$parent.changeCountry({
         name: newcountry,
         info:{

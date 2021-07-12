@@ -5,15 +5,21 @@
         <el-page-header
           @back="backtoChina"
           :content="country['name'] + '疫情数据'"
-          v-if="country['name'] != 'China'"
+          v-if="country['name'] != '中国'"
         ></el-page-header>
-        <div v-if="country['name'] == 'China'">中国疫情数据</div>
+        <div v-if="country['name'] == '中国'">中国疫情数据</div>
       </div>
       <el-tabs :tab-position="'left'" style="height: 600px; margin-top: 5px">
-        <el-tab-pane class='tabPane' label="疫情地图">
+        <el-tab-pane class="tabPane" label="疫情地图">
           <div class="MapMain">
             <div class="Map">
-              <div style="border: #cccccc solid thin; border-radius: 10px; overflow: hidden;">
+              <div
+                style="
+                  border: #cccccc solid thin;
+                  border-radius: 10px;
+                  overflow: hidden;
+                "
+              >
                 <analysis-china-map
                   :data="mapData"
                   :country="country"
@@ -38,7 +44,6 @@
               </div>
             </div>
 
-
             <div class="overviewData">
               <div v-for="(data, index) in overviewData" :key="index">
                 <div @click="changeKey(data.type)">
@@ -51,11 +56,10 @@
                 </div>
               </div>
             </div>
-
           </div>
         </el-tab-pane>
 
-        <el-tab-pane class='tabPane' label="疫情数据表">
+        <el-tab-pane class="tabPane" label="疫情数据表">
           <div class="TableSection">
             <analysis-table
               :type="country['name']"
@@ -81,16 +85,13 @@
           </div>
         </el-tab-pane>
 
-        <el-tab-pane class='tabPane' label="疫情数据分析">
+        <el-tab-pane class="tabPane" label="疫情数据分析">
           <div class="ChartSection">
-            <cmp_chart :data_table="data">
-
-            </cmp_chart>
+            <china-analysis-tab
+              :data="data"
+              :country="country"
+            ></china-analysis-tab>
           </div>
-        </el-tab-pane>
-
-        <el-tab-pane class='tabPane' label="疫苗接种分析">
-          <div class="Cases">疫苗图表</div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -101,8 +102,7 @@ import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
-
+import ChinaAnalysisTab from "../views/ChinaAnalysisTab.vue";
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
 var provincezh2en = require("../data/utils/provincezh2en.json");
@@ -112,7 +112,7 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    cmp_chart
+    ChinaAnalysisTab,
   },
   data() {
     return {
@@ -138,7 +138,7 @@ export default {
       this.loadporpsdata();
       this.t2 = this.maxTimeNum - this.timevalue;
     },
-    date(newvalue,oldvalue) {
+    date(newvalue, oldvalue) {
       for (var item in this.data) {
         if (this.data[item]["date"] == newvalue) {
           this.timevalue = Number(item);
@@ -158,28 +158,29 @@ export default {
     var query = this.$route.query.name;
     if (query != undefined) {
       var zhname = provinceen2zh[query];
-      if(zhname == undefined){ //说明参数是中文
+      if (zhname == undefined) {
+        //说明参数是中文
         zhname = query;
         query = provincezh2en[query];
       }
       this.loaddata({
-        name:query,
-        zhname:zhname
-      })
+        name: query,
+        zhname: zhname,
+      });
       this.country = {
-        name:provinceen2zh[query],
-        info:{
-          name:query,
-          adcode:provincezhname2adcode[zhname],
-        }
-      }
+        name: provinceen2zh[query],
+        info: {
+          name: query,
+          adcode: provincezhname2adcode[zhname],
+        },
+      };
     } else {
       this.loaddata({
         name: "China",
         zhname: "中国",
       });
       this.country = {
-        name: "China",
+        name: "中国",
         info: {
           name: "China",
           adcode: "",
@@ -306,7 +307,7 @@ export default {
     },
     backtoChina() {
       this.changeCountry({
-        name: "China",
+        name: "中国",
         info: {
           name: "China",
           adcode: "",
@@ -351,7 +352,6 @@ export default {
 
   margin-left: 20px;
   align-self: flex-start;
-
 }
 .TableSection {
   display: flex;
