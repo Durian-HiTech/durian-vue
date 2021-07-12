@@ -1,5 +1,5 @@
 <template>
-  <div class="GlobalAnalysisTabDetailedCmp" v-if="dataloaded">
+  <div class="GlobalAnalysisTabOverviewCmp">
     <div class="topselector">
       <el-select v-model="countries" multiple filterable>
         <el-option
@@ -20,7 +20,6 @@
         </el-option>
       </el-select>
     </div>
-    <div class="main">这是胡鹏飞写的</div>
     <div class="TimeLine">
       <el-date-picker
         class="datepicker"
@@ -37,9 +36,19 @@
         :show-tooltip="false"
       ></el-slider>
     </div>
+
+      <div id="FourTypeSelector2" style="width: 1200px; height: 540px;">
+      </div>
+
   </div>
 </template>
 <script>
+var option;
+import * as echarts from "echarts";
+
+var json_data = ["Date", "Number", "Type", "Country"];
+var global_data = [];
+var region_data = [];
 var countryen2zh = require("../data/utils/countryen2zh.json");
 export default {
   name: "GlobalAnalysisTabOverviewCmp",
@@ -52,7 +61,9 @@ export default {
   mounted() {
     this.loadtimeline();
     this.loadlist(); //区域列表
-    this.dataloaded = true;
+    this.getGlobalData();
+    this.getRegionData();
+    this.update(this.countries, this.type, this.date)
   },
   watch: {
     t2(newvalue) {
@@ -60,24 +71,24 @@ export default {
     },
     timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
-      this.loadporpsdata();
       this.t2 = this.maxTimeNum - this.timevalue;
     },
     date(newvalue, oldvalue) {
       for (var item in this.data) {
         if (this.data[item]["date"] == newvalue) {
+          this.update(this.countries, this.type, newvalue);
           this.timevalue = Number(item);
           return;
         }
       }
       this.date = oldvalue;
     },
-    data() {
-      this.countries = [];
-      this.list = [];
-      this.loadtimeline();
-      this.loadlist(); //区域列表
+    countries(newvalue) {
+      this.update(newvalue, this.type, this.date);
     },
+    type(newvalue) {
+      this.update(this.countries, newvalue, this.date);
+    }
   },
   data() {
     return {
@@ -106,8 +117,8 @@ export default {
         },
       ],
       type: "nowcases",
-      countries: [],
-      list: [],
+      countries: ['China', 'United States of America', 'Japan'],
+      list: [''],
     };
   },
   methods: {
@@ -137,7 +148,108 @@ export default {
     },
     loadporpsdata() {
       this.data_table = this.$props.data[this.timevalue]["detailed"];
-      console.log(this.data_table);
+    },
+    getGlobalData() {
+      global_data = []
+      global_data.push(json_data)
+      for(let i = this.$props.data.length - 1; i >= 0; i--) {
+        global_data.push([this.$props.data[i]['date'], this.$props.data[i]["overview"]['cases']['nownum'], 'cases', 'Global']);
+        global_data.push([this.$props.data[i]['date'], this.$props.data[i]["overview"]['deaths']['nownum'], 'deaths', 'Global']);
+        global_data.push([this.$props.data[i]['date'], this.$props.data[i]["overview"]['nowcases']['nownum'], 'nowcases', 'Global']);
+        global_data.push([this.$props.data[i]['date'], this.$props.data[i]["overview"]['recovered']['nownum'], 'recovered', 'Global']);
+      }
+    },
+    getRegionData() {
+      region_data = []
+      region_data.push(json_data)
+      for(let i = this.$props.data.length - 1; i >= 0; i--) {
+        var item = this.$props.data[i];
+        for(let j = 0; j < item['detailed'].length; j++) {
+          region_data.push([item['date'], item['detailed'][j]['cases'], 'cases', item['detailed'][j]['name']])
+          region_data.push([item['date'], item['detailed'][j]['deaths'], 'deaths', item['detailed'][j]['name']])
+          region_data.push([item['date'], item['detailed'][j]['nowcases'], 'nowcases', item['detailed'][j]['name']])
+          region_data.push([item['date'], item['detailed'][j]['recovered'], 'recovered', item['detailed'][j]['name']])
+        }
+      }
+    },
+    update(now_countries, type, date) {
+      var seriesList = [];
+      var datasetWithFilters = [];
+      if(now_countries !== []) {
+        for(let i = 0; i < now_countries.length; i++) {
+          datasetWithFilters.push({
+            id: now_countries[i] + type,
+            fromDatasetId: 'dataset_raw',
+            transform: [{
+              type: 'filter',
+              config: {
+                and: [
+                  { dimension: 'Number', gte: 0},
+                  { dimension: 'Type', '=': type},
+                  { dimension: 'Country', '=': now_countries[i]},
+                  { dimension: 'Date', '=': date}
+                ]
+              }
+            }]
+          });
+          seriesList.push({
+            name: type,
+            type: 'bar',
+            datasetId: now_countries[i] + type,
+            showSymbol: false,
+            label: {
+              show: true,
+              valueAnimation: true
+            },
+            encode: {
+              x: [1],
+              y: [3],
+            }
+          });
+        }
+      }
+
+      option = {
+        dataset: [{
+          id: 'dataset_raw',
+          source: region_data
+        }].concat(datasetWithFilters),
+        title: {
+          text: '每日数据',
+          subtext: "数据来源于网络"
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+        // grid: {
+        //   top: 10,
+        //   bottom: 30,
+        //   left: 150,
+        //   right: 80
+        // },
+        xAxis: {
+          // 表示用数据的最大值最为X轴最大值
+          max: 'dataMax',
+          type: 'value',
+        },
+        yAxis: {
+          name: 'category',
+          realtimeSort: true,
+          inverse: true,
+          animationDuration: 300,
+          animationDurationUpdate: 300,
+          data: this.countries,
+        },
+        // animationDuration: 300,
+        series: seriesList
+      };
+
+      let myChart = echarts.init(document.getElementById('FourTypeSelector2'));
+      myChart.clear();
+      myChart.setOption(option)
     },
   },
 };

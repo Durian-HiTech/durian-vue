@@ -21,7 +21,8 @@
       </el-select>
     </div>
     <div>
-      <div id="FourTypeSelector" style="width: 1200px; height: 540px"></div>
+      <div id="FourTypeSelector" style="width: 1200px; height: 540px">
+      </div>
     </div>
   </div>
 </template>
