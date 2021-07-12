@@ -74,6 +74,10 @@ export default {
           title:"订阅",
           url: "/subscribe",
         },
+        {
+          title:"预测",
+          url: "/forecast",
+        },
       ],
     };
   },

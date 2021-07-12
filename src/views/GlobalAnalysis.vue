@@ -95,9 +95,9 @@
         <el-tab-pane class='tabPane' label="疫苗接种分析">
           <div class="Cases">疫苗图表</div>
         </el-tab-pane>
-        <el-tab-pane class='tabPane' label="疫情预测">
+        <!-- <el-tab-pane class='tabPane' label="疫情预测">
           <div class="Cases">预测图表</div>
-        </el-tab-pane>
+        </el-tab-pane> -->
       </el-tabs>
     </div>
   </div>
