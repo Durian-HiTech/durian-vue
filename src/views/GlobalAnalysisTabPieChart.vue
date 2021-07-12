@@ -9,14 +9,18 @@
         >
         </el-option>
       </el-select>
-      <div>这是朱晨宇写的</div>
+      <div>这是朱晨宇写的
+        <BingChart>
+        </BingChart>
+      </div>
   </div>
 </template>
 <script>
+import BingChart from "../components/charts/BingChart.vue";
 export default {
   name: "GlobalAnalysisTabPieChart",
   components: {
-      
+      BingChart,
   },
   props: {
     data: {

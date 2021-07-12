@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div id="BingChart" style="width: 1000px; height: 600px;">123 </div>
+    <div id="BingChart" style="width: 1000px; height: 600px;">xdm有无三上悠亚资源</div>
   </div>
 </template>
 
@@ -34,7 +34,19 @@ export default{
         },
         mycharts(){
             console.log(data[0])
-
+            var PresentData = data[0]
+            var SaveList = [];
+            var All = PresentData["overview"]["nowcases"]["nownum"]+223076;
+            var Sum = 0;
+            console.log(All)
+            for (var i=0;i<PresentData["detailed"].length;i++)
+            {
+                console.log(i,Sum);
+                Sum += PresentData["detailed"][i]["nowcases"];
+                SaveList.push({value:PresentData["detailed"][i]["nowcases"],name:PresentData["detailed"][i]["name"]})
+            }
+            SaveList.push({value:(All-Sum),name:"Others"})
+            console.log(SaveList);
             option = {
                 tooltip: {
                     trigger: 'item'
@@ -68,13 +80,7 @@ export default{
                         labelLine: {
                             show: false
                         },
-                        data: [
-                            {value: 1048, name: '搜索引擎'},
-                            {value: 735, name: '直接访问'},
-                            {value: 580, name: '邮件营销'},
-                            {value: 484, name: '联盟广告'},
-                            {value: 300, name: '视频广告'}
-                        ]
+                        data: SaveList
                     }
                 ]
             };

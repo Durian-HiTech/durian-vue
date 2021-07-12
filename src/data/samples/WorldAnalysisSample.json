@@ -3,7 +3,7 @@
         "date":"2021-07-10 00:00:00",
         "overview":{
             "nowcases": {
-                "nownum": 710,
+                "nownum": 730223,
                 "newnum": 7110
             },
             "cases": {
@@ -26,7 +26,7 @@
         "detailed": [
             {
                 "name": "United States of America",
-                "nowcases": 43,
+                "nowcases": 331243,
                 "cases": 12443,
                 "deaths": 123343,
                 "recovered": 34,
