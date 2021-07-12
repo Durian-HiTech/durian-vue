@@ -103,8 +103,6 @@ import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
 import countryen2zh from "../data/utils/countryen2zh.json";
 import countries from "../data/utils/countries.json";
-import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
-
 import GlobalAnalysisTab from "../views/GlobalAnalysisTab.vue";
 
 export default {
@@ -113,7 +111,6 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisGlobalMap,
-    cmp_chart,
     GlobalAnalysisTab,
   },
   data() {
