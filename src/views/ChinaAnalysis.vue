@@ -1,71 +1,77 @@
 <template>
   <div class="homeRoot">
-    <div class="MapSection" v-if="dataloaded">
+    <div class="MainSection" v-if="dataloaded">
       <div class="page-header">
         <el-page-header
           @back="backtoChina"
-          :content="country['name'] + '疫情地图'"
+          :content="country['name'] + '疫情数据'"
           v-if="country['name'] != 'China'"
         ></el-page-header>
-        <div v-if="country['name'] == 'China'">中国疫情地图</div>
+        <div v-if="country['name'] == 'China'">中国疫情数据</div>
       </div>
+      <el-tabs :tab-position="'left'" style="height: 600px; margin-top: 5px">
+        <el-tab-pane label="疫情地图">
+          <div class="MapMain">
+            <div class="Map">
+              <div style="border: #cccccc solid thin; border-radius: 10px">
+                <analysis-china-map
+                  :data="mapData"
+                  :country="country"
+                  :type="type"
+                ></analysis-china-map>
+              </div>
+              <div class="TimeLine">
+                <el-date-picker
+                  class="datepicker"
+                  v-model="date"
+                  type="date"
+                  value-format="yyyy-MM-dd 00:00:00"
+                  format="yyyy 年 MM 月 dd 日"
+                >
+                </el-date-picker>
+                <el-slider
+                  class="slider"
+                  v-model="t2"
+                  :max="maxTimeNum"
+                  :show-tooltip="false"
+                ></el-slider>
+              </div>
+            </div>
 
-      <div class="MapMain">
-        <div class="Map">
-          <div style="border: #cccccc solid thin; border-radius: 10px">
-            <analysis-china-map
-              :data="mapData"
-              :country="country"
-              :type="type"
-            ></analysis-china-map>
-          </div>
-          <div class="TimeLine">
-            <el-date-picker
-              class="datepicker"
-              v-model="date"
-              type="date"
-              value-format="yyyy-MM-dd 00:00:00"
-              format="yyyy 年 MM 月 dd 日"
-            >
-            </el-date-picker>
-            <el-slider
-              class="slider"
-              v-model="t2"
-              :max="maxTimeNum"
-              :show-tooltip="false"
-            ></el-slider>
-          </div>
-        </div>
-
-        <div class="Overview">
-          <div class="overviewData">
-            <div v-for="(data, index) in overviewData" :key="index">
-              <div @click="changeKey(data.type)">
-                <LittleDataCard
-                  :nownum="data.nownum"
-                  :type="data.type"
-                  :newnum="data.newnum"
-                  :color="data.color"
-                />
+            <div class="Overview">
+              <div class="overviewData">
+                <div v-for="(data, index) in overviewData" :key="index">
+                  <div @click="changeKey(data.type)">
+                    <LittleDataCard
+                      :nownum="data.nownum"
+                      :type="data.type"
+                      :newnum="data.newnum"
+                      :color="data.color"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </el-tab-pane>
 
-    <div class="TableSection" v-if="dataloaded">
-      <analysis-table
-        :type="country['name']"
-        :tableData="mapData"
-        style="width: 950px"
-      ></analysis-table>
+        <el-tab-pane label="疫情数据表">
+          <div class="TableSection" v-if="dataloaded">
+            <analysis-table
+              :type="country['name']"
+              :tableData="mapData"
+              style="width: 950px"
+            ></analysis-table>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="疫情数据分析">
+          <div class="ChartSection">这里是Echarts图表</div>
+        </el-tab-pane>
+        <el-tab-pane label="疫苗接种分析">
+          <div class="Cases">疫苗图表</div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
-    <div class="ChartSection">这里是Echarts图表</div>
-    <div class="Cases">待插入</div>
-    <!-- <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
-      <CasesDeathsVaccieRecoveredCmp :DateTable="{}" />
-    </div> -->
   </div>
 </template>
 <script>
@@ -73,7 +79,6 @@ import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-// import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
 
 export default {
   name: "ChinaAnalysis",
@@ -81,7 +86,6 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    //CasesDeathsVaccieRecoveredCmp,
   },
   data() {
     return {
@@ -277,7 +281,7 @@ export default {
   margin-bottom: 5px;
   font-size: 20px;
 }
-.MapSection {
+.MainSection {
   display: flex;
   flex-direction: column;
   justify-content: center;

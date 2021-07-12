@@ -119,7 +119,6 @@ export default {
   },
   watch: {
     t2(newvalue) {
-      console.log(newvalue);
       this.timevalue = this.maxTimeNum - newvalue;
       if (newvalue > this.maxTimeNum) this.t2 = this.maxTimeNum;
       else if (newvalue < 0) this.t2 = 0;
