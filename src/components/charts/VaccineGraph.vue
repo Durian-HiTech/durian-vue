@@ -1,6 +1,6 @@
 <template>
   <div class="vaccine_root">
-    <h3>截止到{{ convertDate(date) }}的疫苗统计饼图</h3>
+    <h3>截止到{{ convertDate(date) }}的疫苗统计饼图（目前全球已累积接种{{total_vaccine}}剂）</h3>
     <div id="vaccine_graph" style="width: 800px; height: 500px"></div>
   </div>
 </template>
@@ -19,10 +19,11 @@ export default {
   data() {
     return {
       date: "",
+      total_vaccine:"",
       myChart: "",
       option: {
         title: {
-          subtext: "图中显示了各国/地区的疫苗接种剂数，接种越多，在图中的占比即越大",
+          subtext: "图中显示了各国/地区的疫苗接种剂数，接种越多，在图中的占比即越大。",
           left: "center",
         },
         tooltip: {
@@ -59,6 +60,7 @@ export default {
         .then(function (response) {
           if (response.status == 200) {
             _this.date = response.data.Global[0].date;
+            _this.total_vaccine = response.data.Global[0].overview.vaccine;
             var detai_vaccine_list = response.data.Global[0].detailed;
             var len_data = detai_vaccine_list.length;
             for (var i = 0; i < len_data; i++) {

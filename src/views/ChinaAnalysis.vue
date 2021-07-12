@@ -90,7 +90,7 @@
         </el-tab-pane>
 
         <el-tab-pane class='tabPane' label="疫苗接种分析">
-          <div class="Cases">疫苗图表</div>
+          <ChinaVaccineGraph/>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -102,7 +102,7 @@ import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
 import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
-
+import ChinaVaccineGraph from "../components/charts/ChinaVaccineGraph.vue";
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
 var provincezh2en = require("../data/utils/provincezh2en.json");
@@ -112,7 +112,8 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    cmp_chart
+    cmp_chart,
+    ChinaVaccineGraph
   },
   data() {
     return {
