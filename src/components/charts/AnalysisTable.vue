@@ -129,7 +129,7 @@ export default {
 <style>
 .s_table_root {
   padding: 10px;
-  height: 670px;
+  height: 540px;
   overflow: hidden;
 }
 .s_table th {
