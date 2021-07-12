@@ -38,24 +38,31 @@ export default{
         },
         mycharts(){
             console.log(data[0])
+            console.log("Hello from Other Side",this.$props.dataTable[0])
             var PresentData = this.$props.dataTable[0]
             var SaveList = [];
-            var All = PresentData["overview"][this.$props.dataType]["nownum"]+223076;
+            var All = PresentData["overview"][this.$props.dataType]["nownum"];
             var Sum = 0;
+            console.log("Test",PresentData["detailed"][0][this.$props.dataType])
+            var SortData = PresentData["detailed"]
+            var _this = this;
+            SortData.sort(function(a,b){
+                return (b[_this.$props.dataType]-a[_this.$props.dataType]);
+            });
             console.log(All)
-            console.log("Hello",this.$props.dataTable[0])
-            var Count = PresentData["detailed"].length;
-            // if (Count>10) {
-            //     Count = 10;
-            // }
+
+            var Count = SortData.length;
+            if (Count>10) {
+                Count = 10;
+            }
             for (var i=0;i<Count;i++)
             {
                 console.log(i,Sum);
-                Sum += PresentData["detailed"][i][this.$props.dataType];
-                SaveList.push({value:PresentData["detailed"][i][this.$props.dataType],name:PresentData["detailed"][i]["name"]})
+                Sum += SortData[i][this.$props.dataType];
+                SaveList.push({value:SortData[i][this.$props.dataType],name:SortData[i]["name"]})
             }
             SaveList.push({value:(All-Sum),name:"Others"})
-            console.log(SaveList);
+            //console.log(SaveList);
             option = {
                 tooltip: {
                     trigger: 'item'
@@ -64,6 +71,7 @@ export default{
                     top: '5%',
                     left: 'center'
                 },
+                //minShowLabelAngle: 2,
                 series: [
                     {
                         name: '访问来源',
