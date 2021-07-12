@@ -85,7 +85,7 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="疫情数据分析">
+        <el-tab-pane class='tabPane' label="疫情数据分析">
           <div class="ChartSection">
             <cmp_chart>
 
@@ -94,6 +94,9 @@
         </el-tab-pane>
         <el-tab-pane class='tabPane' label="疫苗接种分析">
           <div class="Cases">疫苗图表</div>
+        </el-tab-pane>
+        <el-tab-pane class='tabPane' label="疫情预测">
+          <div class="Cases">预测图表</div>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -128,7 +131,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: true,
+      loadlocal: false,
     };
   },
   computed: {

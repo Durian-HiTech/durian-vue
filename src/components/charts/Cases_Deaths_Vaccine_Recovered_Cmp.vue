@@ -32,7 +32,6 @@ export default{
   methods: {
     getData() {
       global_data.push(json_data)
-      console.log(data_table)
       for(let i = 0; i < data_table.length; i++) {
         var tmp = []
         tmp[0] = data_table[i]['date']
@@ -70,7 +69,6 @@ export default{
           global_data.push([tmp[0], sum[j]['value'], sum[j]['name'], tmp[3]]);
         }
       }
-      console.log(global_data)
       this.mycharts()
     },
     mycharts(){

@@ -27,7 +27,7 @@
 
                     <v-card-text>
                         <div v-if="showRouteType===0" class="flight-route-list">
-                            <TravelCard v-for="item in currFlights"
+                            <TravelCard class='route-list-card' v-for="item in currFlights"
                                         :key="item.flight_number"
                                         :startTime='item.departure_date'
                                         :arriveTime='item.arrival_date'
@@ -37,7 +37,7 @@
                                         :status='item.status'/>
                         </div>
                         <div v-else-if="showRouteType===1" class="train-route-list">
-                            <TravelCard v-for="item in currTrains"
+                            <TravelCard class='route-list-card' v-for="item in currTrains"
                                         :key="item.train_id"
                                         :startTime='item.train_start_date'
                                         :arriveTime='item.train_start_date'
@@ -124,8 +124,8 @@
                 myChart: "",
                 mapName: "China",
                 curr: "",
-                buttons: ["国内进港", "国内出港"],
-                buttons1: ["航班查询", "列车查询"],
+                buttons: ["入境", "出境"],
+                buttons1: ["航班", "列车"],
                 switchContent: 0,
                 showRouteType: 0,       //0显示航班，1显示列车
                 tableData: [],
@@ -469,9 +469,9 @@
                 }
             },
             selected(index, differkey) {
-                if (differkey === "国内进港") {
+                if (differkey === "入境") {
                     this.switchContent = index;
-                } else if (differkey === "航班查询") {
+                } else if (differkey === "航班") {
                     this.showRouteType = index;
                 }
             },
@@ -495,5 +495,8 @@
         width: 750px;
         height: 800px;
         overflow: hidden;
+    }
+    .route-list-card {
+        margin: 15px;
     }
 </style>

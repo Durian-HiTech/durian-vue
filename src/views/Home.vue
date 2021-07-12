@@ -16,7 +16,7 @@
     <!-- china -->
     <div class="homeChina" v-if="showChina && dataLoaded">
       <div class="homeMain">
-        <div class="homeRightSection">
+        <div class="homeLeftSection">
           <div class="homeHeader">
             <div class="region">全国</div>
             <div style="display: flex; align-items: center">
@@ -77,18 +77,26 @@
           </div>
         </div>
 
-        <StatisticTable
-          class="homeTable"
-          :tableData="ChinamapData"
-          :type="'China'"
-        />
+
+        <div class="homeRightSection">
+          <Location style='margin-bottom: 10px;'/>
+
+          <StatisticTable
+            class="homeChinaTable"
+            :tableData="ChinamapData"
+            :type="'China'"
+          />
+        </div>
+
+
       </div>
+
     </div>
 
     <!-- world -->
     <div class="homeWorld" v-if="!showChina">
       <div class="homeMain">
-        <div class="homeRightSection">
+        <div class="homeLeftSection">
           <div class="homeHeader">
             <div class="region" style="background-color: #d9d221">世界</div>
             <div style="display: flex; align-items: center">
@@ -169,6 +177,7 @@ import SelectBar from "../components/common/SelectBar.vue";
 import HomeGlobalMap from "../components/charts/HomeGlobalMap.vue";
 import HomeChinaMap from "../components/charts/HomeChinaMap.vue";
 import api from "../commonApi.js";
+import Location from "../components/Location.vue"
 export default {
   name: "Home",
   components: {
@@ -177,6 +186,7 @@ export default {
     SelectBar,
     HomeGlobalMap,
     HomeChinaMap,
+    Location,
   },
   data() {
     return {
@@ -188,15 +198,7 @@ export default {
       type: "nowcases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
-      loadlocal: true,
-      locationInfo: {
-        ip: "",
-        country: "",
-        province: "",
-        city: "",
-        district: "",
-        location: "",
-      },
+      loadlocal: false,
     };
   },
   watch: {},
@@ -218,26 +220,6 @@ export default {
     //this.loadhomeData(); //加载国内国外细节数据和总数据
   },
   methods: {
-    getLocation() {
-      // eslint-disable-next-line
-      this.locationInfo.ip = returnCitySN.cip;
-
-      var _this = this;
-      this.$axios
-        .get(
-          "https://restapi.amap.com/v5/ip?key=a593d64ab73229be6b3d1ef802b76849&type=4&ip=" +
-            this.locationInfo.ip
-        )
-        .then((response) => {
-          _this.locationInfo.country = response.data.country;
-          _this.locationInfo.province = response.data.province;
-          _this.locationInfo.city = response.data.city;
-          _this.locationInfo.district = response.data.district;
-          _this.locationInfo.location = response.data.location;
-
-          console.log(_this.locationInfo);
-        });
-    },
     selected(index, differkey) {
       if (differkey == "全国") {
         switch (index) {
@@ -342,12 +324,25 @@ export default {
   align-content: center;
 }
 
+.homeLeftSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .homeRightSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+
+.homeChinaTable {
+  margin-left: 30px;
+  width: 650px;
+}
+
 .homeMapSection {
   margin-top: 20px;
   display: flex;
