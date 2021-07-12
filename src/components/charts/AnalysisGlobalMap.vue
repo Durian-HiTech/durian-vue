@@ -1,14 +1,14 @@
 <template>
-  <div id="analysis-china-map"></div>
+  <div id="analysis-global-map"></div>
 </template>
 <script>
 import * as echarts from "echarts";
-var chinaen2zh = require("../../data/utils/china_en2province.json");
+var countryen2zh = require("../../data/utils/countryen2zh.json");
+import api from "../../commonApi.js";
+import $ from "jquery";
 var coviddata; //为了显示所有数据存储一份全局数据
-var mapdata = {}; // 中文名字和adcode对照表
-var chinazh2en = {};
 export default {
-  name: "AnalysisChinaMap",
+  name: "AnalysisGlobalMap",
   props: {
     data: {
       type: Array,
@@ -20,21 +20,14 @@ export default {
       required: false,
     },
     country: {
-      type: Object,
+      type: String,
       required: true,
     },
   },
   mounted() {
-    this.loadzh2en();
     coviddata = this.$props.data;
-    var mapname;
-    if (this.$props.country["name"] == "China") {
-      mapname = "China";
-      this.dataprocessing(); //全国数据需要转中文
-    } else {
-      mapname = this.$props.country["adcode"];
-    }
-    this.myChart = echarts.init(document.getElementById("analysis-china-map"));
+    var mapname = this.$props.country;
+    this.myChart = echarts.init(document.getElementById("analysis-global-map"));
     this.loadMap(mapname);
     this.option["series"][0]["data"] = coviddata;
     this.loadData();
@@ -54,14 +47,15 @@ export default {
           padding: 10,
           formatter: function (params) {
             // 光标浮动显示内容控制
-            var name = params.name; //name是中文，数据可能是英文
-            var enname = ""; //英文名字
-            for (var j in chinaen2zh) {
-              if (chinaen2zh[j]["label"] == name) {
-                enname = chinaen2zh[j]["value"];
+            var name = params.name;
+            var zhname;
+            for (var i in countryen2zh) {
+              if (countryen2zh[i]["value"] == name){
+                zhname = countryen2zh[i]["label"];
                 break;
               }
             }
+            if(zhname==undefined)zhname = name;
             var mapping = {
               nowcases: "现有",
               cases: "确诊",
@@ -70,27 +64,24 @@ export default {
             };
             var res =
               "<b>" +
-              name +
+              zhname +
               "</b>" +
               "<br/>";
             var tmp = {};
-            for (var i in coviddata) {
-              if (
-                coviddata[i]["name"] == name ||
-                coviddata[i]["name"] == enname
-              ) {
+            for (i in coviddata) {
+              if (coviddata[i]["name"] == name) {
                 tmp = coviddata[i];
                 break;
               }
             }
             for (var key in mapping) {
-              if(tmp[key]==undefined)tmp[key] = 0;
+              if (tmp[key] == undefined) tmp[key] = 0;
               res +=
                 '<p align="left">' +
                 "<b>" +
                 mapping[key] +
                 "</b>" +
-                ":  "+
+                ":  " +
                 tmp[key] +
                 "<br/>" +
                 "</p >";
@@ -104,27 +95,27 @@ export default {
             color: "#000000",
           },
           pieces: [
-            { min: 0, max: 9, label: "小于10", color: "#FFFACD" },
-            { min: 10, max: 100, label: "10-100", color: "#fee090" },
+            { min: 0, max: 999, label: "小于1000", color: "#FFFACD" },
+            { min: 1000, max: 10000, label: "1000-10000", color: "#fee090" },
             {
-              min: 100,
-              max: 1000,
-              label: "100-1000",
+              min: 10000,
+              max: 100000,
+              label: "10000-100000",
               color: "#fdae61",
             },
             {
-              min: 1000,
-              max: 10000,
-              label: "1000-10000",
+              min: 100000,
+              max: 1000000,
+              label: "100000-1000000",
               color: "#f46d43",
             },
-            { min: 10000, label: "大于10000", color: "#a50026" },
+            { min: 1000000, label: "大于1000000", color: "#a50026" },
           ],
         },
         series: [
           {
-            name: "ChinaMap",
-            nameProperty: "name",
+            name: "WorldMap",
+            nameProperty: "NAME_1",
             type: "map",
             roam: true,
             zoom: 2,
@@ -148,50 +139,34 @@ export default {
     type() {
       this.loadData();
     },
-    country(){
-      var mapname;
-      if (this.$props.country["name"] == "China") {
-        mapname = "China";
-        //this.dataprocessing(); //全国数据需要中文和拼音
-      } else {
-        mapname = this.$props.country["info"]["adcode"];
-      }
-      this.loadMap(mapname);
-    },
     data() {
+      // data若变则country必定已经变
       coviddata = this.$props.data;
-      if(this.$props.country["name"]=="China"){
-        this.dataprocessing();
-      }
+      var mapname = this.$props.country;
+      this.loadMap(mapname);
       this.option["series"][0]["data"] = coviddata;
       this.loadData();
     },
   },
   methods: {
-    loadzh2en(){
-      for(var item in chinaen2zh){
-        chinazh2en[chinaen2zh[item]["label"]] = chinaen2zh[item]["value"];
-      }
-    },
-    dataprocessing() {
-      // 当前图为China时将获取的省会数据英文名称转中文
-      for (var i in coviddata) {
-        for (var item in chinaen2zh) {
-          if (
-            coviddata[i]["name"] == chinaen2zh[item]["value"]
-          ) {
-            coviddata[i]["name"] = chinaen2zh[item]["label"];
-            break;
-          }
-        }
-      }
-    },
     loadMap(name) {
       this.myChart.showLoading();
-      const mapData = require("../../data/map/json/GeoMapData_CN/" + name);
-      for (var item in mapData.features) {
-        mapdata[mapData.features[item].properties.name] =
-          mapData.features[item].properties.adcode;
+      var mapData;
+      if (name == "World")
+        mapData = require("../../data/map/json/" + name);
+      else {
+        $.ajax({
+          url: api.baseApi + "/data/query_data",
+          type: "POST",
+          async: false,
+          data: {
+            name: this.$props.country,
+          },
+          dataType: "json",
+          success: function (response) {
+            mapData = response.data;
+          },
+        });
       }
       echarts.registerMap(name, mapData);
       this.option["series"][0]["map"] = name;
@@ -200,15 +175,8 @@ export default {
       this.myChart.setOption(this.option);
     },
     clickevent(newcountry) {
-      if (this.$props.country.name != "China") return; //最多到二级
-      this.$parent.$parent.$parent.changeCountry({
-        name: newcountry,
-        info:{
-          name: chinazh2en[newcountry],
-          adcode: mapdata[newcountry],
-        }
-        
-      });
+      if (this.$props.country != "World") return; //最多到二级
+      this.$parent.$parent.$parent.changeCountry(newcountry);
     },
     loadData() {
       // 数据已经加载完毕，改变数据中value对应的值
@@ -223,7 +191,7 @@ export default {
 };
 </script>
 <style scoped>
-#analysis-china-map {
+#analysis-global-map {
   width: 900px;
   height: 540px;
 }

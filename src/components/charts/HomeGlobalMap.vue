@@ -165,7 +165,12 @@ export default {
     },
     clickevent(newcountry) {
       //地图点击事件
-      console.log("开启新页面跳转到" + newcountry + "的分析页面");
+      if(newcountry == 'China') {
+        this.$router.push({path: '/chinaanalysis'});
+      }
+      else {
+        this.$router.push({path: '/globalanalysis'});
+      }
     },
     loadData() {
       for(var i in this.option["series"][0]["data"]){

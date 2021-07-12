@@ -5,6 +5,10 @@
       <SelectBar class="SelectBar" :buttons="buttons" />
     </div>
 
+    <center>
+    <i class="el-icon-loading" v-if='!dataLoaded' style='font-size:40px; margin-top: 100px;'></i>
+    </center>
+
     <!-- china -->
     <div class="homeChina" v-if="showChina && dataLoaded">
       <div class="homeMain">
@@ -41,8 +45,9 @@
           </div>
 
           <div class="homeOverview">
+            <span style="color:grey; font-weight: bold; font-size: 11px;position: absolute; bottom: 1px; left: 6px">*点击以切换显示数据</span>
             <div v-for="(data, index) in ChinaoverviewData" :key="index">
-              <div @click="changeKey(data.type)">
+              <div @click="changeKey(data.type)" style="cursor: pointer;">
               <LittleDataCard
                 :nownum="data.nownum"
                 :type="data.type"
@@ -105,8 +110,9 @@
           </div>
 
           <div class="homeOverview">
+            <span style="color:grey; font-weight: bold; font-size: 11px;position: absolute; bottom: 1px; left: 6px">*点击以切换显示数据</span>
             <div v-for="(data, index) in GlobaloverviewData" :key="index">
-              <div @click="changeKey(data.type)">
+              <div @click="changeKey(data.type)" style="cursor: pointer;">
                 <LittleDataCard
                   :nownum="data.nownum"
                   :type="data.type"
@@ -158,6 +164,14 @@ export default {
       type: "nowcases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
+      locationInfo: {
+        ip: '',
+        country: '',
+        province: '',
+        city: '',
+        district: '',
+        location: '',
+      },
     };
   },
   watch: {},
@@ -171,6 +185,22 @@ export default {
     //this.loadhomeData(); //加载国内国外细节数据和总数据
   },
   methods: {
+    getLocation () {
+      // eslint-disable-next-line
+      this.locationInfo.ip = returnCitySN.cip
+
+      var _this = this
+      this.$axios.get("https://restapi.amap.com/v5/ip?key=a593d64ab73229be6b3d1ef802b76849&type=4&ip="+this.locationInfo.ip)
+        .then( response => {
+          _this.locationInfo.country = response.data.country
+          _this.locationInfo.province = response.data.province
+          _this.locationInfo.city = response.data.city
+          _this.locationInfo.district = response.data.district
+          _this.locationInfo.location = response.data.location
+
+          console.log(_this.locationInfo)
+        })
+    },
     selected(index, differkey) {
       if (differkey == "全国") {
         switch (index) {
@@ -186,7 +216,6 @@ export default {
     loadhomeData(homeData) {
       //加载全球和中国数据
       //var homeData = require("../data/samples/HomeData.json");
-      console.log(homeData)
       var mapping = {
         nowcases: {
           type: "现有确诊",
@@ -217,7 +246,6 @@ export default {
         list.push(res);
       }
       this.ChinaoverviewData = list;
-      console.log(this.ChinaoverviewData)
       list = [];
       for (key in mapping) {
         res = {
@@ -232,7 +260,6 @@ export default {
       this.ChinamapData = homeData["China"]["detailed"];
       this.GlobalmapData = homeData["Global"]["detailed"];
       this.dataLoaded = true;
-      console.log(this.GlobalmapData);
     },
     changeKey(nowtype) {
       var mapping = {
@@ -305,6 +332,8 @@ export default {
   align-self: start;
 }
 .homeOverview {
+  position: relative;
+
   display: flex;
   justify-content: space-between;
   align-items: center;

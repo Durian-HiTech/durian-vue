@@ -8,6 +8,7 @@
       placeholder="Search"
       v-model="search"
       style="margin-left: 250px; width: 300px;"
+      v-if='isLogined'
       >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
@@ -16,7 +17,9 @@
 
     <el-divider />
 
-    <v-app style='height: 20px;'>
+    <el-tag type="danger" v-if='!isLogined' style="font-weight: bold; font-size: 15px;">请先登录!</el-tag>
+
+    <v-app style='height: 20px;' v-if='isLogined'>
       <v-btn
         rounded
         color="cyan"
@@ -32,10 +35,10 @@
     </v-app>
 
 
-    <div class="homeMain">
+    <div class="homeMain" v-if='isLogined'>
       <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
         <el-table :data="cityList" style="width: 100%">
-          <el-table-column label="订阅城市" prop="city_name">
+          <el-table-column label="订阅城市" prop="name">
           </el-table-column>
           <el-table-column align="right">
             <template slot-scope="scope">
@@ -85,12 +88,12 @@
       <div class="cityList">
         <div
           class="homeSection"
-          v-for="city in cityList_show"
-          v-bind:key="city.city_name"
+          v-for="(city, index) in cityList_show"
+          v-bind:key="index"
         >
           <div class="homeHeader">
             <div class="region">
-              {{ city.city_name }}
+              {{ city.name }}
             </div>
             <div style="display: flex; align-items: center">
               <svg
@@ -118,20 +121,62 @@
           </div>
 
           <div class="homeOverview">
-            <div v-for="(data, index) in overviewData" :key="index">
               <LittleDataCard
-                :nownum="data.nownum"
-                :type="data.type"
-                :newnum="data.newnum"
-                :color="data.color"
+                :nownum="city.cases"
+                :newnum="city.newcases"
+                type="确诊"
+                color="#AC3500"
               />
-            </div>
+
+               <LittleDataCard
+                :nownum="city.deaths"
+                :newnum="city.newdeaths"
+                type="死亡"
+                color="black"
+              />
+
+               <LittleDataCard
+                :nownum="city.recovered"
+                :newnum="city.newrecovered"
+                type="治愈"
+                color="#00ACA5"
+              />
+
+               <!-- <LittleDataCard
+                :nownum="city.vaccine"
+                :newnum="city.newvaccine"
+                type="疫苗"
+                color="#00ACA5"
+              /> -->
           </div>
         </div>
       </div>
 
-      <div>
-        {{newMessage}}
+      <div style='margin-left:20px; margin-top: 50px;' v-if='isLogined'>
+
+        <v-card
+          class="mx-auto"
+          color="rgb(230, 162, 60)"
+          dark
+          max-width="400"
+        >
+          <v-card-title>
+            <v-icon
+              large
+              left
+            >
+              mdi-bell
+            </v-icon>
+            <span class="text-h6 font-weight-light">Update</span>
+          </v-card-title>
+
+          <v-card-text style='font-weight: bold; font-size: 20px;'>
+            {{information}}
+          </v-card-text>
+
+        </v-card>
+
+
       </div>
 
     </div>
@@ -150,45 +195,19 @@ export default {
   computed: {
     cityList_show () {
       return this.cityList.filter(
-                item => item.city_name.indexOf(this.search)>=0
+                item => item.name.indexOf(this.search)>=0
       )
     },
-    newMessage () {
-
-      return 'new message'
-    },
+    isLogined () {
+      return this.$store.getters.userState.isLogined
+    }
   },
   data() {
     return {
       dialogTableVisible: false,
       cityList: [],
       search: '',
-      overviewData: [
-        {
-          nownum: 123143241,
-          type: "确诊",
-          newnum: 2313,
-          color: "#AC3500",
-        },
-        {
-          nownum: 123143241,
-          type: "死亡",
-          newnum: 2313,
-          color: "#AC3500",
-        },
-        {
-          nownum: 123143241,
-          type: "治愈",
-          newnum: 2313,
-          color: "#00ACA5",
-        },
-        {
-          nownum: 123143241,
-          type: "疫苗",
-          newnum: 2313,
-          color: "#00ACA5",
-        },
-      ],
+      information: '',
       // options: [
       //   { value: "安徽省", label: "安徽省" },
       //   { value: "北京市", label: "北京市" },
@@ -311,10 +330,11 @@ export default {
     };
   },
   mounted: function () {
-    this.querySubCity();
+    // this.querySubCity();
+    this.getSubsData();
   },
   methods: {
-    querySubCity() {
+    getSubsData () {
       let formData = new FormData();
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
@@ -322,25 +342,44 @@ export default {
       };
       var _this = this;
       axios
-        .post(api.baseApi + "/sub/list_all_subs", formData, config)
+        .post(api.baseApi + "/sub/list_subs_data", formData, config)
         .then(function (response) {
           if (response.status == 200) {
-            _this.cityList = response.data.data;
+            // console.log(response)
+            _this.information = response.data.information
+            _this.cityList = response.data.data
           } else {
             console.log("请求失败");
           }
         });
     },
+    // querySubCity() {
+    //   let formData = new FormData();
+    //   formData.append("user_id", this.$store.getters.userState.id);
+    //   let config = {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   };
+    //   var _this = this;
+    //   axios
+    //     .post(api.baseApi + "/sub/list_all_subs", formData, config)
+    //     .then(function (response) {
+    //       if (response.status == 200) {
+    //         _this.cityList = response.data.data;
+    //       } else {
+    //         console.log("请求失败");
+    //       }
+    //     });
+    // },
     handleDelete(index, row) {
       let formData = new FormData();
-      formData.append("city_name", row.city_name);
+      formData.append("name", row.name);
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
       this.cityList.forEach(function (item, ind, arr) {
-        if (item.city_name == row.city_name) {
+        if (item.name == row.name) {
           arr.splice(ind, 1);
         }
       });
@@ -355,9 +394,9 @@ export default {
         });
     },
     subCity() {
-      console.log(this.value);
+      // console.log(this.value);
       let formData = new FormData();
-      formData.append("city_name", this.value);
+      formData.append("name", this.value);
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
         headers: { "Content-Type": "multipart/form-data" },
@@ -374,7 +413,7 @@ export default {
 
       if (is_success == true){
         for (var i = 0; i < len_city; i++) {
-          if (this.cityList[i].city_name == this.value) {
+          if (this.cityList[i].name == this.value) {
             _this.$message({ message: "已订阅该城市", type: "false" });
             is_success = false;
             break;
@@ -384,7 +423,7 @@ export default {
       
       if (is_success == true) {
         var tmp = {
-          city_name: this.value,
+          name: this.value,
           user_id: this.$store.getters.userState.id,
           disabled: true,
         };
@@ -464,7 +503,7 @@ export default {
   white-space: nowrap;
   text-align: center;
 
-  font-size: 27px;
+  font-size: 22px;
   font-weight: 500;
 
   background-color: #06a19c;
@@ -472,7 +511,7 @@ export default {
 
   border-radius: 30px;
 
-  padding: 5px 15px 5px 15px;
+  padding: 2px 12px 2px 12px;
   margin: 3px;
 }
 </style>

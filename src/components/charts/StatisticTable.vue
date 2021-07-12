@@ -118,6 +118,12 @@ export default {
         }
       },
       clickevent(value){
+        if(this.$props.type == "China") {
+          this.$router.push({path: '/chinaanalysis'});
+        }
+        else {
+          this.$router.push({path: '/globalanalysis'});
+        }
         console.log(value)
       }
     }

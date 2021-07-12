@@ -91,7 +91,7 @@ export default {
   margin-top: 50px;
   margin-bottom: 20px;
   
-  width: 1500px;
+  width: 80%;
   font-size: 20px;
   line-height: 1.8;
   letter-spacing: 1.5px;

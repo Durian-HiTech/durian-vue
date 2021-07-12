@@ -1,89 +1,113 @@
 <template>
   <div class="homeRoot">
-    <div class="hometitle">
-      <div class="titleText"><b>Durian</b> <span>Covid</span></div>
-      <div class="subtitleText">国内疫情分析</div>
-    </div>
-    <div class="MapSection" v-if="dataloaded">
-      <div class="MapMain">
-        <div class="Map">
-          <el-page-header
-            @back="backtoChina"
-            :content="country['name'] + '疫情地图'"
-            v-if="country['name'] != 'China'"
-          ></el-page-header>
-          <div
-            v-if="country['name'] == 'China'"
-          >中国疫情地图</div>
-          <analysis-china-map
-            :data="mapData"
-            :country="country"
-            :type="type"
-          ></analysis-china-map>
-        </div>
-        <div class="Overview">
-          <!-- 显示时间，待美化 -->
-          <span>{{ date }}</span>
+    <div class="MainSection" v-if="dataloaded">
+      <div class="page-header">
+        <el-page-header
+          @back="backtoChina"
+          :content="country['name'] + '疫情数据'"
+          v-if="country['name'] != 'China'"
+        ></el-page-header>
+        <div v-if="country['name'] == 'China'">中国疫情数据</div>
+      </div>
+      <el-tabs :tab-position="'left'" style="height: 600px; margin-top: 5px">
+        <el-tab-pane label="疫情地图">
+          <div class="MapMain">
+            <div class="Map">
+              <div style="border: #cccccc solid thin; border-radius: 10px">
+                <analysis-china-map
+                  :data="mapData"
+                  :country="country"
+                  :type="type"
+                ></analysis-china-map>
+              </div>
+              <div class="TimeLine">
+                <el-date-picker
+                  class="datepicker"
+                  v-model="date"
+                  type="date"
+                  value-format="yyyy-MM-dd 00:00:00"
+                  format="yyyy 年 MM 月 dd 日"
+                >
+                </el-date-picker>
+                <el-slider
+                  class="slider"
+                  v-model="t2"
+                  :max="maxTimeNum"
+                  :show-tooltip="false"
+                ></el-slider>
+              </div>
+            </div>
 
-          <div v-for="(data, index) in overviewData" :key="index">
-            <div @click="changeKey(data.type)">
-              <LittleDataCard
-                :nownum="data.nownum"
-                :type="data.type"
-                :newnum="data.newnum"
-                :color="data.color"
-              />
+            <div class="Overview">
+              <div class="overviewData">
+                <div v-for="(data, index) in overviewData" :key="index">
+                  <div @click="changeKey(data.type)">
+                    <LittleDataCard
+                      :nownum="data.nownum"
+                      :type="data.type"
+                      :newnum="data.newnum"
+                      :color="data.color"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="TimeLine">
-        <el-date-picker
-          class="datepicker"
-          v-model="date"
-          type="date"
-          value-format="yyyy-MM-dd 00:00:00"
-          format="yyyy 年 MM 月 dd 日"
-        >
-        </el-date-picker>
-        <el-slider
-          class="slider"
-          v-model="timevalue"
-          :max="maxTimeNum"
-          :show-tooltip="false"
-        ></el-slider>
-      </div>
-    </div>
-    <div class="TableSection" v-if="dataloaded">
-      <analysis-table
-        :type="country['name']"
-        :tableData="mapData"
-      ></analysis-table>
-    </div>
-    <div class="ChartSection">这里是Echarts图表</div>
-    <div class="Cases">待插入</div>
-    <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
-      <CasesDeathsVaccieRecoveredCmp :DateTable="{}" />
+        </el-tab-pane>
+
+        <el-tab-pane label="疫情数据表">
+          <div class="TableSection">
+            <analysis-table
+              :type="country['name']"
+              :tableData="mapData"
+              style="width: 950px"
+            ></analysis-table>
+            <div class="TimeLine">
+              <el-date-picker
+                class="datepicker"
+                v-model="date"
+                type="date"
+                value-format="yyyy-MM-dd 00:00:00"
+                format="yyyy 年 MM 月 dd 日"
+              >
+              </el-date-picker>
+              <el-slider
+                class="slider"
+                v-model="t2"
+                :max="maxTimeNum"
+                :show-tooltip="false"
+              ></el-slider>
+            </div>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="疫情数据分析">
+          <div class="ChartSection">这里是Echarts图表</div>
+        </el-tab-pane>
+        <el-tab-pane label="疫苗接种分析">
+          <div class="Cases">疫苗图表</div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 </template>
 <script>
+import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
+
 export default {
   name: "ChinaAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    CasesDeathsVaccieRecoveredCmp,
   },
   data() {
     return {
       date: "",
       timevalue: 0,
+      t2: 0,
       country: {}, //China或省或省会 {name:"",adcode:"",}
       type: "", //热力图主键
       data: "", //const
@@ -91,10 +115,13 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal:true,
+      loadlocal: true,
     };
   },
   watch: {
+    t2(newvalue) {
+      this.timevalue = this.maxTimeNum - newvalue;
+    },
     timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
       this.loadporpsdata();
@@ -109,36 +136,84 @@ export default {
     },
   },
   computed: {},
+  filters: {
+    cutLongDate: function (value) {
+      return value.slice(0, 10);
+    },
+  },
   mounted() {
     this.loaddata({
-      name:"China",
-      zhname:"中国"
+      name: "China",
+      zhname: "中国",
     });
-    this.country = { 
-      name: "China", 
-      info:{
-        name:"",
-        adcode: "", 
-      }
+    this.country = {
+      name: "China",
+      info: {
+        name: "",
+        adcode: "",
+      },
     };
     this.type = "nowcases";
   },
   methods: {
     loaddata(name) {
       // 获得中国或指定省会或指定城市
-      this.dataloaded = false;
-      if(this.loadlocal){
-        if(name.name=='China')this.data = require("../data/samples/" + name.name + "AnalysisSample.json");
-        else this.data = require("../data/samples/"+name.zhname+"AnalysisSample.json");
+      //this.dataloaded = false;
+      if (this.loadlocal) {
+        if (name.name == "China")
+          this.data = require("../data/samples/" +
+            name.name +
+            "AnalysisSample.json");
+        else
+          this.data = require("../data/samples/" +
+            name.zhname +
+            "AnalysisSample.json");
         this.maxTimeNum = this.data.length - 1;
+        this.t2 = this.maxTimeNum;
         this.date = this.data[this.timevalue]["date"];
         this.loadporpsdata();
         this.dataloaded = true;
-      }else{
-        return ;
+      } else {
+        var formData = new FormData();
+        var _this = this;
+        let config = {
+          headers: { "Content-Type": "multipart/form-data" },
+        };
+        if (name.name == "China") {
+          formData.append("country", "China");
+          this.$axios
+            .post(api.baseApi + "/data/list_country_overview", formData, config)
+            .then(function (response) {
+              if (response.data.success) {
+                _this.data = response.data.data;
+                _this.maxTimeNum = _this.data.length - 1;
+                _this.t2 = _this.maxTimeNum;
+                _this.date = _this.data[_this.timevalue]["date"];
+                _this.loadporpsdata();
+                _this.dataloaded = true;
+              }
+            });
+        } else {
+          formData.append("name", name.name);
+          formData.append("zhname", name.zhname);
+          this.$axios
+            .post(
+              api.baseApi + "/data/list_province_overview",
+              formData,
+              config
+            )
+            .then(function (response) {
+              if (response.data.success) {
+                _this.data = response.data.data;
+                _this.maxTimeNum = _this.data.length - 1;
+                _this.t2 - _this.maxTimeNum;
+                _this.date = _this.data[_this.timevalue]["date"];
+                _this.loadporpsdata();
+                _this.dataloaded = true;
+              }
+            });
+        }
       }
-      
-      
     },
     changeKey(nowtype) {
       var mapping = {
@@ -174,10 +249,6 @@ export default {
           type: "累计治愈",
           color: "#00ACA5",
         },
-        vaccine: {
-          type: "累积接种",
-          color: "#00ACA5",
-        },
       };
       var list = [];
       var res = {};
@@ -195,23 +266,21 @@ export default {
     changeCountry(obj) {
       this.country = obj;
       this.loaddata({
-        name:obj.info.name,
-        zhname:obj.name
+        name: obj.info.name,
+        zhname: obj.name,
       });
     },
     backtoChina() {
       this.changeCountry({
-        name:'China',
-        info:{
-          name:'',
-          adcode:''
-        }
-      })
+        name: "China",
+        info: {
+          name: "China",
+          adcode: "",
+        },
+      });
     },
     loadCasesDeathsVaccieRecoveredCmp() {},
   },
-
-  
 };
 </script>
 <style scoped>
@@ -221,33 +290,38 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.hometitle {
-  /* outline: #00ff00 dotted thick; */
-
+.page-header {
   display: flex;
+  justify-content: left;
+  align-items: left;
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+.MainSection {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
 
-  margin-top: 80px;
-  margin-bottom: 40px;
-
-  align-self: flex-start;
-
-  margin-right: 30%;
+  margin-top: 70px;
 }
-.titleText {
-  font-size: 80px;
-}
-.subtitleText {
-  font-size: 80px;
-}
-.MapSection {
+.Overview {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 20px;
 }
-.Overview {
+.overviewData {
+  border: #cccccc solid thin;
+  border-radius: 10px;
+  overflow: hidden;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: space-around;
+}
+.TableSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -257,15 +331,14 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 10px;
 }
 .MapMain {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.Map {
-  width: 80%;
-}
+
 .slider {
   margin-left: 20px;
   width: 500px;
