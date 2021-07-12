@@ -127,7 +127,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   computed: {
@@ -147,20 +147,20 @@ export default {
   watch: {
     t2(newvalue) {
       this.timevalue = this.maxTimeNum - newvalue;
-      if (newvalue > this.maxTimeNum) this.t2 = this.maxTimeNum;
-      else if (newvalue < 0) this.t2 = 0;
     },
     timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
       this.loadporpsdata();
+      this.t2 = this.maxTimeNum - this.timevalue;
     },
-    date(newvalue) {
+    date(newvalue,oldvalue) {
       for (var item in this.data) {
         if (this.data[item]["date"] == newvalue) {
           this.timevalue = Number(item);
           return;
         }
       }
+      this.date = oldvalue;
     },
   },
   mounted() {

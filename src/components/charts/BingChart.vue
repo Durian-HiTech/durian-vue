@@ -14,6 +14,10 @@ export default{
         dataType:{
             type: String,
             require: true
+        },
+        dataTable:{
+            type: Array,
+            require: true
         }
     },
     data() {
@@ -34,14 +38,17 @@ export default{
         },
         mycharts(){
             console.log(data[0])
-            var PresentData = data[0]
+            var PresentData = this.$props.dataTable[0]
             var SaveList = [];
             var All = PresentData["overview"][this.$props.dataType]["nownum"]+223076;
             var Sum = 0;
             console.log(All)
-            var TTT = this.$props.dataType;
-            console.log("Hello",TTT)
-            for (var i=0;i<PresentData["detailed"].length;i++)
+            console.log("Hello",this.$props.dataTable[0])
+            var Count = PresentData["detailed"].length;
+            // if (Count>10) {
+            //     Count = 10;
+            // }
+            for (var i=0;i<Count;i++)
             {
                 console.log(i,Sum);
                 Sum += PresentData["detailed"][i][this.$props.dataType];
