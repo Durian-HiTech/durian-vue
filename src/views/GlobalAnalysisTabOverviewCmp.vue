@@ -43,6 +43,7 @@ export default {
     },
   },
   mounted(){
+    console.log(this.$props.data_table)
     this.loadlist();//区域列表
     // 加载全局变量
     this.getGlobalData();
