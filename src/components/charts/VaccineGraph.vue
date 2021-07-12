@@ -1,5 +1,6 @@
 <template>
-  <div id="vaccine_root">123</div>
+  <div id="vaccine_root" style="width: 800px; height: 450px">
+  </div>
 </template>
 
 <script>
@@ -31,7 +32,7 @@ export default {
           {
             name: "面积模式",
             type: "pie",
-            radius: [50, 250],
+            radius: [40, 200],
             center: ["50%", "50%"],
             roseType: "area",
             itemStyle: {
