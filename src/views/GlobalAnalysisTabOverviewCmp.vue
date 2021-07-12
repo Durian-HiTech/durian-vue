@@ -43,7 +43,6 @@ export default {
     },
   },
   mounted(){
-    console.log(this.$props.data_table)
     this.loadlist();//区域列表
     // 加载全局变量
     this.getGlobalData();
@@ -78,11 +77,9 @@ export default {
   },
   watch: {
     countries(newvalue) {
-      // console.log(newvalue)
       this.update(newvalue, this.type);
     },
     type(newvalue) {
-      // console.log(this.countries, newvalue)
       this.update(this.countries, newvalue);
     }
   },
@@ -124,17 +121,12 @@ export default {
           region_data.push([item['date'], item['detailed'][j]['recovered'], 'recovered', item['detailed'][j]['name']])
         }
       }
-      console.log(region_data)
     },
     update(now_countries, type) {
-        console.log(now_countries)
-        console.log(type)
         var seriesList = [];
         var datasetWithFilters = [];
-        console.log(now_countries[0] + type)
         if(now_countries !== []) {
           for(let i = 0; i < now_countries.length; i++) {
-            console.log("确实进入啊")
             datasetWithFilters.push({
               id: now_countries[i] + type,
               fromDatasetId: 'dataset_raw',
