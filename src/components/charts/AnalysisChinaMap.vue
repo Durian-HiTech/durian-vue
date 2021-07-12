@@ -201,7 +201,6 @@ export default {
     },
     clickevent(newcountry) {
       if (this.$props.country.name != "China") return; //最多到二级
-      console.log(this.$parent);
       this.$parent.$parent.$parent.changeCountry({
         name: newcountry,
         info:{

@@ -4,72 +4,79 @@
       <div class="page-header">
         <el-page-header
           @back="backtoWorld"
-          :content="countryzhname + '疫情地图'"
+          :content="countryzhname + '疫情数据'"
           v-if="country != 'World'"
         ></el-page-header>
-        <div v-if="country == 'World'">世界疫情地图</div>
+        <div v-if="country == 'World'">世界疫情数据</div>
       </div>
-      <div class="MapMain">
-        <div class="Map">
-          <div
-            style="
-              border: #cccccc solid thin;
-              border-radius: 10px;
-              overflow: hidden;
-            "
-          >
-            <analysis-global-map
-              :data="mapData"
-              :country="country"
-              :type="type"
-            ></analysis-global-map>
-          </div>
-          <div class="TimeLine">
-            <el-date-picker
-              class="datepicker"
-              v-model="date"
-              type="date"
-              value-format="yyyy-MM-dd 00:00:00"
-              format="yyyy 年 MM 月 dd 日"
-            >
-            </el-date-picker>
-            <el-slider
-              class="slider"
-              v-model="t2"
-              :max="maxTimeNum"
-              :show-tooltip="false"
-            ></el-slider>
-          </div>
-        </div>
-        <div class="Overview">
-
-          <div class="overviewData">
-            <div v-for="(data, index) in overviewData" :key="index">
-              <div @click="changeKey(data.type)">
-                <LittleDataCard
-                  :nownum="data.nownum"
-                  :type="data.type"
-                  :newnum="data.newnum"
-                  :color="data.color"
-                />
+      <el-tabs :tab-position="'left'" style="height: 600px; margin-top: 5px">
+        <el-tab-pane label="疫情地图">
+          <div class="MapMain">
+            <div class="Map">
+              <div
+                style="
+                  border: #cccccc solid thin;
+                  border-radius: 10px;
+                  overflow: hidden;
+                "
+              >
+                <analysis-global-map
+                  :data="mapData"
+                  :country="country"
+                  :type="type"
+                ></analysis-global-map>
+              </div>
+              <div class="TimeLine">
+                <el-date-picker
+                  class="datepicker"
+                  v-model="date"
+                  type="date"
+                  value-format="yyyy-MM-dd 00:00:00"
+                  format="yyyy 年 MM 月 dd 日"
+                >
+                </el-date-picker>
+                <el-slider
+                  class="slider"
+                  v-model="t2"
+                  :max="maxTimeNum"
+                  :show-tooltip="false"
+                ></el-slider>
+              </div>
+            </div>
+            <div class="Overview">
+              <div class="overviewData">
+                <div v-for="(data, index) in overviewData" :key="index">
+                  <div @click="changeKey(data.type)">
+                    <LittleDataCard
+                      :nownum="data.nownum"
+                      :type="data.type"
+                      :newnum="data.newnum"
+                      :color="data.color"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </el-tab-pane>
+
+        <el-tab-pane label="疫情数据表">
+          <div class="TableSection" v-if="dataloaded">
+            <analysis-table
+              :type="country"
+              :tableData="mapData"
+              style="width: 950px"
+            ></analysis-table>
+          </div>
+        </el-tab-pane>
+        <el-tab-pane label="疫情数据分析">
+          <div class="ChartSection">这里是Echarts图表</div>
+        </el-tab-pane>
+        <el-tab-pane label="疫苗接种分析">
+          <div class="Cases">疫苗图表</div>
+        </el-tab-pane>
+      </el-tabs>
     </div>
-    <div class="TableSection" v-if="dataloaded">
-      <analysis-table
-        :type="country"
-        :tableData="mapData"
-        style="width: 950px"
-      ></analysis-table>
-    </div>
-    <div class="ChartSection">这里是Echarts图表</div>
-    <div class="Cases">待插入</div>
-    <!-- <div class="Cases_Deaths_Vaccine_Recovered_Cmp">
-      <CasesDeathsVaccieRecoveredCmp :DateTable="{}" />
-    </div> -->
   </div>
 </template>
 <script>
@@ -79,14 +86,13 @@ import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
 import countryen2zh from "../data/utils/countryen2zh.json";
 import countries from "../data/utils/countries.json";
-// import CasesDeathsVaccieRecoveredCmp from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp.vue";
+
 export default {
   name: "GlobalAnalysis",
   components: {
     AnalysisTable,
     LittleDataCard,
     AnalysisGlobalMap,
-    //CasesDeathsVaccieRecoveredCmp,
   },
   data() {
     return {
@@ -273,7 +279,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 80px;
+  margin-top: 70px;
 }
 .Overview {
   display: flex;
