@@ -17,6 +17,7 @@
           :items="detailed"
           :search="search"
           :custom-filter="customFilter"
+          @click:row="clickevent"
           :footer-props="{
             disableItemsPerPage: true,
             itemsPerPageOptions: [10],
@@ -120,8 +121,10 @@ export default {
                 this.detailed[i]["zhname"] = this.detailed[i]["name"];
             }
         }
+      },
+      clickevent(value){
+        console.log(value);
       }
-
     }
 }
 </script>
