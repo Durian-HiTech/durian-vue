@@ -47,7 +47,7 @@
               </p>
 
               <center>
-                <v-btn
+                <v-btn v-if='isLogined'
                   rounded
                   color="cyan"
                   dark
@@ -56,6 +56,17 @@
                 >
                   <v-icon left> mdi-pencil </v-icon>
                   我要提问
+                </v-btn>
+
+
+                <v-btn v-if='!isLogined' 
+                  rounded
+                  color="gray"
+                  dark
+                  width="140px"
+                >
+                  <v-icon left> mdi-pencil </v-icon>
+                  提问前请先登录
                 </v-btn>
               </center>
 
@@ -179,6 +190,9 @@ export default {
         (item) => item.question_title.indexOf(this.search) >= 0
       );
     },
+    isLogined () {
+      return this.$store.getters.userState.isLogined
+    }
   },
   methods: {
     goToNewsPage(link) {
