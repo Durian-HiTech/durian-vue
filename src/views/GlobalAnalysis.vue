@@ -90,7 +90,7 @@
           </div>
         </el-tab-pane>
         <el-tab-pane class="tabPane" label="疫苗接种分析">
-y          <VaccineGraph/>
+          <VaccineGraph/>
         </el-tab-pane>
       </el-tabs>
     </div>

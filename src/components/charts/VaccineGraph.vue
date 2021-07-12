@@ -1,7 +1,7 @@
 <template>
   <div class="vaccine_root">
     <h3>截止到{{ convertDate(date) }}的疫苗统计饼图</h3>
-    <div id="vaccine_graph" style="width: 800px; height: 450px"></div>
+    <div id="vaccine_graph" style="width: 800px; height: 500px"></div>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ export default {
       myChart: "",
       option: {
         title: {
-          subtext: "图中显示了各国的疫苗接种剂数，接种越多，在图中的占比即越大",
+          subtext: "图中显示了各国/地区的疫苗接种剂数，接种越多，在图中的占比即越大",
           left: "center",
         },
         tooltip: {
@@ -34,7 +34,7 @@ export default {
         // },
         series: [
           {
-            name: "访问来源",
+            name: "地区/国家",
             type: "pie",
             radius: "50%",
             data: [],
@@ -66,11 +66,9 @@ export default {
                 value: detai_vaccine_list[i].vaccine,
                 name: detai_vaccine_list[i].name,
               };
-              console.log(tmp);
               _this.option.series[0].data.push(tmp);
             }
             _this.myChart.setOption(_this.option);
-            console.log(_this.date);
           } else {
             console.log("请求失败");
           }
