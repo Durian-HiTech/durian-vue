@@ -61,12 +61,28 @@
         </el-tab-pane>
 
         <el-tab-pane label="疫情数据表">
-          <div class="TableSection" v-if="dataloaded">
+          <div class="TableSection">
             <analysis-table
               :type="country"
               :tableData="mapData"
               style="width: 950px"
             ></analysis-table>
+            <div class="TimeLine">
+              <el-date-picker
+                class="datepicker"
+                v-model="date"
+                type="date"
+                value-format="yyyy-MM-dd 00:00:00"
+                format="yyyy 年 MM 月 dd 日"
+              >
+              </el-date-picker>
+              <el-slider
+                class="slider"
+                v-model="t2"
+                :max="maxTimeNum"
+                :show-tooltip="false"
+              ></el-slider>
+            </div>
           </div>
         </el-tab-pane>
         <el-tab-pane label="疫情数据分析">
@@ -297,6 +313,12 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items: space-around;
+}
+.TableSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .TimeLine {
   display: flex;
