@@ -1,7 +1,7 @@
 <template>
   <div class="GlobalAnalysisTabOverviewCmp">
     <div class="topselector">
-      <el-select v-model="countries" multiple>
+      <el-select v-model="countries" multiple filterable>
         <el-option
           v-for="item in list"
           :key="item.value"
@@ -24,8 +24,18 @@
   </div>
 </template>
 <script>
+var countryen2zh = require("../data/utils/countryen2zh.json")
 export default {
   name: "GlobalAnalysisTabOverviewCmp",
+  props:{
+    data:{
+        type:Array,
+        required:true
+    },
+  },
+  mounted(){
+      this.loadlist();//区域列表
+  },
   data() {
     return {
       options: [
@@ -48,17 +58,26 @@ export default {
       ],
       type:"nowcases",
       countries:[],
-      list:[
-          {
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, 
-      ],
+      list:[],
     };
   },
+  methods:{
+      loadlist(){
+          var detailed = this.$props.data[0]["detailed"];
+          console.log(detailed)
+          for(var i in detailed){
+              var enname = detailed[i]["name"];
+              for(var j in countryen2zh){
+                  if(countryen2zh[j]["value"] == enname){
+                      this.list.push({
+                          value:enname,
+                          label:countryen2zh[j]["label"]
+                      })
+                  }
+              }
+          }
+      }
+  }
 };
 </script>
 

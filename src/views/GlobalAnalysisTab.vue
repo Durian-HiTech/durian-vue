@@ -11,7 +11,7 @@
       <global-analysis-tab-pie-chart :data="data"></global-analysis-tab-pie-chart>
     </v-tab-item>
     <v-tab-item> 
-      <global-analysis-tab-overview-cmp></global-analysis-tab-overview-cmp>
+      <global-analysis-tab-overview-cmp :data="data"></global-analysis-tab-overview-cmp>
     </v-tab-item>
     <v-tab-item>这里是历史总计对比分析</v-tab-item>
   </v-tabs>
