@@ -10,7 +10,7 @@
         <div v-if="country == 'World'">世界疫情数据</div>
       </div>
       <el-tabs :tab-position="'left'" style="height: 600px; margin-top: 5px">
-        <el-tab-pane label="疫情地图">
+        <el-tab-pane class='tabPane' label="疫情地图">
           <div class="MapMain">
             <div class="Map">
               <div
@@ -43,24 +43,24 @@
                 ></el-slider>
               </div>
             </div>
-            <div class="Overview">
-              <div class="overviewData">
-                <div v-for="(data, index) in overviewData" :key="index">
-                  <div @click="changeKey(data.type)">
-                    <LittleDataCard
-                      :nownum="data.nownum"
-                      :type="data.type"
-                      :newnum="data.newnum"
-                      :color="data.color"
-                    />
-                  </div>
+
+            <div class="overviewData">
+              <div v-for="(data, index) in overviewData" :key="index">
+                <div @click="changeKey(data.type)">
+                  <LittleDataCard
+                    :nownum="data.nownum"
+                    :type="data.type"
+                    :newnum="data.newnum"
+                    :color="data.color"
+                  />
                 </div>
               </div>
             </div>
+
           </div>
         </el-tab-pane>
 
-        <el-tab-pane label="疫情数据表">
+        <el-tab-pane class='tabPane' label="疫情数据表">
           <div class="TableSection">
             <analysis-table
               :type="country"
@@ -85,10 +85,10 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane label="疫情数据分析">
+        <el-tab-pane class='tabPane' label="疫情数据分析">
           <div class="ChartSection">这里是Echarts图表</div>
         </el-tab-pane>
-        <el-tab-pane label="疫苗接种分析">
+        <el-tab-pane class='tabPane' label="疫苗接种分析">
           <div class="Cases">疫苗图表</div>
         </el-tab-pane>
       </el-tabs>
@@ -297,22 +297,19 @@ export default {
   justify-content: center;
   margin-top: 70px;
 }
-.Overview {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-left: 20px;
-}
+
 .overviewData {
   border: #cccccc solid thin;
   border-radius: 10px;
   overflow: hidden;
-  height: 600px;
+  height: 540px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: space-around;
+
+  margin-left: 20px;
+  align-self: flex-start;
 }
 .TableSection {
   display: flex;
@@ -338,5 +335,8 @@ export default {
 }
 .datepicker {
   width: 200px;
+}
+.tabPane {
+  width: 1200px;
 }
 </style>
