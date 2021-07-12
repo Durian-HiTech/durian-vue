@@ -143,7 +143,6 @@ export default {
     },
   },
   mounted() {
-    console.log(this.$route.query);
     var query = this.$route.query.name;
     if (query != undefined) {
       var zhname = provinceen2zh[query];
@@ -158,7 +157,6 @@ export default {
           adcode:provincezhname2adcode[zhname],
         }
       }
-      console.log(this.country);
     } else {
       this.loaddata({
         name: "China",
@@ -226,7 +224,7 @@ export default {
               if (response.data.success) {
                 _this.data = response.data.data;
                 _this.maxTimeNum = _this.data.length - 1;
-                _this.t2 - _this.maxTimeNum;
+                _this.t2 = _this.maxTimeNum;
                 _this.date = _this.data[_this.timevalue]["date"];
                 _this.loadporpsdata();
                 _this.dataloaded = true;

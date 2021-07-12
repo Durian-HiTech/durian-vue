@@ -3,9 +3,9 @@
 </template>
 <script>
 import * as echarts from "echarts";
-var chinaen2zh = require("../../data/utils/china_en2province.json");
+var chinaen2zh = require("../../data/utils/provinceen2zh.json");
+var mapdata = require("../../data/utils/provincezhname2adcode.json")
 var coviddata; //为了显示所有数据存储一份全局数据
-var mapdata = {}; // 中文名字和adcode对照表
 var chinazh2en = {};
 export default {
   name: "AnalysisChinaMap",
@@ -34,7 +34,6 @@ export default {
     } else {
       mapname = this.$props.country["info"]["adcode"];
     }
-    console.log(mapname)
     this.myChart = echarts.init(document.getElementById("analysis-china-map"));
     this.loadMap(mapname);
     this.option["series"][0]["data"] = coviddata;
@@ -171,29 +170,21 @@ export default {
   methods: {
     loadzh2en(){
       for(var item in chinaen2zh){
-        chinazh2en[chinaen2zh[item]["label"]] = chinaen2zh[item]["value"];
+        chinazh2en[chinaen2zh[item]] = [item];
       }
     },
     dataprocessing() {
       // 当前图为China时将获取的省会数据英文名称转中文
       for (var i in coviddata) {
-        for (var item in chinaen2zh) {
-          if (
-            coviddata[i]["name"] == chinaen2zh[item]["value"]
-          ) {
-            coviddata[i]["name"] = chinaen2zh[item]["label"];
-            break;
-          }
+        var zhname = chinaen2zh[coviddata[i]["name"]];
+        if(zhname!=undefined){
+          coviddata[i]["name"] = zhname;
         }
       }
     },
     loadMap(name) {
       this.myChart.showLoading();
       const mapData = require("../../data/map/json/GeoMapData_CN/" + name);
-      for (var item in mapData.features) {
-        mapdata[mapData.features[item].properties.name] =
-          mapData.features[item].properties.adcode;
-      }
       echarts.registerMap(name, mapData);
       this.option["series"][0]["map"] = name;
       this.option["series"][0]["zoom"] = 2;
