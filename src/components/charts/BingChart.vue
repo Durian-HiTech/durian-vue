@@ -37,19 +37,19 @@ export default{
             this.mycharts()
         },
         mycharts(){
-            console.log(data[0])
-            console.log("Hello from Other Side",this.$props.dataTable[0])
+            //console.log(data[0])
+            //console.log("Hello from Other Side",this.$props.dataTable[0])
             var PresentData = this.$props.dataTable[0]
             var SaveList = [];
             var All = PresentData["overview"][this.$props.dataType]["nownum"];
             var Sum = 0;
-            console.log("Test",PresentData["detailed"][0][this.$props.dataType])
+            //console.log("Test",PresentData["detailed"][0][this.$props.dataType])
             var SortData = PresentData["detailed"]
             var _this = this;
             SortData.sort(function(a,b){
                 return (b[_this.$props.dataType]-a[_this.$props.dataType]);
             });
-            console.log(All)
+            //console.log(All)
 
             var Count = SortData.length;
             if (Count>10) {
@@ -57,7 +57,7 @@ export default{
             }
             for (var i=0;i<Count;i++)
             {
-                console.log(i,Sum);
+                //console.log("项目展示",i,SortData[i]["name"],SortData[i][this.$props.dataType]);
                 Sum += SortData[i][this.$props.dataType];
                 SaveList.push({value:SortData[i][this.$props.dataType],name:SortData[i]["name"]})
             }
