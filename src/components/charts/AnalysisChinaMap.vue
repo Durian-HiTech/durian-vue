@@ -32,8 +32,9 @@ export default {
       mapname = "China";
       this.dataprocessing(); //全国数据需要转中文
     } else {
-      mapname = this.$props.country["adcode"];
+      mapname = this.$props.country["info"]["adcode"];
     }
+    console.log(mapname)
     this.myChart = echarts.init(document.getElementById("analysis-china-map"));
     this.loadMap(mapname);
     this.option["series"][0]["data"] = coviddata;

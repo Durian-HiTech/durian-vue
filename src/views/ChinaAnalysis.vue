@@ -95,7 +95,8 @@ import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-
+var provinceen2zh = require("../data/utils/provinceen2zh.json");
+var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
 export default {
   name: "ChinaAnalysis",
   components: {
@@ -142,17 +143,36 @@ export default {
     },
   },
   mounted() {
-    this.loaddata({
-      name: "China",
-      zhname: "中国",
-    });
-    this.country = {
-      name: "China",
-      info: {
-        name: "",
-        adcode: "",
-      },
-    };
+    console.log(this.$route.query);
+    var query = this.$route.query.name;
+    if (query != undefined) {
+      var zhname = provinceen2zh[query];
+      this.loaddata({
+        name:query,
+        zhname:zhname
+      })
+      this.country = {
+        name:provinceen2zh[query],
+        info:{
+          name:query,
+          adcode:provincezhname2adcode[zhname],
+        }
+      }
+      console.log(this.country);
+    } else {
+      this.loaddata({
+        name: "China",
+        zhname: "中国",
+      });
+      this.country = {
+        name: "China",
+        info: {
+          name: "China",
+          adcode: "",
+        },
+      };
+    }
+
     this.type = "nowcases";
   },
   methods: {
