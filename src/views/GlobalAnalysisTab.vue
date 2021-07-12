@@ -10,19 +10,23 @@
     <v-tab-item>
       <global-analysis-tab-pie-chart :data="data"></global-analysis-tab-pie-chart>
     </v-tab-item>
-    <v-tab-item> 这里是总计对比分析</v-tab-item>
+    <v-tab-item> 
+      <global-analysis-tab-overview-cmp></global-analysis-tab-overview-cmp>
+    </v-tab-item>
     <v-tab-item>这里是历史总计对比分析</v-tab-item>
   </v-tabs>
 </template>
 <script>
 import GlobalAnalysisTabPieChart from "./GlobalAnalysisTabPieChart.vue";
 import CmpChart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp";
+import GlobalAnalysisTabOverviewCmp from "./GlobalAnalysisTabOverviewCmp.vue"
 var countryen2zh = require("../data/utils/countryen2zh.json")
 export default {
   name: "GlobalAnalysisTab",
   components: {
     GlobalAnalysisTabPieChart,
-    CmpChart
+    CmpChart,
+    GlobalAnalysisTabOverviewCmp
   },
   props: {
     data: {
