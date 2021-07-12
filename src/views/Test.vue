@@ -8,20 +8,20 @@
 </template>
 
 <script>
-import TravelCard from '../components/common/TravelCard.vue'
+// import TravelCard from '../components/common/TravelCard.vue'
 
 // import GlobalMap from '../components/charts/GlobalMap.vue'
 // import CommentCard from '../components/common/CommentCard.vue'
 import AirlineDetail from "../components/AirlineDetail";
-import RiskMap from "../components/RiskMap";
-var coviddata = require("../data/samples/GlobalMapSample.json")
+// import RiskMap from "../components/RiskMap";
+// var coviddata = require("../data/samples/GlobalMapSample.json")
 export default {
 	name: 'Test',
 	components: {
-		RiskMap,
+		// RiskMap,
 		AirlineDetail,
 		// GlobalMap,
-		TravelCard,
+		// TravelCard,
 	},
 	data() {
       return {
