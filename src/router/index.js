@@ -88,8 +88,12 @@ const routes = [
     path: '/policy',
     name: 'PolicyAI',
     component: () => import('../views/PolicyAI.vue')
-  }
-
+  },
+  {
+    path: '/forecast',
+    name: 'Forecast',
+    component: () => import('../views/Forecast.vue')
+  },
 ]
 
 const router = new VueRouter({
