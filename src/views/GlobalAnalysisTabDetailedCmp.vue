@@ -72,6 +72,12 @@ export default {
       }
       this.date = oldvalue;
     },
+    data() {
+      this.countries = [];
+      this.list = [];
+      this.loadtimeline();
+      this.loadlist(); //区域列表
+    },
   },
   data() {
     return {
@@ -109,14 +115,18 @@ export default {
       var detailed = this.$props.data[0]["detailed"];
       for (var i in detailed) {
         var enname = detailed[i]["name"];
-        for (var j in countryen2zh) {
+        var zhname = ""
+       for (var j in countryen2zh) {
           if (countryen2zh[j]["value"] == enname) {
-            this.list.push({
-              value: enname,
-              label: countryen2zh[j]["label"],
-            });
+            zhname = countryen2zh[j]["label"];
+            break;
           }
         }
+        if(zhname == "")zhname = enname;
+        this.list.push({
+          value:enname,
+          label:zhname
+        })
       }
     },
     loadtimeline() {
@@ -127,7 +137,7 @@ export default {
     },
     loadporpsdata() {
       this.data_table = this.$props.data[this.timevalue]["detailed"];
-      console.log(this.data_table)
+      console.log(this.data_table);
     },
   },
 };

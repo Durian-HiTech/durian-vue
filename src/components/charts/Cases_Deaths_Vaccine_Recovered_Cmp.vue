@@ -23,8 +23,10 @@ export default{
       name: "复兴组",
     };
   },
-  created() {
-
+  watch:{
+    data_table(){
+      this.getData();
+    }
   },
   mounted() {
     this.getData();
@@ -133,9 +135,6 @@ export default{
       //图表自适应
 
     },
-  },
-  watch: {
-
   },
 };
 </script>

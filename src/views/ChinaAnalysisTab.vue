@@ -47,6 +47,12 @@ export default {
           zhname:""
       }
   },
+  watch:{
+    country(){
+      this.zhname = this.$props.country.name;
+      this.enname = this.$props.country.info.name;
+    }
+  },
   mounted(){
       this.zhname = this.$props.country.name;
       this.enname = this.$props.country.info.name;
