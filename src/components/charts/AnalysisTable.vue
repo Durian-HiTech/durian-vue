@@ -37,6 +37,14 @@
 <script>
 var countryen2zh = require('../../data/utils/countryen2zh.json')
 var provinceen2zh = require('../../data/utils/china_en2province.json')
+var countryName = function (name) {
+  // en2zh
+  for (var key in countryen2zh) {
+    if (countryen2zh[key]["value"] == name)
+      return countryen2zh[key]["label"];
+  }
+  return name;
+};
 export default {
     name: 'StatisticTable',
     props:{
@@ -104,21 +112,16 @@ export default {
         } else if(this.$props.type == 'World'){ //世界
           this.headers[0].text = "国家";
           for(i in this.detailed){
-            for(item in countryen2zh){
-              if(countryen2zh[item]["value"] == this.detailed[i]["name"] || countryen2zh[item]["label"] == this.detailed[i]["name"]){
-                this.detailed[i]["zhname"] = countryen2zh[item]["label"];
-                break;
-              }
-            }
+            this.detailed[i]["zhname"] = countryName(this.detailed[i]['name']);
           }
-        } else{ // 其他国家的区域，直接就是中文
+        } else{ // 其他国家的区域，直接就是英文
             this.headers[0].text = "区域";
             for(i in this.detailed){
                 this.detailed[i]["zhname"] = this.detailed[i]["name"];
             }
         }
       }
-     
+
     }
 }
 </script>

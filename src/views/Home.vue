@@ -165,7 +165,7 @@ export default {
       GlobalmapData: {},
       ChinamapData: {},
       locationInfo: {
-        ip: '', 
+        ip: '',
         country: '',
         province: '',
         city: '',
@@ -186,7 +186,7 @@ export default {
   },
   methods: {
     getLocation () {
-      // eslint-disable-next-line 
+      // eslint-disable-next-line
       this.locationInfo.ip = returnCitySN.cip
 
       var _this = this
@@ -216,7 +216,6 @@ export default {
     loadhomeData(homeData) {
       //加载全球和中国数据
       //var homeData = require("../data/samples/HomeData.json");
-      console.log(homeData)
       var mapping = {
         nowcases: {
           type: "现有确诊",
@@ -247,7 +246,6 @@ export default {
         list.push(res);
       }
       this.ChinaoverviewData = list;
-      console.log(this.ChinaoverviewData)
       list = [];
       for (key in mapping) {
         res = {

@@ -45,10 +45,10 @@
         >
         </el-date-picker>
         <el-slider
-          class="slider"
-          v-model="timevalue"
-          :max="maxTimeNum"
-          :show-tooltip="false"
+            class="slider"
+            v-model="t2"
+            :max="maxTimeNum"
+            :show-tooltip="false"
         ></el-slider>
       </div>
     </div>
@@ -82,6 +82,7 @@ export default {
     return {
       date: "",
       timevalue: 0,
+      t2: 0,
       country: "", //World或其他国家
       type: "", //热力图主键
       data: "", //const
@@ -102,6 +103,14 @@ export default {
     },
   },
   watch: {
+    t2(newvalue) {
+      console.log(newvalue)
+      this.timevalue = this.maxTimeNum - newvalue
+      if(newvalue > this.maxTimeNum)
+        this.t2 = this.maxTimeNum
+      else if(newvalue < 0)
+        this.t2 = 0
+    },
     timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
       this.loadporpsdata();
@@ -127,6 +136,7 @@ export default {
       if (this.loadlocal) {
         this.data = require("../data/samples/" + name + "AnalysisSample.json");
         this.maxTimeNum = this.data.length - 1;
+        this.t2 = this.maxTimeNum;
         this.date = this.data[this.timevalue]["date"];
         this.loadporpsdata();
         this.dataloaded = true;
@@ -144,6 +154,7 @@ export default {
                 _this.data = response.data.Global;
                 console.log(_this.data);
                 _this.maxTimeNum = _this.data.length - 1;
+                _this.t2 = _this.maxTimeNum;
                 _this.date = _this.data[_this.timevalue]["date"];
                 _this.loadporpsdata();
                 _this.dataloaded = true;
@@ -157,6 +168,7 @@ export default {
               if (response.data.success) {
                 _this.data = response.data.data;
                 _this.maxTimeNum = _this.data.length - 1;
+                _this.t2 = _this.maxTimeNum;
                 _this.date = _this.data[_this.timevalue]["date"];
                 _this.loadporpsdata();
                 _this.dataloaded = true;
