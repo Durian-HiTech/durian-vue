@@ -136,14 +136,16 @@ export default {
     timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
       this.loadporpsdata();
+      this.t2 = this.maxTimeNum - this.timevalue;
     },
-    date(newvalue) {
+    date(newvalue,oldvalue) {
       for (var item in this.data) {
         if (this.data[item]["date"] == newvalue) {
           this.timevalue = Number(item);
           return;
         }
       }
+      this.date = oldvalue;
     },
   },
   computed: {},
