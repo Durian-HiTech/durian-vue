@@ -90,14 +90,22 @@ export default {
             };
             var res = "<b>" + name + "</b>" + "<br/>";
             var tmp = {};
-            for(var i in coviddata){
-              if(coviddata[i]["name"] == params.name){
+            for (var i in coviddata) {
+              if (coviddata[i]["name"] == params.name) {
                 tmp = coviddata[i];
                 break;
               }
             }
             for (var key in mapping) {
-              res += "<p align=\"left\">" + "<b>" + mapping[key] + "</b>" + ":  " + tmp[key] + "<br/>"+"</p >";
+              res +=
+                '<p align="left">' +
+                "<b>" +
+                mapping[key] +
+                "</b>" +
+                ":  " +
+                tmp[key] +
+                "<br/>" +
+                "</p >";
             }
             return res;
           },
@@ -116,8 +124,13 @@ export default {
               label: "10000-100000",
               color: "#fdae61",
             },
-            { min: 100000, max:1000000,label: "100000-1000000", color: "#f46d43" },
-            {min:1000000, label:"大于1000000", color:"#a50026"}
+            {
+              min: 100000,
+              max: 1000000,
+              label: "100000-1000000",
+              color: "#f46d43",
+            },
+            { min: 1000000, label: "大于1000000", color: "#a50026" },
           ],
         },
         series: [
@@ -126,19 +139,19 @@ export default {
             nameProperty: "NAME_1",
             type: "map",
             roam: true,
-            zoom:2,
-            scaleLimit:{
-              min:1,
-              max:4
+            zoom: 2,
+            scaleLimit: {
+              min: 1,
+              max: 4,
             },
             map: "",
             emphasis: {
               label: {
                 show: true,
-                formatter:function(param){
+                formatter: function (param) {
                   var name = param.name;
                   return countryName(name);
-                }
+                },
               },
             },
             data: [],
@@ -165,16 +178,25 @@ export default {
     },
     clickevent(newcountry) {
       //地图点击事件
-      if(newcountry == 'China') {
-        this.$router.push({path: '/chinaanalysis'});
-      }
-      else {
-        this.$router.push({path: '/globalanalysis'});
+      if (newcountry == "China") {
+        const { href } = this.$router.resolve({
+          path: "chinaanalysis",
+        });
+        window.open(href, "_blank");
+      } else {
+        const { href } = this.$router.resolve({
+          path: "globalanalysis",
+          query:{
+            name:newcountry
+          }
+        });
+        window.open(href, "_blank");
       }
     },
     loadData() {
-      for(var i in this.option["series"][0]["data"]){
-        this.option["series"][0]["data"][i]["value"] = this.option["series"][0]["data"][i][this.$props.type];
+      for (var i in this.option["series"][0]["data"]) {
+        this.option["series"][0]["data"][i]["value"] =
+          this.option["series"][0]["data"][i][this.$props.type];
       }
       this.myChart.setOption(this.option);
     },

@@ -85,8 +85,12 @@
             </div>
           </div>
         </el-tab-pane>
-        <el-tab-pane class='tabPane' label="疫情数据分析">
-          <div class="ChartSection">这里是Echarts图表</div>
+        <el-tab-pane label="疫情数据分析">
+          <div class="ChartSection">
+            <cmp_chart>
+
+            </cmp_chart>
+          </div>
         </el-tab-pane>
         <el-tab-pane class='tabPane' label="疫苗接种分析">
           <div class="Cases">疫苗图表</div>
@@ -102,6 +106,7 @@ import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisGlobalMap from "../components/charts/AnalysisGlobalMap.vue";
 import countryen2zh from "../data/utils/countryen2zh.json";
 import countries from "../data/utils/countries.json";
+import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
 
 export default {
   name: "GlobalAnalysis",
@@ -109,6 +114,7 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisGlobalMap,
+    cmp_chart
   },
   data() {
     return {
@@ -159,8 +165,14 @@ export default {
     },
   },
   mounted() {
-    this.loaddata("World");
-    this.country = "World";
+    var query = this.$route.query.name;
+    if (query != undefined) {
+      this.loaddata(query);
+      this.country = query;
+    } else {
+      this.loaddata("World");
+      this.country = "World";
+    }
     this.type = "nowcases";
   },
   methods: {
