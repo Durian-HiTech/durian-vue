@@ -240,6 +240,6 @@ export default {
 <style scoped>
 #home-china-map {
   width: 700px;
-  height: 500px;
+  height: 660px;
 }
 </style>
