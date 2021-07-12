@@ -193,6 +193,6 @@ export default {
 <style scoped>
 #analysis-global-map {
   width: 900px;
-  height: 600px;
+  height: 540px;
 }
 </style>

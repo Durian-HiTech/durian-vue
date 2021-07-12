@@ -1,37 +1,43 @@
 <template>
   <div class="homeRoot">
-    <!-- <div class="hometitle">
-      <div class="titleText"><b>Durian</b> <span>Covid</span></div>
-      <div class="subtitleText">国内疫情分析</div>
-    </div> -->
     <div class="MapSection" v-if="dataloaded">
+      <div class="page-header">
+        <el-page-header
+          @back="backtoChina"
+          :content="country['name'] + '疫情地图'"
+          v-if="country['name'] != 'China'"
+        ></el-page-header>
+        <div v-if="country['name'] == 'China'">中国疫情地图</div>
+      </div>
 
       <div class="MapMain">
-
         <div class="Map">
-          <el-page-header
-            @back="backtoChina"
-            :content="country['name'] + '疫情地图'"
-            v-if="country['name'] != 'China'"
-          ></el-page-header>
-          <div v-if="country['name'] == 'China'">中国疫情地图</div>
-          
-          <div style='border: #cccccc solid thin;
-            border-radius: 10px;
-            '>
+          <div style="border: #cccccc solid thin; border-radius: 10px">
             <analysis-china-map
               :data="mapData"
               :country="country"
               :type="type"
             ></analysis-china-map>
           </div>
-
+          <div class="TimeLine">
+            <el-date-picker
+              class="datepicker"
+              v-model="date"
+              type="date"
+              value-format="yyyy-MM-dd 00:00:00"
+              format="yyyy 年 MM 月 dd 日"
+            >
+            </el-date-picker>
+            <el-slider
+              class="slider"
+              v-model="t2"
+              :max="maxTimeNum"
+              :show-tooltip="false"
+            ></el-slider>
+          </div>
         </div>
 
         <div class="Overview">
-          <!-- 显示时间，待美化 -->
-          <span>{{ date | cutLongDate }}</span>
-
           <div class="overviewData">
             <div v-for="(data, index) in overviewData" :key="index">
               <div @click="changeKey(data.type)">
@@ -44,28 +50,8 @@
               </div>
             </div>
           </div>
-
         </div>
-
       </div>
-
-      <div class="TimeLine">
-        <el-date-picker
-          class="datepicker"
-          v-model="date"
-          type="date"
-          value-format="yyyy-MM-dd 00:00:00"
-          format="yyyy 年 MM 月 dd 日"
-        >
-        </el-date-picker>
-        <el-slider
-            class="slider"
-            v-model="t2"
-            :max="maxTimeNum"
-            :show-tooltip="false"
-        ></el-slider>
-      </div>
-
     </div>
 
     <div class="TableSection" v-if="dataloaded">
@@ -109,12 +95,12 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   watch: {
     t2(newvalue) {
-      this.timevalue = this.maxTimeNum - newvalue
+      this.timevalue = this.maxTimeNum - newvalue;
     },
     timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
@@ -131,9 +117,9 @@ export default {
   },
   computed: {},
   filters: {
-      cutLongDate: function (value) {
-        return value.slice(0,10)
-      },
+    cutLongDate: function (value) {
+      return value.slice(0, 10);
+    },
   },
   mounted() {
     this.loaddata({
@@ -284,33 +270,19 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.hometitle {
-  /* outline: #00ff00 dotted thick; */
-
+.page-header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 80px;
-  margin-bottom: 40px;
-
-  align-self: flex-start;
-
-  margin-right: 30%;
-}
-.titleText {
-  font-size: 80px;
-}
-.subtitleText {
-  font-size: 80px;
+  justify-content: left;
+  align-items: left;
+  margin-bottom: 5px;
+  font-size: 20px;
 }
 .MapSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
-  margin-top: 80px;
+  margin-top: 70px;
 }
 .Overview {
   display: flex;

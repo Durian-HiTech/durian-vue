@@ -1,35 +1,49 @@
 <template>
   <div class="homeRoot">
-    <!-- <div class="hometitle">
-      <div class="titleText"><b>Durian</b> <span>Covid</span></div>
-      <div class="subtitleText">国际疫情分析</div>
-    </div> -->
     <div class="MapSection" v-if="dataloaded">
+      <div class="page-header">
+        <el-page-header
+          @back="backtoWorld"
+          :content="countryzhname + '疫情地图'"
+          v-if="country != 'World'"
+        ></el-page-header>
+        <div v-if="country == 'World'">世界疫情地图</div>
+      </div>
       <div class="MapMain">
         <div class="Map">
-          <el-page-header
-            @back="backtoWorld"
-            :content="countryzhname + '疫情地图'"
-            v-if="country != 'World'"
-          ></el-page-header>
-          <div v-if="country == 'World'">世界疫情地图</div>
-
-          <div style='border: #cccccc solid thin;
-                border-radius: 10px;
-                overflow: hidden;'>
+          <div
+            style="
+              border: #cccccc solid thin;
+              border-radius: 10px;
+              overflow: hidden;
+            "
+          >
             <analysis-global-map
               :data="mapData"
               :country="country"
               :type="type"
             ></analysis-global-map>
           </div>
-
+          <div class="TimeLine">
+            <el-date-picker
+              class="datepicker"
+              v-model="date"
+              type="date"
+              value-format="yyyy-MM-dd 00:00:00"
+              format="yyyy 年 MM 月 dd 日"
+            >
+            </el-date-picker>
+            <el-slider
+              class="slider"
+              v-model="t2"
+              :max="maxTimeNum"
+              :show-tooltip="false"
+            ></el-slider>
+          </div>
         </div>
         <div class="Overview">
-          <!-- 显示时间，待美化 -->
-          <span>{{ date | cutLongDate}}</span>
-          
-          <div class='overviewData'>
+
+          <div class="overviewData">
             <div v-for="(data, index) in overviewData" :key="index">
               <div @click="changeKey(data.type)">
                 <LittleDataCard
@@ -41,28 +55,15 @@
               </div>
             </div>
           </div>
-
         </div>
-      </div>
-      <div class="TimeLine">
-        <el-date-picker
-          class="datepicker"
-          v-model="date"
-          type="date"
-          value-format="yyyy-MM-dd 00:00:00"
-          format="yyyy 年 MM 月 dd 日"
-        >
-        </el-date-picker>
-        <el-slider
-            class="slider"
-            v-model="t2"
-            :max="maxTimeNum"
-            :show-tooltip="false"
-        ></el-slider>
       </div>
     </div>
     <div class="TableSection" v-if="dataloaded">
-      <analysis-table :type="country" :tableData="mapData" style="width: 950px"></analysis-table>
+      <analysis-table
+        :type="country"
+        :tableData="mapData"
+        style="width: 950px"
+      ></analysis-table>
     </div>
     <div class="ChartSection">这里是Echarts图表</div>
     <div class="Cases">待插入</div>
@@ -99,7 +100,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   computed: {
@@ -112,18 +113,16 @@ export default {
     },
   },
   filters: {
-      cutLongDate: function (value) {
-        return value.slice(0,10)
-      },
+    cutLongDate: function (value) {
+      return value.slice(0, 10);
+    },
   },
   watch: {
     t2(newvalue) {
-      console.log(newvalue)
-      this.timevalue = this.maxTimeNum - newvalue
-      if(newvalue > this.maxTimeNum)
-        this.t2 = this.maxTimeNum
-      else if(newvalue < 0)
-        this.t2 = 0
+      console.log(newvalue);
+      this.timevalue = this.maxTimeNum - newvalue;
+      if (newvalue > this.maxTimeNum) this.t2 = this.maxTimeNum;
+      else if (newvalue < 0) this.t2 = 0;
     },
     timevalue(newvalue) {
       this.date = this.data[newvalue]["date"];
@@ -264,31 +263,17 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.hometitle {
-  /* outline: #00ff00 dotted thick; */
-
+.page-header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-
-  margin-top: 80px;
-  margin-bottom: 40px;
-
-  align-self: flex-start;
-
-  margin-right: 30%;
-}
-.titleText {
-  font-size: 80px;
-}
-.subtitleText {
-  font-size: 80px;
+  justify-content: left;
+  align-items: left;
+  margin-bottom: 5px;
+  font-size: 20px;
 }
 .MapSection {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   margin-top: 80px;
 }
 .Overview {

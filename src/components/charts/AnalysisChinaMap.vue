@@ -225,6 +225,6 @@ export default {
 <style scoped>
 #analysis-china-map {
   width: 900px;
-  height: 600px;
+  height: 540px;
 }
 </style>
