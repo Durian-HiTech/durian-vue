@@ -369,16 +369,16 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
-      this.cityList.forEach(function (item, ind, arr) {
-        if (item.name == row.name) {
-          arr.splice(ind, 1);
-        }
-      });
       axios
         .post(api.baseApi + "/sub/del_sub", formData, config)
         .then(function (response) {
           if (response.status == 200) {
             _this.$message({ message: "成功删除订阅", type: "true" });
+            _this.cityList.forEach(function (item, ind, arr) {
+              if (item.name == row.name) {
+                arr.splice(ind, 1);
+              }
+            });
           } else {
             console.log("请求失败");
           }
@@ -394,18 +394,18 @@ export default {
       window.open(href, "_blank");
     },
     subCity() {
+      var _this = this;
       // console.log(this.value);
       let formData = new FormData();
-      formData.append("name", this.value);
+      formData.append("name", _this.value);
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
         headers: { "Content-Type": "multipart/form-data" },
       };
-      var _this = this;
       var is_success = true;
-      var len_city = this.cityList.length;
+      var len_city = _this.cityList.length;
 
-      if (this.value == "") {
+      if (_this.value == "") {
         _this.$message({
           message: "您尚未订阅，请先选择一项订阅城市",
           type: "false",
@@ -415,7 +415,7 @@ export default {
 
       if (is_success == true) {
         for (var i = 0; i < len_city; i++) {
-          if (this.cityList[i].name == this.value) {
+          if (_this.cityList[i].name == _this.value) {
             _this.$message({ message: "已订阅该城市", type: "false" });
             is_success = false;
             break;
@@ -425,16 +425,16 @@ export default {
 
       if (is_success == true) {
         var tmp = {
-          name: this.value,
+          name: _this.value,
           user_id: this.$store.getters.userState.id,
           disabled: true,
         };
-        this.cityList.push(tmp);
         axios
           .post(api.baseApi + "/sub/subscribe", formData, config)
           .then(function (response) {
             if (response.status == 200) {
               _this.$message({ message: "成功订阅", type: "true" });
+              _this.cityList.push(tmp);
             } else {
               console.log("请求失败");
             }

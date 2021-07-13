@@ -36,10 +36,10 @@ export default{
       global_data = []
       global_data.push(json_data)
       for(let i = this.$props.data_table.length - 1; i >= 0; i--) {
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['cases']['nownum'], 'cases', 'Global']);
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['deaths']['nownum'], 'deaths', 'Global']);
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['nowcases']['nownum'], 'nowcases', 'Global']);
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['recovered']['nownum'], 'recovered', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['cases']['nownum'], 'cases', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['deaths']['nownum'], 'deaths', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['nowcases']['nownum'], 'nowcases', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['recovered']['nownum'], 'recovered', 'Global']);
         // global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['vaccine']['nownum'], 'vaccine', 'Global']);
       }
       this.mycharts()
