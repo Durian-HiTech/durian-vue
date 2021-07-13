@@ -1,89 +1,13 @@
 <template>
     <div class="travelRoot">
-        <!--	<span class="travelTitle" >-->
-        <!--		<span class='titleText'>-->
-        <!--			<b>Covid</b> <span>Travel</span>-->
-        <!--		</span>-->
-        <!--		<SelectBar class='SelectBar' :buttons="buttons"/>-->
-        <!--	</span>-->
-        <!--    <el-divider/>-->
+        <airline-detail/>
 
-        <!--	&lt;!&ndash; China &ndash;&gt;-->
-        <!--	<div class="travelChina" v-if="showChina">-->
-        <!--		<div class="travelMain">-->
-
-        <!--			<div class="travelUpSection">-->
-
-        <!--				<div style="display: flex;">	-->
-        <!--					<div style='width: 500px'>-->
-        <!--						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内预警航线</el-button>-->
-        <!--						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>-->
-        <!--					</div>-->
-
-        <!--					<div style='width: 500px; margin-left: 50px;'>-->
-        <!--						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内预警高铁</el-button>-->
-        <!--						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='北京' destination='上海' num='D8828' status='已取消'/>-->
-        <!--					</div>-->
-        <!--				</div>-->
-
-        <!--			</div>-->
-
-        <!--			<div class="travelDownSection">-->
-
-        <!--				<div class="travelMap">-->
-        <!--					&lt;!&ndash; This is the map &ndash;&gt;-->
-        <!--				</div>-->
-
-        <!--				<div class="travelTable">-->
-        <!--					<TravelTable/>-->
-        <!--				</div>-->
-
-        <!--			</div>-->
-
-        <!--		</div>-->
-        <!--	</div>-->
-        <!--	-->
-        <!--	&lt;!&ndash; World &ndash;&gt;-->
-        <!--	<div class="travelWorld" v-if="!showChina">-->
-        <!--		<div class="travelMain">-->
-
-        <!--			<div class="travelUpSection">-->
-
-        <!--				<div style="display: flex;">	-->
-        <!--					<div style='width: 500px'>-->
-        <!--						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内出发预警航线</el-button>-->
-        <!--						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='圣弗朗西斯科' destination='上海' num='D8828' status='已取消'/>-->
-        <!--					</div>-->
-
-        <!--					<div style='width: 500px; margin-left: 50px;'>-->
-        <!--						<el-button  style="font-size: 18px; font-weight: bold; margin: 20px;" round>国际到达预警航线</el-button>-->
-        <!--						<TravelCard startTime='2020.6.2 12:30' arriveTime='2020.6.3 12:30' start='北京' destination='上海' num='D8828' status='已取消'/>-->
-        <!--					</div>-->
-        <!--				</div>-->
-
-
-        <!--			</div>-->
-
-        <!--			<div class="travelDownSection">-->
-
-        <!--				<div class="travelMap">-->
-        <!--					&lt;!&ndash; This is the map &ndash;&gt;-->
-        <!--				</div>-->
-
-        <!--				<div class="travelTable">-->
-        <!--					This is the table-->
-        <!--				</div>-->
-
-        <!--			</div>-->
-
-        <!--		</div>-->
-        <!--	</div>-->
-        <airline-detail style="margin-top: 50px"/>
-        <div class="track" style="padding:20px;margin:0 auto;margin-top:70px;">
-            <div style="font-size:20px;padding:5px;font-color:">
+        <div class="track" style="padding:20px;margin:0 auto;margin-top:10px;">
+            <h1 style="font-size:20px;margin-bottom:18px;">
                 疫情轨迹
-            </div>
-            <div class="trackCardRoot">
+            </h1>
+
+            <div class="trackCardRoot" style='margin-bottom: 20px;'>
                 <div class="row">
                     <div class="trackCity">印度尼西亚</div>
                     <track-card destination="浙江杭州"></track-card>

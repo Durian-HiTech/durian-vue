@@ -6,6 +6,7 @@
 
 <script>
 import * as echarts from 'echarts';
+var CountryTrans = require("../../data/utils/countries.json");
 var option;
 export default{
     name: 'BingChart',
@@ -56,10 +57,20 @@ export default{
             for (var i=0;i<Count;i++)
             {
                 //console.log("项目展示",i,SortData[i]["name"],SortData[i][this.$props.dataType]);
+                var CountryName = SortData[i]["name"];
+                for (var j=0;j<CountryTrans.length;j++)
+                {
+                    if (CountryTrans[j]["value"]==CountryName)
+                    {
+                        CountryName = CountryTrans[j]["label"];
+                        break;
+                    }
+                }
+                console.log("countryname:",CountryName);
                 Sum += SortData[i][this.$props.dataType];
-                SaveList.push({value:SortData[i][this.$props.dataType],name:SortData[i]["name"]})
+                SaveList.push({value:SortData[i][this.$props.dataType],name:CountryName})
             }
-            SaveList.push({value:(All-Sum),name:"Others"})
+            SaveList.push({value:(Math.abs(All-Sum)),name:"其他"})
             //console.log(SaveList);
             option = {
                 tooltip: {

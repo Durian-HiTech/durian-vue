@@ -36,10 +36,10 @@ export default{
       global_data = []
       global_data.push(json_data)
       for(let i = this.$props.data_table.length - 1; i >= 0; i--) {
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['cases']['nownum'], 'cases', 'Global']);
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['deaths']['nownum'], 'deaths', 'Global']);
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['nowcases']['nownum'], 'nowcases', 'Global']);
-        global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['recovered']['nownum'], 'recovered', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['cases']['nownum'], 'cases', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['deaths']['nownum'], 'deaths', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['nowcases']['nownum'], 'nowcases', 'Global']);
+        global_data.push([this.$props.data_table[i]['date'].replace("T00:00:00Z",""), this.$props.data_table[i]["overview"]['recovered']['nownum'], 'recovered', 'Global']);
         // global_data.push([this.$props.data_table[i]['date'], this.$props.data_table[i]["overview"]['vaccine']['nownum'], 'vaccine', 'Global']);
       }
       this.mycharts()
@@ -70,7 +70,13 @@ export default{
           endLabel: {
             show: true,
             formatter: function (params) {
-              return params.value[2];
+              var mapping ={
+                "nowcases":"现有确诊",
+                "cases":"累计确诊",
+                "recovered":"累积治愈",
+                "deaths":"累积死亡"
+              }
+              return mapping[params.value[2]];
             }
           },
           emphasis: {
@@ -92,12 +98,6 @@ export default{
           id: 'dataset_raw',
           source: global_data
         }].concat(datasetWithFilters),
-        title: {
-          text: 'Doese of Vaccination of USA and China last 30 days',
-          textStyle: {
-              color: "#fff",
-            },
-        },
         dataZoom: [{
           id: 'dataZoomx',
           type: 'slider',

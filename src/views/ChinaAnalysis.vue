@@ -31,7 +31,7 @@
                   class="datepicker"
                   v-model="date"
                   type="date"
-                  value-format="yyyy-MM-dd 00:00:00"
+                  value-format="yyyy-MM-ddT00:00:00Z"
                   format="yyyy 年 MM 月 dd 日"
                 >
                 </el-date-picker>
@@ -71,7 +71,7 @@
                 class="datepicker"
                 v-model="date"
                 type="date"
-                value-format="yyyy-MM-dd 00:00:00"
+                value-format="yyyy-MM-ddT00:00:00Z"
                 format="yyyy 年 MM 月 dd 日"
               >
               </el-date-picker>
@@ -94,7 +94,7 @@
           </div>
         </el-tab-pane>
 
-        <el-tab-pane class='tabPane' label="疫苗接种分析">
+        <el-tab-pane class='tabPane' label="疫苗接种分析" v-if="country['name'] == '中国'">
           <ChinaVaccineGraph/>
         </el-tab-pane>
       </el-tabs>
@@ -133,7 +133,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: true,
+      loadlocal: false,
     };
   },
   watch: {
