@@ -1,6 +1,6 @@
 <template>
   <div class="GlobalAnalysisTabPieChart">
-      <el-select v-model="type">
+      <el-select v-model="type" class="selector">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -9,7 +9,7 @@
         >
         </el-option>
       </el-select>
-      <div>这是朱晨宇写的中国饼图
+      <div>
         <BingChart
         :dataType="type"
         :dataTable="data"
@@ -63,5 +63,9 @@ export default {
 .GlobalAnalysisTabPieChart {
   display: flex;
   flex-direction: column;
+}
+.selector{
+  width: 200px;
+  margin-left: 5px;
 }
 </style>

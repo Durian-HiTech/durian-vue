@@ -1,7 +1,7 @@
 <template>
   <div class="GlobalAnalysisTabOverviewCmp">
     <div class="topselector">
-      <el-select v-model="countries" multiple filterable style="width: 400px">
+      <el-select v-model="countries" multiple filterable style="width:200px;margin-right:20px;">
         <el-option
           v-for="item in list"
           :key="item.value"
@@ -10,7 +10,7 @@
         >
         </el-option>
       </el-select>
-      <el-select v-model="type">
+      <el-select v-model="type" style="width:200px;">
         <el-option
           v-for="item in options"
           :key="item.value"
@@ -187,7 +187,7 @@ export default {
               type: "filter",
               config: {
                 and: [
-                  { dimension: "Number", gte: 5 },
+                  { dimension: "Number", gte: 0},
                   { dimension: "Type", "=": type },
                   { dimension: "Country", "=": now_countries[i] },
                 ],

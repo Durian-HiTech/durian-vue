@@ -6,15 +6,15 @@
     <v-tab>{{zhname}}各{{refer}}单日疫情数据对比分析</v-tab>
 
     <v-tab-item
-      > <cmp-chart :data_table="data"></cmp-chart></v-tab-item>
+      > <cmp-chart :data_table="data" style="margin-top:5px;"></cmp-chart></v-tab-item>
     <v-tab-item>
-      <china-analysis-tab-pie-chart :data="data"></china-analysis-tab-pie-chart>
+      <china-analysis-tab-pie-chart :data="data" style="margin-top:5px;"></china-analysis-tab-pie-chart>
     </v-tab-item>
     <v-tab-item>
-      <china-analysis-tab-overview-cmp :data_table="data"></china-analysis-tab-overview-cmp>
+      <china-analysis-tab-overview-cmp :data_table="data" style="margin-top:5px;"></china-analysis-tab-overview-cmp>
     </v-tab-item>
     <v-tab-item>
-      <china-analysis-tab-detailed-cmp :data="data"></china-analysis-tab-detailed-cmp>
+      <china-analysis-tab-detailed-cmp :data="data" style="margin-top:5px;"></china-analysis-tab-detailed-cmp>
     </v-tab-item>
   </v-tabs>
 </template>

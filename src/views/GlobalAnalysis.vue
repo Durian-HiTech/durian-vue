@@ -127,7 +127,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   computed: {
@@ -348,10 +348,6 @@ export default {
   width: 200px;
 }
 .tabPane {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 1200px;
 }
 .ChartSection{

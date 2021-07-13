@@ -107,7 +107,7 @@ export default {
           textStyle: {
             color: "#000",
           },
-          subtext: "数据来源于各国政府机构等",
+          subtext: "数据来源于各国政府机构等，气泡所指位置为中高风险地区",
           subtextStyle: {
             color: "#000",
           },

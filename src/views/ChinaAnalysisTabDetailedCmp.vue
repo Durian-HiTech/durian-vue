@@ -1,7 +1,7 @@
 <template>
   <div class="ChinaAnalysisTabDetailedCmp" v-if="dataloaded">
     <div class="topselector">
-      <el-select v-model="countries" multiple filterable>
+      <el-select v-model="countries" multiple filterable style="width:200px;margin-right:20px;">
         <el-option
           v-for="item in list"
           :key="item.value"
@@ -10,7 +10,7 @@
         >
         </el-option>
       </el-select>
-      <el-select v-model="type">
+      <el-select v-model="type" style="width:200px;">
         <el-option
           v-for="item in options"
           :key="item.value"

@@ -94,7 +94,7 @@
           </div>
         </el-tab-pane>
 
-        <el-tab-pane class='tabPane' label="疫苗接种分析">
+        <el-tab-pane class='tabPane' label="疫苗接种分析" v-if="country['name'] == '中国'">
           <ChinaVaccineGraph/>
         </el-tab-pane>
       </el-tabs>
@@ -106,7 +106,7 @@ import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-// import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
+import ChinaAnalysisTab from "@/views/ChinaAnalysisTab";
 import ChinaVaccineGraph from "../components/charts/ChinaVaccineGraph.vue";
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
@@ -118,7 +118,8 @@ export default {
     LittleDataCard,
     AnalysisChinaMap,
     // cmp_chart,
-    ChinaVaccineGraph
+    ChinaVaccineGraph,
+    ChinaAnalysisTab
   },
   data() {
     return {
@@ -386,5 +387,8 @@ export default {
 }
 .tabPane {
   width: 1200px;
+}
+.ChartSection{
+  margin-left:20px;
 }
 </style>
