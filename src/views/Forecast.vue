@@ -21,7 +21,9 @@ export default {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 100px;
+  margin-top: 70px;
+  margin-left: 50px;
+
 }
 .forecast {
   width: 100%;
