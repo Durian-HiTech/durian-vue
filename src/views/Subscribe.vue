@@ -114,6 +114,7 @@
                   font-weight: 700;
                   color: #666666;
                   margin-left: 5px;
+                  cursor: pointer;
                 "
               >
                 <div @click="clickevent(city.name)">Learn more...</div>
