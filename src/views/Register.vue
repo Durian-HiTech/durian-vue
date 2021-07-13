@@ -102,6 +102,8 @@ export default {
 					if (response.data.success) {
 						_this.$message({message: response.data.message,
 										type: 'success'})
+
+            _this.$router.push({path: '/login'})
 					}else {
 						_this.$message({message: response.data.message,
 										type: 'error'})
