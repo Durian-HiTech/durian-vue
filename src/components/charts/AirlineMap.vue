@@ -124,7 +124,7 @@
             });
             this.risk_data = risk_data;
             this.risk_data.push({type: '中风险', province: '江苏省', district: '南京市\n(测试用）', name: '', coordinate: []});
-            console.log(this.risk_data);
+            // console.log(this.risk_data);
             this.risk_data.forEach((item) => {
                 var currCoord;
                 $.ajax({
@@ -352,8 +352,8 @@
                                         show: true,
                                         color: '#fff',
                                         fontSize: 15,
-                                        formatter: function (param) {
-                                            console.log(param);
+                                        formatter: function () {
+                                            // console.log(param);
                                             return "中风险";
                                         }
                                     },
@@ -392,8 +392,8 @@
                                     label: {
                                         show: true,
                                         fontSize: 18,
-                                        formatter: function (param) {
-                                            console.log(param);
+                                        formatter: function () {
+                                            // console.log(param);
                                             return "高风险";
                                         }
                                     },
@@ -433,8 +433,8 @@
                                         show: true,
                                         fontSize: 18,
                                         color: '#fff',
-                                        formatter: function (param) {
-                                            console.log(param);
+                                        formatter: function () {
+                                            // console.log(param);
                                             return "起始地";
                                         }
                                     },
@@ -444,7 +444,7 @@
                                         show: true,
                                         zlevel: 20,
                                         formatter: function (param) {
-                                            console.log(param);
+                                            // console.log(param);
                                             return param.name;
                                         }
                                     },
@@ -474,8 +474,8 @@
                                         show: true,
                                         fontSize: 18,
                                         color: '#fff',
-                                        formatter: function (param) {
-                                            console.log(param);
+                                        formatter: function () {
+                                            // console.log(param);
                                             return "目的地";
                                         }
                                     },
@@ -485,7 +485,7 @@
                                         show: true,
                                         zlevel: 20,
                                         formatter: function (param) {
-                                            console.log(param);
+                                            // console.log(param);
                                             return param.name;
                                         }
                                     },
@@ -515,8 +515,8 @@
                                         show: true,
                                         fontSize: 12,
                                         color: '#fff',
-                                        formatter: function (param) {
-                                            console.log(param);
+                                        formatter: function () {
+                                            // console.log(param);
                                             return "";
                                         }
                                     },
@@ -526,7 +526,7 @@
                                         show: true,
                                         zlevel: 20,
                                         formatter: function (param) {
-                                            console.log(param);
+                                            // console.log(param);
                                             return param.name;
                                         }
                                     },
@@ -595,7 +595,7 @@
                 // console.log(this.showRouteType)
             },
             departCity() {
-                console.log(this.getProvinceByCity(this.departCity));
+                // console.log(this.getProvinceByCity(this.departCity));
                 var _this = this;
                 $.ajax({
                     url: api.baseApi + '/travel/find_center_city_coordinate',
@@ -628,7 +628,7 @@
                 this.doShowRouteDetail = false;
             },
             arriveCity() {
-                console.log(this.getProvinceByCity(this.arriveCity));
+                // console.log(this.getProvinceByCity(this.arriveCity));
                 var _this = this;
                 $.ajax({
                     url: api.baseApi + '/travel/find_center_city_coordinate',
@@ -643,7 +643,7 @@
                     }
                 });
                 this.importFilghtsTrains();
-                console.log(this.arriveCoord);
+                // console.log(this.arriveCoord);
                 this.option.series[1].data = [];
                 this.option.series[2].data = [];
                 this.option.series[6].data = [{name: this.arriveCity, value: this.arriveCoord}];
@@ -758,7 +758,7 @@
                 this.currId = data.flight_number;
             },
             showTrainRouteDetail(data) {
-                console.log(data);
+                // console.log(data);
                 this.doShowRouteDetail = true;
                 //清空轨迹和途经
                 this.option.series[1].data = [];

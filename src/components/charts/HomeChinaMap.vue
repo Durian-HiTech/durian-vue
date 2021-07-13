@@ -12,6 +12,7 @@
 */
 import * as echarts from "echarts";
 import api from "@/commonApi";
+import $ from 'jquery';
 var provincemapping = require("../../data/utils/china_en2province.json");
 var countryName = function (name) {
   // en2zh
@@ -35,6 +36,53 @@ export default {
       required: false,
     },
   },
+    created() {
+            var risk_data;
+            $.ajax({
+                url: api.baseApi + "/data/list_all_high_risk_areas",
+                type: 'GET',
+                async: false,
+                dataType: 'json',
+                success: function (response) {
+                    risk_data = response.data;
+                    // console.log(risk_data);
+                }
+
+            });
+            this.risk_data = risk_data;
+            this.risk_data.push({type: '中风险', province: '江苏省', district: '南京市\n(测试用）', name: '', coordinate: []});
+            // console.log(this.risk_data);
+            this.risk_data.forEach((item) => {
+                var currCoord;
+                $.ajax({
+                    url: api.baseApi + '/travel/find_center_city_coordinate',
+                    type: 'POST',
+                    async: false,
+                    dataType: 'json',
+                    data: {
+                        name: item.district.slice(0, 2),
+                    },
+                    success: function (response) {
+                        currCoord = [parseFloat(response.data.longitude), parseFloat(response.data.latitude)]
+                    }
+                });
+                if (item.type === "中风险") {
+                    this.option.series[2].data.push({
+                        name: item.district,
+                        value: currCoord,
+                    });
+                } else if (item.type === "高风险") {
+                    this.option.series[1].data.push({
+                        name: item.district,
+                        value: currCoord,
+                    });
+                }
+                // console.log(this.option.series[4].data);
+                // console.log(this.high_risk);
+            });
+            // console.log(this.option.series[3].data);
+            // console.log(this.option.series[4].data);
+        },
   mounted() {
     coviddata = this.$props.data;
     this.myChart = echarts.init(document.getElementById("home-china-map"));
@@ -171,12 +219,9 @@ export default {
             coordinateSystem: 'geo',
             zoom: 1.2,
             data:[
-              {name: '云南', value: [97.855883,
-                  24.010734, 1000]}
+
             ],
-            symbolSize: function (val) {
-              return val[2] / 10;
-            },
+            symbolSize: 100,
             label: {
               show: true,
               textStyle: {
@@ -185,8 +230,75 @@ export default {
               }
             },
             itemStyle: {
-              color: '#F62157' // 标志颜色
+
+                                normal: {
+                                    color: '#F62157',
+                                    label: {
+                                        show: true,
+                                        fontSize: 18,
+                                        formatter: function (param) {
+                                            console.log(param);
+                                            return "高风险";
+                                        }
+                                    },
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        zlevel: 20,
+                                        formatter: function (param) {
+                                            // console.log(param);
+                                            return param.name;
+                                        }
+                                    },
+                                },
+                            },
+            tooltip: {
+
+            }
+          },
+            {
+            name: '中风险地区',
+            type: "scatter",
+            symbol: 'pin',
+            coordinateSystem: 'geo',
+            zoom: 1.2,
+            data:[
+
+            ],
+            symbolSize: 75,
+            label: {
+              show: true,
+              textStyle: {
+                color: '#fff',
+                fontSize: 9
+              }
             },
+            itemStyle: {
+                                // 标志颜色
+                                normal: {
+                                    color: '#aaa331',
+                                    label: {
+                                        show: true,
+                                        color: '#fff',
+                                        fontSize: 18,
+                                        formatter: function (param) {
+                                            console.log(param);
+                                            return "中风险";
+                                        }
+                                    },
+                                },
+                                emphasis: {
+                                    label: {
+                                        show: true,
+                                        zlevel: 20,
+                                        formatter: function (param) {
+                                            // console.log(param);
+                                            return param.name;
+                                        }
+                                    },
+                                },
+                            },
             tooltip: {
 
             }
