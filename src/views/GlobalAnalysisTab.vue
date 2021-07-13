@@ -6,15 +6,15 @@
     <v-tab>{{titlename}}各{{refer}}单日疫情数据对比分析</v-tab>
 
     <v-tab-item
-      > <cmp-chart :data_table="data"></cmp-chart></v-tab-item>
+      > <cmp-chart :data_table="data" style="margin-top:5px;"></cmp-chart></v-tab-item>
     <v-tab-item>
-      <global-analysis-tab-pie-chart :data="data"></global-analysis-tab-pie-chart>
+      <global-analysis-tab-pie-chart :data="data" style="margin-top:5px;"></global-analysis-tab-pie-chart>
     </v-tab-item>
     <v-tab-item>
-      <global-analysis-tab-overview-cmp :data_table="data"></global-analysis-tab-overview-cmp>
+      <global-analysis-tab-overview-cmp :data_table="data" style="margin-top:5px;"></global-analysis-tab-overview-cmp>
     </v-tab-item>
     <v-tab-item>
-      <global-analysis-tab-detailed-cmp :data="data"></global-analysis-tab-detailed-cmp>
+      <global-analysis-tab-detailed-cmp :data="data" style="margin-top:5px;"></global-analysis-tab-detailed-cmp>
     </v-tab-item>
   </v-tabs>
 </template>
