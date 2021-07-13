@@ -1,5 +1,6 @@
 <template>
     <div class="AirlineDetailRoot">
+
         <airline-map ref="AirlineMap">
         </airline-map>
 <!--        <el-button style="font-size: 18px; font-weight: bold; margin: 20px;" round>国内预警航线</el-button>-->
