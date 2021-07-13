@@ -149,6 +149,7 @@ export default {
     // GlobalMap,
     CommentCard,
   },
+  inject:['reload'],
   data() {
     return {
       comment_list_length: 0,
@@ -192,6 +193,7 @@ export default {
   methods: {
     goToNewsPage(link) {
       this.$router.push(link);
+      this.reload();
     },
     getRecommendQuestions() {
       var _this = this;
