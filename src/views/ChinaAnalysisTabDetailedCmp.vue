@@ -26,7 +26,7 @@
         class="datepicker"
         v-model="date"
         type="date"
-        value-format="yyyy-MM-dd 00:00:00"
+        value-format="yyyy-MM-ddT00:00:00Z"
         format="yyyy 年 MM 月 dd 日"
       >
       </el-date-picker>
