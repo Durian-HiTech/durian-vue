@@ -388,6 +388,6 @@ export default {
   width: 1200px;
 }
 .ChartSection{
-  margin-left:30px;
+  margin-left:20px;
 }
 </style>

@@ -348,10 +348,6 @@ export default {
   width: 200px;
 }
 .tabPane {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   width: 1200px;
 }
 .ChartSection{

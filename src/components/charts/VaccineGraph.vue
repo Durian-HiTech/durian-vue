@@ -1,7 +1,7 @@
 <template>
   <div class="vaccine_root">
     <h3>截止到{{ convertDate(date) }}的疫苗统计饼图（目前全球已累积接种{{total_vaccine}}剂）</h3>
-    <div id="vaccine_graph" style="width: 800px; height: 500px"></div>
+    <div id="vaccine_graph" style="width: 800px; height: 540px"></div>
   </div>
 </template>
 
@@ -37,7 +37,7 @@ export default {
           {
             name: "地区/国家",
             type: "pie",
-            radius: "50%",
+            radius: "60%",
             data: [],
             emphasis: {
               itemStyle: {
@@ -82,3 +82,11 @@ export default {
   },
 };
 </script>
+<style scoped>
+.vaccine_root{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
