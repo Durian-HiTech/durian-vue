@@ -9,7 +9,7 @@
                 <i class="el-icon-location"></i>
                 当前位置
               </span>
-              <svg
+              <!-- <svg
                 width="35px"
                 height="35px"
                 style="transform: rotate(90deg)"
@@ -29,7 +29,7 @@
                 "
               >
                 Learn more...
-              </div>
+              </div> -->
             </div>
         </div>
 
