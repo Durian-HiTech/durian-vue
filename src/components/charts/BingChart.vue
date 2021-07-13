@@ -66,7 +66,7 @@ export default{
                         break;
                     }
                 }
-                console.log("countryname:",CountryName);
+                //console.log("countryname:",CountryName);
                 Sum += SortData[i][this.$props.dataType];
                 SaveList.push({value:SortData[i][this.$props.dataType],name:CountryName})
             }

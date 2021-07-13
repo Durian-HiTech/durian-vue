@@ -115,25 +115,25 @@ export default {
       global_data.push(json_data);
       for (let i = this.$props.data_table.length - 1; i >= 0; i--) {
         global_data.push([
-          this.$props.data_table[i]["date"],
+          this.$props.data_table[i]["date"].replace("T00:00:00Z",""),
           this.$props.data_table[i]["overview"]["cases"]["nownum"],
           "cases",
           "Global",
         ]);
         global_data.push([
-          this.$props.data_table[i]["date"],
+          this.$props.data_table[i]["date"].replace("T00:00:00Z",""),
           this.$props.data_table[i]["overview"]["deaths"]["nownum"],
           "deaths",
           "Global",
         ]);
         global_data.push([
-          this.$props.data_table[i]["date"],
+          this.$props.data_table[i]["date"].replace("T00:00:00Z",""),
           this.$props.data_table[i]["overview"]["nowcases"]["nownum"],
           "nowcases",
           "Global",
         ]);
         global_data.push([
-          this.$props.data_table[i]["date"],
+          this.$props.data_table[i]["date"].replace("T00:00:00Z",""),
           this.$props.data_table[i]["overview"]["recovered"]["nownum"],
           "recovered",
           "Global",
@@ -150,25 +150,25 @@ export default {
           var zhname = provinceen2zh[item["detailed"][j]["name"]];
           if (zhname == undefined) zhname = item["detailed"][j]["name"]; //说明直接就是中文
           region_data.push([
-            item["date"],
+            item["date"].replace("T00:00:00Z",""),
             item["detailed"][j]["cases"],
             "cases",
             zhname,
           ]);
           region_data.push([
-            item["date"],
+            item["date"].replace("T00:00:00Z",""),
             item["detailed"][j]["deaths"],
             "deaths",
             zhname,
           ]);
           region_data.push([
-            item["date"],
+            item["date"].replace("T00:00:00Z",""),
             item["detailed"][j]["nowcases"],
             "nowcases",
             zhname,
           ]);
           region_data.push([
-            item["date"],
+            item["date"].replace("T00:00:00Z",""),
             item["detailed"][j]["recovered"],
             "recovered",
             zhname,
@@ -176,10 +176,8 @@ export default {
         }
       }
 
-      console.log(region_data)
     },
     update(countries, type) {
-      console.log()
       var seriesList = [];
       var datasetWithFilters = [];
       option = {}
