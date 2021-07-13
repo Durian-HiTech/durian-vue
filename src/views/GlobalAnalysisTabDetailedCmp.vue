@@ -167,6 +167,8 @@ export default {
       region_data.push(json_data)
       for(let i = this.$props.data.length - 1; i >= 0; i--) {
         var item = this.$props.data[i];
+
+
         for(let j = 0; j < item['detailed'].length; j++) {
           region_data.push([item['date'], item['detailed'][j]['cases'], 'cases', item['detailed'][j]['name']])
           region_data.push([item['date'], item['detailed'][j]['deaths'], 'deaths', item['detailed'][j]['name']])
