@@ -4,7 +4,7 @@
             <div class="region">{{ locationDescription }}</div>
             <div style="display: flex; align-items: center">
               <span
-                style="font-size: 20px; margin-left: 10px; margin-right: 5px"
+                style="font-size: 20px; margin-left: 10px; margin-right: 5px; color: #444444;"
                 >
                 <i class="el-icon-location"></i>
                 当前位置
@@ -17,21 +17,21 @@
               <LittleDataCard
                 :nownum="cases"
                 :newnum="newcases"
-                type="确诊"
+                type="累计确诊"
                 color="#AC3500"
               />
 
                <LittleDataCard
                 :nownum="deaths"
                 :newnum="newdeaths"
-                type="死亡"
+                type="累计死亡"
                 color="black"
               />
 
                <LittleDataCard
                 :nownum="recovered"
                 :newnum="newrecovered"
-                type="治愈"
+                type="累计治愈"
                 color="#00ACA5"
               />
 
@@ -60,22 +60,22 @@ export default {
     },
     data() {
       return {
-        locationInfo: {
-          ip: '',
-          country: '',
-          province: '',
-          city: '',
-          district: '',
-          location: '',
-        },
         // locationInfo: {
         //   ip: '',
-        //   country: '中国',
-        //   province: '北京市',
-        //   city: '北京市',
-        //   district: '海淀区',
-        //   location: '116.310316,39.956074',
+        //   country: '',
+        //   province: '',
+        //   city: '',
+        //   district: '',
+        //   location: '',
         // },
+        locationInfo: {
+          ip: '',
+          country: '中国',
+          province: '北京市',
+          city: '北京市',
+          district: '海淀区',
+          location: '116.310316,39.956074',
+        },
         // locationInfo: {
         //   ip: '',
         //   country: '中国',
@@ -180,11 +180,12 @@ export default {
   text-align: center;
 
   font-size: 27px;
-  font-weight: 500;
+  /* font-weight: 500; */
 
-  background-color: #06a19c;
-  color: white;
+  background-color: #e0e0e0;
+  color: rgb(105, 105, 105);
 
+  /* border: #cccccc solid 2px; */
   border-radius: 30px;
 
   padding: 5px 15px 5px 15px;
@@ -204,5 +205,7 @@ export default {
   padding-bottom: 5px;
   border: #cccccc solid thin;
   border-radius: 10px;
+
+  width: 500px;
 }
 </style>
