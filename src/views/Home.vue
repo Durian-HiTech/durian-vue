@@ -204,7 +204,7 @@ export default {
       type: "nowcases", //当前地图上显示的热力图主键
       GlobalmapData: {},
       ChinamapData: {},
-      loadlocal: true,
+      loadlocal: false,
     };
   },
   watch: {},
