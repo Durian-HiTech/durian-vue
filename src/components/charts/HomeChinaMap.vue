@@ -103,11 +103,11 @@ export default {
       country: "China", //不变
       option: {
         title: {
-          text: "全球新型冠状病毒肺炎疫情图",
+          text: "全国新型冠状病毒肺炎疫情图",
           textStyle: {
             color: "#000",
           },
-          subtext: "数据来源于各国政府机构等，气泡所指位置为中高风险地区",
+          subtext: "数据来源于政府机构等，气泡所指位置为中高风险地区",
           subtextStyle: {
             color: "#000",
           },
@@ -237,7 +237,7 @@ export default {
                                         show: true,
                                         fontSize: 18,
                                         formatter: function (param) {
-                                            console.log(param);
+                                            //console.log(param);
                                             return "高风险";
                                         }
                                     },
@@ -283,7 +283,7 @@ export default {
                                         color: '#fff',
                                         fontSize: 18,
                                         formatter: function (param) {
-                                            console.log(param);
+                                            // console.log(param);
                                             return "中风险";
                                         }
                                     },

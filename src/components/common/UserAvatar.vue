@@ -69,12 +69,12 @@
 				<el-button type="danger" round plain
 				size="medium"
 				@click='unlogin()'
-				>Unlogin</el-button>
+				>退出登陆</el-button>
 				
 				<el-button type="primary" round plain
 				size="medium"
 				@click='dialogVisible = true'
-				>Modify</el-button>
+				>修改信息</el-button>
 			</div>
 		</div>
 	</div>
