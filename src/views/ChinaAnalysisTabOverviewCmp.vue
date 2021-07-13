@@ -205,8 +205,8 @@ export default {
                   { dimension: "Country", "=": now_countries[i] },
                 ],
               },
-              print:true
             },
+            print: true
           });
           seriesList.push({
             type: "line",

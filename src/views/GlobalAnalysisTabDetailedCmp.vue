@@ -59,6 +59,7 @@ export default {
     },
   },
   mounted() {
+    this.myChart = echarts.init(document.getElementById("FourTypeSelector2"));
     this.loadtimeline();
     this.loadlist(); //区域列表
     this.getGlobalData();
@@ -119,6 +120,7 @@ export default {
       type: "nowcases",
       countries: [],
       list: [],
+      mychart: "",
     };
   },
   methods: {
@@ -173,47 +175,24 @@ export default {
       }
     },
     update(now_countries, type, date) {
-      var seriesList = [];
-      var datasetWithFilters = [];
-      if(now_countries !== []) {
-        for(let i = 0; i < now_countries.length; i++) {
-          datasetWithFilters.push({
-            id: now_countries[i] + type,
-            fromDatasetId: 'dataset_raw',
-            transform: [{
-              type: 'filter',
-              config: {
-                and: [
-                  { dimension: 'Number', gte: 0},
-                  { dimension: 'Type', '=': type},
-                  { dimension: 'Country', '=': now_countries[i]},
-                  { dimension: 'Date', '=': date}
-                ]
-              }
-            }]
-          });
-          seriesList.push({
-            name: type,
-            type: 'bar',
-            datasetId: now_countries[i] + type,
-            showSymbol: false,
-            label: {
-              show: true,
-              valueAnimation: true
-            },
-            encode: {
-              x: [1],
-              y: [3],
-            }
-          });
+      var tmp_list = [];
+      var countries_data = [];
+
+      for(let j = 0; j < region_data.length; j++) {
+        if(region_data[j][0] === date) {
+          if(region_data[j][2] === type) {
+            tmp_list.push(region_data[j])
+          }
+        }
+      }
+      for(let j = 0; j < now_countries.length; j++) {
+        for(let k = 0; k < tmp_list.length; k++) {
+          if(tmp_list[k][3] === now_countries[j])
+            countries_data.push(tmp_list[k][1])
         }
       }
 
       option = {
-        dataset: [{
-          id: 'dataset_raw',
-          source: region_data
-        }].concat(datasetWithFilters),
         title: {
           text: '每日数据',
           subtext: "数据来源于网络"
@@ -237,19 +216,29 @@ export default {
         },
         yAxis: {
           name: 'category',
-          realtimeSort: true,
           inverse: true,
           animationDuration: 300,
           animationDurationUpdate: 300,
           data: this.countries,
         },
         // animationDuration: 300,
-        series: seriesList
-      };
+        series: [{
+          realtimeSort: true,
+          name: 'X',
+          type: 'bar',
+          data: countries_data,
+          label: {
+            show: true,
+            position: 'right',
+            valueAnimation: true
+          }
+        }],
+        legend: {
+          show: true
+        },
 
-      let myChart = echarts.init(document.getElementById('FourTypeSelector2'));
-      myChart.clear();
-      myChart.setOption(option)
+      };
+      this.myChart.setOption(option, true);
     },
   },
 };
