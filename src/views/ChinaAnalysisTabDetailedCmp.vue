@@ -1,6 +1,22 @@
 <template>
   <div class="ChinaAnalysisTabDetailedCmp">
     <div class="topselector">
+       <div class="TimeLine">
+      <el-date-picker
+        class="datepicker"
+        v-model="date"
+        type="date"
+        value-format="yyyy-MM-ddT00:00:00Z"
+        format="yyyy 年 MM 月 dd 日"
+      >
+      </el-date-picker>
+      <el-slider
+        class="slider"
+        v-model="t2"
+        :max="maxTimeNum"
+        :show-tooltip="false"
+      ></el-slider>
+    </div>
       <el-select
         v-model="countries"
         multiple
@@ -26,22 +42,7 @@
       </el-select>
     </div>
 
-    <div class="TimeLine">
-      <el-date-picker
-        class="datepicker"
-        v-model="date"
-        type="date"
-        value-format="yyyy-MM-ddT00:00:00Z"
-        format="yyyy 年 MM 月 dd 日"
-      >
-      </el-date-picker>
-      <el-slider
-        class="slider"
-        v-model="t2"
-        :max="maxTimeNum"
-        :show-tooltip="false"
-      ></el-slider>
-    </div>
+   
     <div id="FourTypeSelector2" style="width: 1200px; height: 540px"></div>
   </div>
 </template>
@@ -228,7 +229,12 @@ export default {
             countries_data.push(tmp_list[k][1]);
         }
       }
-
+      var mapping = {
+        nowcases:"现有确诊",
+        cases:"累计确诊",
+        deaths : "累计死亡",
+        recovered:"累计治愈"
+      }
       option = {
         title: {
           text: "每日数据",
@@ -252,7 +258,7 @@ export default {
           type: "value",
         },
         yAxis: {
-          name: "category",
+          name: "区域",
           inverse: true,
           animationDuration: 300,
           animationDurationUpdate: 300,
@@ -262,7 +268,7 @@ export default {
         series: [
           {
             realtimeSort: true,
-            name: "X",
+            name: mapping[type],
             type: "bar",
             data: countries_data,
             label: {
@@ -295,10 +301,10 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-right: 20px;
 }
 .slider {
   margin-left: 20px;
-  width: 500px;
+  width: 400px;
 }
 </style>
