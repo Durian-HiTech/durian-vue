@@ -237,7 +237,7 @@ export default {
                                         show: true,
                                         fontSize: 18,
                                         formatter: function (param) {
-                                            //console.log(param);
+                                            console.log(param);
                                             return "高风险";
                                         }
                                     },
@@ -247,7 +247,7 @@ export default {
                                         show: true,
                                         zlevel: 20,
                                         formatter: function (param) {
-                                            // console.log(param);
+                                            console.log(param);
                                             return param.name;
                                         }
                                     },
@@ -283,7 +283,7 @@ export default {
                                         color: '#fff',
                                         fontSize: 18,
                                         formatter: function (param) {
-                                            // console.log(param);
+                                            console.log(param);
                                             return "中风险";
                                         }
                                     },
@@ -293,7 +293,7 @@ export default {
                                         show: true,
                                         zlevel: 20,
                                         formatter: function (param) {
-                                            // console.log(param);
+                                            console.log(param);
                                             return param.name;
                                         }
                                     },
