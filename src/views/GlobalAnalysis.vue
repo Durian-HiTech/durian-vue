@@ -127,7 +127,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: true,
+      loadlocal: false,
     };
   },
   computed: {
@@ -197,7 +197,6 @@ export default {
             .then(function (response) {
               if (response.data.success) {
                 _this.data = response.data.Global;
-                console.log(_this.data);
                 _this.maxTimeNum = _this.data.length - 1;
                 _this.t2 = _this.maxTimeNum;
                 _this.date = _this.data[_this.timevalue]["date"];

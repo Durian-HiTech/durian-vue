@@ -161,8 +161,8 @@
             <span class="text-h6 font-weight-light">Update</span>
           </v-card-title>
 
-          <v-card-text style="font-weight: bold; font-size: 20px">
-            {{ information }}
+          <v-card-text v-for='(infor, index) in information' :key="index" style="font-weight: bold; font-size: 20px">
+            {{ infor }}
           </v-card-text>
         </v-card>
       </div>
@@ -193,7 +193,7 @@ export default {
       dialogTableVisible: false,
       cityList: [],
       search: "",
-      information: "",
+      information: [],
       // options: [
       //   { value: "安徽省", label: "安徽省" },
       //   { value: "北京市", label: "北京市" },
