@@ -369,16 +369,16 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
       };
       var _this = this;
-      _this.cityList.forEach(function (item, ind, arr) {
-        if (item.name == row.name) {
-          arr.splice(ind, 1);
-        }
-      });
       axios
         .post(api.baseApi + "/sub/del_sub", formData, config)
         .then(function (response) {
           if (response.status == 200) {
             _this.$message({ message: "成功删除订阅", type: "true" });
+            _this.cityList.forEach(function (item, ind, arr) {
+              if (item.name == row.name) {
+                arr.splice(ind, 1);
+              }
+            });
           } else {
             console.log("请求失败");
           }
@@ -394,7 +394,7 @@ export default {
       window.open(href, "_blank");
     },
     subCity() {
-      var _this=this;
+      var _this = this;
       // console.log(this.value);
       let formData = new FormData();
       formData.append("name", _this.value);
@@ -405,9 +405,12 @@ export default {
       var is_success = true;
       var len_city = _this.cityList.length;
 
-      if (_this.value==""){
-        _this.$message({ message: "您尚未订阅，请先选择一项订阅城市", type: "false" });
-          is_success = false;
+      if (_this.value == "") {
+        _this.$message({
+          message: "您尚未订阅，请先选择一项订阅城市",
+          type: "false",
+        });
+        is_success = false;
       }
 
       if (is_success == true) {
