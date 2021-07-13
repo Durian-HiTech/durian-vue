@@ -29,7 +29,7 @@
           <div v-text="post.notice_title"  :link="'notice/'+post.notice_id"  @click="goToNewsPage('notice/'+post.notice_id)"> </div>
         </h2>
         <div>
-         <div v-if="post.notice_created_time.slice(0,10) === '2021-07-07' " class="con" v-text="post.notice_content.slice(10)" :link="'notice/'+post.notice_id"></div>
+         <div v-if="post.notice_created_time.slice(0,10) === '2021-07-13' " class="con" v-text="post.notice_content.slice(11)" :link="'notice/'+post.notice_id"></div>
         </div>
       </div>
     </v-timeline-item>
