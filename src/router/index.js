@@ -94,6 +94,11 @@ const routes = [
     name: 'Forecast',
     component: () => import('../views/Forecast.vue')
   },
+  {
+    path: '/about',
+    name: 'About',
+    component: () => import('../views/About.vue')
+  }
 ]
 
 const router = new VueRouter({
