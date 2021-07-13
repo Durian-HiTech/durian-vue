@@ -31,7 +31,7 @@
                   class="datepicker"
                   v-model="date"
                   type="date"
-                  value-format="yyyy-MM-dd 00:00:00"
+                  value-format="yyyy-MM-ddT00:00:00Z"
                   format="yyyy 年 MM 月 dd 日"
                 >
                 </el-date-picker>
@@ -71,7 +71,7 @@
                 class="datepicker"
                 v-model="date"
                 type="date"
-                value-format="yyyy-MM-dd 00:00:00"
+                value-format="yyyy-MM-ddT00:00:00Z"
                 format="yyyy 年 MM 月 dd 日"
               >
               </el-date-picker>
@@ -197,7 +197,6 @@ export default {
             .then(function (response) {
               if (response.data.success) {
                 _this.data = response.data.Global;
-                console.log(_this.data);
                 _this.maxTimeNum = _this.data.length - 1;
                 _this.t2 = _this.maxTimeNum;
                 _this.date = _this.data[_this.timevalue]["date"];
