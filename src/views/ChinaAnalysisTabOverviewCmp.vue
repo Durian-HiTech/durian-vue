@@ -264,13 +264,20 @@ export default {
         ],
         tooltip: {
           trigger: "axis",
+          formatter:function(param){
+            var res = param[0].value[0]+"</br>";
+            for(var i in param){
+              res += param[i].value[3]+":" +param[i].value[1] + "</br>";
+            }
+            return res;
+          }
         },
         xAxis: {
           type: "category",
           nameLocation: "middle",
         },
         yAxis: {
-          name: "Number",
+          name: "人数",
         },
         series: seriesList,
       };
