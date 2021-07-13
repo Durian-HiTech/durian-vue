@@ -22,14 +22,14 @@ export default{
     },
     data() {
         return {
-            name: '复兴社',
+            myChart:"",
         };
     },
     created() {
 
     },
     mounted() {
-
+        this.myChart = echarts.init(document.getElementById('BingChart'));
         this.getData();
     },
     methods: {
@@ -110,12 +110,14 @@ export default{
                     }
                 ]
             };
-            let myChart = echarts.init(document.getElementById('BingChart'));
-            myChart.setOption(option)
+            this.myChart.setOption(option)
         },
     },
     watch: {
         dataType(){
+            this.getData()
+        },
+        dataTable(){
             this.getData()
         }
     }

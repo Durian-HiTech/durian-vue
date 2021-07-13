@@ -34,8 +34,9 @@
                     </v-card-title>
 
                     <v-card-text>
+                        <v-text-field label="筛选航班号" v-model="search"></v-text-field>
                         <div v-if="showRouteType===0" class="route-list">
-                            <div v-for="(item, index) in currFlights"
+                            <div v-for="(item, index) in currFlights_show"
                                     v-bind:key="index">
                                 <div @click="showFlightRouteDetail(item)" style="cursor: pointer;">
                                     <TravelCard class='route-list-card'
@@ -50,7 +51,7 @@
                             </div>
                         </div>
                         <div v-else-if="showRouteType===1" class="route-list">
-                            <div v-for="(item, index) in currTrains"
+                            <div v-for="(item, index) in currTrains_show"
                                     v-bind:key="index">
                                 <div @click="showTrainRouteDetail(item)" style="cursor: pointer;">
                                     <TravelCard class='route-list-card'
@@ -127,11 +128,6 @@
 
     var mapData;
     var data = [];
-    var chartData = [];
-    // eslint-disable-next-line no-unused-vars
-    var arrCivil = [];
-    // eslint-disable-next-line no-unused-vars
-    var depCivil = [];
     var mainCityList = [];
 
     export default {
@@ -140,6 +136,18 @@
             TravelCard,
             // AirlineTable,
             SelectBar
+        },
+        computed: {
+            currFlights_show () {
+                return this.currFlights.filter(
+                item => item.flight_number.indexOf(this.search)>=0
+                )
+            },
+            currTrains_show() {
+                return this.currTrains.filter(
+                item => item.train_id.indexOf(this.search)>=0
+                )
+            }
         },
         created() {
             var risk_data;
@@ -155,7 +163,7 @@
 
             });
             this.risk_data = risk_data;
-            this.risk_data.push({type: '中风险', province: '江苏省', district: '南京市\n(测试用）', name: '', coordinate: []});
+            // this.risk_data.push({type: '中风险', province: '江苏省', district: '南京市\n(测试用）', name: '', coordinate: []});
             // console.log(this.risk_data);
             this.risk_data.forEach((item) => {
                 var currCoord;
@@ -203,20 +211,20 @@
             this.myChart.on("click", function (param) {
                 _this.clickevent(param);
             });
-            $.ajax({
-                url: "https://www.umetrip.com/gateway/api/web/umeflightstatus-live/live/getchartstatistics",
-                type: 'POST',
-                async: false,
-                dataType: 'json',
-                data: {},
-                success: function (response) {
-                    // console.log(response);
-                    chartData = response
-                }
-            });
+            // $.ajax({
+            //     url: "https://www.umetrip.com/gateway/api/web/umeflightstatus-live/live/getchartstatistics",
+            //     type: 'POST',
+            //     async: false,
+            //     dataType: 'json',
+            //     data: {},
+            //     success: function (response) {
+            //         // console.log(response);
+            //         chartData = response
+            //     }
+            // });
             // console.log(chartData);
-            arrCivil = chartData.arrCivil;
-            depCivil = chartData.depCivil;
+            // arrCivil = chartData.arrCivil;
+            // depCivil = chartData.depCivil;
             // var coords = [
             //     this.departCoord,
             //     this.arriveCoord
@@ -255,6 +263,7 @@
                 currTrains: [],
                 risk_data: [],
                 vehicleType: 0,
+                search: '',
                 flag: false,
                 currId: "",
                 warnMessage: 0,
@@ -574,55 +583,55 @@
             // mapName() {
             //     this.loadMap();
             // },
-            curr() {
-
-                var currContent = [];
-                var _this = this;
-                if (this.switchContent === 0) {
-                    currContent = arrCivil.find(function (item) {
-                        return item.provinceName === _this.curr;
-                    });
-
-                } else if (this.switchContent === 1) {
-                    currContent = depCivil.find(function (item) {
-                        return item.provinceName === _this.curr;
-                    });
-                }
-                // console.log(currContent);
-                this.tableData = [];
-                this.tableData.push(currContent.now);
-                this.tableData[0].name = "总计";
-                this.tableData[0].execsumHis = currContent.execsumHis;
-                currContent.airportInfoList.forEach(function (item) {
-                    _this.tableData.push(item.now);
-                    _this.tableData[_this.tableData.length - 1].name = item.airportName;
-                    _this.tableData[_this.tableData.length - 1].execsumHis = item.execsumHis;
-                });
-            },
-            switchContent() {
-                var currContent;
-                var _this = this;
-                if (this.switchContent === 0) {
-                    currContent = arrCivil.find(function (item) {
-                        return item.provinceName === _this.curr;
-                    });
-
-                } else if (this.switchContent === 1) {
-                    currContent = depCivil.find(function (item) {
-                        return item.provinceName === _this.curr;
-                    });
-                }
-                // console.log(currContent);
-                this.tableData = [];
-                this.tableData.push(currContent.now);
-                this.tableData[0].name = "总计";
-                this.tableData[0].execsumHis = currContent.execsumHis;
-                currContent.airportInfoList.forEach(function (item) {
-                    _this.tableData.push(item.now);
-                    _this.tableData[_this.tableData.length - 1].name = item.airportName;
-                    _this.tableData[_this.tableData.length - 1].execsumHis = item.execsumHis;
-                });
-            },
+            // curr() {
+            //
+            //     var currContent = [];
+            //     var _this = this;
+            //     if (this.switchContent === 0) {
+            //         currContent = arrCivil.find(function (item) {
+            //             return item.provinceName === _this.curr;
+            //         });
+            //
+            //     } else if (this.switchContent === 1) {
+            //         currContent = depCivil.find(function (item) {
+            //             return item.provinceName === _this.curr;
+            //         });
+            //     }
+            //     // console.log(currContent);
+            //     this.tableData = [];
+            //     this.tableData.push(currContent.now);
+            //     this.tableData[0].name = "总计";
+            //     this.tableData[0].execsumHis = currContent.execsumHis;
+            //     currContent.airportInfoList.forEach(function (item) {
+            //         _this.tableData.push(item.now);
+            //         _this.tableData[_this.tableData.length - 1].name = item.airportName;
+            //         _this.tableData[_this.tableData.length - 1].execsumHis = item.execsumHis;
+            //     });
+            // },
+            // switchContent() {
+            //     var currContent;
+            //     var _this = this;
+            //     if (this.switchContent === 0) {
+            //         currContent = arrCivil.find(function (item) {
+            //             return item.provinceName === _this.curr;
+            //         });
+            //
+            //     } else if (this.switchContent === 1) {
+            //         currContent = depCivil.find(function (item) {
+            //             return item.provinceName === _this.curr;
+            //         });
+            //     }
+            //     // console.log(currContent);
+            //     this.tableData = [];
+            //     this.tableData.push(currContent.now);
+            //     this.tableData[0].name = "总计";
+            //     this.tableData[0].execsumHis = currContent.execsumHis;
+            //     currContent.airportInfoList.forEach(function (item) {
+            //         _this.tableData.push(item.now);
+            //         _this.tableData[_this.tableData.length - 1].name = item.airportName;
+            //         _this.tableData[_this.tableData.length - 1].execsumHis = item.execsumHis;
+            //     });
+            // },
             showRouteType() {
                 // console.log(this.showRouteType)
             },
