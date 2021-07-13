@@ -106,7 +106,7 @@ import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-// import cmp_chart from "../components/charts/Cases_Deaths_Vaccine_Recovered_Cmp"
+import ChinaAnalysisTab from "./ChinaAnalysisTab.vue"
 import ChinaVaccineGraph from "../components/charts/ChinaVaccineGraph.vue";
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
@@ -117,7 +117,7 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    // cmp_chart,
+    ChinaAnalysisTab,
     ChinaVaccineGraph
   },
   data() {
@@ -132,7 +132,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: false,
+      loadlocal: true,
     };
   },
   watch: {
@@ -386,5 +386,8 @@ export default {
 }
 .tabPane {
   width: 1200px;
+}
+.ChartSection{
+  margin-left:30px;
 }
 </style>
