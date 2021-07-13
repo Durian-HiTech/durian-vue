@@ -157,7 +157,7 @@ export default {
       recommend_questions: [],
       input: "",
       question: {},
-      has_comments: false,
+      has_comments: true,
 
       desserts: [
         {
