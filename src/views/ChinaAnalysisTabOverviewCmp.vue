@@ -265,10 +265,12 @@ export default {
         tooltip: {
           trigger: "axis",
           formatter:function(param){
-            var res = param[0].value[0]+"</br>";
+            var res = "<b>"+ "<font size=\"5\">"+param[0].value[0]+"</font>"+"</b>"+"</br>";
+            res+="<p align=\"left\">";
             for(var i in param){
-              res += param[i].value[3]+":" +param[i].value[1] + "</br>";
+              res += "<b>"+param[i].value[3]+":" +"</b>" +param[i].value[1] + "</br>";
             }
+            res+="</p>";
             return res;
           }
         },
