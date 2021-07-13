@@ -20,7 +20,8 @@
         </el-option>
       </el-select>
     </div>
-    <div class="main">这是胡鹏飞写的</div>
+    <div id="FourTypeSelector2" style="width: 1200px; height: 540px;">
+    </div>
     <div class="TimeLine">
       <el-date-picker
         class="datepicker"
@@ -40,6 +41,8 @@
   </div>
 </template>
 <script>
+var region_data = [];
+var json_data = ["Date", "Number", "Type", "Country"];
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezh2en = require("../data/utils/provincezh2en.json");
 export default {
@@ -54,6 +57,7 @@ export default {
     this.loadtimeline();
     this.loadlist(); //区域列表
     this.dataloaded = true;
+    this.getRegionData()
   },
   watch: {
     t2(newvalue) {
@@ -73,13 +77,22 @@ export default {
       }
       this.date = oldvalue;
     },
-    data() {
-      this.list = [];
-      this.countries = [];
-      this.loadtimeline();
-      this.loadlist(); //区域列表
-      this.dataloaded = true;
+    countries(newvalue) {
+      console.log(newvalue)
+      var enname = newvalue;
+      var zhname = provinceen2zh[enname];
+      if (zhname == undefined) {
+        //说明name就是中文
+        zhname = enname;
+        enname = provincezh2en[zhname];
+      }
+      console.log(zhname)
+      // this.update(newvalue, this.type, this.date);
     },
+    type(newvalue) {
+      console.log(newvalue)
+      // this.update(this.countries, newvalue, this.date);
+    }
   },
   data() {
     return {
@@ -110,6 +123,7 @@ export default {
       type: "nowcases",
       countries: [],
       list: [],
+      mychart: "",
     };
   },
   methods: {
@@ -137,6 +151,20 @@ export default {
     },
     loadporpsdata() {
       this.data_table = this.$props.data[this.timevalue]["detailed"];
+    },
+    getRegionData() {
+      region_data = []
+      region_data.push(json_data)
+      for(let i = this.$props.data.length - 1; i >= 0; i--) {
+        var item = this.$props.data[i];
+        for(let j = 0; j < item['detailed'].length; j++) {
+          region_data.push([item['date'], item['detailed'][j]['cases'], 'cases', item['detailed'][j]['name']])
+          region_data.push([item['date'], item['detailed'][j]['deaths'], 'deaths', item['detailed'][j]['name']])
+          region_data.push([item['date'], item['detailed'][j]['nowcases'], 'nowcases', item['detailed'][j]['name']])
+          region_data.push([item['date'], item['detailed'][j]['recovered'], 'recovered', item['detailed'][j]['name']])
+        }
+      }
+      console.log(region_data)
     },
   },
 };

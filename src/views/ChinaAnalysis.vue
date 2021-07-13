@@ -1,5 +1,13 @@
 <template>
   <div class="homeRoot">
+    <center>
+      <i
+        class="el-icon-loading"
+        v-if="!dataloaded"
+        style="font-size: 40px; margin-top: 100px"
+      ></i>
+    </center>
+
     <div class="MainSection" v-if="dataloaded">
       <div class="page-header">
         <el-page-header

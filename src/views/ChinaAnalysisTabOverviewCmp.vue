@@ -175,7 +175,6 @@ export default {
           ]);
         }
       }
-
     },
     update(countries, type) {
       var seriesList = [];

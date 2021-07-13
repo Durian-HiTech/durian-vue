@@ -47,6 +47,17 @@ export default {
     return {
       myChart: "",
       option: {
+        title: {
+          text: "全国新型冠状病毒肺炎疫情图",
+          textStyle: {
+            color: "#000",
+          },
+          subtext: "数据来源于政府机构等",
+          subtextStyle: {
+            color: "#000",
+          },
+          left: "center",
+        },
         tooltip: {
           trigger: "item",
           showDelay: 0,

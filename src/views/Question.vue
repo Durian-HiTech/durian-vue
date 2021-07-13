@@ -15,7 +15,7 @@
               style="text-align: left; color: gray; margin-left: 20px"
               v-if="has_comments"
             >
-              {{ comment_list.length }}条回答
+              {{ comment_list_length }}条回答
             </div>
             <div
               class="question_user"
@@ -31,9 +31,14 @@
 
           <div
             class="comment_list"
-            style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 98%;"
+            style="
+              display: flex;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              width: 98%;
+            "
           >
-
             <div
               style="
                 display: flex;
@@ -72,14 +77,22 @@
               >
             </div>
 
-            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: 100%;">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+              "
+            >
               <div
                 v-for="item in comment_list"
                 :key="item.comment_id"
-                style="width: 100%;"
+                style="width: 100%"
               >
                 <CommentCard
-                  style="margin: 10px;"
+                  style="margin: 10px"
                   :username="item.username"
                   :is-authority="item.user_type"
                   :content="item.comment_content"
@@ -88,7 +101,6 @@
                 ></CommentCard>
               </div>
             </div>
-
           </div>
         </v-card>
       </v-col>
@@ -99,7 +111,11 @@
               <template v-slot:default>
                 <thead>
                   <tr>
-                    <th class="text-left"><h1 style="color:black; margin-bottom: 20px">为您推荐问题</h1></th>
+                    <th class="text-left">
+                      <h1 style="color: black; margin-bottom: 20px">
+                        为您推荐问题
+                      </h1>
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -135,12 +151,13 @@ export default {
   },
   data() {
     return {
+      comment_list_length: 0,
       name: "问题界面",
       comment_list: [],
       recommend_questions: [],
       input: "",
       question: {},
-      has_comments: false,
+      has_comments: true,
 
       desserts: [
         {
@@ -205,8 +222,6 @@ export default {
               .format("YYYY/MM/DD HH:mm:ss");
           } else {
             console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
           }
         });
     },
@@ -221,11 +236,9 @@ export default {
         .post(api.baseApi + "/notice/list_all_comments", formData, config)
         .then(function (response) {
           if (response.status == 200) {
-            // console.log(response.data.data);
             if (response.data.data != null) {
               _this.comment_list = response.data.data;
               for (var i = 0; i < _this.comment_list.length; i++) {
-                // console.log(moment(_this.comment_list[i].comment_time).format("MMM Do YY") )
                 _this.comment_list[i].comment_time = moment(
                   _this.comment_list[i].comment_time
                 ).utcOffset(8);
@@ -235,12 +248,10 @@ export default {
                   .startOf("minute")
                   .fromNow();
               }
+              _this.comment_list_length=_this.comment_list.length;
             }
-            // _this.relatedloaded = true;
           } else {
             console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
           }
         });
     },
@@ -261,27 +272,27 @@ export default {
       tmp["user_id"] = this.$store.getters.userState.id;
       tmp["user_type"] = this.$store.getters.userState.type;
       tmp["username"] = this.$store.getters.userState.name;
-      console.log(this.comment_list);
-      this.comment_list.unshift(tmp);
-      console.log(this.comment_list);
-      let config = {
-        headers: { "Content-Type": "multipart/form-data" },
-      };
-      var _this = this;
-      axios
-        .post(api.baseApi + "/notice/create_comment", formData, config)
-        .then(function (response) {
-          console.log(response);
-          console.log(response.status);
-          if (response.status == 200) {
-            //console.log((response))
-            _this.getComment(_this.$route.params.id);
-          } else {
-            console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
-          }
+      if (tmpt == 0 || tmpt > 140) {
+        this.$message({
+          message: "评论长度不能为空，且长度不能超过140",
+          type: "false",
         });
+      } else {
+        this.comment_list.unshift(tmp);
+        let config = {
+          headers: { "Content-Type": "multipart/form-data" },
+        };
+        var _this = this;
+        axios
+          .post(api.baseApi + "/notice/create_comment", formData, config)
+          .then(function (response) {
+            if (response.status == 200) {
+              _this.getComment(_this.$route.params.id);
+            } else {
+              console.log("请求失败");
+            }
+          });
+      }
     },
     refresh() {
       this.$router.go(0);

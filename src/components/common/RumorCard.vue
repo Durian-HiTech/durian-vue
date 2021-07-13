@@ -28,7 +28,7 @@
         </v-card-title>
 
         <v-card-subtitle style="display: flex">
-          Latest Covid Q&A
+          Latest Covid Information
         </v-card-subtitle>
 
         <v-card-actions>
@@ -66,7 +66,7 @@
         </v-card-title>
 
         <v-card-subtitle style="display: flex">
-          Latest Covid Q&A
+          Latest Covid Information
         </v-card-subtitle>
 
         <v-card-actions>
@@ -104,7 +104,7 @@
         </v-card-title>
 
         <v-card-subtitle style="display: flex">
-          Latest Covid Q&A
+          Latest Covid Information
         </v-card-subtitle>
 
         <v-card-actions>
@@ -142,7 +142,7 @@
         </v-card-title>
 
         <v-card-subtitle style="display: flex">
-          Latest Covid Q&A
+          Latest Covid Information
         </v-card-subtitle>
 
         <v-card-actions>
