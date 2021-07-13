@@ -28,7 +28,7 @@
 <script>
 import * as echarts from "echarts";
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
-var provincezh2en = require("../data/utils/provincezh2en.json");
+// var provincezh2en = require("../data/utils/provincezh2en.json");
 var option;
 var json_data = ["Date", "Number", "Type", "Country"];
 var global_data = [];
@@ -102,7 +102,7 @@ export default {
         if (zhname == undefined) {
           //说明name就是中文
           zhname = enname;
-          enname = provincezh2en[zhname];
+          enname = zhname;
         }
         this.list.push({
           value: enname,
