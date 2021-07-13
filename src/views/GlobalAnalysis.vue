@@ -185,7 +185,6 @@ export default {
   methods: {
     loaddata(name) {
       // 获得世界或指定国家
-      this.dataloaded = false;
       if (this.loadlocal) {
         this.data = require("../data/samples/" + name + "AnalysisSample.json");
         this.maxTimeNum = this.data.length - 1;
