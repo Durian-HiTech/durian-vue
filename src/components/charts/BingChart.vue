@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div id="BingChart" style="width: 1000px; height: 600px;">xdm有无三上悠亚资源。樱桃空也可。</div>
+    <div id="BingChart" style="width: 1000px; height: 540px;"></div>
   </div>
 </template>
 
