@@ -146,6 +146,7 @@ import moment from "moment";
 
 export default {
   name: "QuestionList",
+  inject:['reload'],
   data() {
     return {
       recommend_questions: [],
@@ -197,6 +198,7 @@ export default {
   methods: {
     goToNewsPage(link) {
       this.$router.push(link);
+      this.reload;
     },
     sleep(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
