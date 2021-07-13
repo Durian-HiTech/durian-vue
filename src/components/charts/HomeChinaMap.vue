@@ -94,10 +94,12 @@
                 _this.clickevent(param.name);
             });
             // this.get_all_high_risk_areas();
+            this.getLocation()
         },
         data() {
             return {
                 myChart: "",
+                location: '',
                 country: "China", //不变
                 option: {
                     title: {
@@ -297,6 +299,17 @@
             },
         },
         methods: {
+            getLocation () {
+            // eslint-disable-next-line
+            this.locationInfo.ip = returnCitySN.cip
+
+            var _this = this
+            this.$axios.get("https://restapi.amap.com/v5/ip?key=a593d64ab73229be6b3d1ef802b76849&type=4&ip="+this.locationInfo.ip)
+                .then( response => {
+                _this.location = response.data.location
+                console.log(_this.location)
+                })
+            },
             loadMap() {
                 this.myChart.showLoading();
                 const mapData = require("../../data/map/json/" + this.country);
