@@ -2,7 +2,7 @@
 	<div>
 
 	<el-dialog center
-			title="Modify your personal information"
+			title="更改您的个人信息"
 			:visible.sync="dialogVisible"
 			width="40%"
 			:modal-append-to-body=false
