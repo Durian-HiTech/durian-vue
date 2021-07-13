@@ -236,11 +236,8 @@ export default {
                   .fromNow();
               }
             }
-            // _this.relatedloaded = true;
           } else {
             console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
           }
         });
     },
@@ -261,27 +258,30 @@ export default {
       tmp["user_id"] = this.$store.getters.userState.id;
       tmp["user_type"] = this.$store.getters.userState.type;
       tmp["username"] = this.$store.getters.userState.name;
-      console.log(this.comment_list);
-      this.comment_list.unshift(tmp);
-      console.log(this.comment_list);
-      let config = {
-        headers: { "Content-Type": "multipart/form-data" },
-      };
-      var _this = this;
-      axios
-        .post(api.baseApi + "/notice/create_comment", formData, config)
-        .then(function (response) {
-          console.log(response);
-          console.log(response.status);
-          if (response.status == 200) {
-            //console.log((response))
-            _this.getComment(_this.$route.params.id);
-          } else {
-            console.log("请求失败");
-            // console.log(response.data);
-            // _this.fail()
-          }
+      if (tmpt==0 || tmpt>140){
+        this.$message({
+          message: "评论长度不能为空，且长度不能超过140",
+          type: "false",
         });
+      }
+      else{
+        this.comment_list.unshift(tmp);
+        let config = {
+          headers: { "Content-Type": "multipart/form-data" },
+        };
+        var _this = this;
+        axios
+          .post(api.baseApi + "/notice/create_comment", formData, config)
+          .then(function (response) {
+            if (response.status == 200) {
+              _this.getComment(_this.$route.params.id);
+              
+            } else {
+              console.log("请求失败");
+            }
+          });
+      }
+
     },
     refresh() {
       this.$router.go(0);
