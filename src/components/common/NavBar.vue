@@ -59,12 +59,12 @@ export default {
           url: "/news",
         },
         {
-          title:"问答",
-          url: "/question",
-        },
-        {
           title:"知识",
           url: "/knowledge",
+        },
+        {
+          title:"问答",
+          url: "/question",
         },
         {
           title:"行程",
@@ -78,6 +78,10 @@ export default {
           title:"预测",
           url: "/forecast",
         },
+        {
+          title:"关于",
+          url: "/about",
+        }
       ],
     };
   },
