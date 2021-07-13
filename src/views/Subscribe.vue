@@ -1,45 +1,44 @@
 <template>
   <div class="subscribe_root">
-    <span class="title"> 
-
-      <b style="margin-right: 10px;">Covid</b> Subscriptions
+    <span class="title">
+      <b style="margin-right: 10px">Covid</b> Subscriptions
 
       <el-input
-      placeholder="Search"
-      v-model="search"
-      style="margin-left: 250px; width: 300px;"
-      v-if='isLogined'
+        placeholder="Search"
+        v-model="search"
+        style="margin-left: 250px; width: 300px"
+        v-if="isLogined"
       >
         <i slot="prefix" class="el-input__icon el-icon-search"></i>
       </el-input>
-    
     </span>
 
     <el-divider />
 
-    <el-tag type="danger" v-if='!isLogined' style="font-weight: bold; font-size: 15px;">请先登录!</el-tag>
+    <el-tag
+      type="danger"
+      v-if="!isLogined"
+      style="font-weight: bold; font-size: 15px"
+      >请先登录!</el-tag
+    >
 
-    <v-app style='height: 20px;' v-if='isLogined'>
+    <v-app style="height: 20px" v-if="isLogined">
       <v-btn
         rounded
         color="cyan"
         dark
         @click="dialogTableVisible = true"
-        width='200px'
+        width="200px"
       >
-        <v-icon left>
-          mdi-pencil
-        </v-icon>
+        <v-icon left> mdi-pencil </v-icon>
         更新我的订阅城市
       </v-btn>
     </v-app>
 
-
-    <div class="homeMain" v-if='isLogined'>
+    <div class="homeMain" v-if="isLogined">
       <el-dialog title="订阅的城市" :visible.sync="dialogTableVisible">
         <el-table :data="cityList" style="width: 100%">
-          <el-table-column label="订阅城市" prop="name">
-          </el-table-column>
+          <el-table-column label="订阅城市" prop="name"> </el-table-column>
           <el-table-column align="right">
             <template slot-scope="scope">
               <el-button
@@ -68,12 +67,14 @@
           <el-option-group
             v-for="group in options"
             :key="group.label"
-            :label="group.label">
+            :label="group.label"
+          >
             <el-option
               v-for="item in group.options"
               :key="item.value"
               :label="item.label"
-              :value="item.value">
+              :value="item.value"
+            >
             </el-option>
           </el-option-group>
         </el-select>
@@ -115,34 +116,34 @@
                   margin-left: 5px;
                 "
               >
-                Learn more...
+                <div @click="clickevent(city.name)">Learn more...</div>
               </div>
             </div>
           </div>
 
           <div class="homeOverview">
-              <LittleDataCard
-                :nownum="city.cases"
-                :newnum="city.newcases"
-                type="确诊"
-                color="#AC3500"
-              />
+            <LittleDataCard
+              :nownum="city.cases"
+              :newnum="city.newcases"
+              type="确诊"
+              color="#AC3500"
+            />
 
-               <LittleDataCard
-                :nownum="city.deaths"
-                :newnum="city.newdeaths"
-                type="死亡"
-                color="black"
-              />
+            <LittleDataCard
+              :nownum="city.deaths"
+              :newnum="city.newdeaths"
+              type="死亡"
+              color="black"
+            />
 
-               <LittleDataCard
-                :nownum="city.recovered"
-                :newnum="city.newrecovered"
-                type="治愈"
-                color="#00ACA5"
-              />
+            <LittleDataCard
+              :nownum="city.recovered"
+              :newnum="city.newrecovered"
+              type="治愈"
+              color="#00ACA5"
+            />
 
-               <!-- <LittleDataCard
+            <!-- <LittleDataCard
                 :nownum="city.vaccine"
                 :newnum="city.newvaccine"
                 type="疫苗"
@@ -152,35 +153,19 @@
         </div>
       </div>
 
-      <div style='margin-left:20px; margin-top: 50px;' v-if='isLogined'>
-
-        <v-card
-          class="mx-auto"
-          color="rgb(230, 162, 60)"
-          dark
-          max-width="400"
-        >
+      <div style="margin-left: 20px; margin-top: 50px" v-if="isLogined">
+        <v-card class="mx-auto" color="rgb(230, 162, 60)" dark max-width="400">
           <v-card-title>
-            <v-icon
-              large
-              left
-            >
-              mdi-bell
-            </v-icon>
+            <v-icon large left> mdi-bell </v-icon>
             <span class="text-h6 font-weight-light">Update</span>
           </v-card-title>
 
-          <v-card-text style='font-weight: bold; font-size: 20px;'>
-            {{information}}
+          <v-card-text style="font-weight: bold; font-size: 20px">
+            {{ information }}
           </v-card-text>
-
         </v-card>
-
-
       </div>
-
     </div>
-
   </div>
 </template>
 <script>
@@ -193,21 +178,21 @@ export default {
     LittleDataCard,
   },
   computed: {
-    cityList_show () {
+    cityList_show() {
       return this.cityList.filter(
-                item => item.name.indexOf(this.search)>=0
-      )
+        (item) => item.name.indexOf(this.search) >= 0
+      );
     },
-    isLogined () {
-      return this.$store.getters.userState.isLogined
-    }
+    isLogined() {
+      return this.$store.getters.userState.isLogined;
+    },
   },
   data() {
     return {
       dialogTableVisible: false,
       cityList: [],
-      search: '',
-      information: '',
+      search: "",
+      information: "",
       // options: [
       //   { value: "安徽省", label: "安徽省" },
       //   { value: "北京市", label: "北京市" },
@@ -244,52 +229,56 @@ export default {
       //   { value: "云南省", label: "云南省" },
       //   { value: "浙江省", label: "浙江省" },
       // ],
-      options: [{
-        label: '热门城市',
-        options: [
-        { value: "云南省", label: "云南省" },
-        {value: "北京市", label: "北京市" }, 
-        { value: "上海市", label: "上海市" },
-        { value: "广东省", label: "广东省" },]
-        }, {
-        label: '城市名',
-        options: [
-        { value: "安徽省", label: "安徽省" },
-        // { value: "北京市", label: "北京市" },
-        { value: "重庆市", label: "重庆市" },
-        { value: "福建省", label: "福建省" },
-        { value: "甘肃省", label: "甘肃省" },
-        // { value: "广东省", label: "广东省" },
-        { value: "广西壮族自治区", label: "广西壮族自治区" },
-        { value: "贵州省", label: "贵州省" },
-        { value: "海南省", label: "海南省" },
-        { value: "河北省", label: "河北省" },
-        { value: "黑龙江省", label: "黑龙江省" },
-        { value: "河南省", label: "河南省" },
-        { value: "香港", label: "香港" },
-        { value: "湖北省", label: "湖北省" },
-        { value: "湖南省", label: "湖南省" },
-        { value: "江苏省", label: "江苏省" },
-        { value: "江西省", label: "江西省" },
-        { value: "吉林省", label: "吉林省" },
-        { value: "辽宁省", label: "辽宁省" },
-        { value: "澳门", label: "澳门" },
-        { value: "内蒙古自治区", label: "内蒙古自治区" },
-        { value: "宁夏回族自治区", label: "宁夏回族自治区" },
-        { value: "青海省", label: "青海省" },
-        { value: "陕西省", label: "陕西省" },
-        { value: "山东省", label: "山东省" },
-        // { value: "上海市", label: "上海市" },
-        { value: "山西省", label: "山西省" },
-        { value: "四川省", label: "四川省" },
-        { value: "台湾", label: "台湾" },
-        { value: "天津市", label: "天津市" },
-        { value: "新疆维吾尔自治区", label: "新疆维吾尔自治区" },
-        { value: "西藏自治区", label: "西藏自治区" },
-        // { value: "云南省", label: "云南省" },
-        { value: "浙江省", label: "浙江省" },
-        ]
-      }],
+      options: [
+        {
+          label: "热门城市",
+          options: [
+            { value: "云南省", label: "云南省" },
+            { value: "北京市", label: "北京市" },
+            { value: "上海市", label: "上海市" },
+            { value: "广东省", label: "广东省" },
+          ],
+        },
+        {
+          label: "城市名",
+          options: [
+            { value: "安徽省", label: "安徽省" },
+            // { value: "北京市", label: "北京市" },
+            { value: "重庆市", label: "重庆市" },
+            { value: "福建省", label: "福建省" },
+            { value: "甘肃省", label: "甘肃省" },
+            // { value: "广东省", label: "广东省" },
+            { value: "广西壮族自治区", label: "广西壮族自治区" },
+            { value: "贵州省", label: "贵州省" },
+            { value: "海南省", label: "海南省" },
+            { value: "河北省", label: "河北省" },
+            { value: "黑龙江省", label: "黑龙江省" },
+            { value: "河南省", label: "河南省" },
+            { value: "香港", label: "香港" },
+            { value: "湖北省", label: "湖北省" },
+            { value: "湖南省", label: "湖南省" },
+            { value: "江苏省", label: "江苏省" },
+            { value: "江西省", label: "江西省" },
+            { value: "吉林省", label: "吉林省" },
+            { value: "辽宁省", label: "辽宁省" },
+            { value: "澳门", label: "澳门" },
+            { value: "内蒙古自治区", label: "内蒙古自治区" },
+            { value: "宁夏回族自治区", label: "宁夏回族自治区" },
+            { value: "青海省", label: "青海省" },
+            { value: "陕西省", label: "陕西省" },
+            { value: "山东省", label: "山东省" },
+            // { value: "上海市", label: "上海市" },
+            { value: "山西省", label: "山西省" },
+            { value: "四川省", label: "四川省" },
+            { value: "台湾", label: "台湾" },
+            { value: "天津市", label: "天津市" },
+            { value: "新疆维吾尔自治区", label: "新疆维吾尔自治区" },
+            { value: "西藏自治区", label: "西藏自治区" },
+            // { value: "云南省", label: "云南省" },
+            { value: "浙江省", label: "浙江省" },
+          ],
+        },
+      ],
       convertEngOptions: [
         { value: "Anhui", label: "安徽省" },
         { value: "Beijing", label: "北京市" },
@@ -334,7 +323,7 @@ export default {
     this.getSubsData();
   },
   methods: {
-    getSubsData () {
+    getSubsData() {
       let formData = new FormData();
       formData.append("user_id", this.$store.getters.userState.id);
       let config = {
@@ -346,13 +335,14 @@ export default {
         .then(function (response) {
           if (response.status == 200) {
             // console.log(response)
-            _this.information = response.data.information
-            _this.cityList = response.data.data
+            _this.information = response.data.information;
+            _this.cityList = response.data.data;
           } else {
             console.log("请求失败");
           }
         });
     },
+
     // querySubCity() {
     //   let formData = new FormData();
     //   formData.append("user_id", this.$store.getters.userState.id);
@@ -393,6 +383,15 @@ export default {
           }
         });
     },
+    clickevent(cityname) {
+      const { href } = this.$router.resolve({
+        path: "chinaanalysis",
+        query: {
+          name: cityname,
+        },
+      });
+      window.open(href, "_blank");
+    },
     subCity() {
       // console.log(this.value);
       let formData = new FormData();
@@ -405,13 +404,15 @@ export default {
       var is_success = true;
       var len_city = this.cityList.length;
 
-      if (this.value==""){
-        _this.$message({ message: "您尚未订阅，请先选择一项订阅城市", type: "false" });
-          is_success = false;
+      if (this.value == "") {
+        _this.$message({
+          message: "您尚未订阅，请先选择一项订阅城市",
+          type: "false",
+        });
+        is_success = false;
       }
 
-
-      if (is_success == true){
+      if (is_success == true) {
         for (var i = 0; i < len_city; i++) {
           if (this.cityList[i].name == this.value) {
             _this.$message({ message: "已订阅该城市", type: "false" });
@@ -420,7 +421,7 @@ export default {
           }
         }
       }
-      
+
       if (is_success == true) {
         var tmp = {
           name: this.value,
@@ -451,17 +452,16 @@ export default {
   flex-direction: column;
 }
 .title {
-    margin-top: 70px;
-    font-size: 30px; 
-    align-self: flex-start;
-    position: relative;
-    left: 250px;
+  margin-top: 70px;
+  font-size: 30px;
+  align-self: flex-start;
+  position: relative;
+  left: 250px;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .homeMain {
   display: flex;
