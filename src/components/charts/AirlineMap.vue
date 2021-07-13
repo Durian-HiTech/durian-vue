@@ -1,7 +1,15 @@
 <template>
     <div id="airline-map-root">
-        <SelectBar class="SelectBar" :buttons="buttons1"/>
-        <div style="display: flex">
+
+        <span class="travelTitle" >
+		<span class='titleText'>
+			<b>Covid</b> <span>Travel</span>
+		</span>
+		<SelectBar class='SelectBar' :buttons="buttons1"/>
+		</span>
+		<el-divider/>
+
+        <div style='display: flex; align-items: flex-start; justify-content: center;'>
             <v-app>
                 <v-card class="route-table">
                     <v-card-title>
@@ -20,16 +28,16 @@
                                 hide-details
                                 color="#00ACA5"
                         ></v-text-field>
-                        <el-button style="font-size: 18px; font-weight: bold; margin: 20px;" round
-                                   @click="updateRoute">查询
+                        <el-button style="font-size: 18px; font-weight: bold; margin: 20px; cursor: pointer;" round
+                                    @click="updateRoute">查询
                         </el-button>
                     </v-card-title>
 
                     <v-card-text>
-                        <div v-if="showRouteType===0" class="flight-route-list">
+                        <div v-if="showRouteType===0" class="route-list">
                             <div v-for="(item, index) in currFlights"
-                                 v-bind:key="index">
-                                <div @click="showFlightRouteDetail(item)">
+                                    v-bind:key="index">
+                                <div @click="showFlightRouteDetail(item)" style="cursor: pointer;">
                                     <TravelCard class='route-list-card'
                                             :key="item.flight_number"
                                             :startTime='item.departure_date'
@@ -41,10 +49,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div v-else-if="showRouteType===1" class="train-route-list">
+                        <div v-else-if="showRouteType===1" class="route-list">
                             <div v-for="(item, index) in currTrains"
-                                 v-bind:key="index">
-                                <div @click="showTrainRouteDetail(item)">
+                                    v-bind:key="index">
+                                <div @click="showTrainRouteDetail(item)" style="cursor: pointer;">
                                     <TravelCard class='route-list-card'
                                             :key="item.train_id"
                                             :startTime='item.departure_time'
@@ -59,29 +67,53 @@
                     </v-card-text>
                 </v-card>
             </v-app>
-            <div id="airline-map" style="width: 1000px; height: 800px;"></div>
+
+            <div style=' margin-left: 30px;'>
+
+                <v-card
+                class="mx-auto"
+                color="rgb(230, 162, 60)"
+                dark
+                max-width="700px"
+                >
+
+                    <v-card-title>
+                        <v-icon
+                        large
+                        left
+                        >
+                        mdi-bell
+                        </v-icon>
+                        <span class="text-h6 font-weight-light">行程信息</span>
+                    </v-card-title>
+
+                    <v-card-text style='font-weight: bold; font-size: 20px;' v-if="doShowRouteDetail">
+
+
+                        <h3 style="margin-bottom: 15px;">{{departCity}} → {{arriveCity}}
+                            <span v-if="vehicleType === 0" style='margin-left:25px;'>交通工具:飞机</span>
+                            <span v-else-if="vehicleType === 1" style='margin-left:25px;'>交通工具:列车</span>
+                            <span style='margin-left:25px;'>班次:{{currId}}</span>
+                        </h3>
+
+                        <b v-if="warnMessage===0">行程<span style="color: green">不接近</span>中高风险及其附近地区，无较大风险，请依然全程正确佩戴口罩，远离人群，做好必要防护措施！</b>
+                        <b v-if="warnMessage===1">行程<span style="color: darkred">途经</span>中高风险及其附近地区，有轻微风险，请注意全程正确佩戴口罩，远离人群，做好必要防护措施！</b>
+                        <b v-if="warnMessage===2">行程<span style="color: darkred">目的地</span>为中高风险及其附近地区，有较大风险，若无紧急事件建议酌情取消或暂缓行程，建议出发前提前接种疫苗，行程过程中以及到达目的地后请做好必要防护措施，谨防疫情传播！</b>
+                        <b v-if="warnMessage===3">行程<span style="color: darkred">出发地</span>为中高风险及其附近地区，有较大风险，若无紧急事件建议酌情取消或暂缓行程，出发前请务必检查是否持有核酸检测及疫苗接种证明，行程过程中以及到达目的地后请做好必要防护措施，主动隔离，谨防疫情传播！</b>
+
+                    </v-card-text>
+
+                    <v-card-text v-else style='font-weight: bold; font-size: 20px;'>
+                        点击左侧搜索到的班次以显示详细信息
+                    </v-card-text>
+
+                </v-card>
+
+                <div id="airline-map"></div>
+
+            </div>
         </div>
-        <v-app id="route-detail" v-if="doShowRouteDetail">
-            <v-card>
-                <v-card-title>
-                    <h2>行程详情</h2>
-                </v-card-title>
-                <v-card-title>
-                    <h3>{{departCity}}→{{arriveCity}}
-                        <span v-if="vehicleType === 0">交通工具：飞机</span>
-                        <span v-else-if="vehicleType === 1">交通工具：列车</span></h3>
-                </v-card-title>
-                <v-card-title><h3>班次：{{currId}}</h3></v-card-title>
-                <v-card-text v-if="warnMessage===0">行程<span style="color: green">不接近</span>中高风险及其附近地区，无较大风险，请依然全程正确佩戴口罩，远离人群，做好必要防护措施！</v-card-text>
-                <v-card-text v-if="warnMessage===1">行程<span style="color: orange">途经</span>中高风险及其附近地区，有轻微风险，请注意全程正确佩戴口罩，远离人群，做好必要防护措施！</v-card-text>
-                <v-card-text v-if="warnMessage===2">行程<span style="color: darkred">目的地</span>为中高风险及其附近地区，有较大风险，若无紧急事件建议酌情取消或暂缓行程，建议出发前提前接种疫苗，行程过程中以及到达目的地后请做好必要防护措施，谨防疫情传播！</v-card-text>
-                <v-card-text v-if="warnMessage===3">行程<span style="color: darkred">出发地</span>为中高风险及其附近地区，有较大风险，若无紧急事件建议酌情取消或暂缓行程，出发前请务必检查是否持有核酸检测及疫苗接种证明，行程过程中以及到达目的地后请做好必要防护措施，主动隔离，谨防疫情传播！</v-card-text>
-            </v-card>
-        </v-app>
-<!--        <SelectBar class="SelectBar" :buttons="buttons"/>-->
-<!--        <airline-table ref="AirlineTable"-->
-<!--                       :table-data="this.tableData"-->
-<!--                       :province="this.curr"></airline-table>-->
+
     </div>
 </template>
 
@@ -229,9 +261,9 @@
                 rawWarnMessage: 0,
                 doShowRouteDetail: false,
                 option: {
-                    title: {
-                        text: "行程显示",
-                    },
+                    // title: {
+                    //     text: "行程显示",
+                    // },
                     // visualMap: {
                     // left: 'right',
                     // textStyle: {
@@ -822,11 +854,45 @@
 
 <style scoped>
     .route-table {
-        width: 750px;
+        width: 600px;
         height: 800px;
-        overflow: hidden;
+        overflow: scroll;
     }
     .route-list-card {
         margin: 15px;
+    }
+
+    .travelTitle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 70px;
+
+        position: relative;
+        right: 400px;
+    }
+
+    .titleText {
+        font-size: 30px;
+        align-self: flex-start;
+        position: relative;
+
+    }
+
+    .travelTitle .SelectBar {
+        /* outline: #00ff00 dotted thick; */
+
+        margin-left: 30px;
+    }
+
+    #airline-map {
+        border: #cccccc solid thin;
+        border-radius: 10px;
+        overflow: hidden;
+        
+        width: 700px; 
+        height: 600px;
+
+        margin-top: 35px;
     }
 </style>
