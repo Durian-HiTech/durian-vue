@@ -70,7 +70,13 @@ export default{
           endLabel: {
             show: true,
             formatter: function (params) {
-              return params.value[2];
+              var mapping ={
+                "nowcases":"现有确诊",
+                "cases":"累计确诊",
+                "recovered":"累积治愈",
+                "deaths":"累积死亡"
+              }
+              return mapping[params.value[2]];
             }
           },
           emphasis: {
@@ -92,12 +98,6 @@ export default{
           id: 'dataset_raw',
           source: global_data
         }].concat(datasetWithFilters),
-        title: {
-          text: 'Doese of Vaccination of USA and China last 30 days',
-          textStyle: {
-              color: "#fff",
-            },
-        },
         dataZoom: [{
           id: 'dataZoomx',
           type: 'slider',

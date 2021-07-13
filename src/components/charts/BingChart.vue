@@ -59,7 +59,7 @@ export default{
                 Sum += SortData[i][this.$props.dataType];
                 SaveList.push({value:SortData[i][this.$props.dataType],name:SortData[i]["name"]})
             }
-            SaveList.push({value:(All-Sum),name:"Others"})
+            SaveList.push({value:(Math.abs(All-Sum)),name:"其他"})
             //console.log(SaveList);
             option = {
                 tooltip: {

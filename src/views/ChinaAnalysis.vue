@@ -94,7 +94,7 @@
           </div>
         </el-tab-pane>
 
-        <el-tab-pane class='tabPane' label="疫苗接种分析">
+        <el-tab-pane class='tabPane' label="疫苗接种分析" v-if="country['name'] == '中国'">
           <ChinaVaccineGraph/>
         </el-tab-pane>
       </el-tabs>
@@ -133,7 +133,7 @@ export default {
       maxTimeNum: 0, //const
       mapData: [], //表格和地图
       overviewData: [], //littlecard
-      loadlocal: true,
+      loadlocal: false,
     };
   },
   watch: {
