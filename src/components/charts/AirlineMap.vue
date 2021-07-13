@@ -34,8 +34,9 @@
                     </v-card-title>
 
                     <v-card-text>
+                        <v-text-field label="筛选航班号" v-model="search"></v-text-field>
                         <div v-if="showRouteType===0" class="route-list">
-                            <div v-for="(item, index) in currFlights"
+                            <div v-for="(item, index) in currFlights_show"
                                     v-bind:key="index">
                                 <div @click="showFlightRouteDetail(item)" style="cursor: pointer;">
                                     <TravelCard class='route-list-card'
@@ -50,7 +51,7 @@
                             </div>
                         </div>
                         <div v-else-if="showRouteType===1" class="route-list">
-                            <div v-for="(item, index) in currTrains"
+                            <div v-for="(item, index) in currTrains_show"
                                     v-bind:key="index">
                                 <div @click="showTrainRouteDetail(item)" style="cursor: pointer;">
                                     <TravelCard class='route-list-card'
@@ -135,6 +136,18 @@
             TravelCard,
             // AirlineTable,
             SelectBar
+        },
+        computed: {
+            currFlights_show () {
+                return this.currFlights.filter(
+                item => item.flight_number.indexOf(this.search)>=0
+                )
+            },
+            currTrains_show() {
+                return this.currTrains.filter(
+                item => item.train_id.indexOf(this.search)>=0
+                )
+            }
         },
         created() {
             var risk_data;
@@ -250,6 +263,7 @@
                 currTrains: [],
                 risk_data: [],
                 vehicleType: 0,
+                search: '',
                 flag: false,
                 currId: "",
                 warnMessage: 0,
