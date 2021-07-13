@@ -78,7 +78,6 @@ export default {
   },
   watch: {
     countries(newvalue) {
-      console.log(this.countries);
       this.update(newvalue, this.type);
     },
     type(newvalue) {
@@ -176,10 +175,14 @@ export default {
           ]);
         }
       }
+
+      console.log(region_data)
     },
     update(countries, type) {
+      console.log()
       var seriesList = [];
       var datasetWithFilters = [];
+      option = {}
       var now_countries = [];
       for (let i in countries) {
         now_countries.push(countries[i]);
@@ -197,11 +200,12 @@ export default {
               type: "filter",
               config: {
                 and: [
-                  { dimension: "Number", gte: 5 },
+                  { dimension: "Number", gte: 0},
                   { dimension: "Type", "=": type },
                   { dimension: "Country", "=": now_countries[i] },
                 ],
               },
+              print:true
             },
           });
           seriesList.push({
@@ -273,9 +277,7 @@ export default {
         },
         series: seriesList,
       };
-
-      this.myChart.clear();
-      this.myChart.setOption(option);
+      this.myChart.setOption(option, true);
     },
   },
 };

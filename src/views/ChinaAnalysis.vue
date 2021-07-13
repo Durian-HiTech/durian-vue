@@ -106,7 +106,7 @@ import api from "../commonApi.js";
 import AnalysisTable from "../components/charts/AnalysisTable.vue";
 import LittleDataCard from "../components/common/LittleDataCard.vue";
 import AnalysisChinaMap from "../components/charts/AnalysisChinaMap.vue";
-import ChinaAnalysisTab from "./ChinaAnalysisTab.vue"
+import ChinaAnalysisTab from "@/views/ChinaAnalysisTab";
 import ChinaVaccineGraph from "../components/charts/ChinaVaccineGraph.vue";
 var provinceen2zh = require("../data/utils/provinceen2zh.json");
 var provincezhname2adcode = require("../data/utils/provincezhname2adcode");
@@ -117,8 +117,9 @@ export default {
     AnalysisTable,
     LittleDataCard,
     AnalysisChinaMap,
-    ChinaAnalysisTab,
-    ChinaVaccineGraph
+    // cmp_chart,
+    ChinaVaccineGraph,
+    ChinaAnalysisTab
   },
   data() {
     return {

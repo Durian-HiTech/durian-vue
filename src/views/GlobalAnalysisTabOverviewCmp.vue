@@ -187,7 +187,7 @@ export default {
               type: "filter",
               config: {
                 and: [
-                  { dimension: "Number", gte: 5 },
+                  { dimension: "Number", gte: 0},
                   { dimension: "Type", "=": type },
                   { dimension: "Country", "=": now_countries[i] },
                 ],
